@@ -1,0 +1,17 @@
+{
+  "name": "facilabo-api",
+  "version": "1.0.0",
+  "description": "API for FacilAbo TV schedule scraping",
+  "private": true,
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@vercel/node": "^3.0.0",
+    "typescript": "^5.3.0"
+  }
+}
