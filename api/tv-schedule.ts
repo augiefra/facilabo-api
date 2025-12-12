@@ -1,12 +1,12 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { scrapeTVSchedule, filterByTeam } from '../lib/scraper';
-import { getCached, setCache, TVScheduleResponse, ErrorResponse } from '../lib/types';
+import { getCached, setCache } from '../lib/types';
 
 const CACHE_KEY = 'ligue1-schedule';
 
 export default async function handler(
   req: VercelRequest,
-  res: VercelResponse<TVScheduleResponse | ErrorResponse>
+  res: VercelResponse
 ) {
   // Only allow GET requests
   if (req.method !== 'GET') {
