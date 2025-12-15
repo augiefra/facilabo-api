@@ -63,10 +63,10 @@ export async function scrapeTVSchedule(): Promise<TVScheduleResponse> {
   // Get all elements in document order
   $('*').each((_, element) => {
     const el = $(element);
-    const tagName = element.tagName?.toLowerCase();
+    const tagName = ('tagName' in element ? element.tagName : '')?.toLowerCase();
 
     // Skip script, style, etc.
-    if (['script', 'style', 'meta', 'link'].includes(tagName)) return;
+    if (!tagName || ['script', 'style', 'meta', 'link'].includes(tagName)) return;
 
     // Check if this element contains a date header
     // Look for elements that contain date text but are relatively short (headers, not full page text)
