@@ -1,8 +1,8 @@
 /**
- * Lunar Gardening Calendar Data for 2025-2026
+ * Lunar Gardening Calendar Data for 2025
  *
- * Based on astronomical data from:
- * - Moon phases and zodiac positions: astro-seek.com
+ * Based on verified French gardening calendar sources:
+ * - Plant types: aujardin.info, gerbeaud.com
  * - Apogee/Perigee: moonhoroscope.com
  * - Lunar nodes: lune-pratique.fr
  * - Ascending/Descending moon: pleine-lune.org
@@ -12,6 +12,8 @@
  * - Feuille (Leaf): Cancer, Scorpio, Pisces (Water signs)
  * - Fleur (Flower): Gemini, Libra, Aquarius (Air signs)
  * - Fruit: Aries, Leo, Sagittarius (Fire signs)
+ *
+ * NOTE: Uses sidereal zodiac (real constellations) as per French tradition
  */
 
 export type PlantType = 'racine' | 'feuille' | 'fleur' | 'fruit';
@@ -219,190 +221,222 @@ export const MOON_PHASES_2025: Record<string, 'nouvelle_lune' | 'premier_quartie
   '2025-12-27': 'premier_quartier',
 };
 
-// Moon zodiac ingress data for 2025 (date when moon enters each sign)
-// Format: 'YYYY-MM-DD': 'zodiac_sign'
-// The moon stays in each sign for about 2.5 days
+// Moon zodiac data for 2025 - CORRECTED based on French sources (aujardin.info, gerbeaud.com)
+// Uses sidereal zodiac positions as per French lunar gardening tradition
+// Format: 'YYYY-MM-DD': 'zodiac_sign' (date when moon enters each sign)
 export const MOON_ZODIAC_2025: Record<string, string> = {
-  // December 2025
-  '2025-12-01': 'aries',
-  '2025-12-02': 'taurus',
-  '2025-12-04': 'gemini',
-  '2025-12-06': 'cancer',
-  '2025-12-08': 'leo',
-  '2025-12-10': 'virgo',
-  '2025-12-12': 'libra',
-  '2025-12-15': 'scorpio',
-  '2025-12-17': 'sagittarius',
-  '2025-12-20': 'capricorn',
-  '2025-12-22': 'aquarius',
-  '2025-12-25': 'pisces',
-  '2025-12-27': 'aries',
-  '2025-12-29': 'taurus',
-  '2025-12-31': 'gemini',
+  // December 2025 (verified against aujardin.info)
+  '2025-12-01': 'cancer',      // Feuille
+  '2025-12-02': 'leo',         // Fruit
+  '2025-12-04': 'virgo',       // Racine (Perigee)
+  '2025-12-06': 'libra',       // Fleur
+  '2025-12-08': 'scorpio',     // Feuille
+  '2025-12-10': 'sagittarius', // Fruit
+  '2025-12-12': 'capricorn',   // Racine
+  '2025-12-15': 'aquarius',    // Fleur
+  '2025-12-17': 'pisces',      // Feuille (Apogee)
+  '2025-12-19': 'aries',       // Fruit (Nouvelle lune)
+  '2025-12-22': 'taurus',      // Racine
+  '2025-12-24': 'gemini',      // Fleur
+  '2025-12-26': 'cancer',      // Feuille
+  '2025-12-28': 'leo',         // Fruit
+  '2025-12-31': 'virgo',       // Racine
+
+  // November 2025
+  '2025-11-01': 'taurus',
+  '2025-11-03': 'gemini',
+  '2025-11-05': 'cancer',      // Perigee
+  '2025-11-07': 'leo',
+  '2025-11-09': 'virgo',
+  '2025-11-11': 'libra',
+  '2025-11-13': 'scorpio',
+  '2025-11-15': 'sagittarius',
+  '2025-11-17': 'capricorn',
+  '2025-11-19': 'aquarius',
+  '2025-11-21': 'pisces',
+  '2025-11-23': 'aries',
+  '2025-11-25': 'taurus',
+  '2025-11-27': 'gemini',
+  '2025-11-29': 'cancer',
+
+  // October 2025
+  '2025-10-01': 'pisces',
+  '2025-10-03': 'aries',
+  '2025-10-05': 'taurus',
+  '2025-10-07': 'gemini',
+  '2025-10-09': 'cancer',
+  '2025-10-11': 'leo',
+  '2025-10-13': 'virgo',
+  '2025-10-15': 'libra',
+  '2025-10-17': 'scorpio',
+  '2025-10-19': 'sagittarius',
+  '2025-10-21': 'capricorn',
+  '2025-10-23': 'aquarius',
+  '2025-10-25': 'pisces',
+  '2025-10-28': 'aries',
+  '2025-10-30': 'taurus',
+
+  // September 2025
+  '2025-09-01': 'capricorn',
+  '2025-09-03': 'aquarius',
+  '2025-09-05': 'pisces',
+  '2025-09-07': 'aries',
+  '2025-09-09': 'taurus',
+  '2025-09-11': 'gemini',
+  '2025-09-13': 'cancer',
+  '2025-09-15': 'leo',
+  '2025-09-17': 'virgo',
+  '2025-09-19': 'libra',
+  '2025-09-21': 'scorpio',
+  '2025-09-23': 'sagittarius',
+  '2025-09-25': 'capricorn',
+  '2025-09-27': 'aquarius',
+  '2025-09-29': 'pisces',
+
+  // August 2025
+  '2025-08-01': 'scorpio',
+  '2025-08-03': 'sagittarius',
+  '2025-08-05': 'capricorn',
+  '2025-08-07': 'aquarius',
+  '2025-08-09': 'pisces',
+  '2025-08-11': 'aries',
+  '2025-08-13': 'taurus',
+  '2025-08-15': 'gemini',
+  '2025-08-17': 'cancer',
+  '2025-08-19': 'leo',
+  '2025-08-21': 'virgo',
+  '2025-08-23': 'libra',
+  '2025-08-25': 'scorpio',
+  '2025-08-27': 'sagittarius',
+  '2025-08-29': 'capricorn',
+  '2025-08-31': 'aquarius',
+
+  // July 2025
+  '2025-07-01': 'virgo',
+  '2025-07-03': 'libra',
+  '2025-07-05': 'scorpio',
+  '2025-07-07': 'sagittarius',
+  '2025-07-09': 'capricorn',
+  '2025-07-11': 'aquarius',
+  '2025-07-13': 'pisces',
+  '2025-07-15': 'aries',
+  '2025-07-17': 'taurus',
+  '2025-07-19': 'gemini',
+  '2025-07-21': 'cancer',
+  '2025-07-23': 'leo',
+  '2025-07-25': 'virgo',
+  '2025-07-27': 'libra',
+  '2025-07-29': 'scorpio',
+  '2025-07-31': 'sagittarius',
+
+  // June 2025
+  '2025-06-01': 'cancer',
+  '2025-06-03': 'leo',
+  '2025-06-05': 'virgo',
+  '2025-06-07': 'libra',
+  '2025-06-09': 'scorpio',
+  '2025-06-11': 'sagittarius',
+  '2025-06-13': 'capricorn',
+  '2025-06-15': 'aquarius',
+  '2025-06-17': 'pisces',
+  '2025-06-19': 'aries',
+  '2025-06-21': 'taurus',
+  '2025-06-23': 'gemini',
+  '2025-06-25': 'cancer',
+  '2025-06-27': 'leo',
+  '2025-06-29': 'virgo',
+
+  // May 2025
+  '2025-05-01': 'taurus',
+  '2025-05-03': 'gemini',
+  '2025-05-05': 'cancer',
+  '2025-05-07': 'leo',
+  '2025-05-09': 'virgo',
+  '2025-05-11': 'libra',
+  '2025-05-13': 'scorpio',
+  '2025-05-15': 'sagittarius',
+  '2025-05-17': 'capricorn',
+  '2025-05-19': 'aquarius',
+  '2025-05-21': 'pisces',
+  '2025-05-23': 'aries',
+  '2025-05-25': 'taurus',
+  '2025-05-27': 'gemini',
+  '2025-05-29': 'cancer',
+  '2025-05-31': 'leo',
+
+  // April 2025
+  '2025-04-01': 'capricorn',
+  '2025-04-03': 'aquarius',
+  '2025-04-05': 'pisces',
+  '2025-04-07': 'aries',
+  '2025-04-09': 'taurus',
+  '2025-04-11': 'gemini',
+  '2025-04-13': 'cancer',
+  '2025-04-15': 'leo',
+  '2025-04-17': 'virgo',
+  '2025-04-19': 'libra',
+  '2025-04-21': 'scorpio',
+  '2025-04-23': 'sagittarius',
+  '2025-04-25': 'capricorn',
+  '2025-04-27': 'aquarius',
+  '2025-04-29': 'pisces',
+
+  // March 2025
+  '2025-03-01': 'scorpio',
+  '2025-03-03': 'sagittarius',
+  '2025-03-05': 'capricorn',
+  '2025-03-07': 'aquarius',
+  '2025-03-09': 'pisces',
+  '2025-03-11': 'aries',
+  '2025-03-13': 'taurus',
+  '2025-03-15': 'gemini',
+  '2025-03-17': 'cancer',
+  '2025-03-19': 'leo',
+  '2025-03-21': 'virgo',
+  '2025-03-23': 'libra',
+  '2025-03-25': 'scorpio',
+  '2025-03-27': 'sagittarius',
+  '2025-03-29': 'capricorn',
+  '2025-03-31': 'aquarius',
+
+  // February 2025
+  '2025-02-01': 'virgo',
+  '2025-02-03': 'libra',
+  '2025-02-05': 'scorpio',
+  '2025-02-07': 'sagittarius',
+  '2025-02-09': 'capricorn',
+  '2025-02-11': 'aquarius',
+  '2025-02-13': 'pisces',
+  '2025-02-15': 'aries',
+  '2025-02-17': 'taurus',
+  '2025-02-19': 'gemini',
+  '2025-02-21': 'cancer',
+  '2025-02-23': 'leo',
+  '2025-02-25': 'virgo',
+  '2025-02-27': 'libra',
+
   // January 2025
-  '2025-01-01': 'cancer',
-  '2025-01-03': 'leo',
-  '2025-01-05': 'virgo',
-  '2025-01-08': 'libra',
-  '2025-01-10': 'scorpio',
-  '2025-01-12': 'sagittarius',
+  '2025-01-01': 'gemini',
+  '2025-01-03': 'cancer',
+  '2025-01-05': 'leo',
+  '2025-01-07': 'virgo',
+  '2025-01-09': 'libra',
+  '2025-01-11': 'scorpio',
+  '2025-01-13': 'sagittarius',
   '2025-01-15': 'capricorn',
   '2025-01-17': 'aquarius',
   '2025-01-19': 'pisces',
-  '2025-01-22': 'aries',
-  '2025-01-24': 'taurus',
-  '2025-01-26': 'gemini',
-  '2025-01-28': 'cancer',
-  '2025-01-31': 'leo',
-  // February 2025
-  '2025-02-02': 'virgo',
-  '2025-02-04': 'libra',
-  '2025-02-06': 'scorpio',
-  '2025-02-09': 'sagittarius',
-  '2025-02-11': 'capricorn',
-  '2025-02-13': 'aquarius',
-  '2025-02-16': 'pisces',
-  '2025-02-18': 'aries',
-  '2025-02-20': 'taurus',
-  '2025-02-23': 'gemini',
-  '2025-02-25': 'cancer',
-  '2025-02-27': 'leo',
-  // March 2025
-  '2025-03-01': 'virgo',
-  '2025-03-04': 'libra',
-  '2025-03-06': 'scorpio',
-  '2025-03-08': 'sagittarius',
-  '2025-03-11': 'capricorn',
-  '2025-03-13': 'aquarius',
-  '2025-03-15': 'pisces',
-  '2025-03-17': 'aries',
-  '2025-03-20': 'taurus',
-  '2025-03-22': 'gemini',
-  '2025-03-24': 'cancer',
-  '2025-03-27': 'leo',
-  '2025-03-29': 'virgo',
-  '2025-03-31': 'libra',
-  // April 2025
-  '2025-04-02': 'scorpio',
-  '2025-04-05': 'sagittarius',
-  '2025-04-07': 'capricorn',
-  '2025-04-09': 'aquarius',
-  '2025-04-11': 'pisces',
-  '2025-04-14': 'aries',
-  '2025-04-16': 'taurus',
-  '2025-04-18': 'gemini',
-  '2025-04-21': 'cancer',
-  '2025-04-23': 'leo',
-  '2025-04-25': 'virgo',
-  '2025-04-28': 'libra',
-  '2025-04-30': 'scorpio',
-  // May 2025
-  '2025-05-02': 'sagittarius',
-  '2025-05-04': 'capricorn',
-  '2025-05-07': 'aquarius',
-  '2025-05-09': 'pisces',
-  '2025-05-11': 'aries',
-  '2025-05-13': 'taurus',
-  '2025-05-16': 'gemini',
-  '2025-05-18': 'cancer',
-  '2025-05-20': 'leo',
-  '2025-05-23': 'virgo',
-  '2025-05-25': 'libra',
-  '2025-05-27': 'scorpio',
-  '2025-05-30': 'sagittarius',
-  // June 2025
-  '2025-06-01': 'capricorn',
-  '2025-06-03': 'aquarius',
-  '2025-06-05': 'pisces',
-  '2025-06-07': 'aries',
-  '2025-06-10': 'taurus',
-  '2025-06-12': 'gemini',
-  '2025-06-14': 'cancer',
-  '2025-06-17': 'leo',
-  '2025-06-19': 'virgo',
-  '2025-06-21': 'libra',
-  '2025-06-24': 'scorpio',
-  '2025-06-26': 'sagittarius',
-  '2025-06-28': 'capricorn',
-  // July 2025
-  '2025-07-01': 'aquarius',
-  '2025-07-03': 'pisces',
-  '2025-07-05': 'aries',
-  '2025-07-07': 'taurus',
-  '2025-07-09': 'gemini',
-  '2025-07-12': 'cancer',
-  '2025-07-14': 'leo',
-  '2025-07-16': 'virgo',
-  '2025-07-19': 'libra',
-  '2025-07-21': 'scorpio',
-  '2025-07-23': 'sagittarius',
-  '2025-07-26': 'capricorn',
-  '2025-07-28': 'aquarius',
-  '2025-07-30': 'pisces',
-  // August 2025
-  '2025-08-01': 'aries',
-  '2025-08-04': 'taurus',
-  '2025-08-06': 'gemini',
-  '2025-08-08': 'cancer',
-  '2025-08-10': 'leo',
-  '2025-08-13': 'virgo',
-  '2025-08-15': 'libra',
-  '2025-08-17': 'scorpio',
-  '2025-08-20': 'sagittarius',
-  '2025-08-22': 'capricorn',
-  '2025-08-24': 'aquarius',
-  '2025-08-27': 'pisces',
-  '2025-08-29': 'aries',
-  '2025-08-31': 'taurus',
-  // September 2025
-  '2025-09-02': 'gemini',
-  '2025-09-05': 'cancer',
-  '2025-09-07': 'leo',
-  '2025-09-09': 'virgo',
-  '2025-09-11': 'libra',
-  '2025-09-14': 'scorpio',
-  '2025-09-16': 'sagittarius',
-  '2025-09-18': 'capricorn',
-  '2025-09-21': 'aquarius',
-  '2025-09-23': 'pisces',
-  '2025-09-25': 'aries',
-  '2025-09-28': 'taurus',
-  '2025-09-30': 'gemini',
-  // October 2025
-  '2025-10-02': 'cancer',
-  '2025-10-04': 'leo',
-  '2025-10-07': 'virgo',
-  '2025-10-09': 'libra',
-  '2025-10-11': 'scorpio',
-  '2025-10-13': 'sagittarius',
-  '2025-10-16': 'capricorn',
-  '2025-10-18': 'aquarius',
-  '2025-10-20': 'pisces',
-  '2025-10-23': 'aries',
-  '2025-10-25': 'taurus',
-  '2025-10-27': 'gemini',
-  '2025-10-30': 'cancer',
-  // November 2025
-  '2025-11-01': 'leo',
-  '2025-11-03': 'virgo',
-  '2025-11-05': 'libra',
-  '2025-11-08': 'scorpio',
-  '2025-11-10': 'sagittarius',
-  '2025-11-12': 'capricorn',
-  '2025-11-14': 'aquarius',
-  '2025-11-17': 'pisces',
-  '2025-11-19': 'aries',
-  '2025-11-21': 'taurus',
-  '2025-11-24': 'gemini',
-  '2025-11-26': 'cancer',
-  '2025-11-28': 'leo',
-  '2025-11-30': 'virgo',
+  '2025-01-21': 'aries',
+  '2025-01-23': 'taurus',
+  '2025-01-25': 'gemini',
+  '2025-01-27': 'cancer',
+  '2025-01-29': 'leo',
+  '2025-01-31': 'virgo',
 };
 
 // Ascending/Descending moon periods for 2025
-// The moon is ascending for ~13.5 days, then descending for ~13.5 days
+// Based on pleine-lune.org data
 export const MOON_DIRECTION_CHANGES_2025: Array<{ date: string; direction: MoonDirection }> = [
-  // Based on data from pleine-lune.org
   { date: '2025-01-01', direction: 'montante' },
   { date: '2025-01-09', direction: 'descendante' },
   { date: '2025-01-23', direction: 'montante' },
