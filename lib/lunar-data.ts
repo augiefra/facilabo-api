@@ -214,10 +214,10 @@ export const MOON_PHASES_2025: Record<string, 'nouvelle_lune' | 'premier_quartie
   '2025-11-12': 'dernier_quartier',
   '2025-11-20': 'nouvelle_lune',
   '2025-11-28': 'premier_quartier',
-  // December
+  // December (verified: nouvelle lune is Dec 20 per aujardin.info)
   '2025-12-04': 'pleine_lune',
   '2025-12-11': 'dernier_quartier',
-  '2025-12-19': 'nouvelle_lune',
+  '2025-12-20': 'nouvelle_lune',
   '2025-12-27': 'premier_quartier',
 };
 
@@ -225,17 +225,18 @@ export const MOON_PHASES_2025: Record<string, 'nouvelle_lune' | 'premier_quartie
 // Uses sidereal zodiac positions as per French lunar gardening tradition
 // Format: 'YYYY-MM-DD': 'zodiac_sign' (date when moon enters each sign)
 export const MOON_ZODIAC_2025: Record<string, string> = {
-  // December 2025 (verified against aujardin.info)
+  // December 2025 (verified against aujardin.info Dec 15-20)
+  // Dec 15=Racine, Dec 17=Fleur+Apogée, Dec 18=Feuille, Dec 20=Fruit+Nouvelle Lune
   '2025-12-01': 'cancer',      // Feuille
-  '2025-12-02': 'leo',         // Fruit
-  '2025-12-04': 'virgo',       // Racine (Perigee)
-  '2025-12-06': 'libra',       // Fleur
-  '2025-12-08': 'scorpio',     // Feuille
-  '2025-12-10': 'sagittarius', // Fruit
-  '2025-12-12': 'capricorn',   // Racine
-  '2025-12-15': 'aquarius',    // Fleur
-  '2025-12-17': 'pisces',      // Feuille (Apogee)
-  '2025-12-19': 'aries',       // Fruit (Nouvelle lune)
+  '2025-12-03': 'leo',         // Fruit
+  '2025-12-05': 'virgo',       // Racine
+  '2025-12-07': 'libra',       // Fleur
+  '2025-12-09': 'scorpio',     // Feuille
+  '2025-12-11': 'sagittarius', // Fruit
+  '2025-12-13': 'capricorn',   // Racine (extends to Dec 16)
+  '2025-12-17': 'aquarius',    // Fleur (Apogee)
+  '2025-12-18': 'pisces',      // Feuille
+  '2025-12-20': 'aries',       // Fruit (Nouvelle lune)
   '2025-12-22': 'taurus',      // Racine
   '2025-12-24': 'gemini',      // Fleur
   '2025-12-26': 'cancer',      // Feuille
@@ -463,7 +464,7 @@ export const MOON_DIRECTION_CHANGES_2025: Array<{ date: string; direction: MoonD
   { date: '2025-11-08', direction: 'descendante' },
   { date: '2025-11-21', direction: 'montante' },
   { date: '2025-12-05', direction: 'descendante' },
-  { date: '2025-12-19', direction: 'montante' },
+  { date: '2025-12-21', direction: 'montante' },  // Changed from Dec 19 per aujardin.info
 ];
 
 /**
