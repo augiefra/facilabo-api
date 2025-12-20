@@ -79,7 +79,7 @@ const SOURCES_TO_CHECK = [
   {
     name: 'FootMercato (TV Schedule)',
     category: 'scraping',
-    url: 'https://www.footmercato.net/programme-tv/ligue-1/',
+    url: 'https://www.footmercato.net/programme-tv/france/ligue-1',
     method: 'GET' as const, // HEAD not supported
     critical: false,
   },
@@ -87,7 +87,7 @@ const SOURCES_TO_CHECK = [
   {
     name: 'OpenDataSoft (Pharmacies)',
     category: 'api',
-    url: 'https://public.opendatasoft.com/api/records/1.0/search/?dataset=finess-etablissements&rows=1',
+    url: 'https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/healthref-france-finess/records?limit=1',
     method: 'GET' as const, // HEAD not supported
     critical: false,
   },
