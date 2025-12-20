@@ -185,6 +185,13 @@ export default async function handler(
   req: VercelRequest,
   res: VercelResponse
 ) {
+  // Handle HEAD requests (iOS Calendar checks URL before subscribing)
+  if (req.method === 'HEAD') {
+    res.setHeader('Content-Type', 'text/calendar; charset=utf-8');
+    res.setHeader('Cache-Control', 's-maxage=86400, stale-while-revalidate=604800');
+    return res.status(200).end();
+  }
+
   // Only allow GET requests
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
