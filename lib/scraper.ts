@@ -50,6 +50,7 @@ function parseFrenchDate(text: string): string | null {
  * Scrape the TV schedule from footmercato.net
  *
  * Uses retry with exponential backoff for reliability.
+ * Updated Dec 2025: Uses <time datetime=""> and matchTeam__name selectors
  */
 export async function scrapeTVSchedule(): Promise<TVScheduleResponse> {
   const retryLogger = createRetryLogger('scraper:tv-schedule');
@@ -78,100 +79,81 @@ export async function scrapeTVSchedule(): Promise<TVScheduleResponse> {
   const matches: Match[] = [];
   const seenIds = new Set<string>();
 
-  // Strategy: Walk through DOM sequentially, tracking current date
-  // Date headers typically contain day names and month names
-  let currentDate = new Date().toISOString().split('T')[0];
+  // Strategy: Find all match containers (div.matchFull) and extract data
+  $('div.matchFull').each((_, matchDiv) => {
+    const el = $(matchDiv);
 
-  // Get all elements in document order
-  $('*').each((_, element) => {
-    const el = $(element);
-    const tagName = ('tagName' in element ? element.tagName : '')?.toLowerCase();
+    // Get match ID from data attribute or link
+    const matchId = el.attr('data-live-id') || '';
+    if (!matchId || seenIds.has(matchId)) return;
+    seenIds.add(matchId);
 
-    // Skip script, style, etc.
-    if (!tagName || ['script', 'style', 'meta', 'link'].includes(tagName)) return;
+    // Extract date and time from <time datetime=""> element
+    const timeEl = el.find('time[datetime]');
+    const datetime = timeEl.attr('datetime') || '';
 
-    // Check if this element contains a date header
-    // Look for elements that contain date text but are relatively short (headers, not full page text)
-    const directText = el.clone().children().remove().end().text().trim();
-    if (directText.length > 0 && directText.length < 100) {
-      const possibleDate = parseFrenchDate(directText);
-      if (possibleDate) {
-        currentDate = possibleDate;
+    let date = new Date().toISOString().split('T')[0];
+    let time = '';
+
+    if (datetime) {
+      // datetime is in format: 2026-01-04T14:00:00+00:00 (UTC)
+      const parsedDate = new Date(datetime);
+      // Convert to Paris timezone (UTC+1)
+      const parisTime = new Date(parsedDate.getTime() + (1 * 60 * 60 * 1000));
+      date = parisTime.toISOString().split('T')[0];
+      time = parisTime.toISOString().split('T')[1].substring(0, 5);
+    } else {
+      // Fallback: try to extract time from text
+      const timeText = timeEl.text().trim() || el.text().match(/(\d{1,2}:\d{2})/)?.[1] || '';
+      time = timeText;
+    }
+
+    if (!time) return;
+
+    // Extract team names from matchTeam__name spans
+    const teamNames = el.find('.matchTeam__name').map((_, span) => $(span).text().trim()).get();
+    const homeTeam = teamNames[0] || '';
+    const awayTeam = teamNames[1] || '';
+
+    if (!homeTeam || !awayTeam) return;
+
+    // Extract channel from img alt text
+    let channel = 'unknown';
+    let channelKey: ChannelKey = 'unknown';
+
+    el.find('img').each((_, img) => {
+      const alt = $(img).attr('alt')?.toLowerCase() || '';
+      for (const [key, value] of Object.entries(CHANNEL_MAPPING)) {
+        if (alt.includes(key)) {
+          channel = value.name;
+          channelKey = value.key;
+          return false; // break
+        }
+      }
+    });
+
+    // Also check text-based channel mentions
+    if (channelKey === 'unknown') {
+      const textLower = el.text().toLowerCase();
+      for (const [key, value] of Object.entries(CHANNEL_MAPPING)) {
+        if (textLower.includes(key)) {
+          channel = value.name;
+          channelKey = value.key;
+          break;
+        }
       }
     }
 
-    // Check if this is a match link
-    if (tagName === 'a') {
-      const href = el.attr('href') || '';
-      const matchIdMatch = href.match(/\/live\/(\d+)/);
-      if (!matchIdMatch) return;
-
-      const matchId = matchIdMatch[1];
-
-      // Skip duplicates
-      if (seenIds.has(matchId)) return;
-      seenIds.add(matchId);
-
-      const fullText = el.text().trim();
-
-      // Extract time (format: HH:mm or H:mm)
-      const timeMatch = fullText.match(/(\d{1,2}:\d{2})/);
-      const time = timeMatch ? timeMatch[1] : '';
-      if (!time) return;
-
-      // Extract channel from img alt text
-      let channel = 'unknown';
-      let channelKey: ChannelKey = 'unknown';
-
-      el.find('img').each((_, img) => {
-        const alt = $(img).attr('alt')?.toLowerCase() || '';
-        for (const [key, value] of Object.entries(CHANNEL_MAPPING)) {
-          if (alt.includes(key)) {
-            channel = value.name;
-            channelKey = value.key;
-            return false; // break
-          }
-        }
-      });
-
-      // Also check for text-based channel mentions
-      if (channelKey === 'unknown') {
-        const textLower = fullText.toLowerCase();
-        for (const [key, value] of Object.entries(CHANNEL_MAPPING)) {
-          if (textLower.includes(key)) {
-            channel = value.name;
-            channelKey = value.key;
-            break;
-          }
-        }
-      }
-
-      // Extract team names
-      const textWithoutTime = fullText.replace(/\d{1,2}:\d{2}/, '').trim();
-      const teamParts = textWithoutTime.split(/\s+-\s+|\s{2,}/);
-
-      let homeTeam = '';
-      let awayTeam = '';
-
-      if (teamParts.length >= 2) {
-        homeTeam = teamParts[0].replace(/Logo\s*/gi, '').trim();
-        awayTeam = teamParts[1].replace(/Logo\s*/gi, '').trim();
-      }
-
-      // Only add if we have valid data
-      if (homeTeam && awayTeam) {
-        matches.push({
-          id: matchId,
-          homeTeam,
-          awayTeam,
-          date: currentDate,
-          time,
-          channel,
-          channelKey,
-          competition: 'Ligue 1',
-        });
-      }
-    }
+    matches.push({
+      id: matchId,
+      homeTeam,
+      awayTeam,
+      date,
+      time,
+      channel,
+      channelKey,
+      competition: 'Ligue 1',
+    });
   });
 
   // Sort by date and time
@@ -181,16 +163,16 @@ export async function scrapeTVSchedule(): Promise<TVScheduleResponse> {
     return a.time.localeCompare(b.time);
   });
 
-  // Limit to upcoming matches (next 2 weeks)
-  const twoWeeksFromNow = new Date();
-  twoWeeksFromNow.setDate(twoWeeksFromNow.getDate() + 14);
-  const cutoffDate = twoWeeksFromNow.toISOString().split('T')[0];
+  // Limit to upcoming matches (next 4 weeks for better coverage)
+  const fourWeeksFromNow = new Date();
+  fourWeeksFromNow.setDate(fourWeeksFromNow.getDate() + 28);
+  const cutoffDate = fourWeeksFromNow.toISOString().split('T')[0];
 
   const upcomingMatches = matches.filter(m => m.date <= cutoffDate);
 
   return {
     competition: 'Ligue 1',
-    matches: upcomingMatches.length > 0 ? upcomingMatches : matches.slice(0, 20),
+    matches: upcomingMatches.length > 0 ? upcomingMatches : matches.slice(0, 30),
     lastUpdated: new Date().toISOString(),
     source: 'footmercato.net',
   };
