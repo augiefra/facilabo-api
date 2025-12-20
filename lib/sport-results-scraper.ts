@@ -1,4 +1,15 @@
+/**
+ * FacilAbo - Sport Results Scraper
+ *
+ * Scrapes Ligue 1 match results from Flashscore
+ *
+ * @source flashscore.fr
+ * @fragility VERY HIGH - Binary format, can change without notice
+ * @updated 2025-01
+ */
+
 import { MatchResult, MatchStatus, SportResultsResponse, normalizeTeamName } from './sport-results-types';
+import { fetchWithRetry, createRetryLogger, RETRY_CONFIGS } from './retry-utils';
 
 const FLASHSCORE_URL = 'https://www.flashscore.fr/football/france/ligue-1/resultats/';
 
@@ -140,17 +151,28 @@ function extractFlashscoreData(html: string): string | null {
 
 /**
  * Scrape match results from Flashscore
+ *
+ * Uses retry with exponential backoff for reliability.
  */
 export async function scrapeSportResults(): Promise<SportResultsResponse> {
+  const retryLogger = createRetryLogger('scraper:sport-results');
+
   try {
-    const response = await fetch(FLASHSCORE_URL, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-        'Accept-Language': 'fr-FR,fr;q=0.9',
-        'Accept-Encoding': 'gzip, deflate, br',
+    const response = await fetchWithRetry(
+      FLASHSCORE_URL,
+      {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+          'Accept-Language': 'fr-FR,fr;q=0.9',
+          'Accept-Encoding': 'gzip, deflate, br',
+        },
       },
-    });
+      {
+        ...RETRY_CONFIGS.scraper,
+        onRetry: retryLogger,
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`Flashscore fetch failed: ${response.status}`);

@@ -1,5 +1,16 @@
+/**
+ * FacilAbo - TV Schedule Scraper
+ *
+ * Scrapes Ligue 1 TV schedule from footmercato.net
+ *
+ * @source footmercato.net
+ * @fragility HIGH - Web scraping, HTML structure can change
+ * @updated 2025-01
+ */
+
 import * as cheerio from 'cheerio';
 import { Match, ChannelKey, CHANNEL_MAPPING, TVScheduleResponse } from './types';
+import { fetchWithRetry, createRetryLogger, RETRY_CONFIGS } from './retry-utils';
 
 const BASE_URL = 'https://www.footmercato.net/programme-tv/france/ligue-1';
 
@@ -37,15 +48,26 @@ function parseFrenchDate(text: string): string | null {
 
 /**
  * Scrape the TV schedule from footmercato.net
+ *
+ * Uses retry with exponential backoff for reliability.
  */
 export async function scrapeTVSchedule(): Promise<TVScheduleResponse> {
-  const response = await fetch(BASE_URL, {
-    headers: {
-      'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
-      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-      'Accept-Language': 'fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7',
+  const retryLogger = createRetryLogger('scraper:tv-schedule');
+
+  const response = await fetchWithRetry(
+    BASE_URL,
+    {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Accept-Language': 'fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7',
+      },
     },
-  });
+    {
+      ...RETRY_CONFIGS.scraper,
+      onRetry: retryLogger,
+    }
+  );
 
   if (!response.ok) {
     throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`);

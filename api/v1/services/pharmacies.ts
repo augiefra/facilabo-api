@@ -1,16 +1,31 @@
+/**
+ * FacilAbo API v1 - Pharmacy Search
+ *
+ * Search pharmacies in France using the FINESS database
+ * via OpenDataSoft.
+ *
+ * @endpoint GET /api/v1/services/pharmacies
+ * @query cp - Postal code (e.g., "75001")
+ * @query city - City name (e.g., "Paris")
+ * @query lat, lng, radius - Coordinates search
+ *
+ * @source FINESS via public.opendatasoft.com
+ * @reliability HIGH - Official government data
+ */
+
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { PharmacySearchResponse } from '../lib/pharmacy-types';
+import { PharmacySearchResponse } from '../../../lib/pharmacy-types';
 import {
   searchByPostalCode,
   searchByCity,
   searchNearLocation,
-} from '../lib/pharmacy-fetcher';
+} from '../../../lib/pharmacy-fetcher';
 
 export default async function handler(
   req: VercelRequest,
   res: VercelResponse
 ) {
-  // CORS headers for iOS app
+  // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -35,9 +50,9 @@ export default async function handler(
         error: 'Bad Request',
         message: 'Provide at least one search parameter: cp (postal code), city, or lat+lng coordinates',
         examples: [
-          '/api/pharmacies?cp=75001',
-          '/api/pharmacies?city=Paris',
-          '/api/pharmacies?lat=48.8566&lng=2.3522&radius=3',
+          '/api/v1/services/pharmacies?cp=75001',
+          '/api/v1/services/pharmacies?city=Paris',
+          '/api/v1/services/pharmacies?lat=48.8566&lng=2.3522&radius=3',
         ],
       });
     }
@@ -77,6 +92,7 @@ export default async function handler(
       pharmacies = [];
     }
 
+    // Return iOS-compatible format
     const response: PharmacySearchResponse = {
       pharmacies,
       total: pharmacies.length,
