@@ -17,7 +17,7 @@ import {
  *
  * Usage: GET /api/calendar/jardin/lunaire
  * Query params:
- *   - year: Year to generate (default: current year)
+ *   - year: Year to generate (default: current year, fallback to 2025 data)
  *
  * Returns: ICS file with daily gardening events
  */
@@ -126,7 +126,7 @@ function buildEventDescription(day: LunarDay): string {
   return parts.join('\\n');
 }
 
-function generateICS(days: LunarDay[]): string {
+function generateICS(days: LunarDay[], calendarYear: number): string {
   const now = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
 
   const lines: string[] = [
@@ -136,7 +136,7 @@ function generateICS(days: LunarDay[]): string {
     'METHOD:PUBLISH',
     'CALSCALE:GREGORIAN',
     'X-WR-CALNAME:Calendrier Lunaire Jardin',
-    'X-WR-CALDESC:Jardinez avec la lune - Conseils quotidiens basés sur les cycles lunaires',
+    `X-WR-CALDESC:Jardinez avec la lune - Conseils quotidiens basés sur les cycles lunaires (Données ${calendarYear})`,
     'X-WR-TIMEZONE:Europe/Paris',
     'BEGIN:VTIMEZONE',
     'TZID:Europe/Paris',
@@ -200,30 +200,26 @@ export default async function handler(
   try {
     // Get year from query params, default to current year
     const yearParam = req.query.year;
-    const year = yearParam && typeof yearParam === 'string'
+    const requestedYear = yearParam && typeof yearParam === 'string'
       ? parseInt(yearParam, 10)
       : new Date().getFullYear();
 
-    // Validate year (only 2025 supported for now)
-    if (year !== 2025) {
-      return res.status(400).json({
-        error: 'Only 2025 calendar is currently available',
-        availableYears: [2025]
-      });
-    }
+    // Only 2025 is supported for now; fall back to 2025 data instead of failing.
+    const calendarYear = requestedYear === 2025 ? 2025 : 2025;
 
     // Generate calendar for the full year
-    const startDate = `${year}-01-01`;
-    const endDate = `${year}-12-31`;
+    const startDate = `${calendarYear}-01-01`;
+    const endDate = `${calendarYear}-12-31`;
     const days = generateLunarCalendar(startDate, endDate);
 
     // Generate ICS content
-    const icsContent = generateICS(days);
+    const icsContent = generateICS(days, calendarYear);
 
     // Set appropriate headers for ICS file
     res.setHeader('Content-Type', 'text/calendar; charset=utf-8');
     res.setHeader('Content-Disposition', 'attachment; filename="calendrier-lunaire-jardin.ics"');
     res.setHeader('Cache-Control', 's-maxage=86400, stale-while-revalidate=604800');
+    res.setHeader('X-FacilAbo-Calendar-Year', `${calendarYear}`);
 
     return res.status(200).send(icsContent);
 
