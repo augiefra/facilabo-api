@@ -136,64 +136,64 @@ export const FOOTBALL_TEAMS: Record<string, CalendarMapping> = {
 };
 
 /**
- * Rugby (Top 14) teams - Fixtur.es source
+ * Rugby (Top 14) teams - FacilAbo legacy proxy source
  * Slugs match RugbyTeam.rawValue from iOS Enums.swift
  */
 export const RUGBY_TEAMS: Record<string, CalendarMapping> = {
   'toulouse': {
-    sourceUrl: 'https://ics.fixtur.es/v2/toulouse.ics',
+    sourceUrl: 'https://facilabo-api.vercel.app/api/calendar/rugby/toulouse',
     frenchName: 'Stade Toulousain'
   },
   'stadefrancais': {
-    sourceUrl: 'https://ics.fixtur.es/v2/stade-francais.ics',
+    sourceUrl: 'https://facilabo-api.vercel.app/api/calendar/rugby/stadefrancais',
     frenchName: 'Stade Français Paris'
   },
   'racing92': {
-    sourceUrl: 'https://ics.fixtur.es/v2/racing-92.ics',
+    sourceUrl: 'https://facilabo-api.vercel.app/api/calendar/rugby/racing92',
     frenchName: 'Racing 92'
   },
   'laRochelle': {
-    sourceUrl: 'https://ics.fixtur.es/v2/la-rochelle.ics',
+    sourceUrl: 'https://facilabo-api.vercel.app/api/calendar/rugby/laRochelle',
     frenchName: 'Stade Rochelais'
   },
   'bordeaux': {
-    sourceUrl: 'https://ics.fixtur.es/v2/bordeaux-begles.ics',
+    sourceUrl: 'https://facilabo-api.vercel.app/api/calendar/rugby/bordeaux',
     frenchName: 'Union Bordeaux-Bègles'
   },
   'clermont': {
-    sourceUrl: 'https://ics.fixtur.es/v2/clermont.ics',
+    sourceUrl: 'https://facilabo-api.vercel.app/api/calendar/rugby/clermont',
     frenchName: 'ASM Clermont'
   },
   'toulon': {
-    sourceUrl: 'https://ics.fixtur.es/v2/toulon.ics',
+    sourceUrl: 'https://facilabo-api.vercel.app/api/calendar/rugby/toulon',
     frenchName: 'RC Toulon'
   },
   'lyon': {
-    sourceUrl: 'https://ics.fixtur.es/v2/lyon.ics',
+    sourceUrl: 'https://facilabo-api.vercel.app/api/calendar/rugby/lyon',
     frenchName: 'LOU Rugby'
   },
   'montpellier': {
-    sourceUrl: 'https://ics.fixtur.es/v2/montpellier.ics',
+    sourceUrl: 'https://facilabo-api.vercel.app/api/calendar/rugby/montpellier',
     frenchName: 'Montpellier Hérault Rugby'
   },
   'castres': {
-    sourceUrl: 'https://ics.fixtur.es/v2/castres.ics',
+    sourceUrl: 'https://facilabo-api.vercel.app/api/calendar/rugby/castres',
     frenchName: 'Castres Olympique'
   },
   'pau': {
-    sourceUrl: 'https://ics.fixtur.es/v2/pau.ics',
+    sourceUrl: 'https://facilabo-api.vercel.app/api/calendar/rugby/pau',
     frenchName: 'Section Paloise'
   },
   'perpignan': {
-    sourceUrl: 'https://ics.fixtur.es/v2/perpignan.ics',
+    sourceUrl: 'https://facilabo-api.vercel.app/api/calendar/rugby/perpignan',
     frenchName: 'USAP Perpignan'
   },
   'bayonne': {
-    sourceUrl: 'https://ics.fixtur.es/v2/bayonne.ics',
+    sourceUrl: 'https://facilabo-api.vercel.app/api/calendar/rugby/bayonne',
     frenchName: 'Aviron Bayonnais'
   },
   'vannes': {
-    sourceUrl: 'https://ics.fixtur.es/v2/vannes.ics',
+    sourceUrl: 'https://facilabo-api.vercel.app/api/calendar/rugby/vannes',
     frenchName: 'RC Vannes'
   }
 };
