@@ -140,6 +140,34 @@ const SOURCES_TO_CHECK = [
     method: 'HEAD' as const,
     critical: false,
   },
+  {
+    name: 'GitHub (Ecommerce - Prime Day)',
+    category: 'calendars',
+    url: 'https://raw.githubusercontent.com/augiefra/facilabo/main/ecommerce/primeday.ics',
+    method: 'HEAD' as const,
+    critical: false,
+  },
+  {
+    name: 'GitHub (Ecommerce - French Days)',
+    category: 'calendars',
+    url: 'https://raw.githubusercontent.com/augiefra/facilabo/main/ecommerce/frenchdays.ics',
+    method: 'HEAD' as const,
+    critical: false,
+  },
+  {
+    name: 'GitHub (Ecommerce - Fetes Commerciales)',
+    category: 'calendars',
+    url: 'https://raw.githubusercontent.com/augiefra/facilabo/main/ecommerce/fetes-commerciales.ics',
+    method: 'HEAD' as const,
+    critical: false,
+  },
+  {
+    name: 'GitHub (Jardin)',
+    category: 'calendars',
+    url: 'https://raw.githubusercontent.com/augiefra/facilabo/main/jardin/lunaire.ics',
+    method: 'HEAD' as const,
+    critical: false,
+  },
   // Scraping sources (non-critical)
   {
     name: 'FootMercato (TV Schedule)',
