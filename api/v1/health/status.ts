@@ -39,18 +39,25 @@ interface HealthResponse {
 
 // Sources to monitor with criticality flag
 const SOURCES_TO_CHECK = [
-  // Calendar sources (critical - core functionality)
+  // Core calendars (critical)
   {
-    name: 'Fixtur.es (Football/Rugby)',
+    name: 'Opendatasoft (Vacances)',
     category: 'calendars',
-    url: 'https://ics.fixtur.es/v2/paris-saint-germain.ics',
+    url: 'https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/Zone-A.ics',
     method: 'HEAD' as const,
     critical: true,
   },
   {
-    name: 'Better F1 Calendar',
+    name: 'Etalab (Jours Feries)',
     category: 'calendars',
-    url: 'https://better-f1-calendar.vercel.app/api/calendar.ics',
+    url: 'https://etalab.github.io/jours-feries-france-data/ics/jours_feries_metropole.ics',
+    method: 'HEAD' as const,
+    critical: true,
+  },
+  {
+    name: 'Fixtur.es (Football)',
+    category: 'calendars',
+    url: 'https://ics.fixtur.es/v2/paris-saint-germain.ics',
     method: 'HEAD' as const,
     critical: true,
   },
@@ -62,20 +69,78 @@ const SOURCES_TO_CHECK = [
     critical: true,
   },
   {
-    name: 'Etalab (Jours Fériés)',
+    name: 'Better F1 Calendar',
     category: 'calendars',
-    url: 'https://etalab.github.io/jours-feries-france-data/ics/jours_feries_metropole.ics',
+    url: 'https://better-f1-calendar.vercel.app/api/calendar.ics',
     method: 'HEAD' as const,
     critical: true,
+  },
+  // Sports calendars (non-critical)
+  {
+    name: 'Fixtur.es (MotoGP)',
+    category: 'calendars',
+    url: 'https://ics.fixtur.es/v2/league/motogp.ics',
+    method: 'HEAD' as const,
+    critical: false,
   },
   {
-    name: 'Opendatasoft (Vacances)',
+    name: 'Google Calendar (NASCAR)',
     category: 'calendars',
-    url: 'https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/Zone-A.ics',
+    url: 'https://calendar.google.com/calendar/ical/db8c47ne2bt9qbld2mhdabm0u8%40group.calendar.google.com/public/basic.ics',
     method: 'HEAD' as const,
-    critical: true,
+    critical: false,
   },
-  // Scraping sources (non-critical - can fail temporarily)
+  {
+    name: 'FixtureDownload (NBA)',
+    category: 'calendars',
+    url: 'https://fixturedownload.com/download/nba-2024-GMTStandardTime.ics',
+    method: 'HEAD' as const,
+    critical: false,
+  },
+  {
+    name: "Data.gouv (Changement d'heure)",
+    category: 'calendars',
+    url: 'https://www.data.gouv.fr/api/1/datasets/r/44a31e90-3391-41aa-9c6a-18fae257b9e4',
+    method: 'GET' as const,
+    critical: false,
+  },
+  // GitHub calendars (non-critical)
+  {
+    name: 'GitHub (Astronomie)',
+    category: 'calendars',
+    url: 'https://raw.githubusercontent.com/augiefra/facilabo/main/astronomie/calendrier-astronomie.ics',
+    method: 'HEAD' as const,
+    critical: false,
+  },
+  {
+    name: 'GitHub (Soldes)',
+    category: 'calendars',
+    url: 'https://raw.githubusercontent.com/augiefra/facilabo/main/soldes/france.ics',
+    method: 'HEAD' as const,
+    critical: false,
+  },
+  {
+    name: 'GitHub (Fiscal)',
+    category: 'calendars',
+    url: 'https://raw.githubusercontent.com/augiefra/facilabo/main/fiscal/france.ics',
+    method: 'HEAD' as const,
+    critical: false,
+  },
+  {
+    name: 'GitHub (Culture)',
+    category: 'calendars',
+    url: 'https://raw.githubusercontent.com/augiefra/facilabo/main/culture/france.ics',
+    method: 'HEAD' as const,
+    critical: false,
+  },
+  {
+    name: 'GitHub (Ecommerce)',
+    category: 'calendars',
+    url: 'https://raw.githubusercontent.com/augiefra/facilabo/main/ecommerce/blackfriday.ics',
+    method: 'HEAD' as const,
+    critical: false,
+  },
+  // Scraping sources (non-critical)
   {
     name: 'FootMercato (TV Schedule)',
     category: 'scraping',
@@ -83,20 +148,12 @@ const SOURCES_TO_CHECK = [
     method: 'GET' as const, // HEAD not supported
     critical: false,
   },
-  // API sources
+  // API sources (non-critical)
   {
     name: 'OpenDataSoft (Pharmacies)',
     category: 'api',
     url: 'https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/healthref-france-finess/records?limit=1',
     method: 'GET' as const, // HEAD not supported
-    critical: false,
-  },
-  // GitHub sources (static calendars)
-  {
-    name: 'GitHub (Calendriers statiques)',
-    category: 'calendars',
-    url: 'https://raw.githubusercontent.com/augiefra/facilabo/main/astronomie/calendrier-astronomie.ics',
-    method: 'HEAD' as const,
     critical: false,
   },
 ];
