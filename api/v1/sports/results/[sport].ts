@@ -16,13 +16,25 @@ import { scrapeSportResults, filterResultsByTeam } from '../../../../lib/sport-r
 import { scrapeRugbyResults, filterRugbyResultsByTeam } from '../../../../lib/rugby-scraper';
 import { scrapeF1Results } from '../../../../lib/f1-scraper';
 import { scrapeMotoGPResults } from '../../../../lib/motogp-scraper';
-import { getResultsCached, setResultsCache } from '../../../../lib/sport-results-types';
+import {
+  getRaceCached,
+  getResultsCached,
+  getRugbyCached,
+  RaceResultsResponse,
+  setRaceCache,
+  setResultsCache,
+  setRugbyCache,
+  SportResultsResponse,
+  RugbyResultsResponse,
+} from '../../../../lib/sport-results-types';
 
 type SportType = 'football' | 'rugby' | 'f1' | 'motogp';
 
 interface SportConfig {
   cacheKey: string;
   scraper: () => Promise<any>;
+  getCache: (key: string) => any | null;
+  setCache: (key: string, data: any) => void;
   filter?: (results: any, team: string) => any;
   source: string;
 }
@@ -30,23 +42,31 @@ interface SportConfig {
 const SPORT_CONFIG: Record<SportType, SportConfig> = {
   football: {
     cacheKey: 'v1:results:football',
+    getCache: (key) => getResultsCached(key),
+    setCache: (key, data) => setResultsCache(key, data as SportResultsResponse),
     scraper: scrapeSportResults,
-    filter: filterResultsByTeam,
+    filter: (results, team) => filterResultsByTeam(results as SportResultsResponse, team),
     source: 'footmercato.net',
   },
   rugby: {
     cacheKey: 'v1:results:rugby',
+    getCache: (key) => getRugbyCached(key),
+    setCache: (key, data) => setRugbyCache(key, data as RugbyResultsResponse),
     scraper: scrapeRugbyResults,
-    filter: filterRugbyResultsByTeam,
+    filter: (results, team) => filterRugbyResultsByTeam(results as RugbyResultsResponse, team),
     source: 'flashscore.fr',
   },
   f1: {
     cacheKey: 'v1:results:f1',
+    getCache: (key) => getRaceCached(key),
+    setCache: (key, data) => setRaceCache(key, data as RaceResultsResponse),
     scraper: scrapeF1Results,
     source: 'flashscore.fr',
   },
   motogp: {
     cacheKey: 'v1:results:motogp',
+    getCache: (key) => getRaceCached(key),
+    setCache: (key, data) => setRaceCache(key, data as RaceResultsResponse),
     scraper: scrapeMotoGPResults,
     source: 'flashscore.fr',
   },
@@ -96,12 +116,12 @@ export default async function handler(
 
   try {
     // Check cache first
-    let results = getResultsCached(config.cacheKey);
+    let results = config.getCache(config.cacheKey);
 
     if (!results) {
       console.log(`Cache miss, scraping ${sportLower} results...`);
       results = await config.scraper();
-      setResultsCache(config.cacheKey, results);
+      config.setCache(config.cacheKey, results);
       console.log(`Scraped ${sportLower} results`);
     } else {
       console.log(`Cache hit for ${sportLower}`);
@@ -119,7 +139,7 @@ export default async function handler(
     console.error(`${sportLower} results scraping error:`, error);
 
     // Try to return cached data even if expired
-    const cachedData = getResultsCached(config.cacheKey);
+    const cachedData = config.getCache(config.cacheKey);
     if (cachedData) {
       console.log('Returning stale cache due to error');
       return res.status(200).json({

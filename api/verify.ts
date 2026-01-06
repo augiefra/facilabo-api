@@ -36,7 +36,7 @@ interface VerificationReport {
   recommendations: string[];
 }
 
-const API_BASE = 'https://facilabo-api.vercel.app/api';
+const API_BASE = 'https://facilabo-api.vercel.app/api/v1';
 
 async function fetchWithTiming(url: string): Promise<{
   ok: boolean;
@@ -69,12 +69,13 @@ async function verifyHealth(): Promise<VerificationResult[]> {
   const results: VerificationResult[] = [];
 
   const endpoints = [
-    { path: '/sport-results', name: 'Sport Results (Ligue 1)' },
-    { path: '/sport-results-rugby', name: 'Sport Results (Rugby Top 14)' },
-    { path: '/sport-results-f1', name: 'Sport Results (F1)' },
-    { path: '/sport-results-motogp', name: 'Sport Results (MotoGP)' },
-    { path: '/pharmacies?cp=75001', name: 'Pharmacies' },
-    { path: '/tv-schedule', name: 'TV Schedule' },
+    { path: '/health/status', name: 'API Health' },
+    { path: '/sports/results/football', name: 'Sport Results (Football - Ligue 1)' },
+    { path: '/sports/results/rugby', name: 'Sport Results (Rugby - Top 14)' },
+    { path: '/sports/results/f1', name: 'Sport Results (F1)' },
+    { path: '/sports/results/motogp', name: 'Sport Results (MotoGP)' },
+    { path: '/services/pharmacies?cp=75001', name: 'Pharmacies' },
+    { path: '/sports/tv-schedule', name: 'TV Schedule' },
   ];
 
   for (const endpoint of endpoints) {
@@ -96,7 +97,7 @@ async function verifyHealth(): Promise<VerificationResult[]> {
 async function verifySportResults(): Promise<VerificationResult[]> {
   const results: VerificationResult[] = [];
 
-  const response = await fetchWithTiming(`${API_BASE}/sport-results`);
+  const response = await fetchWithTiming(`${API_BASE}/sports/results/football`);
 
   if (!response.ok) {
     results.push({
@@ -182,7 +183,7 @@ async function verifyPharmacies(): Promise<VerificationResult[]> {
   ];
 
   for (const test of testCases) {
-    const response = await fetchWithTiming(`${API_BASE}/pharmacies?cp=${test.cp}`);
+    const response = await fetchWithTiming(`${API_BASE}/services/pharmacies?cp=${test.cp}`);
 
     if (!response.ok) {
       results.push({
@@ -211,7 +212,7 @@ async function verifyPharmacies(): Promise<VerificationResult[]> {
   }
 
   // Test geolocation
-  const geoResponse = await fetchWithTiming(`${API_BASE}/pharmacies?lat=48.8566&lng=2.3522&radius=2`);
+  const geoResponse = await fetchWithTiming(`${API_BASE}/services/pharmacies?lat=48.8566&lng=2.3522&radius=2`);
 
   results.push({
     module: 'pharmacies',
