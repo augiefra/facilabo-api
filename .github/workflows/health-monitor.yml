@@ -30,19 +30,34 @@ jobs:
           OVERALL=$(echo "$BODY" | jq -r '.overall // "unknown"')
           MESSAGE=$(echo "$BODY" | jq -r '.uptimeMessage // "No message"')
           CRITICAL_DOWN=$(echo "$BODY" | jq -r '.summary.criticalDown // 0')
+          DOWN=$(echo "$BODY" | jq -r '.summary.down // 0')
 
           echo "overall=$OVERALL" >> $GITHUB_OUTPUT
           echo "message=$MESSAGE" >> $GITHUB_OUTPUT
           echo "http_code=$HTTP_CODE" >> $GITHUB_OUTPUT
           echo "critical_down=$CRITICAL_DOWN" >> $GITHUB_OUTPUT
+          echo "down=$DOWN" >> $GITHUB_OUTPUT
 
-          # Fail if unhealthy (503) or if request failed
+          # Decide failure policy:
+          # - Hard fail only on HTTP != 200, or critical sources down, or overall=unhealthy.
+          # - Degraded (non-critical sources down) should not trigger alerts.
+          SHOULD_FAIL="false"
           if [ "$HTTP_CODE" != "200" ]; then
+            SHOULD_FAIL="true"
+          fi
+          if [ "$CRITICAL_DOWN" -gt 0 ]; then
+            SHOULD_FAIL="true"
+          fi
+          if [ "$OVERALL" = "unhealthy" ]; then
+            SHOULD_FAIL="true"
+          fi
+
+          if [ "$SHOULD_FAIL" = "true" ]; then
             echo "::error::API is unhealthy! HTTP $HTTP_CODE - $MESSAGE"
             exit 1
           fi
 
-          echo "✅ API is healthy: $MESSAGE"
+          echo "✅ API is healthy or degraded: $MESSAGE (down=$DOWN, criticalDown=$CRITICAL_DOWN)"
 
       - name: Create Issue on Failure
         if: failure()
@@ -53,7 +68,25 @@ jobs:
             const message = '${{ steps.health.outputs.message }}';
             const httpCode = '${{ steps.health.outputs.http_code }}';
             const criticalDown = '${{ steps.health.outputs.critical_down }}';
+            const down = '${{ steps.health.outputs.down }}';
             const timestamp = new Date().toISOString();
+
+            // Require 2 consecutive failures before opening an issue (reduce noise).
+            const workflowId = 'health-monitor.yml';
+            const runs = await github.rest.actions.listWorkflowRuns({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: workflowId,
+              per_page: 5
+            });
+
+            const previousRun = runs.data.workflow_runs.find(run => run.id !== context.runId);
+            const previousFailed = previousRun && previousRun.conclusion === 'failure';
+
+            if (!previousFailed) {
+              console.log('First failure detected. Waiting for a second consecutive failure before creating an issue.');
+              return;
+            }
 
             // Check if there's already an open issue
             const issues = await github.rest.issues.listForRepo({
@@ -72,7 +105,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: issues.data[0].number,
-                body: `⚠️ **Health check still failing**\n\n- Time: ${timestamp}\n- HTTP Code: ${httpCode}\n- Status: ${overall}\n- Message: ${message}\n- Critical sources down: ${criticalDown}`
+                body: `⚠️ **Health check still failing**\n\n- Time: ${timestamp}\n- HTTP Code: ${httpCode}\n- Status: ${overall}\n- Message: ${message}\n- Sources down: ${down}\n- Critical sources down: ${criticalDown}`
               });
               return;
             }
@@ -93,6 +126,7 @@ jobs:
             |----------|--------|
             | Statut HTTP | ${httpCode} |
             | État global | ${overall} |
+            | Sources down | ${down} |
             | Sources critiques down | ${criticalDown} |
             | Message | ${message} |
             | Timestamp | ${timestamp} |
