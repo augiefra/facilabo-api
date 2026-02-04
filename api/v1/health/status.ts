@@ -9,7 +9,7 @@
  *
  * HTTP Status Codes (for UptimeRobot):
  * - 200: All sources healthy or degraded
- * - 503: System unhealthy (50%+ sources down)
+ * - 503: System unhealthy (50%+ sources down OR multiple critical sources down)
  */
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
@@ -265,9 +265,11 @@ export default async function handler(
     };
 
     // Determine overall status
-    // Unhealthy if: any critical source is down OR 50%+ sources down
+    // Unhealthy if: multiple critical sources are down OR 50%+ sources down.
+    // Rationale: external providers are flaky; one critical source down should be "degraded"
+    // so we don't page/spam on transient outages.
     let overall: 'healthy' | 'degraded' | 'unhealthy';
-    if (summary.criticalDown > 0 || summary.down >= summary.total / 2) {
+    if (summary.criticalDown >= 2 || summary.down >= summary.total / 2) {
       overall = 'unhealthy';
     } else if (summary.down > 0 || summary.degraded > 0) {
       overall = 'degraded';
