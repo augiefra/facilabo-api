@@ -18,8 +18,11 @@ import { scrapeF1Results } from '../../../../lib/f1-scraper';
 import { scrapeMotoGPResults } from '../../../../lib/motogp-scraper';
 import {
   getRaceCached,
+  getRaceStale,
   getResultsCached,
+  getResultsStale,
   getRugbyCached,
+  getRugbyStale,
   RaceResultsResponse,
   setRaceCache,
   setResultsCache,
@@ -34,6 +37,7 @@ interface SportConfig {
   cacheKey: string;
   scraper: () => Promise<any>;
   getCache: (key: string) => any | null;
+  getStaleCache: (key: string) => any | null;
   setCache: (key: string, data: any) => void;
   filter?: (results: any, team: string) => any;
   source: string;
@@ -43,6 +47,7 @@ const SPORT_CONFIG: Record<SportType, SportConfig> = {
   football: {
     cacheKey: 'v1:results:football',
     getCache: (key) => getResultsCached(key),
+    getStaleCache: (key) => getResultsStale(key),
     setCache: (key, data) => setResultsCache(key, data as SportResultsResponse),
     scraper: scrapeSportResults,
     filter: (results, team) => filterResultsByTeam(results as SportResultsResponse, team),
@@ -51,6 +56,7 @@ const SPORT_CONFIG: Record<SportType, SportConfig> = {
   rugby: {
     cacheKey: 'v1:results:rugby',
     getCache: (key) => getRugbyCached(key),
+    getStaleCache: (key) => getRugbyStale(key),
     setCache: (key, data) => setRugbyCache(key, data as RugbyResultsResponse),
     scraper: scrapeRugbyResults,
     filter: (results, team) => filterRugbyResultsByTeam(results as RugbyResultsResponse, team),
@@ -59,6 +65,7 @@ const SPORT_CONFIG: Record<SportType, SportConfig> = {
   f1: {
     cacheKey: 'v1:results:f1',
     getCache: (key) => getRaceCached(key),
+    getStaleCache: (key) => getRaceStale(key),
     setCache: (key, data) => setRaceCache(key, data as RaceResultsResponse),
     scraper: scrapeF1Results,
     source: 'flashscore.fr',
@@ -66,6 +73,7 @@ const SPORT_CONFIG: Record<SportType, SportConfig> = {
   motogp: {
     cacheKey: 'v1:results:motogp',
     getCache: (key) => getRaceCached(key),
+    getStaleCache: (key) => getRaceStale(key),
     setCache: (key, data) => setRaceCache(key, data as RaceResultsResponse),
     scraper: scrapeMotoGPResults,
     source: 'flashscore.fr',
@@ -139,7 +147,7 @@ export default async function handler(
     console.error(`${sportLower} results scraping error:`, error);
 
     // Try to return cached data even if expired
-    const cachedData = config.getCache(config.cacheKey);
+    const cachedData = config.getStaleCache(config.cacheKey);
     if (cachedData) {
       console.log('Returning stale cache due to error');
       return res.status(200).json({

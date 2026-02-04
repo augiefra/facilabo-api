@@ -15,6 +15,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { getMapping, getAllMappings } from '../../../lib/calendar-mappings';
 import { fetchWithRetry, createRetryLogger, RETRY_CONFIGS } from '../../../lib/retry-utils';
+import { getCache, getStaleCache, setCache, CACHE_TTL } from '../../../lib/v1-utils';
 
 export default async function handler(
   req: VercelRequest,
@@ -60,6 +61,16 @@ export default async function handler(
   }
 
   const retryLogger = createRetryLogger(`calendar:${slug}`);
+  const cacheKey = `v1:ics:${slug}`;
+
+  const cached = getCache<string>(cacheKey);
+  if (cached) {
+    res.setHeader('Content-Type', 'text/calendar; charset=utf-8');
+    res.setHeader('Content-Disposition', `attachment; filename="${slug}.ics"`);
+    res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=7200');
+    res.setHeader('X-Facilabo-Cache', 'hit');
+    return res.status(200).send(cached);
+  }
 
   try {
     const response = await fetchWithRetry(
@@ -111,10 +122,20 @@ export default async function handler(
     res.setHeader('Content-Disposition', `attachment; filename="${slug}.ics"`);
     res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=7200');
 
+    setCache(cacheKey, icsContent, CACHE_TTL.CALENDAR);
+    res.setHeader('X-Facilabo-Cache', 'miss');
     return res.status(200).send(icsContent);
 
   } catch (error) {
     console.error('Calendar proxy error:', error);
+    const stale = getStaleCache<string>(cacheKey);
+    if (stale) {
+      res.setHeader('Content-Type', 'text/calendar; charset=utf-8');
+      res.setHeader('Content-Disposition', `attachment; filename="${slug}.ics"`);
+      res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=7200');
+      res.setHeader('X-Facilabo-Cache', 'stale');
+      return res.status(200).send(stale);
+    }
     return res.status(500).json({
       error: 'Internal server error',
       message: error instanceof Error ? error.message : 'Unknown error'

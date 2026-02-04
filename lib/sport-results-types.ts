@@ -107,6 +107,11 @@ export function getResultsCached(key: string): SportResultsResponse | null {
   return entry.data;
 }
 
+export function getResultsStale(key: string): SportResultsResponse | null {
+  const entry = resultsCache.get(key);
+  return entry?.data ?? null;
+}
+
 export function setResultsCache(key: string, data: SportResultsResponse): void {
   resultsCache.set(key, { data, timestamp: Date.now() });
 }
@@ -156,6 +161,11 @@ export function getRaceCached(key: string): RaceResultsResponse | null {
   return entry.data;
 }
 
+export function getRaceStale(key: string): RaceResultsResponse | null {
+  const entry = raceCache.get(key);
+  return entry?.data ?? null;
+}
+
 export function setRaceCache(key: string, data: RaceResultsResponse): void {
   raceCache.set(key, { data, timestamp: Date.now() });
 }
@@ -184,6 +194,11 @@ export function getRugbyCached(key: string): RugbyResultsResponse | null {
   }
 
   return entry.data as unknown as RugbyResultsResponse;
+}
+
+export function getRugbyStale(key: string): RugbyResultsResponse | null {
+  const entry = resultsCache.get(key);
+  return (entry?.data as unknown as RugbyResultsResponse) ?? null;
 }
 
 export function setRugbyCache(key: string, data: RugbyResultsResponse): void {

@@ -52,6 +52,12 @@ export function getPharmacyCached(key: string): Pharmacy[] | null {
   return entry.data;
 }
 
+// Return cached data even if expired (anti-panne fallback)
+export function getPharmacyStale(key: string): Pharmacy[] | null {
+  const entry = pharmacyCache.get(key);
+  return entry?.data ?? null;
+}
+
 export function setPharmacyCache(key: string, data: Pharmacy[]): void {
   pharmacyCache.set(key, { data, timestamp: Date.now() });
 }

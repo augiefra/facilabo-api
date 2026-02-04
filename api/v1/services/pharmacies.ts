@@ -14,7 +14,7 @@
  */
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { PharmacySearchResponse } from '../../../lib/pharmacy-types';
+import { PharmacySearchResponse, getPharmacyStale, normalizeCity } from '../../../lib/pharmacy-types';
 import {
   searchByPostalCode,
   searchByCity,
@@ -25,6 +25,9 @@ export default async function handler(
   req: VercelRequest,
   res: VercelResponse
 ) {
+  let cacheKey: string | null = null;
+  let query: PharmacySearchResponse['query'] = {};
+
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
@@ -58,15 +61,17 @@ export default async function handler(
     }
 
     let pharmacies: PharmacySearchResponse['pharmacies'] = [];
-    const query: PharmacySearchResponse['query'] = {};
 
     // Search by postal code
     if (cp && typeof cp === 'string') {
+      cacheKey = `postal_${cp}`;
       query.postalCode = cp;
       pharmacies = await searchByPostalCode(cp);
     }
     // Search by city
     else if (city && typeof city === 'string') {
+      const normalized = normalizeCity(city);
+      cacheKey = `city_${normalized}`;
       query.city = city;
       pharmacies = await searchByCity(city);
     }
@@ -87,6 +92,7 @@ export default async function handler(
       query.lng = longitude;
       query.radius = radiusKm;
 
+      cacheKey = `loc_${latitude.toFixed(3)}_${longitude.toFixed(3)}_${radiusKm}`;
       pharmacies = await searchNearLocation(latitude, longitude, radiusKm);
     } else {
       pharmacies = [];
@@ -109,6 +115,24 @@ export default async function handler(
 
   } catch (error) {
     console.error('Pharmacy search error:', error);
+
+    // Anti-panne fallback: return stale cache if available
+    if (cacheKey) {
+      const cached = getPharmacyStale(cacheKey);
+      if (cached) {
+        return res.status(200).json({
+          pharmacies: cached,
+          total: cached.length,
+          query,
+          gardeInfo: {
+            message: "Pour les pharmacies de garde, appelez le 3237 ou consultez le site officiel",
+            url: "https://www.3237.fr",
+          },
+          lastUpdated: new Date().toISOString() + ' (cached)',
+          source: 'FINESS - public.opendatasoft.com (cached)',
+        } as PharmacySearchResponse);
+      }
+    }
 
     return res.status(500).json({
       error: 'Internal Server Error',

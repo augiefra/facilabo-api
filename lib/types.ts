@@ -67,6 +67,12 @@ export function getCached(key: string): TVScheduleResponse | null {
   return entry.data;
 }
 
+// Return cached data even if expired (anti-panne fallback)
+export function getStaleCached(key: string): TVScheduleResponse | null {
+  const entry = cache.get(key);
+  return entry?.data ?? null;
+}
+
 export function setCache(key: string, data: TVScheduleResponse): void {
   cache.set(key, { data, timestamp: Date.now() });
 }

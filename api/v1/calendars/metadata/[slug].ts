@@ -21,6 +21,7 @@ import {
   CalendarMapping
 } from '../../../../lib/calendar-mappings';
 import { fetchWithRetry, RETRY_CONFIGS, createRetryLogger } from '../../../../lib/retry-utils';
+import { getCache, getStaleCache, setCache } from '../../../../lib/v1-utils';
 
 interface NextEvent {
   summary: string;
@@ -189,6 +190,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     } as ApiResponse);
   }
 
+  const cacheKey = `v1:metadata:${slug}`;
+  const cached = getCache<FeedMetadata>(cacheKey);
+  if (cached) {
+    res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600');
+    res.setHeader('Content-Type', 'application/json');
+    return res.status(200).json({
+      success: true,
+      data: cached,
+      meta: { version: '1.0', timestamp: new Date().toISOString() }
+    } as ApiResponse);
+  }
+
   try {
     const retryLogger = createRetryLogger('metadata');
 
@@ -248,6 +261,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Set cache headers (5 minutes for metadata)
     res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600');
     res.setHeader('Content-Type', 'application/json');
+    setCache(cacheKey, metadata, 300);
 
     return res.status(200).json({
       success: true,
@@ -257,6 +271,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   } catch (error) {
     console.error(`[metadata] Error fetching ${slug}:`, error);
+
+    const stale = getStaleCache<FeedMetadata>(cacheKey);
+    if (stale) {
+      res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600');
+      res.setHeader('Content-Type', 'application/json');
+      return res.status(200).json({
+        success: true,
+        data: stale,
+        meta: { version: '1.0', timestamp: new Date().toISOString() }
+      } as ApiResponse);
+    }
 
     return res.status(500).json({
       success: false,
