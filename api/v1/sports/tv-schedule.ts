@@ -13,7 +13,7 @@
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { scrapeTVSchedule, filterByTeam } from '../../../lib/scraper';
-import { getCached, setCache } from '../../../lib/types';
+import { getCached, getStaleCached, setCache } from '../../../lib/types';
 
 const CACHE_KEY = 'v1:tv-schedule:ligue1';
 
@@ -63,7 +63,7 @@ export default async function handler(
     console.error('Scraping error:', error);
 
     // Try to return cached data even if expired
-    const cachedData = getCached(CACHE_KEY);
+    const cachedData = getStaleCached(CACHE_KEY);
     if (cachedData) {
       console.log('Returning stale cache due to error');
       return res.status(200).json({
