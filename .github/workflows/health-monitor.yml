@@ -7,6 +7,10 @@ on:
   workflow_dispatch:
     # Allow manual trigger
 
+concurrency:
+  group: facilabo-health-monitor
+  cancel-in-progress: false
+
 permissions:
   contents: read
   issues: write
@@ -27,10 +31,10 @@ jobs:
           echo "Response: $BODY"
 
           # Extract key info
-          OVERALL=$(echo "$BODY" | jq -r '.overall // "unknown"')
-          MESSAGE=$(echo "$BODY" | jq -r '.uptimeMessage // "No message"')
-          CRITICAL_DOWN=$(echo "$BODY" | jq -r '.summary.criticalDown // 0')
-          DOWN=$(echo "$BODY" | jq -r '.summary.down // 0')
+          OVERALL=$(echo "$BODY" | jq -r '.overall // "unknown"' 2>/dev/null || echo "unknown")
+          MESSAGE=$(echo "$BODY" | jq -r '.uptimeMessage // "No message"' 2>/dev/null || echo "No message")
+          CRITICAL_DOWN=$(echo "$BODY" | jq -r '.summary.criticalDown // 0' 2>/dev/null || echo "0")
+          DOWN=$(echo "$BODY" | jq -r '.summary.down // 0' 2>/dev/null || echo "0")
 
           echo "overall=$OVERALL" >> $GITHUB_OUTPUT
           echo "message=$MESSAGE" >> $GITHUB_OUTPUT
@@ -38,29 +42,27 @@ jobs:
           echo "critical_down=$CRITICAL_DOWN" >> $GITHUB_OUTPUT
           echo "down=$DOWN" >> $GITHUB_OUTPUT
 
-          # Decide failure policy:
-          # - Hard fail only on HTTP != 200, or critical sources down, or overall=unhealthy.
-          # - Degraded (non-critical sources down) should not trigger alerts.
-          SHOULD_FAIL="false"
+          # Decide alert policy (but NEVER fail the workflow).
+          # Reason: we want Issues/alerts without spamming GitHub Actions "run failed" emails.
+          SHOULD_ALERT="false"
           if [ "$HTTP_CODE" != "200" ]; then
-            SHOULD_FAIL="true"
+            SHOULD_ALERT="true"
           fi
-          if [ "$CRITICAL_DOWN" -gt 0 ]; then
-            SHOULD_FAIL="true"
-          fi
+          # Alert only when the system is truly unhealthy (not just degraded).
           if [ "$OVERALL" = "unhealthy" ]; then
-            SHOULD_FAIL="true"
+            SHOULD_ALERT="true"
           fi
 
-          if [ "$SHOULD_FAIL" = "true" ]; then
-            echo "::error::API is unhealthy! HTTP $HTTP_CODE - $MESSAGE"
-            exit 1
-          fi
+          echo "should_alert=$SHOULD_ALERT" >> $GITHUB_OUTPUT
 
-          echo "✅ API is healthy or degraded: $MESSAGE (down=$DOWN, criticalDown=$CRITICAL_DOWN)"
+          if [ "$SHOULD_ALERT" = "true" ]; then
+            echo "::warning::API is unhealthy/degraded (alert): HTTP $HTTP_CODE - $MESSAGE (down=$DOWN, criticalDown=$CRITICAL_DOWN)"
+          else
+            echo "✅ API is healthy: $MESSAGE (down=$DOWN, criticalDown=$CRITICAL_DOWN)"
+          fi
 
       - name: Create Issue on Failure
-        if: failure()
+        if: steps.health.outputs.should_alert == 'true'
         uses: actions/github-script@v7
         with:
           script: |
@@ -142,7 +144,7 @@ jobs:
             });
 
       - name: Close Resolved Issues
-        if: success()
+        if: steps.health.outputs.should_alert != 'true'
         uses: actions/github-script@v7
         with:
           script: |
