@@ -21,6 +21,66 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/astronomie/calendrier-astronomie.ics',
     frenchName: 'Astronomie',
     description: 'Phases lunaires, éclipses, météores et événements astronomiques'
+  },
+  'jardin-lunaire': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/jardin/lunaire.ics',
+    frenchName: 'Calendrier Lunaire Jardin',
+    description: 'Jours feuilles, fleurs, fruits, racines selon la lune'
+  },
+  'soldes-france': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/soldes/france.ics',
+    frenchName: 'Soldes France',
+    description: "Dates des soldes d'hiver et d'été en France"
+  },
+  'fiscal-france': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/fiscal/france.ics',
+    frenchName: 'Calendrier Fiscal France',
+    description: 'Déclarations de revenus, taxe foncière, IFI'
+  },
+  'culture-france': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/culture/france.ics',
+    frenchName: 'Événements Culturels France',
+    description: 'Nuit des Musées, Fête de la Musique, Journées du Patrimoine'
+  },
+  'ecommerce-blackfriday': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/ecommerce/blackfriday.ics',
+    frenchName: 'Black Friday & Cyber Monday',
+    description: 'Promotions Black Friday et Cyber Monday'
+  },
+  'ecommerce-primeday': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/ecommerce/primeday.ics',
+    frenchName: 'Prime Day & Singles Day',
+    description: 'Amazon Prime Day et Singles Day'
+  },
+  'ecommerce-frenchdays': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/ecommerce/frenchdays.ics',
+    frenchName: 'French Days',
+    description: 'Promotions French Days printemps et automne'
+  },
+  'ecommerce-fetes-commerciales': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/ecommerce/fetes-commerciales.ics',
+    frenchName: 'Fêtes commerciales',
+    description: 'Saint-Valentin, Fête des Mères, Fête des Pères, Halloween'
+  },
+  'tennis-atp-complet': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/tennis/atp-complet.ics',
+    frenchName: 'Tennis ATP - Calendrier complet',
+    description: 'ATP Tour 2026'
+  },
+  'tennis-wta-complet': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/tennis/wta-complet.ics',
+    frenchName: 'Tennis WTA - Calendrier complet',
+    description: 'WTA Tour 2026'
+  },
+  'tennis-atp-majeurs': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/tennis/atp-majeurs.ics',
+    frenchName: 'Tennis ATP - Majeurs',
+    description: 'Grand Chelem + tournois majeurs 2026'
+  },
+  'tennis-wta-majeurs': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/tennis/wta-majeurs.ics',
+    frenchName: 'Tennis WTA - Majeurs',
+    description: 'Grand Chelem + tournois majeurs 2026'
   }
 };
 
