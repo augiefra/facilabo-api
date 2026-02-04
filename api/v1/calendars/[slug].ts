@@ -108,6 +108,15 @@ export default async function handler(
 
     let icsContent = await response.text();
 
+    // Some sources may contain human-readable comment markers (e.g. "# 2028"),
+    // which are not valid in iCalendar and can make Calendar.app reject the feed.
+    // Filter them out and normalize line endings.
+    const filteredLines = icsContent
+      .split(/\r?\n/)
+      .filter((line) => !(line.startsWith('#') || line.startsWith(';')));
+    icsContent = filteredLines.join('\r\n');
+    if (!icsContent.endsWith('\r\n')) icsContent += '\r\n';
+
     // Replace or add X-WR-CALNAME with French name
     if (icsContent.includes('X-WR-CALNAME:')) {
       icsContent = icsContent.replace(
