@@ -13,6 +13,18 @@ export interface CalendarMapping {
 }
 
 /**
+ * Self-hosted FacilAbo calendars (GitHub raw)
+ * These sources are maintained by us and can be safely proxied with proper headers.
+ */
+export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
+  'astronomie': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/astronomie/calendrier-astronomie.ics',
+    frenchName: 'Astronomie',
+    description: 'Phases lunaires, éclipses, météores et événements astronomiques'
+  }
+};
+
+/**
  * F1 Calendar - Better F1 Calendar source
  */
 export const F1_CALENDARS: Record<string, CalendarMapping> = {
@@ -203,6 +215,7 @@ export const RUGBY_TEAMS: Record<string, CalendarMapping> = {
  */
 export function getAllMappings(): Record<string, CalendarMapping> {
   return {
+    ...FACILABO_CALENDARS,
     ...F1_CALENDARS,
     ...MOTOGP_CALENDARS,
     ...NASCAR_CALENDARS,
