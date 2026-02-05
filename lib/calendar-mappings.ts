@@ -42,6 +42,47 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     frenchName: 'Événements Culturels France',
     description: 'Nuit des Musées, Fête de la Musique, Journées du Patrimoine'
   },
+  'culture-ceremonies': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/culture/ceremonies.ics',
+    frenchName: 'Culture Cérémonies',
+    description: 'Oscars, Césars, Grammys, Emmy Awards'
+  },
+  'religion-chretienne': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/religion/chretienne.ics',
+    frenchName: 'Fêtes Chrétiennes',
+    description: 'Paques et Noel'
+  },
+  'religion-musulmane': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/religion/musulmane.ics',
+    frenchName: 'Fêtes Musulmanes',
+    description: 'Aid al-Fitr et Aid al-Adha (dates lunaires susceptibles de varier)'
+  },
+  'religion-juive': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/religion/juive.ics',
+    frenchName: 'Fêtes Juives',
+    description: 'Rosh Hashanah et Yom Kippour'
+  },
+  'religion-hindoue': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/religion/hindoue.ics',
+    frenchName: 'Fêtes Hindoues',
+    description: 'Diwali'
+  },
+  'religion-bouddhiste': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/religion/bouddhiste.ics',
+    frenchName: 'Fêtes Bouddhistes',
+    description: 'Vesak'
+  },
+  'religion-sikhe': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/religion/sikhe.ics',
+    frenchName: 'Fêtes Sikhes',
+    description: 'Vaisakhi'
+  },
+  // Compatibilité legacy (ne pas supprimer avant migration complète des clients)
+  'religion-multi-cultes': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/religion/multi-cultes.ics',
+    frenchName: 'Fêtes religieuses (multi-cultes)',
+    description: 'Fêtes majeures chrétiennes, musulmanes, juives, hindoues, bouddhistes et sikhes'
+  },
   'ecommerce-blackfriday': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/ecommerce/blackfriday.ics',
     frenchName: 'Black Friday & Cyber Monday',
