@@ -176,31 +176,35 @@ export default async function handler(
     // Filter events for this team
     icsContent = filterIcsForTeam(icsContent, teamMapping.names);
 
-    // Replace or add X-WR-CALNAME with French team name (suffix "(FacilAbo)" to distinguish in Apple Calendar)
-    if (icsContent.includes('X-WR-CALNAME:')) {
-      icsContent = icsContent.replace(
-        /X-WR-CALNAME:.*/g,
-        `X-WR-CALNAME:${displayName}`
-      );
-    } else {
-      icsContent = icsContent.replace(
-        'BEGIN:VCALENDAR',
-        `BEGIN:VCALENDAR\r\nX-WR-CALNAME:${displayName}`
-      );
-    }
+    // Some sources contain blank lines which are not valid in some iCalendar clients.
+    // Normalize to CRLF and ensure header props are set (suffix "(FacilAbo)" to distinguish in Apple Calendar).
+    const rawLines = icsContent.split(/\r?\n/);
+    const filteredLines = rawLines.filter((line) => line.length > 0);
 
-    // Replace or add NAME header (some clients use it as canonical calendar name)
-    if (icsContent.includes('\r\nNAME:') || icsContent.startsWith('NAME:')) {
-      icsContent = icsContent.replace(
-        /(^|\r\n)NAME:.*/g,
-        `$1NAME:${displayName}`
-      );
-    } else {
-      icsContent = icsContent.replace(
-        /X-WR-CALNAME:.*\r\n/,
-        (match) => `${match}NAME:${displayName}\r\n`
-      );
-    }
+    const upsertHeaderProp = (lines: string[], key: string, value: string) => {
+      const headerEnd = lines.findIndex((l) => l.startsWith('BEGIN:VEVENT'));
+      const endIndex = headerEnd === -1 ? lines.length : headerEnd;
+      const header = lines.slice(0, endIndex);
+      const rest = lines.slice(endIndex);
+
+      const prefix = `${key}:`;
+      const existingIndex = header.findIndex((l) => l.startsWith(prefix));
+      if (existingIndex >= 0) {
+        header[existingIndex] = `${prefix}${value}`;
+      } else {
+        const beginIndex = header.findIndex((l) => l === 'BEGIN:VCALENDAR');
+        const insertIndex = beginIndex >= 0 ? beginIndex + 1 : 0;
+        header.splice(insertIndex, 0, `${prefix}${value}`);
+      }
+
+      return header.concat(rest);
+    };
+
+    let lines = filteredLines;
+    lines = upsertHeaderProp(lines, 'X-WR-CALNAME', displayName);
+    lines = upsertHeaderProp(lines, 'NAME', displayName);
+    icsContent = lines.join('\r\n');
+    if (!icsContent.endsWith('\r\n')) icsContent += '\r\n';
 
     // Update PRODID
     if (icsContent.includes('PRODID:')) {
