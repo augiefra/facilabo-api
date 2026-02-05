@@ -109,41 +109,41 @@ export default async function handler(
 
     let icsContent = await response.text();
 
-    // Some sources may contain human-readable comment markers (e.g. "# 2028"),
+    // Some sources contain human-readable comment markers (e.g. "# 2028") or blank lines,
     // which are not valid in iCalendar and can make Calendar.app reject the feed.
-    // Filter them out and normalize line endings.
-    const filteredLines = icsContent
-      .split(/\r?\n/)
-      .filter((line) => !(line.startsWith('#') || line.startsWith(';')));
-    icsContent = filteredLines.join('\r\n');
+    // Filter them out, preserve RFC5545 folding, then normalize to CRLF.
+    const rawLines = icsContent.split(/\r?\n/);
+    const filteredLines = rawLines.filter((line) => {
+      if (line.length === 0) return false; // strip empty lines (invalid in some clients)
+      if (line.startsWith('#') || line.startsWith(';')) return false; // strip comments
+      return true;
+    });
+
+    const upsertHeaderProp = (lines: string[], key: string, value: string) => {
+      const headerEnd = lines.findIndex((l) => l.startsWith('BEGIN:VEVENT'));
+      const endIndex = headerEnd === -1 ? lines.length : headerEnd;
+      const header = lines.slice(0, endIndex);
+      const rest = lines.slice(endIndex);
+
+      const prefix = `${key}:`;
+      const existingIndex = header.findIndex((l) => l.startsWith(prefix));
+      if (existingIndex >= 0) {
+        header[existingIndex] = `${prefix}${value}`;
+      } else {
+        const beginIndex = header.findIndex((l) => l === 'BEGIN:VCALENDAR');
+        const insertIndex = beginIndex >= 0 ? beginIndex + 1 : 0;
+        header.splice(insertIndex, 0, `${prefix}${value}`);
+      }
+
+      return header.concat(rest);
+    };
+
+    let lines = filteredLines;
+    lines = upsertHeaderProp(lines, 'X-WR-CALNAME', displayName);
+    lines = upsertHeaderProp(lines, 'NAME', displayName);
+
+    icsContent = lines.join('\r\n');
     if (!icsContent.endsWith('\r\n')) icsContent += '\r\n';
-
-    // Replace or add X-WR-CALNAME with French name (suffix "(FacilAbo)" to distinguish in Apple Calendar)
-    if (icsContent.includes('X-WR-CALNAME:')) {
-      icsContent = icsContent.replace(
-        /X-WR-CALNAME:.*/g,
-        `X-WR-CALNAME:${displayName}`
-      );
-    } else {
-      icsContent = icsContent.replace(
-        'BEGIN:VCALENDAR',
-        `BEGIN:VCALENDAR\r\nX-WR-CALNAME:${displayName}`
-      );
-    }
-
-    // Replace or add NAME (some clients use it as canonical calendar name)
-    if (icsContent.includes('\r\nNAME:') || icsContent.startsWith('NAME:')) {
-      icsContent = icsContent.replace(
-        /(^|\r\n)NAME:.*/g,
-        `$1NAME:${displayName}`
-      );
-    } else {
-      // Insert NAME right after X-WR-CALNAME (header area)
-      icsContent = icsContent.replace(
-        /X-WR-CALNAME:.*\r\n/,
-        (match) => `${match}NAME:${displayName}\r\n`
-      );
-    }
 
     // Update PRODID
     if (icsContent.includes('PRODID:')) {
