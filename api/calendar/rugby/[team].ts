@@ -152,6 +152,8 @@ export default async function handler(
     });
   }
 
+  const displayName = `${teamMapping.frenchName} (FacilAbo)`;
+
   try {
     // Fetch the full Top 14 calendar
     const response = await fetch(TOP14_SOURCE_URL, {
@@ -174,16 +176,29 @@ export default async function handler(
     // Filter events for this team
     icsContent = filterIcsForTeam(icsContent, teamMapping.names);
 
-    // Replace or add X-WR-CALNAME with French team name
+    // Replace or add X-WR-CALNAME with French team name (suffix "(FacilAbo)" to distinguish in Apple Calendar)
     if (icsContent.includes('X-WR-CALNAME:')) {
       icsContent = icsContent.replace(
         /X-WR-CALNAME:.*/g,
-        `X-WR-CALNAME:${teamMapping.frenchName}`
+        `X-WR-CALNAME:${displayName}`
       );
     } else {
       icsContent = icsContent.replace(
         'BEGIN:VCALENDAR',
-        `BEGIN:VCALENDAR\r\nX-WR-CALNAME:${teamMapping.frenchName}`
+        `BEGIN:VCALENDAR\r\nX-WR-CALNAME:${displayName}`
+      );
+    }
+
+    // Replace or add NAME header (some clients use it as canonical calendar name)
+    if (icsContent.includes('\r\nNAME:') || icsContent.startsWith('NAME:')) {
+      icsContent = icsContent.replace(
+        /(^|\r\n)NAME:.*/g,
+        `$1NAME:${displayName}`
+      );
+    } else {
+      icsContent = icsContent.replace(
+        /X-WR-CALNAME:.*\r\n/,
+        (match) => `${match}NAME:${displayName}\r\n`
       );
     }
 

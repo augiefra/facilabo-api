@@ -128,6 +128,7 @@ function buildEventDescription(day: LunarDay): string {
 
 function generateICS(days: LunarDay[], calendarYear: number): string {
   const now = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+  const displayName = 'Calendrier Lunaire Jardin (FacilAbo)';
 
   const lines: string[] = [
     'BEGIN:VCALENDAR',
@@ -135,7 +136,8 @@ function generateICS(days: LunarDay[], calendarYear: number): string {
     'PRODID:-//FacilAbo//Calendrier Lunaire Jardin//FR',
     'METHOD:PUBLISH',
     'CALSCALE:GREGORIAN',
-    'X-WR-CALNAME:Calendrier Lunaire Jardin',
+    `X-WR-CALNAME:${displayName}`,
+    `NAME:${displayName}`,
     `X-WR-CALDESC:Jardinez avec la lune - Conseils quotidiens basés sur les cycles lunaires (Données ${calendarYear})`,
     'X-WR-TIMEZONE:Europe/Paris',
     'BEGIN:VTIMEZONE',
