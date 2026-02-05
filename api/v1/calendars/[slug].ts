@@ -64,6 +64,7 @@ export default async function handler(
     });
   }
 
+  const displayName = `${mapping.frenchName} (FacilAbo)`;
   const retryLogger = createRetryLogger(`calendar:${slug}`);
   const cacheKey = `v1:ics:${slug}`;
 
@@ -117,16 +118,30 @@ export default async function handler(
     icsContent = filteredLines.join('\r\n');
     if (!icsContent.endsWith('\r\n')) icsContent += '\r\n';
 
-    // Replace or add X-WR-CALNAME with French name
+    // Replace or add X-WR-CALNAME with French name (suffix "(FacilAbo)" to distinguish in Apple Calendar)
     if (icsContent.includes('X-WR-CALNAME:')) {
       icsContent = icsContent.replace(
         /X-WR-CALNAME:.*/g,
-        `X-WR-CALNAME:${mapping.frenchName}`
+        `X-WR-CALNAME:${displayName}`
       );
     } else {
       icsContent = icsContent.replace(
         'BEGIN:VCALENDAR',
-        `BEGIN:VCALENDAR\r\nX-WR-CALNAME:${mapping.frenchName}`
+        `BEGIN:VCALENDAR\r\nX-WR-CALNAME:${displayName}`
+      );
+    }
+
+    // Replace or add NAME (some clients use it as canonical calendar name)
+    if (icsContent.includes('\r\nNAME:') || icsContent.startsWith('NAME:')) {
+      icsContent = icsContent.replace(
+        /(^|\r\n)NAME:.*/g,
+        `$1NAME:${displayName}`
+      );
+    } else {
+      // Insert NAME right after X-WR-CALNAME (header area)
+      icsContent = icsContent.replace(
+        /X-WR-CALNAME:.*\r\n/,
+        (match) => `${match}NAME:${displayName}\r\n`
       );
     }
 
