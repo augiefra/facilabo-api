@@ -24,6 +24,13 @@ jobs:
       - name: Check API Health
         id: health
         run: |
+          # IMPORTANT: This workflow is a monitor, not a CI gate.
+          # GitHub Actions uses `bash -e -o pipefail` by default, which can mark the run as "failed"
+          # on transient network/JQ parsing errors and spam email notifications.
+          # We explicitly disable fail-fast here and rely on Issues/comments for alerting.
+          set +e
+          set +o pipefail
+
           RESPONSE=$(curl -sS --connect-timeout 5 --max-time 15 -w "\n%{http_code}" https://facilabo-api.vercel.app/api/v1/health/status || printf "\n000")
           HTTP_CODE=$(echo "$RESPONSE" | tail -n 1)
           BODY=$(echo "$RESPONSE" | sed '$d')
@@ -61,6 +68,9 @@ jobs:
           else
             echo "✅ API is healthy: $MESSAGE (down=$DOWN, criticalDown=$CRITICAL_DOWN)"
           fi
+
+          # Never fail the workflow (no "run failed" emails).
+          exit 0
 
       - name: Create Issue on Failure
         if: steps.health.outputs.should_alert == 'true'
