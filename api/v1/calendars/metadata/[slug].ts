@@ -12,12 +12,7 @@
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import {
-  F1_CALENDARS,
-  MOTOGP_CALENDARS,
-  NASCAR_CALENDARS,
-  NBA_CALENDARS,
-  FOOTBALL_TEAMS,
-  RUGBY_TEAMS,
+  getMapping,
   CalendarMapping
 } from '../../../../lib/calendar-mappings';
 import { fetchWithRetry, RETRY_CONFIGS, createRetryLogger } from '../../../../lib/retry-utils';
@@ -50,16 +45,6 @@ interface ApiResponse {
     timestamp: string;
   };
 }
-
-// All calendar mappings
-const ALL_CALENDARS: Record<string, CalendarMapping> = {
-  ...F1_CALENDARS,
-  ...MOTOGP_CALENDARS,
-  ...NASCAR_CALENDARS,
-  ...NBA_CALENDARS,
-  ...FOOTBALL_TEAMS,
-  ...RUGBY_TEAMS,
-};
 
 /**
  * Parse ICS content and extract events
@@ -180,7 +165,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   // Find the calendar mapping
-  const mapping = ALL_CALENDARS[slug];
+  const mapping: CalendarMapping | undefined = getMapping(slug);
 
   if (!mapping) {
     return res.status(404).json({
