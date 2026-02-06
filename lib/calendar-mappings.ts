@@ -47,6 +47,11 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     frenchName: 'Culture Cérémonies',
     description: 'Oscars, Césars, Grammys, Emmy Awards'
   },
+  'culture-tech-gaming': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/culture/tech-gaming.ics',
+    frenchName: 'Conférences Tech/Gaming',
+    description: 'CES, NVIDIA GTC, PAX, Cloud Next, Summer Game Fest, SIGGRAPH, gamescom dev, BlizzCon'
+  },
   'religion-chretienne': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/religion/chretienne.ics',
     frenchName: 'Fêtes Chrétiennes',
