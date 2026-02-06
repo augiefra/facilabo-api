@@ -77,6 +77,11 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     frenchName: 'Fêtes Sikhes',
     description: 'Vaisakhi'
   },
+  'religion-saints-francais': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/religion/saints-francais.ics',
+    frenchName: 'Saints Français',
+    description: 'Saints francais majeurs et saints du jour'
+  },
   // Compatibilité legacy (ne pas supprimer avant migration complète des clients)
   'religion-multi-cultes': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/religion/multi-cultes.ics',
