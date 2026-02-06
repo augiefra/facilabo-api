@@ -80,7 +80,7 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
   'religion-saints-francais': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/religion/saints-francais.ics',
     frenchName: 'Saints Français',
-    description: 'Saints francais majeurs et saints du jour'
+    description: 'Saint du jour (calendrier quotidien)'
   },
   // Compatibilité legacy (ne pas supprimer avant migration complète des clients)
   'religion-multi-cultes': {
