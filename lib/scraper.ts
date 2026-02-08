@@ -14,6 +14,65 @@ import { fetchWithRetry, createRetryLogger, RETRY_CONFIGS } from './retry-utils'
 
 const BASE_URL = 'https://www.footmercato.net/programme-tv/france/ligue-1';
 
+const CHANNEL_PRIORITY: ChannelKey[] = [
+  'ligue1plus',
+  'canalplus',
+  'beinsports',
+  'amazonprime',
+  'francetv',
+  'dazn',
+];
+
+type ChannelCandidate = { name: string; key: ChannelKey };
+
+function addMappedChannelsFromText(text: string, candidates: ChannelCandidate[]): void {
+  if (!text) return;
+  const textLower = text.toLowerCase();
+
+  for (const [key, value] of Object.entries(CHANNEL_MAPPING)) {
+    if (textLower.includes(key)) {
+      const exists = candidates.some(c => c.key === value.key);
+      if (!exists) {
+        candidates.push({ name: value.name, key: value.key });
+      }
+    }
+  }
+}
+
+function selectBestChannel(el: cheerio.Cheerio<any>, $: cheerio.CheerioAPI): ChannelCandidate {
+  const candidates: ChannelCandidate[] = [];
+
+  // 1) Prefer explicit affiliation wording like "Ligue 1+ via DAZN"
+  const affiliationLabel =
+    el.nextAll('a.affiliationBroadcast').first().attr('data-track-label') ||
+    el.nextAll('a.affiliationBroadcast').first().text() ||
+    '';
+  if (affiliationLabel) {
+    const lower = affiliationLabel.toLowerCase();
+    const viaIndex = lower.indexOf(' via ');
+    if (viaIndex > 0) {
+      addMappedChannelsFromText(lower.slice(0, viaIndex), candidates);
+    }
+    addMappedChannelsFromText(lower, candidates);
+  }
+
+  // 2) Then use explicit broadcast logos area (avoid team logos noise)
+  el.find('.matchFull__broadcasts img').each((_, img) => {
+    const alt = $(img).attr('alt') || '';
+    addMappedChannelsFromText(alt, candidates);
+  });
+
+  // 3) Fallback: generic text in match block
+  addMappedChannelsFromText(el.text(), candidates);
+
+  for (const priority of CHANNEL_PRIORITY) {
+    const matched = candidates.find(c => c.key === priority);
+    if (matched) return matched;
+  }
+
+  return { name: 'unknown', key: 'unknown' };
+}
+
 /**
  * Parse French date string to ISO format
  */
@@ -117,32 +176,9 @@ export async function scrapeTVSchedule(): Promise<TVScheduleResponse> {
 
     if (!homeTeam || !awayTeam) return;
 
-    // Extract channel from img alt text
-    let channel = 'unknown';
-    let channelKey: ChannelKey = 'unknown';
-
-    el.find('img').each((_, img) => {
-      const alt = $(img).attr('alt')?.toLowerCase() || '';
-      for (const [key, value] of Object.entries(CHANNEL_MAPPING)) {
-        if (alt.includes(key)) {
-          channel = value.name;
-          channelKey = value.key;
-          return false; // break
-        }
-      }
-    });
-
-    // Also check text-based channel mentions
-    if (channelKey === 'unknown') {
-      const textLower = el.text().toLowerCase();
-      for (const [key, value] of Object.entries(CHANNEL_MAPPING)) {
-        if (textLower.includes(key)) {
-          channel = value.name;
-          channelKey = value.key;
-          break;
-        }
-      }
-    }
+    const selectedChannel = selectBestChannel(el, $);
+    const channel = selectedChannel.name;
+    const channelKey = selectedChannel.key;
 
     matches.push({
       id: matchId,
