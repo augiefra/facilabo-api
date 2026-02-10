@@ -32,6 +32,36 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     frenchName: 'Soldes France',
     description: "Dates des soldes d'hiver et d'été en France"
   },
+  'belgique-feries-remplacement': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/belgique/feries-remplacement.ics',
+    frenchName: 'Belgique - Fériés et remplacement entreprises',
+    description: 'Jours fériés légaux belges + rappels de remplacement en entreprise'
+  },
+  'belgique-vacances-fwb': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/belgique/vacances-fwb.ics',
+    frenchName: 'Belgique - Vacances scolaires FWB',
+    description: 'Vacances scolaires de la Fédération Wallonie-Bruxelles (2026-2031)'
+  },
+  'belgique-vacances-vlaanderen': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/belgique/vacances-vlaanderen.ics',
+    frenchName: 'Belgique - Vacances scolaires Vlaanderen',
+    description: 'Vacances scolaires en Flandre (2026-2031)'
+  },
+  'belgique-soldes-attente': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/belgique/soldes-attente.ics',
+    frenchName: 'Belgique - Soldes et période d’attente',
+    description: 'Soldes légaux belges et périodes d’attente pré-soldes'
+  },
+  'belgique-fetes-institutionnelles': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/belgique/fetes-institutionnelles.ics',
+    frenchName: 'Belgique - Fêtes institutionnelles',
+    description: 'Repères institutionnels belges (fédéral, régions, communautés)'
+  },
+  'belgique-grands-evenements': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/belgique/grands-evenements.ics',
+    frenchName: 'Belgique - Grands événements',
+    description: 'Festivals, traditions et événements sportifs belges'
+  },
   'fiscal-france': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/fiscal/france.ics',
     frenchName: 'Calendrier Fiscal France',
