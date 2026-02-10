@@ -13,6 +13,7 @@
  */
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { getAbuseHealthSummary } from '../../../lib/abuse-monitor';
 
 interface SourceStatus {
   name: string;
@@ -35,6 +36,12 @@ interface HealthResponse {
   };
   timestamp: string;
   uptimeMessage: string;
+  abuseSummary?: {
+    mode: 'observe' | 'enforce';
+    provider: 'upstash' | 'disabled';
+    requests5m: number;
+    suspicious: boolean;
+  };
 }
 
 // Sources to monitor with criticality flag
@@ -291,12 +298,20 @@ export default async function handler(
       uptimeMessage = `CRITICAL - ${summary.criticalDown} critical sources down: ${criticalNames || 'multiple failures'}`;
     }
 
+    let abuseSummary: HealthResponse['abuseSummary'];
+    try {
+      abuseSummary = await getAbuseHealthSummary();
+    } catch {
+      abuseSummary = undefined;
+    }
+
     const response: HealthResponse = {
       overall,
       sources: results,
       summary,
       timestamp: new Date().toISOString(),
       uptimeMessage,
+      abuseSummary,
     };
 
     // Return 503 for unhealthy so UptimeRobot detects it as down

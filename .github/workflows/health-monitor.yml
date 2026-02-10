@@ -21,52 +21,73 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check API Health
+      - name: Check API Health (2 consecutive samples)
         id: health
         run: |
-          # IMPORTANT: This workflow is a monitor, not a CI gate.
-          # GitHub Actions uses `bash -e -o pipefail` by default, which can mark the run as "failed"
-          # on transient network/JQ parsing errors and spam email notifications.
-          # We explicitly disable fail-fast here and rely on Issues/comments for alerting.
           set +e
           set +o pipefail
 
-          RESPONSE=$(curl -sS --connect-timeout 5 --max-time 15 -w "\n%{http_code}" https://facilabo-api.vercel.app/api/v1/health/status || printf "\n000")
-          HTTP_CODE=$(echo "$RESPONSE" | tail -n 1)
-          BODY=$(echo "$RESPONSE" | sed '$d')
+          fetch_health () {
+            local response http_code body overall message critical_down down
+            response=$(curl -sS --connect-timeout 5 --max-time 15 -w "\n%{http_code}" https://facilabo-api.vercel.app/api/v1/health/status || printf "\n000")
+            http_code=$(echo "$response" | tail -n 1)
+            body=$(echo "$response" | sed '$d')
+            overall=$(echo "$body" | jq -r '.overall // "unknown"' 2>/dev/null || echo "unknown")
+            message=$(echo "$body" | jq -r '.uptimeMessage // "No message"' 2>/dev/null || echo "No message")
+            critical_down=$(echo "$body" | jq -r '.summary.criticalDown // 0' 2>/dev/null || echo "0")
+            down=$(echo "$body" | jq -r '.summary.down // 0' 2>/dev/null || echo "0")
+            echo "${http_code}|${overall}|${message}|${critical_down}|${down}"
+          }
 
-          echo "HTTP Status: $HTTP_CODE"
-          echo "Response: $BODY"
+          is_alert_condition () {
+            local http_code="$1"
+            local overall="$2"
+            if [ "$http_code" != "200" ]; then
+              return 0
+            fi
+            if [ "$overall" = "unhealthy" ]; then
+              return 0
+            fi
+            return 1
+          }
 
-          # Extract key info
-          OVERALL=$(echo "$BODY" | jq -r '.overall // "unknown"' 2>/dev/null || echo "unknown")
-          MESSAGE=$(echo "$BODY" | jq -r '.uptimeMessage // "No message"' 2>/dev/null || echo "No message")
-          CRITICAL_DOWN=$(echo "$BODY" | jq -r '.summary.criticalDown // 0' 2>/dev/null || echo "0")
-          DOWN=$(echo "$BODY" | jq -r '.summary.down // 0' 2>/dev/null || echo "0")
+          sample1=$(fetch_health)
+          IFS='|' read -r HTTP_CODE OVERALL MESSAGE CRITICAL_DOWN DOWN <<< "$sample1"
 
-          echo "overall=$OVERALL" >> $GITHUB_OUTPUT
-          echo "message=$MESSAGE" >> $GITHUB_OUTPUT
-          echo "http_code=$HTTP_CODE" >> $GITHUB_OUTPUT
-          echo "critical_down=$CRITICAL_DOWN" >> $GITHUB_OUTPUT
-          echo "down=$DOWN" >> $GITHUB_OUTPUT
-
-          # Decide alert policy (but NEVER fail the workflow).
-          # Reason: we want Issues/alerts without spamming GitHub Actions "run failed" emails.
           SHOULD_ALERT="false"
-          if [ "$HTTP_CODE" != "200" ]; then
-            SHOULD_ALERT="true"
-          fi
-          # Alert only when the system is truly unhealthy (not just degraded).
-          if [ "$OVERALL" = "unhealthy" ]; then
-            SHOULD_ALERT="true"
+          ALERT_REASON="single-sample-healthy"
+
+          if is_alert_condition "$HTTP_CODE" "$OVERALL"; then
+            echo "First sample unhealthy. Running confirmation sample in 20s..."
+            sleep 20
+            sample2=$(fetch_health)
+            IFS='|' read -r HTTP_CODE_2 OVERALL_2 MESSAGE_2 CRITICAL_DOWN_2 DOWN_2 <<< "$sample2"
+
+            if is_alert_condition "$HTTP_CODE_2" "$OVERALL_2"; then
+              SHOULD_ALERT="true"
+              ALERT_REASON="confirmed-2-consecutive-unhealthy-samples"
+              HTTP_CODE="$HTTP_CODE_2"
+              OVERALL="$OVERALL_2"
+              MESSAGE="$MESSAGE_2"
+              CRITICAL_DOWN="$CRITICAL_DOWN_2"
+              DOWN="$DOWN_2"
+            else
+              ALERT_REASON="transient-failure-first-sample-only"
+            fi
           fi
 
-          echo "should_alert=$SHOULD_ALERT" >> $GITHUB_OUTPUT
+          echo "overall=$OVERALL" >> "$GITHUB_OUTPUT"
+          echo "message=$MESSAGE" >> "$GITHUB_OUTPUT"
+          echo "http_code=$HTTP_CODE" >> "$GITHUB_OUTPUT"
+          echo "critical_down=$CRITICAL_DOWN" >> "$GITHUB_OUTPUT"
+          echo "down=$DOWN" >> "$GITHUB_OUTPUT"
+          echo "should_alert=$SHOULD_ALERT" >> "$GITHUB_OUTPUT"
+          echo "alert_reason=$ALERT_REASON" >> "$GITHUB_OUTPUT"
 
           if [ "$SHOULD_ALERT" = "true" ]; then
-            echo "::warning::API is unhealthy/degraded (alert): HTTP $HTTP_CODE - $MESSAGE (down=$DOWN, criticalDown=$CRITICAL_DOWN)"
+            echo "::warning::API unhealthy confirmed: HTTP $HTTP_CODE - $MESSAGE (down=$DOWN, criticalDown=$CRITICAL_DOWN)"
           else
-            echo "✅ API is healthy: $MESSAGE (down=$DOWN, criticalDown=$CRITICAL_DOWN)"
+            echo "✅ API healthy/noise filtered: $MESSAGE (down=$DOWN, criticalDown=$CRITICAL_DOWN, reason=$ALERT_REASON)"
           fi
 
           # Never fail the workflow (no "run failed" emails).
@@ -84,24 +105,8 @@ jobs:
               const httpCode = '${{ steps.health.outputs.http_code }}';
               const criticalDown = '${{ steps.health.outputs.critical_down }}';
               const down = '${{ steps.health.outputs.down }}';
+              const alertReason = '${{ steps.health.outputs.alert_reason }}';
               const timestamp = new Date().toISOString();
-
-              // Require 2 consecutive failures before opening an issue (reduce noise).
-              const workflowId = 'health-monitor.yml';
-              const runs = await github.rest.actions.listWorkflowRuns({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                workflow_id: workflowId,
-                per_page: 5
-              });
-
-              const previousRun = runs.data.workflow_runs.find(run => run.id !== context.runId);
-              const previousFailed = previousRun && previousRun.conclusion === 'failure';
-
-              if (!previousFailed) {
-                console.log('First failure detected. Waiting for a second consecutive failure before creating an issue.');
-                return;
-              }
 
               // Check if there's already an open issue
               const issues = await github.rest.issues.listForRepo({
@@ -120,7 +125,7 @@ jobs:
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: issues.data[0].number,
-                  body: `⚠️ **Health check still failing**\n\n- Time: ${timestamp}\n- HTTP Code: ${httpCode}\n- Status: ${overall}\n- Message: ${message}\n- Sources down: ${down}\n- Critical sources down: ${criticalDown}`
+                  body: `⚠️ **Health check still failing**\n\n- Time: ${timestamp}\n- HTTP Code: ${httpCode}\n- Status: ${overall}\n- Message: ${message}\n- Sources down: ${down}\n- Critical sources down: ${criticalDown}\n- Confirmation: ${alertReason}`
                 });
                 return;
               }
@@ -144,6 +149,7 @@ jobs:
             | Sources down | ${down} |
             | Sources critiques down | ${criticalDown} |
             | Message | ${message} |
+            | Confirmation | ${alertReason} |
             | Timestamp | ${timestamp} |
 
             ### Actions
@@ -159,7 +165,30 @@ jobs:
               console.log('Issue creation failed (ignored):', error);
             }
 
+      - name: Send Email Alert
+        if: steps.health.outputs.should_alert == 'true'
+        continue-on-error: true
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: ${{ secrets.ALERT_SMTP_HOST }}
+          server_port: ${{ secrets.ALERT_SMTP_PORT }}
+          secure: true
+          username: ${{ secrets.ALERT_SMTP_USER }}
+          password: ${{ secrets.ALERT_SMTP_PASS }}
+          from: ${{ secrets.ALERT_EMAIL_FROM }}
+          to: ${{ secrets.ALERT_EMAIL_TO }}
+          subject: "[FacilAbo] Health alert - ${{ steps.health.outputs.message }}"
+          body: |
+            Health alert confirmed (2 consecutive samples).
+            HTTP: ${{ steps.health.outputs.http_code }}
+            Overall: ${{ steps.health.outputs.overall }}
+            Message: ${{ steps.health.outputs.message }}
+            Down: ${{ steps.health.outputs.down }}
+            Critical down: ${{ steps.health.outputs.critical_down }}
+            Timestamp: ${{ github.run_id }}
+
       - name: Close Resolved Issues
+        id: close_issues
         if: steps.health.outputs.should_alert != 'true'
         continue-on-error: true
         uses: actions/github-script@v7
@@ -172,6 +201,7 @@ jobs:
               state: 'open',
               labels: 'health-alert'
             });
+            core.setOutput('had_open_issue', issues.data.length > 0 ? 'true' : 'false');
 
             // Close them since health is restored
             for (const issue of issues.data) {
@@ -191,3 +221,21 @@ jobs:
 
               console.log(`Closed issue #${issue.number}`);
             }
+
+      - name: Send Email Resolved
+        if: steps.health.outputs.should_alert != 'true' && steps.close_issues.outputs.had_open_issue == 'true'
+        continue-on-error: true
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: ${{ secrets.ALERT_SMTP_HOST }}
+          server_port: ${{ secrets.ALERT_SMTP_PORT }}
+          secure: true
+          username: ${{ secrets.ALERT_SMTP_USER }}
+          password: ${{ secrets.ALERT_SMTP_PASS }}
+          from: ${{ secrets.ALERT_EMAIL_FROM }}
+          to: ${{ secrets.ALERT_EMAIL_TO }}
+          subject: "[FacilAbo] Health resolved"
+          body: |
+            L'API est de nouveau en bonne santé.
+            Message: ${{ steps.health.outputs.message }}
+            Timestamp: ${{ github.run_id }}

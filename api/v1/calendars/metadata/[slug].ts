@@ -17,6 +17,7 @@ import {
 } from '../../../../lib/calendar-mappings';
 import { fetchWithRetry, RETRY_CONFIGS, createRetryLogger } from '../../../../lib/retry-utils';
 import { getCache, getStaleCache, setCache } from '../../../../lib/v1-utils';
+import { trackAbuseRequest } from '../../../../lib/abuse-monitor';
 
 interface NextEvent {
   summary: string;
@@ -160,6 +161,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).json({
       success: false,
       error: 'Missing slug parameter',
+      meta: { version: '1.0', timestamp: new Date().toISOString() }
+    } as ApiResponse);
+  }
+
+  const abuseDecision = await trackAbuseRequest(req, { endpoint: 'metadata', slug });
+  Object.entries(abuseDecision.headers).forEach(([key, value]) => res.setHeader(key, value));
+  if (abuseDecision.blocked) {
+    return res.status(429).json({
+      success: false,
+      error: 'Too many requests',
       meta: { version: '1.0', timestamp: new Date().toISOString() }
     } as ApiResponse);
   }

@@ -16,6 +16,7 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { getMapping, getAllMappings } from '../../../lib/calendar-mappings';
 import { fetchWithRetry, createRetryLogger, RETRY_CONFIGS } from '../../../lib/retry-utils';
 import { getCache, getStaleCache, setCache, CACHE_TTL } from '../../../lib/v1-utils';
+import { trackAbuseRequest } from '../../../lib/abuse-monitor';
 
 export default async function handler(
   req: VercelRequest,
@@ -38,6 +39,19 @@ export default async function handler(
 
   if (!slug || typeof slug !== 'string') {
     return res.status(400).json({ error: 'Missing calendar slug' });
+  }
+
+  const abuseDecision = await trackAbuseRequest(req, { endpoint: 'calendars', slug });
+  Object.entries(abuseDecision.headers).forEach(([key, value]) => res.setHeader(key, value));
+  if (abuseDecision.blocked) {
+    if (req.method === 'HEAD') {
+      return res.status(429).end();
+    }
+    return res.status(429).json({
+      error: 'Too many requests',
+      code: abuseDecision.reason || 'rate_limit_exceeded',
+      mode: abuseDecision.mode,
+    });
   }
 
   // Handle "list" endpoint
@@ -64,9 +78,11 @@ export default async function handler(
     });
   }
 
-  const displayName = `${mapping.frenchName} (FacilAbo)`;
+  const suffixParam = typeof req.query.suffix === 'string' ? req.query.suffix.toLowerCase() : '';
+  const disableSuffix = suffixParam === 'off' || suffixParam === '0' || suffixParam === 'false';
+  const displayName = disableSuffix ? mapping.frenchName : `${mapping.frenchName} (FacilAbo)`;
   const retryLogger = createRetryLogger(`calendar:${slug}`);
-  const cacheKey = `v1:ics:${slug}`;
+  const cacheKey = `v1:ics:${slug}:suffix:${disableSuffix ? 'off' : 'on'}`;
 
   const cached = getCache<string>(cacheKey);
   if (cached) {
