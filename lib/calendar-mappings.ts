@@ -32,6 +32,11 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     frenchName: 'Soldes France',
     description: "Dates des soldes d'hiver et d'été en France"
   },
+  'changement-heure-france': {
+    sourceUrl: 'https://www.data.gouv.fr/api/1/datasets/r/44a31e90-3391-41aa-9c6a-18fae257b9e4',
+    frenchName: "Changement d'heure France",
+    description: "Passage officiel heure d'été / heure d'hiver (Europe/Paris)"
+  },
   'feries-metropole': {
     sourceUrl: 'https://etalab.github.io/jours-feries-france-data/ics/jours_feries_metropole.ics',
     frenchName: 'Jours fériés France',
