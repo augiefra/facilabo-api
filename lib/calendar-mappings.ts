@@ -37,6 +37,71 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     frenchName: "Changement d'heure France",
     description: "Passage officiel heure d'été / heure d'hiver (Europe/Paris)"
   },
+  'vacances-zone-a': {
+    sourceUrl: 'https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/Zone-A.ics',
+    frenchName: 'Vacances scolaires Zone A',
+    description: "Calendrier scolaire officiel - Zone A (ministère de l'Éducation nationale)"
+  },
+  'vacances-zone-b': {
+    sourceUrl: 'https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/Zone-B.ics',
+    frenchName: 'Vacances scolaires Zone B',
+    description: "Calendrier scolaire officiel - Zone B (ministère de l'Éducation nationale)"
+  },
+  'vacances-zone-c': {
+    sourceUrl: 'https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/Zone-C.ics',
+    frenchName: 'Vacances scolaires Zone C',
+    description: "Calendrier scolaire officiel - Zone C (ministère de l'Éducation nationale)"
+  },
+  'vacances-corse': {
+    sourceUrl: 'https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/Corse.ics',
+    frenchName: 'Vacances scolaires Corse',
+    description: 'Calendrier scolaire officiel - Académie de Corse'
+  },
+  'vacances-guadeloupe': {
+    sourceUrl: 'https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/Guadeloupe.ics',
+    frenchName: 'Vacances scolaires Guadeloupe',
+    description: 'Calendrier scolaire officiel - Guadeloupe'
+  },
+  'vacances-guyane': {
+    sourceUrl: 'https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/Guyane.ics',
+    frenchName: 'Vacances scolaires Guyane',
+    description: 'Calendrier scolaire officiel - Guyane'
+  },
+  'vacances-martinique': {
+    sourceUrl: 'https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/Martinique.ics',
+    frenchName: 'Vacances scolaires Martinique',
+    description: 'Calendrier scolaire officiel - Martinique'
+  },
+  'vacances-mayotte': {
+    sourceUrl: 'https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/Mayotte.ics',
+    frenchName: 'Vacances scolaires Mayotte',
+    description: 'Calendrier scolaire officiel - Mayotte'
+  },
+  'vacances-la-reunion': {
+    sourceUrl: 'https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/Reunion.ics',
+    frenchName: 'Vacances scolaires La Réunion',
+    description: 'Calendrier scolaire officiel - La Réunion'
+  },
+  'vacances-polynesie': {
+    sourceUrl: 'https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/Polynesie.ics',
+    frenchName: 'Vacances scolaires Polynésie française',
+    description: 'Calendrier scolaire officiel - Polynésie française'
+  },
+  'vacances-nouvelle-caledonie': {
+    sourceUrl: 'https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/NouvelleCaledonie.ics',
+    frenchName: 'Vacances scolaires Nouvelle-Calédonie',
+    description: 'Calendrier scolaire officiel - Nouvelle-Calédonie'
+  },
+  'vacances-saint-pierre-et-miquelon': {
+    sourceUrl: 'https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/SaintPierreEtMiquelon.ics',
+    frenchName: 'Vacances scolaires Saint-Pierre-et-Miquelon',
+    description: 'Calendrier scolaire officiel - Saint-Pierre-et-Miquelon'
+  },
+  'vacances-wallis-et-futuna': {
+    sourceUrl: 'https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/WallisEtFutuna.ics',
+    frenchName: 'Vacances scolaires Wallis-et-Futuna',
+    description: 'Calendrier scolaire officiel - Wallis-et-Futuna'
+  },
   'feries-metropole': {
     sourceUrl: 'https://etalab.github.io/jours-feries-france-data/ics/jours_feries_metropole.ics',
     frenchName: 'Jours fériés France',
