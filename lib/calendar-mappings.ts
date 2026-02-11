@@ -32,6 +32,71 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     frenchName: 'Soldes France',
     description: "Dates des soldes d'hiver et d'été en France"
   },
+  'feries-metropole': {
+    sourceUrl: 'https://etalab.github.io/jours-feries-france-data/ics/jours_feries_metropole.ics',
+    frenchName: 'Jours fériés France',
+    description: 'Tous les jours fériés en France métropolitaine'
+  },
+  'feries-alsace-moselle': {
+    sourceUrl: 'https://etalab.github.io/jours-feries-france-data/ics/jours_feries_alsace-moselle.ics',
+    frenchName: 'Jours fériés Alsace-Moselle',
+    description: 'Jours fériés spécifiques (Vendredi Saint, Saint-Étienne)'
+  },
+  'feries-guadeloupe': {
+    sourceUrl: 'https://etalab.github.io/jours-feries-france-data/ics/jours_feries_guadeloupe.ics',
+    frenchName: 'Jours fériés Guadeloupe',
+    description: "Jours fériés + abolition de l'esclavage (27 mai)"
+  },
+  'feries-guyane': {
+    sourceUrl: 'https://etalab.github.io/jours-feries-france-data/ics/jours_feries_guyane.ics',
+    frenchName: 'Jours fériés Guyane',
+    description: "Jours fériés + abolition de l'esclavage (10 juin)"
+  },
+  'feries-martinique': {
+    sourceUrl: 'https://etalab.github.io/jours-feries-france-data/ics/jours_feries_martinique.ics',
+    frenchName: 'Jours fériés Martinique',
+    description: "Jours fériés + abolition de l'esclavage (22 mai)"
+  },
+  'feries-la-reunion': {
+    sourceUrl: 'https://etalab.github.io/jours-feries-france-data/ics/jours_feries_la-reunion.ics',
+    frenchName: 'Jours fériés La Réunion',
+    description: "Jours fériés + abolition de l'esclavage (20 décembre)"
+  },
+  'feries-mayotte': {
+    sourceUrl: 'https://etalab.github.io/jours-feries-france-data/ics/jours_feries_mayotte.ics',
+    frenchName: 'Jours fériés Mayotte',
+    description: "Jours fériés + abolition de l'esclavage (27 avril)"
+  },
+  'feries-nouvelle-caledonie': {
+    sourceUrl: 'https://etalab.github.io/jours-feries-france-data/ics/jours_feries_nouvelle-caledonie.ics',
+    frenchName: 'Jours fériés Nouvelle-Calédonie',
+    description: 'Jours fériés spécifiques à la Nouvelle-Calédonie'
+  },
+  'feries-polynesie-francaise': {
+    sourceUrl: 'https://etalab.github.io/jours-feries-france-data/ics/jours_feries_polynesie-francaise.ics',
+    frenchName: 'Jours fériés Polynésie',
+    description: 'Jours fériés spécifiques à la Polynésie française'
+  },
+  'feries-saint-barthelemy': {
+    sourceUrl: 'https://etalab.github.io/jours-feries-france-data/ics/jours_feries_saint-barthelemy.ics',
+    frenchName: 'Jours fériés Saint-Barthélemy',
+    description: "Jours fériés + abolition de l'esclavage (9 octobre)"
+  },
+  'feries-saint-martin': {
+    sourceUrl: 'https://etalab.github.io/jours-feries-france-data/ics/jours_feries_saint-martin.ics',
+    frenchName: 'Jours fériés Saint-Martin',
+    description: "Jours fériés + abolition de l'esclavage (28 mai)"
+  },
+  'feries-saint-pierre-et-miquelon': {
+    sourceUrl: 'https://etalab.github.io/jours-feries-france-data/ics/jours_feries_saint-pierre-et-miquelon.ics',
+    frenchName: 'Jours fériés Saint-Pierre-et-Miquelon',
+    description: 'Jours fériés spécifiques à Saint-Pierre-et-Miquelon'
+  },
+  'feries-wallis-et-futuna': {
+    sourceUrl: 'https://etalab.github.io/jours-feries-france-data/ics/jours_feries_wallis-et-futuna.ics',
+    frenchName: 'Jours fériés Wallis-et-Futuna',
+    description: 'Jours fériés spécifiques à Wallis-et-Futuna'
+  },
   'belgique-feries-remplacement': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/belgique/feries-remplacement.ics',
     frenchName: 'Belgique - Fériés et remplacement entreprises',
