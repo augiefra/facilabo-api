@@ -23,6 +23,7 @@ interface NextEvent {
   summary: string;
   start: string;  // ISO timestamp
   daysUntil: number;
+  timePrecision?: TimePrecision;
 }
 
 interface FeedMetadata {
@@ -47,11 +48,31 @@ interface ApiResponse {
   };
 }
 
+type TimePrecision = 'time' | 'day';
+
+interface ParsedDateToken {
+  raw: string;
+  value: string;
+  hasValueDateParam: boolean;
+  isDateOnly: boolean;
+  isMidnightValue: boolean;
+  parsedDate?: Date;
+}
+
+interface ParsedIcsEvent {
+  summary: string;
+  start: Date;
+  end?: Date;
+  dtstart: ParsedDateToken;
+  dtend?: ParsedDateToken;
+  hasMicrosoftAllDay: boolean;
+}
+
 /**
  * Parse ICS content and extract events
  */
-function parseIcsEvents(icsContent: string): Array<{ summary: string; start: Date; end?: Date }> {
-  const events: Array<{ summary: string; start: Date; end?: Date }> = [];
+function parseIcsEvents(icsContent: string): ParsedIcsEvent[] {
+  const events: ParsedIcsEvent[] = [];
 
   // Split into VEVENT blocks
   const eventBlocks = icsContent.split('BEGIN:VEVENT');
@@ -61,76 +82,124 @@ function parseIcsEvents(icsContent: string): Array<{ summary: string; start: Dat
     const endIndex = block.indexOf('END:VEVENT');
     if (endIndex === -1) continue;
 
-    const eventContent = block.substring(0, endIndex);
+    // Unfold ICS line continuations: CRLF + space/tab.
+    const eventContent = block
+      .substring(0, endIndex)
+      .replace(/\r?\n[ \t]/g, '');
 
     // Extract SUMMARY
     const summaryMatch = eventContent.match(/SUMMARY[^:]*:(.+?)(?:\r?\n(?! )|\r?\n$)/s);
     const summary = summaryMatch ? summaryMatch[1].replace(/\r?\n\s*/g, '').trim() : '';
 
-    // Extract DTSTART
-    const dtstartMatch = eventContent.match(/DTSTART[^:]*:(\d{8}(?:T\d{6}Z?)?)/);
-    if (!dtstartMatch) continue;
+    const dtstart = parseIcsDateToken(eventContent, 'DTSTART');
+    if (!dtstart?.parsedDate) continue;
 
-    const dtstart = dtstartMatch[1];
-    let startDate: Date;
+    const dtend = parseIcsDateToken(eventContent, 'DTEND');
+    const hasMicrosoftAllDay = /X-MICROSOFT-CDO-ALLDAYEVENT:TRUE/i.test(eventContent);
 
-    if (dtstart.length === 8) {
-      // All-day event: YYYYMMDD
-      startDate = new Date(
-        parseInt(dtstart.substring(0, 4)),
-        parseInt(dtstart.substring(4, 6)) - 1,
-        parseInt(dtstart.substring(6, 8))
-      );
-    } else {
-      // Timed event: YYYYMMDDTHHMMSS or YYYYMMDDTHHMMSSZ
-      const year = parseInt(dtstart.substring(0, 4));
-      const month = parseInt(dtstart.substring(4, 6)) - 1;
-      const day = parseInt(dtstart.substring(6, 8));
-      const hour = parseInt(dtstart.substring(9, 11));
-      const minute = parseInt(dtstart.substring(11, 13));
-      const second = parseInt(dtstart.substring(13, 15));
-
-      if (dtstart.endsWith('Z')) {
-        startDate = new Date(Date.UTC(year, month, day, hour, minute, second));
-      } else {
-        startDate = new Date(year, month, day, hour, minute, second);
-      }
-    }
-
-    // Extract DTEND (optional)
-    const dtendMatch = eventContent.match(/DTEND[^:]*:(\d{8}(?:T\d{6}Z?)?)/);
-    let endDate: Date | undefined;
-
-    if (dtendMatch) {
-      const dtend = dtendMatch[1];
-      if (dtend.length === 8) {
-        endDate = new Date(
-          parseInt(dtend.substring(0, 4)),
-          parseInt(dtend.substring(4, 6)) - 1,
-          parseInt(dtend.substring(6, 8))
-        );
-      } else {
-        const year = parseInt(dtend.substring(0, 4));
-        const month = parseInt(dtend.substring(4, 6)) - 1;
-        const day = parseInt(dtend.substring(6, 8));
-        const hour = parseInt(dtend.substring(9, 11));
-        const minute = parseInt(dtend.substring(11, 13));
-        const second = parseInt(dtend.substring(13, 15));
-
-        if (dtend.endsWith('Z')) {
-          endDate = new Date(Date.UTC(year, month, day, hour, minute, second));
-        } else {
-          endDate = new Date(year, month, day, hour, minute, second);
-        }
-      }
-    }
-
-    if (summary && !isNaN(startDate.getTime())) {
-      events.push({ summary, start: startDate, end: endDate });
+    if (summary && !isNaN(dtstart.parsedDate.getTime())) {
+      events.push({
+        summary,
+        start: dtstart.parsedDate,
+        end: dtend?.parsedDate,
+        dtstart,
+        dtend,
+        hasMicrosoftAllDay
+      });
     }
   }
 
   return events;
+}
+
+function parseIcsDateToken(eventContent: string, propertyName: 'DTSTART' | 'DTEND'): ParsedDateToken | undefined {
+  const match = eventContent.match(new RegExp(`${propertyName}([^:]*):([^\\r\\n]+)`));
+  if (!match) return undefined;
+
+  const raw = match[0];
+  const params = (match[1] ?? '').toUpperCase();
+  const value = (match[2] ?? '').trim();
+  const hasValueDateParam = /;VALUE=DATE(?:;|$)/.test(params);
+  const isDateOnly = /^\d{8}$/.test(value);
+  const timePart = value.match(/^\d{8}T(\d{6})Z?$/)?.[1];
+  const isMidnightValue = isDateOnly || timePart === '000000';
+  const parsedDate = parseIcsDateValueToDate(value);
+
+  return {
+    raw,
+    value,
+    hasValueDateParam,
+    isDateOnly,
+    isMidnightValue,
+    parsedDate
+  };
+}
+
+function parseIcsDateValueToDate(value: string): Date | undefined {
+  if (/^\d{8}$/.test(value)) {
+    return new Date(
+      parseInt(value.substring(0, 4), 10),
+      parseInt(value.substring(4, 6), 10) - 1,
+      parseInt(value.substring(6, 8), 10)
+    );
+  }
+
+  if (/^\d{8}T\d{6}Z?$/.test(value)) {
+    const year = parseInt(value.substring(0, 4), 10);
+    const month = parseInt(value.substring(4, 6), 10) - 1;
+    const day = parseInt(value.substring(6, 8), 10);
+    const hour = parseInt(value.substring(9, 11), 10);
+    const minute = parseInt(value.substring(11, 13), 10);
+    const second = parseInt(value.substring(13, 15), 10);
+
+    if (value.endsWith('Z')) {
+      return new Date(Date.UTC(year, month, day, hour, minute, second));
+    }
+
+    return new Date(year, month, day, hour, minute, second);
+  }
+
+  return undefined;
+}
+
+function detectTimePrecision(event: ParsedIcsEvent): { precision: TimePrecision; rule: string } {
+  // Rule 1: DTSTART;VALUE=DATE
+  if (event.dtstart.hasValueDateParam) {
+    return { precision: 'day', rule: 'rule-1-value-date-param' };
+  }
+
+  // Rule 2: DTSTART value is YYYYMMDD
+  if (event.dtstart.isDateOnly) {
+    return { precision: 'day', rule: 'rule-2-date-only' };
+  }
+
+  // Rule 3: Microsoft explicit all-day marker
+  if (event.hasMicrosoftAllDay) {
+    return { precision: 'day', rule: 'rule-3-microsoft-flag' };
+  }
+
+  // Rule 4: fallback heuristic for full-day midnight spans
+  if (event.end && event.dtend?.isMidnightValue && event.dtstart.isMidnightValue) {
+    const durationMs = event.end.getTime() - event.start.getTime();
+    const dayMs = 24 * 60 * 60 * 1000;
+    if (durationMs >= dayMs && durationMs % dayMs === 0) {
+      return { precision: 'day', rule: 'rule-4-midnight-span' };
+    }
+  }
+
+  // Rule 5: default safety fallback
+  return { precision: 'time', rule: 'rule-5-default-time' };
+}
+
+function maybeLogTimePrecision(slug: string, event: ParsedIcsEvent, decision: { precision: TimePrecision; rule: string }): void {
+  if (process.env.METADATA_TIME_PRECISION_DEBUG !== '1') {
+    return;
+  }
+
+  console.info(
+    `[metadata][timePrecision] slug=${slug} precision=${decision.precision} rule=${decision.rule} ` +
+    `dtstart=${event.dtstart.value} dtend=${event.dtend?.value ?? 'none'}`
+  );
 }
 
 /**
@@ -232,6 +301,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       .sort((a, b) => a.start.getTime() - b.start.getTime());
 
     const nextEvent = upcomingEvents[0];
+    const nextEventTimePrecision = nextEvent ? detectTimePrecision(nextEvent) : undefined;
+    if (nextEvent && nextEventTimePrecision) {
+      maybeLogTimePrecision(slug, nextEvent, nextEventTimePrecision);
+    }
 
     // Calculate date range
     const allDates = events.map(e => e.start).sort((a, b) => a.getTime() - b.getTime());
@@ -247,7 +320,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       nextEvent: nextEvent ? {
         summary: nextEvent.summary,
         start: nextEvent.start.toISOString(),
-        daysUntil: daysUntil(nextEvent.start)
+        daysUntil: daysUntil(nextEvent.start),
+        timePrecision: nextEventTimePrecision?.precision
       } : undefined,
       lastUpdated: new Date().toISOString(),
       eventCount: events.length,
