@@ -175,6 +175,20 @@ const SOURCES_TO_CHECK = [
     method: 'HEAD' as const,
     critical: false,
   },
+  {
+    name: 'GitHub (Sport - Equipe de France Football)',
+    category: 'calendars',
+    url: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/france-foot-equipe-nationale.ics',
+    method: 'HEAD' as const,
+    critical: false,
+  },
+  {
+    name: 'GitHub (Sport - Equipe de France Rugby)',
+    category: 'calendars',
+    url: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/france-rugby-equipe-nationale.ics',
+    method: 'HEAD' as const,
+    critical: false,
+  },
   // Scraping sources (non-critical)
   {
     name: 'FootMercato (TV Schedule)',
