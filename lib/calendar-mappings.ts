@@ -297,8 +297,55 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/tennis/wta-majeurs.ics',
     frenchName: 'Tennis WTA - Majeurs',
     description: 'Grand Chelem + tournois majeurs 2026'
+  },
+  'sport-france-foot-equipe-nationale': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/france-foot-equipe-nationale.ics',
+    frenchName: 'Equipe de France Football',
+    description: 'Matchs de l equipe de France de football (fenetre glissante 24 mois)'
+  },
+  'sport-france-rugby-equipe-nationale': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/france-rugby-equipe-nationale.ics',
+    frenchName: 'Equipe de France Rugby',
+    description: 'Matchs de l equipe de France de rugby (fenetre glissante 24 mois)'
   }
 };
+
+export interface CalendarCachePolicy {
+  sMaxAge: number;
+  staleWhileRevalidate: number;
+  inMemoryTtl: number;
+}
+
+const DEFAULT_CALENDAR_CACHE_POLICY: CalendarCachePolicy = {
+  sMaxAge: 3600,
+  staleWhileRevalidate: 7200,
+  inMemoryTtl: 3600
+};
+
+const CALENDAR_CACHE_POLICY_OVERRIDES: Record<string, Partial<CalendarCachePolicy>> = {
+  'sport-france-foot-equipe-nationale': {
+    sMaxAge: 900,
+    staleWhileRevalidate: 3600,
+    inMemoryTtl: 900
+  },
+  'sport-france-rugby-equipe-nationale': {
+    sMaxAge: 900,
+    staleWhileRevalidate: 3600,
+    inMemoryTtl: 900
+  }
+};
+
+export function getCalendarCachePolicy(slug: string): CalendarCachePolicy {
+  const override = CALENDAR_CACHE_POLICY_OVERRIDES[slug];
+  if (!override) {
+    return DEFAULT_CALENDAR_CACHE_POLICY;
+  }
+
+  return {
+    ...DEFAULT_CALENDAR_CACHE_POLICY,
+    ...override
+  };
+}
 
 /**
  * F1 Calendar - Better F1 Calendar source

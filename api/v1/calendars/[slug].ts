@@ -13,9 +13,9 @@
  */
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getMapping, getAllMappings } from '../../../lib/calendar-mappings';
+import { getMapping, getAllMappings, getCalendarCachePolicy } from '../../../lib/calendar-mappings';
 import { fetchWithRetry, createRetryLogger, RETRY_CONFIGS } from '../../../lib/retry-utils';
-import { getCache, getStaleCache, setCache, CACHE_TTL } from '../../../lib/v1-utils';
+import { getCache, getStaleCache, setCache } from '../../../lib/v1-utils';
 import { trackAbuseRequest } from '../../../lib/abuse-monitor';
 
 export default async function handler(
@@ -83,12 +83,14 @@ export default async function handler(
   const displayName = disableSuffix ? mapping.frenchName : `${mapping.frenchName} (FacilAbo)`;
   const retryLogger = createRetryLogger(`calendar:${slug}`);
   const cacheKey = `v1:ics:${slug}:suffix:${disableSuffix ? 'off' : 'on'}`;
+  const cachePolicy = getCalendarCachePolicy(slug);
+  const cacheControlValue = `s-maxage=${cachePolicy.sMaxAge}, stale-while-revalidate=${cachePolicy.staleWhileRevalidate}`;
 
   const cached = getCache<string>(cacheKey);
   if (cached) {
     res.setHeader('Content-Type', 'text/calendar; charset=utf-8');
     res.setHeader('Content-Disposition', `attachment; filename="${slug}.ics"`);
-    res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=7200');
+    res.setHeader('Cache-Control', cacheControlValue);
     res.setHeader('X-Facilabo-Cache', 'hit');
     return res.status(200).send(cached);
   }
@@ -96,7 +98,7 @@ export default async function handler(
   if (req.method === 'HEAD') {
     res.setHeader('Content-Type', 'text/calendar; charset=utf-8');
     res.setHeader('Content-Disposition', `attachment; filename="${slug}.ics"`);
-    res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=7200');
+    res.setHeader('Cache-Control', cacheControlValue);
     return res.status(200).end();
   }
 
@@ -171,9 +173,9 @@ export default async function handler(
 
     res.setHeader('Content-Type', 'text/calendar; charset=utf-8');
     res.setHeader('Content-Disposition', `attachment; filename="${slug}.ics"`);
-    res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=7200');
+    res.setHeader('Cache-Control', cacheControlValue);
 
-    setCache(cacheKey, icsContent, CACHE_TTL.CALENDAR);
+    setCache(cacheKey, icsContent, cachePolicy.inMemoryTtl);
     res.setHeader('X-Facilabo-Cache', 'miss');
     return res.status(200).send(icsContent);
 
@@ -183,7 +185,7 @@ export default async function handler(
     if (stale) {
       res.setHeader('Content-Type', 'text/calendar; charset=utf-8');
       res.setHeader('Content-Disposition', `attachment; filename="${slug}.ics"`);
-      res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=7200');
+      res.setHeader('Cache-Control', cacheControlValue);
       res.setHeader('X-Facilabo-Cache', 'stale');
       return res.status(200).send(stale);
     }
