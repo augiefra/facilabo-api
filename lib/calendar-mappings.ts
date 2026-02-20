@@ -484,6 +484,329 @@ export const FOOTBALL_TEAMS: Record<string, CalendarMapping> = {
 };
 
 /**
+ * European football teams (Premier League / Serie A / La Liga / Bundesliga)
+ * Slugs prefixed with `football-europe-` to avoid conflicts with domestic feeds.
+ */
+export const EUROPEAN_FOOTBALL_TEAMS: Record<string, CalendarMapping> = {
+  // Premier League
+  'football-europe-afc-bournemouth': {
+    sourceUrl: 'https://ics.fixtur.es/v2/afc-bournemouth.ics',
+    frenchName: 'AFC Bournemouth'
+  },
+  'football-europe-arsenal': {
+    sourceUrl: 'https://ics.fixtur.es/v2/arsenal.ics',
+    frenchName: 'Arsenal'
+  },
+  'football-europe-aston-villa': {
+    sourceUrl: 'https://ics.fixtur.es/v2/aston-villa.ics',
+    frenchName: 'Aston Villa'
+  },
+  'football-europe-brentford-fc': {
+    sourceUrl: 'https://ics.fixtur.es/v2/brentford-fc.ics',
+    frenchName: 'Brentford FC'
+  },
+  'football-europe-brighton-hove-albion-fc': {
+    sourceUrl: 'https://ics.fixtur.es/v2/brighton-hove-albion-fc.ics',
+    frenchName: 'Brighton & Hove Albion FC'
+  },
+  'football-europe-burnley-fc': {
+    sourceUrl: 'https://ics.fixtur.es/v2/burnley-fc.ics',
+    frenchName: 'Burnley FC'
+  },
+  'football-europe-chelsea': {
+    sourceUrl: 'https://ics.fixtur.es/v2/chelsea.ics',
+    frenchName: 'Chelsea'
+  },
+  'football-europe-crystal-palace': {
+    sourceUrl: 'https://ics.fixtur.es/v2/crystal-palace.ics',
+    frenchName: 'Crystal Palace'
+  },
+  'football-europe-everton': {
+    sourceUrl: 'https://ics.fixtur.es/v2/everton.ics',
+    frenchName: 'Everton'
+  },
+  'football-europe-fulham': {
+    sourceUrl: 'https://ics.fixtur.es/v2/fulham.ics',
+    frenchName: 'Fulham'
+  },
+  'football-europe-leeds-united': {
+    sourceUrl: 'https://ics.fixtur.es/v2/leeds-united.ics',
+    frenchName: 'Leeds United'
+  },
+  'football-europe-liverpool': {
+    sourceUrl: 'https://ics.fixtur.es/v2/liverpool.ics',
+    frenchName: 'Liverpool'
+  },
+  'football-europe-manchester-city': {
+    sourceUrl: 'https://ics.fixtur.es/v2/manchester-city.ics',
+    frenchName: 'Manchester City'
+  },
+  'football-europe-manchester-united': {
+    sourceUrl: 'https://ics.fixtur.es/v2/manchester-united.ics',
+    frenchName: 'Manchester United'
+  },
+  'football-europe-newcastle-united': {
+    sourceUrl: 'https://ics.fixtur.es/v2/newcastle-united.ics',
+    frenchName: 'Newcastle United'
+  },
+  'football-europe-nottingham-forest': {
+    sourceUrl: 'https://ics.fixtur.es/v2/nottingham-forest.ics',
+    frenchName: 'Nottingham Forest'
+  },
+  'football-europe-sunderland': {
+    sourceUrl: 'https://ics.fixtur.es/v2/sunderland.ics',
+    frenchName: 'Sunderland'
+  },
+  'football-europe-tottenham-hotspur': {
+    sourceUrl: 'https://ics.fixtur.es/v2/tottenham-hotspur.ics',
+    frenchName: 'Tottenham Hotspur'
+  },
+  'football-europe-west-ham-united': {
+    sourceUrl: 'https://ics.fixtur.es/v2/west-ham-united.ics',
+    frenchName: 'West Ham United'
+  },
+  'football-europe-wolverhampton-wanderers': {
+    sourceUrl: 'https://ics.fixtur.es/v2/wolverhampton-wanderers.ics',
+    frenchName: 'Wolverhampton Wanderers'
+  },
+  // Serie A
+  'football-europe-ac-milan': {
+    sourceUrl: 'https://ics.fixtur.es/v2/ac-milan.ics',
+    frenchName: 'AC Milan'
+  },
+  'football-europe-as-roma': {
+    sourceUrl: 'https://ics.fixtur.es/v2/as-roma.ics',
+    frenchName: 'AS Roma'
+  },
+  'football-europe-atalanta': {
+    sourceUrl: 'https://ics.fixtur.es/v2/atalanta.ics',
+    frenchName: 'Atalanta'
+  },
+  'football-europe-bologna': {
+    sourceUrl: 'https://ics.fixtur.es/v2/bologna.ics',
+    frenchName: 'Bologna'
+  },
+  'football-europe-cagliari': {
+    sourceUrl: 'https://ics.fixtur.es/v2/cagliari.ics',
+    frenchName: 'Cagliari'
+  },
+  'football-europe-como': {
+    sourceUrl: 'https://ics.fixtur.es/v2/como.ics',
+    frenchName: 'Como'
+  },
+  'football-europe-cremonese': {
+    sourceUrl: 'https://ics.fixtur.es/v2/cremonese.ics',
+    frenchName: 'Cremonese'
+  },
+  'football-europe-fc-genoa': {
+    sourceUrl: 'https://ics.fixtur.es/v2/fc-genoa.ics',
+    frenchName: 'FC Genoa'
+  },
+  'football-europe-fiorentina': {
+    sourceUrl: 'https://ics.fixtur.es/v2/fiorentina.ics',
+    frenchName: 'Fiorentina'
+  },
+  'football-europe-hellas-verona-fc': {
+    sourceUrl: 'https://ics.fixtur.es/v2/hellas-verona-fc.ics',
+    frenchName: 'Hellas Verona FC'
+  },
+  'football-europe-inter': {
+    sourceUrl: 'https://ics.fixtur.es/v2/inter.ics',
+    frenchName: 'Inter'
+  },
+  'football-europe-juventus': {
+    sourceUrl: 'https://ics.fixtur.es/v2/juventus.ics',
+    frenchName: 'Juventus'
+  },
+  'football-europe-lecce': {
+    sourceUrl: 'https://ics.fixtur.es/v2/lecce.ics',
+    frenchName: 'Lecce'
+  },
+  'football-europe-napoli': {
+    sourceUrl: 'https://ics.fixtur.es/v2/napoli.ics',
+    frenchName: 'Napoli'
+  },
+  'football-europe-parma': {
+    sourceUrl: 'https://ics.fixtur.es/v2/parma.ics',
+    frenchName: 'Parma'
+  },
+  'football-europe-pisa': {
+    sourceUrl: 'https://ics.fixtur.es/v2/pisa.ics',
+    frenchName: 'Pisa'
+  },
+  'football-europe-lazio-roma': {
+    sourceUrl: 'https://ics.fixtur.es/v2/lazio-roma.ics',
+    frenchName: 'S.S. Lazio'
+  },
+  'football-europe-torino': {
+    sourceUrl: 'https://ics.fixtur.es/v2/torino.ics',
+    frenchName: 'Torino'
+  },
+  'football-europe-udinese': {
+    sourceUrl: 'https://ics.fixtur.es/v2/udinese.ics',
+    frenchName: 'Udinese'
+  },
+  'football-europe-us-sassuolo-calcio': {
+    sourceUrl: 'https://ics.fixtur.es/v2/us-sassuolo-calcio.ics',
+    frenchName: 'US Sassuolo'
+  },
+  // La Liga
+  'football-europe-athletic-bilbao': {
+    sourceUrl: 'https://ics.fixtur.es/v2/athletic-bilbao.ics',
+    frenchName: 'Athletic de Bilbao'
+  },
+  'football-europe-atletico-madrid': {
+    sourceUrl: 'https://ics.fixtur.es/v2/atletico-madrid.ics',
+    frenchName: 'Atlético Madrid'
+  },
+  'football-europe-ca-osasuna': {
+    sourceUrl: 'https://ics.fixtur.es/v2/ca-osasuna.ics',
+    frenchName: 'CA Osasuna'
+  },
+  'football-europe-celta-de-vigo': {
+    sourceUrl: 'https://ics.fixtur.es/v2/celta-de-vigo.ics',
+    frenchName: 'Celta de Vigo'
+  },
+  'football-europe-deportivo-alaves': {
+    sourceUrl: 'https://ics.fixtur.es/v2/deportivo-alaves.ics',
+    frenchName: 'Deportivo Alavés'
+  },
+  'football-europe-elche-cf': {
+    sourceUrl: 'https://ics.fixtur.es/v2/elche-cf.ics',
+    frenchName: 'Elche CF'
+  },
+  'football-europe-espanyol': {
+    sourceUrl: 'https://ics.fixtur.es/v2/espanyol.ics',
+    frenchName: 'Espanyol'
+  },
+  'football-europe-fc-barcelona': {
+    sourceUrl: 'https://ics.fixtur.es/v2/fc-barcelona.ics',
+    frenchName: 'FC Barcelona'
+  },
+  'football-europe-getafe': {
+    sourceUrl: 'https://ics.fixtur.es/v2/getafe.ics',
+    frenchName: 'Getafe'
+  },
+  'football-europe-girona-fc': {
+    sourceUrl: 'https://ics.fixtur.es/v2/girona-fc.ics',
+    frenchName: 'Girona FC'
+  },
+  'football-europe-levante': {
+    sourceUrl: 'https://ics.fixtur.es/v2/levante.ics',
+    frenchName: 'Levante'
+  },
+  'football-europe-rayo-vallecano': {
+    sourceUrl: 'https://ics.fixtur.es/v2/rayo-vallecano.ics',
+    frenchName: 'Rayo Vallecano'
+  },
+  'football-europe-real-betis-sevilla': {
+    sourceUrl: 'https://ics.fixtur.es/v2/real-betis-sevilla.ics',
+    frenchName: 'Real Betis'
+  },
+  'football-europe-real-madrid': {
+    sourceUrl: 'https://ics.fixtur.es/v2/real-madrid.ics',
+    frenchName: 'Real Madrid'
+  },
+  'football-europe-real-mallorca': {
+    sourceUrl: 'https://ics.fixtur.es/v2/real-mallorca.ics',
+    frenchName: 'Real Mallorca'
+  },
+  'football-europe-real-oviedo': {
+    sourceUrl: 'https://ics.fixtur.es/v2/real-oviedo.ics',
+    frenchName: 'Real Oviedo'
+  },
+  'football-europe-real-sociedad': {
+    sourceUrl: 'https://ics.fixtur.es/v2/real-sociedad.ics',
+    frenchName: 'Real Sociedad'
+  },
+  'football-europe-sevilla': {
+    sourceUrl: 'https://ics.fixtur.es/v2/sevilla.ics',
+    frenchName: 'Sevilla FC'
+  },
+  'football-europe-valencia': {
+    sourceUrl: 'https://ics.fixtur.es/v2/valencia.ics',
+    frenchName: 'Valencia'
+  },
+  'football-europe-villarreal': {
+    sourceUrl: 'https://ics.fixtur.es/v2/villarreal.ics',
+    frenchName: 'Villarreal'
+  },
+  // Bundesliga
+  'football-europe-fc-union-berlin': {
+    sourceUrl: 'https://ics.fixtur.es/v2/fc-union-berlin.ics',
+    frenchName: '1. FC Union Berlin'
+  },
+  'football-europe-1fc-heidenheim': {
+    sourceUrl: 'https://ics.fixtur.es/v2/1fc-heidenheim.ics',
+    frenchName: '1.FC Heidenheim'
+  },
+  'football-europe-1fc-koln': {
+    sourceUrl: 'https://ics.fixtur.es/v2/1fc-koln.ics',
+    frenchName: '1.FC Köln'
+  },
+  'football-europe-1899-hoffenheim': {
+    sourceUrl: 'https://ics.fixtur.es/v2/1899-hoffenheim.ics',
+    frenchName: '1899 Hoffenheim'
+  },
+  'football-europe-bayer-leverkusen': {
+    sourceUrl: 'https://ics.fixtur.es/v2/bayer-leverkusen.ics',
+    frenchName: 'Bayer Leverkusen'
+  },
+  'football-europe-bayern-munchen': {
+    sourceUrl: 'https://ics.fixtur.es/v2/bayern-munchen.ics',
+    frenchName: 'Bayern München'
+  },
+  'football-europe-borussia-dortmund': {
+    sourceUrl: 'https://ics.fixtur.es/v2/borussia-dortmund.ics',
+    frenchName: 'Borussia Dortmund'
+  },
+  'football-europe-borussia-monchengladbach': {
+    sourceUrl: 'https://ics.fixtur.es/v2/borussia-monchengladbach.ics',
+    frenchName: 'Borussia Mönchengladbach'
+  },
+  'football-europe-eintracht-frankfurt': {
+    sourceUrl: 'https://ics.fixtur.es/v2/eintracht-frankfurt.ics',
+    frenchName: 'Eintracht Frankfurt'
+  },
+  'football-europe-fc-augsburg': {
+    sourceUrl: 'https://ics.fixtur.es/v2/fc-augsburg.ics',
+    frenchName: 'FC Augsburg'
+  },
+  'football-europe-fc-st-pauli': {
+    sourceUrl: 'https://ics.fixtur.es/v2/fc-st-pauli.ics',
+    frenchName: 'FC St. Pauli'
+  },
+  'football-europe-fsv-mainz-05': {
+    sourceUrl: 'https://ics.fixtur.es/v2/fsv-mainz-05.ics',
+    frenchName: 'FSV Mainz 05'
+  },
+  'football-europe-hamburger-sv': {
+    sourceUrl: 'https://ics.fixtur.es/v2/hamburger-sv.ics',
+    frenchName: 'Hamburger SV'
+  },
+  'football-europe-rb-leipzig': {
+    sourceUrl: 'https://ics.fixtur.es/v2/rb-leipzig.ics',
+    frenchName: 'RB Leipzig'
+  },
+  'football-europe-sc-freiburg': {
+    sourceUrl: 'https://ics.fixtur.es/v2/sc-freiburg.ics',
+    frenchName: 'SC Freiburg'
+  },
+  'football-europe-vfb-stuttgart': {
+    sourceUrl: 'https://ics.fixtur.es/v2/vfb-stuttgart.ics',
+    frenchName: 'VfB Stuttgart'
+  },
+  'football-europe-vfl-wolfsburg': {
+    sourceUrl: 'https://ics.fixtur.es/v2/vfl-wolfsburg.ics',
+    frenchName: 'VFL Wolfsburg'
+  },
+  'football-europe-werder-bremen': {
+    sourceUrl: 'https://ics.fixtur.es/v2/werder-bremen.ics',
+    frenchName: 'Werder Bremen'
+  },
+};
+
+/**
  * Rugby (Top 14) teams - FacilAbo legacy proxy source
  * Slugs match RugbyTeam.rawValue from iOS Enums.swift
  */
@@ -562,6 +885,7 @@ export function getAllMappings(): Record<string, CalendarMapping> {
     ...NASCAR_CALENDARS,
     ...NBA_CALENDARS,
     ...FOOTBALL_TEAMS,
+    ...EUROPEAN_FOOTBALL_TEAMS,
     ...RUGBY_TEAMS
   };
 }
