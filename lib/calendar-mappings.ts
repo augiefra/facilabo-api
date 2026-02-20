@@ -424,6 +424,18 @@ export const FOOTBALL_TEAMS: Record<string, CalendarMapping> = {
     sourceUrl: 'https://ics.fixtur.es/v2/stade-rennes.ics',
     frenchName: 'Stade Rennais'
   },
+  'lorient': {
+    sourceUrl: 'https://ics.fixtur.es/v2/lorient.ics',
+    frenchName: 'FC Lorient'
+  },
+  'metz': {
+    sourceUrl: 'https://ics.fixtur.es/v2/fc-metz.ics',
+    frenchName: 'FC Metz'
+  },
+  'parisFc': {
+    sourceUrl: 'https://ics.fixtur.es/v2/paris-fc.ics',
+    frenchName: 'Paris FC'
+  },
   'nice': {
     sourceUrl: 'https://ics.fixtur.es/v2/ogc-nice.ics',
     frenchName: 'OGC Nice'
@@ -436,6 +448,7 @@ export const FOOTBALL_TEAMS: Record<string, CalendarMapping> = {
     sourceUrl: 'https://ics.fixtur.es/v2/fc-nantes.ics',
     frenchName: 'FC Nantes'
   },
+  // Backward compatibility for existing app versions still listing these teams.
   'stadeReims': {
     sourceUrl: 'https://ics.fixtur.es/v2/stade-de-reims.ics',
     frenchName: 'Stade de Reims'

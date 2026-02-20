@@ -215,9 +215,11 @@ async function verifySportResults(): Promise<VerificationResult[]> {
   // Test 4: Ligue 1 Teams Validation
   const validLigue1Teams = [
     'Paris Saint-Germain', 'PSG', 'Marseille', 'Monaco', 'Lyon', 'Lille',
-    'Lens', 'Nice', 'Rennes', 'Strasbourg', 'Nantes', 'Montpellier',
-    'Toulouse', 'Reims', 'Brest', 'Le Havre', 'Auxerre', 'Angers',
-    'Saint-Etienne', 'Lorient', 'Metz', 'Paris FC'
+    'Lens', 'Nice', 'Rennes', 'Strasbourg', 'Nantes',
+    'Toulouse', 'Brest', 'Le Havre', 'Auxerre', 'Angers',
+    'Lorient', 'FC Lorient', 'Metz', 'FC Metz', 'Paris FC',
+    // Backward compatibility transition during App Store validation window.
+    'Montpellier', 'Saint-Etienne', 'Reims'
   ];
 
   const unknownTeams: string[] = [];
