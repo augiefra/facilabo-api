@@ -46,7 +46,7 @@ const TEAM_MAPPINGS: Record<string, { names: string[]; frenchName: string }> = {
     frenchName: 'RC Toulon'
   },
   'lyon': {
-    names: ['Lyon', 'LOU'],
+    names: ['Lyon', 'LOU', 'LOU Rugby'],
     frenchName: 'LOU Rugby'
   },
   'montpellier': {
@@ -69,16 +69,41 @@ const TEAM_MAPPINGS: Record<string, { names: string[]; frenchName: string }> = {
     names: ['Bayonne', 'Aviron Bayonnais'],
     frenchName: 'Aviron Bayonnais'
   },
+  'montauban': {
+    names: ['Montauban', 'US Montauban'],
+    frenchName: 'US Montauban'
+  },
+  // Legacy compatibility slug (kept to avoid breaking existing subscriptions)
   'vannes': {
     names: ['Vannes', 'RC Vannes'],
     frenchName: 'RC Vannes'
   }
 };
 
+function normalizeForMatch(value: string): string {
+  return value
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function buildTeamMatchers(teamNames: string[]): RegExp[] {
+  const aliases = [...new Set(teamNames.map(normalizeForMatch).filter(Boolean))];
+  return aliases.map((alias) => new RegExp(`(^|[^a-z0-9])${escapeRegExp(alias)}([^a-z0-9]|$)`, 'i'));
+}
+
 /**
  * Parse ICS content and filter events for a specific team
  */
 function filterIcsForTeam(icsContent: string, teamNames: string[]): string {
+  const teamMatchers = buildTeamMatchers(teamNames);
+
   // Split into lines
   const lines = icsContent.split(/\r?\n/);
 
@@ -113,8 +138,8 @@ function filterIcsForTeam(icsContent: string, teamNames: string[]): string {
     const summaryLine = event.find(line => line.startsWith('SUMMARY:'));
     if (!summaryLine) return false;
 
-    const summary = summaryLine.substring(8).toLowerCase();
-    return teamNames.some(name => summary.includes(name.toLowerCase()));
+    const normalizedSummary = normalizeForMatch(summaryLine.substring(8));
+    return teamMatchers.some((matcher) => matcher.test(normalizedSummary));
   });
 
   // Reconstruct the ICS

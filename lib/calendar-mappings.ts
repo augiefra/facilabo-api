@@ -540,6 +540,11 @@ export const RUGBY_TEAMS: Record<string, CalendarMapping> = {
     sourceUrl: 'https://facilabo-api.vercel.app/api/calendar/rugby/bayonne',
     frenchName: 'Aviron Bayonnais'
   },
+  'montauban': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/calendar/rugby/montauban',
+    frenchName: 'US Montauban'
+  },
+  // Backward compatibility for existing app versions still subscribed to RC Vannes.
   'vannes': {
     sourceUrl: 'https://facilabo-api.vercel.app/api/calendar/rugby/vannes',
     frenchName: 'RC Vannes'
