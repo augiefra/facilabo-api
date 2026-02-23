@@ -18,6 +18,7 @@ import {
 import { fetchWithRetry, RETRY_CONFIGS, createRetryLogger } from '../../../../lib/retry-utils';
 import { getCache, getStaleCache, setCache } from '../../../../lib/v1-utils';
 import { trackAbuseRequest } from '../../../../lib/abuse-monitor';
+import { applyCalendarTransform } from '../../../../lib/ics-transforms';
 
 interface NextEvent {
   summary: string;
@@ -289,7 +290,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       throw new Error(`Failed to fetch calendar: ${response.status}`);
     }
 
-    const icsContent = await response.text();
+    let icsContent = await response.text();
+    icsContent = applyCalendarTransform(slug, icsContent);
 
     // Parse events
     const events = parseIcsEvents(icsContent);
