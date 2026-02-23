@@ -218,11 +218,29 @@ export async function scrapeTVSchedule(): Promise<TVScheduleResponse> {
  * Filter matches by team name
  */
 export function filterByTeam(schedule: TVScheduleResponse, teamQuery: string): TVScheduleResponse {
-  const query = teamQuery.toLowerCase();
+  const normalize = (value: string): string =>
+    value
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, ' ')
+      .trim();
+
+  const query = normalize(teamQuery);
+  const containsTerm = (text: string, term: string): boolean => {
+    if (!term) return false;
+    return (
+      text === term ||
+      text.startsWith(`${term} `) ||
+      text.endsWith(` ${term}`) ||
+      text.includes(` ${term} `)
+    );
+  };
 
   // Team name mappings for common abbreviations
   const teamAliases: Record<string, string[]> = {
-    'psg': ['paris saint-germain', 'paris', 'psg'],
+    'psg': ['paris saint germain', 'paris sg', 'psg'],
+    'parisfc': ['paris fc', 'paris football club', 'pfc'],
     'om': ['olympique de marseille', 'marseille', 'om'],
     'ol': ['olympique lyonnais', 'lyon', 'ol'],
     'asse': ['as saint-etienne', 'saint-etienne', 'asse'],
@@ -245,22 +263,43 @@ export function filterByTeam(schedule: TVScheduleResponse, teamQuery: string): T
     'aja': ['auxerre', 'aj auxerre', 'aja'],
   };
 
-  // Find all aliases for the query
-  let searchTerms = [query];
+  // Find all aliases for the query (exact match first to avoid ambiguous mappings)
+  const searchTerms = new Set<string>([query]);
+  let matchedKey: string | null = null;
+
   for (const [key, aliases] of Object.entries(teamAliases)) {
-    if (key === query || aliases.some(a => a.includes(query) || query.includes(a))) {
-      searchTerms = [...searchTerms, key, ...aliases];
+    const normalizedAliases = aliases.map(normalize);
+    if (normalize(key) === query || normalizedAliases.includes(query)) {
+      matchedKey = key;
       break;
     }
   }
 
-  const filteredMatches = schedule.matches.filter(match => {
-    const home = match.homeTeam.toLowerCase();
-    const away = match.awayTeam.toLowerCase();
+  if (!matchedKey) {
+    for (const [key, aliases] of Object.entries(teamAliases)) {
+      const normalizedAliases = aliases.map(normalize);
+      if (normalizedAliases.some(a => a.startsWith(query) || query.startsWith(a))) {
+        matchedKey = key;
+        break;
+      }
+    }
+  }
 
-    return searchTerms.some(term =>
-      home.includes(term) || away.includes(term) ||
-      term.includes(home) || term.includes(away)
+  if (matchedKey) {
+    searchTerms.add(normalize(matchedKey));
+    for (const alias of teamAliases[matchedKey]) {
+      searchTerms.add(normalize(alias));
+    }
+  }
+
+  const normalizedTerms = Array.from(searchTerms).filter(Boolean);
+
+  const filteredMatches = schedule.matches.filter(match => {
+    const home = normalize(match.homeTeam);
+    const away = normalize(match.awayTeam);
+
+    return normalizedTerms.some(term =>
+      containsTerm(home, term) || containsTerm(away, term)
     );
   });
 
