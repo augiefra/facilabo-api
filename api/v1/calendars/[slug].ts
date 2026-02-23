@@ -17,6 +17,7 @@ import { getMapping, getAllMappings, getCalendarCachePolicy } from '../../../lib
 import { fetchWithRetry, createRetryLogger, RETRY_CONFIGS } from '../../../lib/retry-utils';
 import { getCache, getStaleCache, setCache } from '../../../lib/v1-utils';
 import { trackAbuseRequest } from '../../../lib/abuse-monitor';
+import { applyCalendarTransform } from '../../../lib/ics-transforms';
 
 export default async function handler(
   req: VercelRequest,
@@ -126,6 +127,7 @@ export default async function handler(
     }
 
     let icsContent = await response.text();
+    icsContent = applyCalendarTransform(slug, icsContent);
 
     // Some sources contain human-readable comment markers (e.g. "# 2028") or blank lines,
     // which are not valid in iCalendar and can make Calendar.app reject the feed.

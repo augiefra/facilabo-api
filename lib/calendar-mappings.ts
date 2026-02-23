@@ -307,6 +307,16 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/france-rugby-equipe-nationale.ics',
     frenchName: 'Equipe de France Rugby',
     description: 'Matchs de l equipe de France de rugby (fenetre glissante 24 mois)'
+  },
+  'sport-cyclisme-majeurs': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/cyclisme-majeurs.ics',
+    frenchName: 'Cyclisme - Grandes courses',
+    description: 'Monuments, Grands Tours et Mondiaux route (fenetre glissante 24 mois)'
+  },
+  'societe-reperes-france': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/societe/reperes-france.ics',
+    frenchName: 'Societe - Reperes France',
+    description: 'Reperes societaux France (Meres, Peres, Bonheur, Octobre Rose, etc.)'
   }
 };
 
@@ -355,6 +365,11 @@ export const F1_CALENDARS: Record<string, CalendarMapping> = {
     sourceUrl: 'https://better-f1-calendar.vercel.app/api/calendar.ics',
     frenchName: 'Formule 1 - Calendrier complet',
     description: 'GP, Qualifications, Essais, Sprints'
+  },
+  'f1-races-only': {
+    sourceUrl: 'https://better-f1-calendar.vercel.app/api/calendar.ics',
+    frenchName: 'Formule 1 - Courses du dimanche',
+    description: 'Courses uniquement (sans essais, qualifs, sprint)'
   }
 };
 
