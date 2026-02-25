@@ -3,120 +3,94 @@
  *
  * Search pharmacies in France using the FINESS database
  * via OpenDataSoft.
- *
- * @endpoint GET /api/v1/services/pharmacies
- * @query cp - Postal code (e.g., "75001")
- * @query city - City name (e.g., "Paris")
- * @query lat, lng, radius - Coordinates search
- *
- * @source FINESS via public.opendatasoft.com
- * @reliability HIGH - Official government data
  */
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { PharmacySearchResponse, getPharmacyStale, normalizeCity } from '../../../lib/pharmacy-types';
+import { PharmacySearchResponse, getPharmacyStale } from '../../../lib/pharmacy-types';
+import { SERVICE_CONTRACT_VERSION } from '../../../lib/service-search-types';
+import {
+  applyServiceCors,
+  ensureGetMethod,
+  handleServiceOptions,
+  parseServiceSearchParams,
+  resolveEndpointError,
+} from '../../../lib/service-search-utils';
 import {
   searchByPostalCode,
   searchByCity,
   searchNearLocation,
 } from '../../../lib/pharmacy-fetcher';
 
+const PHARMACY_SOURCE = 'FINESS - public.opendatasoft.com';
+
 export default async function handler(
   req: VercelRequest,
-  res: VercelResponse
+  res: VercelResponse,
 ) {
+  if (handleServiceOptions(req, res)) {
+    return;
+  }
+
+  applyServiceCors(res);
+
+  if (!ensureGetMethod(req, res)) {
+    return;
+  }
+
   let cacheKey: string | null = null;
   let query: PharmacySearchResponse['query'] = {};
-
-  // CORS headers
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-
-  if (req.method !== 'GET') {
-    return res.status(405).json({
-      error: 'Method Not Allowed',
-      message: 'Only GET requests are supported',
-    });
-  }
+  let limit = 100;
 
   try {
-    const { cp, city, lat, lng, radius } = req.query;
+    const parsed = parseServiceSearchParams(req.query, {
+      defaultLimit: 100,
+      maxLimit: 100,
+      defaultRadiusKm: 5,
+      maxRadiusKm: 30,
+      examples: [
+        '/api/v1/services/pharmacies?cp=75001',
+        '/api/v1/services/pharmacies?city=Paris',
+        '/api/v1/services/pharmacies?lat=48.8566&lng=2.3522&radius=3',
+      ],
+    });
 
-    // Validate that at least one search parameter is provided
-    if (!cp && !city && (!lat || !lng)) {
-      return res.status(400).json({
-        error: 'Bad Request',
-        message: 'Provide at least one search parameter: cp (postal code), city, or lat+lng coordinates',
-        examples: [
-          '/api/v1/services/pharmacies?cp=75001',
-          '/api/v1/services/pharmacies?city=Paris',
-          '/api/v1/services/pharmacies?lat=48.8566&lng=2.3522&radius=3',
-        ],
-      });
+    if (!parsed.ok) {
+      return res.status(parsed.status).json(parsed.error);
     }
+
+    const params = parsed.value;
+    cacheKey = params.cacheKey;
+    query = params.query;
+    limit = params.limit;
 
     let pharmacies: PharmacySearchResponse['pharmacies'] = [];
 
-    // Search by postal code
-    if (cp && typeof cp === 'string') {
-      cacheKey = `postal_${cp}`;
-      query.postalCode = cp;
-      pharmacies = await searchByPostalCode(cp);
-    }
-    // Search by city
-    else if (city && typeof city === 'string') {
-      const normalized = normalizeCity(city);
-      cacheKey = `city_${normalized}`;
-      query.city = city;
-      pharmacies = await searchByCity(city);
-    }
-    // Search by coordinates
-    else if (lat && lng) {
-      const latitude = parseFloat(lat as string);
-      const longitude = parseFloat(lng as string);
-      const radiusKm = radius ? parseFloat(radius as string) : 5;
-
-      if (isNaN(latitude) || isNaN(longitude)) {
-        return res.status(400).json({
-          error: 'Bad Request',
-          message: 'lat and lng must be valid numbers',
-        });
-      }
-
-      query.lat = latitude;
-      query.lng = longitude;
-      query.radius = radiusKm;
-
-      cacheKey = `loc_${latitude.toFixed(3)}_${longitude.toFixed(3)}_${radiusKm}`;
-      pharmacies = await searchNearLocation(latitude, longitude, radiusKm);
-    } else {
-      pharmacies = [];
+    if (params.mode === 'cp' && params.postalCode) {
+      pharmacies = await searchByPostalCode(params.postalCode, params.limit);
+    } else if (params.mode === 'city' && params.city) {
+      pharmacies = await searchByCity(params.city, params.limit);
+    } else if (params.mode === 'geo' && params.lat !== undefined && params.lng !== undefined) {
+      pharmacies = await searchNearLocation(params.lat, params.lng, params.radiusKm, params.limit);
     }
 
-    // Return iOS-compatible format
     const response: PharmacySearchResponse = {
       pharmacies,
       total: pharmacies.length,
       query,
+      limit,
+      contractVersion: SERVICE_CONTRACT_VERSION,
       gardeInfo: {
-        message: "Pour les pharmacies de garde, appelez le 3237 ou consultez le site officiel",
-        url: "https://www.3237.fr",
+        message: 'Pour les pharmacies de garde, appelez le 3237 ou consultez le site officiel',
+        url: 'https://www.3237.fr',
       },
       lastUpdated: new Date().toISOString(),
-      source: 'FINESS - public.opendatasoft.com',
+      source: PHARMACY_SOURCE,
     };
 
     return res.status(200).json(response);
-
   } catch (error) {
     console.error('Pharmacy search error:', error);
 
-    // Anti-panne fallback: return stale cache if available
     if (cacheKey) {
       const cached = getPharmacyStale(cacheKey);
       if (cached) {
@@ -124,19 +98,20 @@ export default async function handler(
           pharmacies: cached,
           total: cached.length,
           query,
+          limit,
+          contractVersion: SERVICE_CONTRACT_VERSION,
           gardeInfo: {
-            message: "Pour les pharmacies de garde, appelez le 3237 ou consultez le site officiel",
-            url: "https://www.3237.fr",
+            message: 'Pour les pharmacies de garde, appelez le 3237 ou consultez le site officiel',
+            url: 'https://www.3237.fr',
           },
-          lastUpdated: new Date().toISOString() + ' (cached)',
-          source: 'FINESS - public.opendatasoft.com (cached)',
+          note: 'Resultats issus du cache stale suite a une indisponibilite upstream.',
+          lastUpdated: `${new Date().toISOString()} (cached)`,
+          source: `${PHARMACY_SOURCE} (cached)`,
         } as PharmacySearchResponse);
       }
     }
 
-    return res.status(500).json({
-      error: 'Internal Server Error',
-      message: error instanceof Error ? error.message : 'Failed to search pharmacies',
-    });
+    const resolved = resolveEndpointError(error);
+    return res.status(resolved.status).json(resolved.payload);
   }
 }

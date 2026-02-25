@@ -1,4 +1,5 @@
-import { Pharmacy, calculateDistance, normalizeCity, getPharmacyCached, setPharmacyCache } from './pharmacy-types';
+import { Pharmacy, getPharmacyCached, setPharmacyCache } from './pharmacy-types';
+import { calculateDistance, normalizeCity, UpstreamServiceError } from './service-search-utils';
 
 // API endpoint for France-wide FINESS pharmacy data
 const FINESS_API_URL = 'https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/healthref-france-finess/records';
@@ -117,9 +118,13 @@ async function fetchFinessPharmacies(params: {
   });
 
   if (!response.ok) {
-    const errorText = await response.text();
-    console.error('FINESS API error response:', errorText);
-    throw new Error(`FINESS API error: ${response.status} - ${errorText.substring(0, 200)}`);
+    throw new UpstreamServiceError(
+      `Pharmacies upstream failed with HTTP ${response.status}`,
+      {
+        status: response.status,
+        upstream: 'public.opendatasoft.com',
+      },
+    );
   }
 
   const data: FinessApiResponse = await response.json();
@@ -130,8 +135,8 @@ async function fetchFinessPharmacies(params: {
 /**
  * Search pharmacies by postal code (all of France)
  */
-export async function searchByPostalCode(postalCode: string): Promise<Pharmacy[]> {
-  const cacheKey = `postal_${postalCode}`;
+export async function searchByPostalCode(postalCode: string, limit: number = 100): Promise<Pharmacy[]> {
+  const cacheKey = `postal_${postalCode}_${limit}`;
   const cached = getPharmacyCached(cacheKey);
   if (cached) return cached;
 
@@ -139,7 +144,7 @@ export async function searchByPostalCode(postalCode: string): Promise<Pharmacy[]
   // API limit is 100, but most postal codes have fewer pharmacies
   const pharmacies = await fetchFinessPharmacies({
     where: `startswith(ligneacheminement, "${postalCode}")`,
-    limit: 100,
+    limit,
   });
 
   setPharmacyCache(cacheKey, pharmacies);
@@ -149,9 +154,9 @@ export async function searchByPostalCode(postalCode: string): Promise<Pharmacy[]
 /**
  * Search pharmacies by city name (all of France)
  */
-export async function searchByCity(city: string): Promise<Pharmacy[]> {
+export async function searchByCity(city: string, limit: number = 100): Promise<Pharmacy[]> {
   const normalizedCity = normalizeCity(city);
-  const cacheKey = `city_${normalizedCity}`;
+  const cacheKey = `city_${normalizedCity}_${limit}`;
   const cached = getPharmacyCached(cacheKey);
   if (cached) return cached;
 
@@ -162,7 +167,7 @@ export async function searchByCity(city: string): Promise<Pharmacy[]> {
   // API limit is 100, may not return all for large cities
   const pharmacies = await fetchFinessPharmacies({
     where: `com_name="${capitalizedCity}"`,
-    limit: 100,
+    limit,
   });
 
   setPharmacyCache(cacheKey, pharmacies);
@@ -175,9 +180,10 @@ export async function searchByCity(city: string): Promise<Pharmacy[]> {
 export async function searchNearLocation(
   lat: number,
   lng: number,
-  radiusKm: number = 5
+  radiusKm: number = 5,
+  limit: number = 100,
 ): Promise<Pharmacy[]> {
-  const cacheKey = `loc_${lat.toFixed(3)}_${lng.toFixed(3)}_${radiusKm}`;
+  const cacheKey = `loc_${lat.toFixed(3)}_${lng.toFixed(3)}_${radiusKm}_${limit}`;
   const cached = getPharmacyCached(cacheKey);
   if (cached) return cached;
 
@@ -186,7 +192,7 @@ export async function searchNearLocation(
   // Use geo filter to find pharmacies within radius
   const pharmacies = await fetchFinessPharmacies({
     geoFilter: { lat, lon: lng, distance: radiusMeters },
-    limit: 100,
+    limit,
   });
 
   // Calculate and add distances
@@ -206,15 +212,15 @@ export async function searchNearLocation(
  * Get all pharmacies for a department (all of France)
  * Note: Limited to 100 results per API constraints
  */
-export async function getPharmaciesByDepartment(deptCode: string): Promise<Pharmacy[]> {
-  const cacheKey = `dept_${deptCode}`;
+export async function getPharmaciesByDepartment(deptCode: string, limit: number = 100): Promise<Pharmacy[]> {
+  const cacheKey = `dept_${deptCode}_${limit}`;
   const cached = getPharmacyCached(cacheKey);
   if (cached) return cached;
 
   // Filter by department code (limited to 100 results)
   const pharmacies = await fetchFinessPharmacies({
     where: `dep_code="${deptCode}"`,
-    limit: 100,
+    limit,
   });
 
   setPharmacyCache(cacheKey, pharmacies);
@@ -225,14 +231,14 @@ export async function getPharmaciesByDepartment(deptCode: string): Promise<Pharm
  * Search pharmacies by region name
  * Note: Limited to 100 results per API constraints
  */
-export async function searchByRegion(regionName: string): Promise<Pharmacy[]> {
-  const cacheKey = `region_${regionName.toLowerCase()}`;
+export async function searchByRegion(regionName: string, limit: number = 100): Promise<Pharmacy[]> {
+  const cacheKey = `region_${regionName.toLowerCase()}_${limit}`;
   const cached = getPharmacyCached(cacheKey);
   if (cached) return cached;
 
   const pharmacies = await fetchFinessPharmacies({
     where: `reg_name="${regionName}"`,
-    limit: 100,
+    limit,
   });
 
   setPharmacyCache(cacheKey, pharmacies);
