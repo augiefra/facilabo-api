@@ -202,6 +202,11 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     frenchName: 'Calendrier Fiscal France',
     description: 'Déclarations de revenus, taxe foncière, IFI'
   },
+  'fiscal-paye-fonction-publique': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/fiscal/paye-fonction-publique.ics',
+    frenchName: 'Paye Fonction publique',
+    description: 'Dates officielles de virement des agents publics (source ministerielle)'
+  },
   'culture-france': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/culture/france.ics',
     frenchName: 'Événements Culturels France',
