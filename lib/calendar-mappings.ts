@@ -316,7 +316,7 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
   'sport-cyclisme-majeurs': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/cyclisme-majeurs.ics',
     frenchName: 'Cyclisme - Grandes courses',
-    description: 'Monuments, Grands Tours et Mondiaux route (fenetre glissante 24 mois)'
+    description: 'Monuments, Grands Tours, Mondiaux route, classiques WorldTour ciblees et championnats FR/Europe (fenetre glissante 24 mois)'
   },
   'societe-reperes-france': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/societe/reperes-france.ics',
