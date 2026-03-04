@@ -313,6 +313,16 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     frenchName: 'Equipe de France Rugby',
     description: 'Matchs de l equipe de France de rugby (fenetre glissante 24 mois)'
   },
+  'sport-rugby-top-14-complet': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/rugby-top-14-complet.ics',
+    frenchName: 'Rugby - Top 14 complet',
+    description: 'Tous les matchs du Top 14 dans un seul calendrier'
+  },
+  'sport-rugby-six-nations-complet': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/rugby-six-nations-complet.ics',
+    frenchName: 'Rugby - Six Nations complet',
+    description: 'Tous les matchs du Tournoi des Six Nations dans un seul calendrier'
+  },
   'sport-cyclisme-majeurs': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/cyclisme-majeurs.ics',
     frenchName: 'Cyclisme - Grandes courses',
@@ -344,6 +354,16 @@ const CALENDAR_CACHE_POLICY_OVERRIDES: Record<string, Partial<CalendarCachePolic
     inMemoryTtl: 900
   },
   'sport-france-rugby-equipe-nationale': {
+    sMaxAge: 900,
+    staleWhileRevalidate: 3600,
+    inMemoryTtl: 900
+  },
+  'sport-rugby-top-14-complet': {
+    sMaxAge: 1800,
+    staleWhileRevalidate: 3600,
+    inMemoryTtl: 1800
+  },
+  'sport-rugby-six-nations-complet': {
     sMaxAge: 900,
     staleWhileRevalidate: 3600,
     inMemoryTtl: 900
