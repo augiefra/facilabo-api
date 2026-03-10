@@ -328,6 +328,11 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     frenchName: 'Cyclisme - Grandes courses',
     description: 'Monuments, Grands Tours, Mondiaux route, classiques WorldTour ciblees et championnats FR/Europe (fenetre glissante 24 mois)'
   },
+  'sport-wec': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/wec.ics',
+    frenchName: 'WEC - Championnat du monde d endurance',
+    description: 'Manches officielles FIA WEC datees, avec horaire ajoute des publication officielle'
+  },
   'societe-reperes-france': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/societe/reperes-france.ics',
     frenchName: 'Societe - Reperes France',
