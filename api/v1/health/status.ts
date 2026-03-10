@@ -79,7 +79,7 @@ const SOURCES_TO_CHECK = [
     name: 'Better F1 Calendar',
     category: 'calendars',
     url: 'https://better-f1-calendar.vercel.app/api/calendar.ics',
-    method: 'HEAD' as const,
+    method: 'GET' as const,
     critical: true,
   },
   // Sports calendars (non-critical)
