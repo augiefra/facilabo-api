@@ -73,6 +73,14 @@ Effet:
 - le bloc `runtime` est lisible de maniere optionnelle
 - tant que les consumers iOS ne sont pas modifies, le comportement legacy reste la reference
 
+## Preparation UpcomingSnapshot (SP2-Lot2)
+
+- `UpcomingSnapshot` ne doit pas dependre de `metadata` pour sa correction fonctionnelle.
+- `metadata` reste un enrichissement optionnel de contexte (`nextEvent`, `lastUpdated`, `eventCount`), pas une source canonique des items `Upcoming`.
+- Le bloc `runtime` existant suffit pour qualifier `fresh`, `stale` ou `unavailable`.
+- Le kill switch `METADATA_KILL_SWITCH` doit permettre de couper `metadata` sans rendre impossible la future projection locale stale-safe.
+- Aucune extension de schema supplementaire n'est requise dans ce lot.
+
 ## Rollback exact
 
 1. revert du commit `SP1-Lot2`

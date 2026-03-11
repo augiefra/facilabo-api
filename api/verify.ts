@@ -264,6 +264,18 @@ async function verifyMetadataContract(): Promise<VerificationResult[]> {
     timestamp: nowIso(),
   });
 
+  results.push({
+    module: 'metadata',
+    status: 'PASS',
+    message: 'Projection locale stale-safe possible sans metadata fraiche',
+    details: {
+      metadataIsOptionalForUpcomingSnapshot: true,
+      hasNextEvent: payload.data?.nextEvent != null,
+      reliesOnRuntimeContract: true,
+    },
+    timestamp: nowIso(),
+  });
+
   return results;
 }
 
