@@ -44,6 +44,15 @@ export interface ApiMeta {
   ttl?: number;
 }
 
+export type RuntimeFreshness = 'fresh' | 'stale' | 'unavailable';
+
+export interface RuntimeState {
+  freshness: RuntimeFreshness;
+  degraded: boolean;
+  fallbackUsed: boolean;
+  lastUpdated: string;
+}
+
 /**
  * Error codes for categorization
  */
@@ -85,6 +94,8 @@ export const HTTP_STATUS = {
   BAD_GATEWAY: 502,
   SERVICE_UNAVAILABLE: 503,
 } as const;
+
+const RUNTIME_FLAG_ENABLED_VALUES = new Set(['1', 'true', 'yes', 'on']);
 
 // ============================================================================
 // RESPONSE HELPERS
@@ -170,6 +181,48 @@ export function errorResponse(
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   return res.status(httpStatus).json(response);
+}
+
+export function normalizeRuntimeLastUpdated(value: string | undefined, fallback = new Date().toISOString()): string {
+  if (!value) {
+    return fallback;
+  }
+
+  return value.replace(/\s+\(cached\)$/i, '').trim() || fallback;
+}
+
+export function buildRuntimeState(args: {
+  freshness: RuntimeFreshness;
+  fallbackUsed?: boolean;
+  lastUpdated?: string;
+}): RuntimeState {
+  const fallbackUsed = args.fallbackUsed ?? false;
+
+  return {
+    freshness: args.freshness,
+    degraded: args.freshness !== 'fresh' || fallbackUsed,
+    fallbackUsed,
+    lastUpdated: normalizeRuntimeLastUpdated(args.lastUpdated),
+  };
+}
+
+export function withRuntimeState<T extends object>(
+  payload: T,
+  runtime: RuntimeState
+): T & { runtime: RuntimeState } {
+  return {
+    ...payload,
+    runtime,
+  };
+}
+
+export function isEnvFlagEnabled(name: string): boolean {
+  const rawValue = process.env[name];
+  if (!rawValue) {
+    return false;
+  }
+
+  return RUNTIME_FLAG_ENABLED_VALUES.has(rawValue.trim().toLowerCase());
 }
 
 /**

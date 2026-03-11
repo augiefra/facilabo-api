@@ -1,3 +1,5 @@
+import type { RuntimeState } from './v1-utils';
+
 // Types for TV Schedule API
 
 export interface Match {
@@ -25,11 +27,13 @@ export interface TVScheduleResponse {
   matches: Match[];
   lastUpdated: string;
   source: string;
+  runtime?: RuntimeState;
 }
 
 export interface ErrorResponse {
   error: string;
   message: string;
+  runtime?: RuntimeState;
 }
 
 // Channel mapping from logo alt text

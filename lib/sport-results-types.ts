@@ -1,3 +1,5 @@
+import type { RuntimeState } from './v1-utils';
+
 // Types for Sport Results API
 
 export interface MatchResult {
@@ -26,6 +28,7 @@ export interface SportResultsResponse {
   results: MatchResult[];
   lastUpdated: string;
   source: string;
+  runtime?: RuntimeState;
 }
 
 // Ligue 1 team mappings for consistent naming
@@ -138,6 +141,7 @@ export interface RaceResultsResponse {
   podium: RaceResult[];    // Top 3 only
   lastUpdated: string;
   source: string;
+  runtime?: RuntimeState;
 }
 
 // Cache for race results (longer TTL since races are weekly)
@@ -179,6 +183,7 @@ export interface RugbyResultsResponse {
   results: MatchResult[];
   lastUpdated: string;
   source: string;
+  runtime?: RuntimeState;
 }
 
 // Rugby cache (10 minutes - weekend matches)

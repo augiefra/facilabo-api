@@ -4,6 +4,7 @@ import {
   ServiceErrorPayload,
   ServiceSearchQuery,
 } from './service-search-types';
+import { buildRuntimeState, RuntimeState } from './v1-utils';
 
 export type QueryMode = 'cp' | 'city' | 'geo';
 
@@ -333,6 +334,7 @@ export function createServiceErrorPayload(args: {
   retryable: boolean;
   upstream?: string;
   examples?: string[];
+  runtime?: RuntimeState;
 }): ServiceErrorPayload {
   return {
     error: args.error,
@@ -341,6 +343,7 @@ export function createServiceErrorPayload(args: {
     upstream: args.upstream,
     examples: args.examples,
     contractVersion: SERVICE_CONTRACT_VERSION,
+    runtime: args.runtime,
   };
 }
 
@@ -354,6 +357,10 @@ export function resolveEndpointError(error: unknown): { status: number; payload:
         message: error.message,
         retryable: error.retryable,
         upstream: error.upstream,
+        runtime: buildRuntimeState({
+          freshness: 'unavailable',
+          fallbackUsed: false,
+        }),
       }),
     };
   }
@@ -364,6 +371,10 @@ export function resolveEndpointError(error: unknown): { status: number; payload:
       error: 'Internal Server Error',
       message: error instanceof Error ? error.message : 'Unknown internal error',
       retryable: true,
+      runtime: buildRuntimeState({
+        freshness: 'unavailable',
+        fallbackUsed: false,
+      }),
     }),
   };
 }

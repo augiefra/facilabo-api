@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { SERVICE_CONTRACT_VERSION, ServiceResponseBase } from '../../../lib/service-search-types';
+import { buildRuntimeState, withRuntimeState } from '../../../lib/v1-utils';
 import {
   applyServiceCors,
   ensureGetMethod,
@@ -83,14 +84,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       source: stationSourceName(),
     };
 
-    return res.status(200).json(response);
+    return res.status(200).json(
+      withRuntimeState(response, buildRuntimeState({
+        freshness: 'fresh',
+        fallbackUsed: false,
+        lastUpdated: response.lastUpdated,
+      }))
+    );
   } catch (error) {
     console.error('Stations search error:', error);
 
     if (cacheKey) {
       const stale = getStationStale(cacheKey);
       if (stale) {
-        return res.status(200).json({
+        const payload = {
           stations: stale,
           total: stale.length,
           query,
@@ -99,7 +106,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           lastUpdated: `${new Date().toISOString()} (cached)`,
           source: `${stationSourceName()} (cached)`,
           note: 'Resultats issus du cache stale suite a une indisponibilite upstream.',
-        } as StationSearchResponse);
+        } as StationSearchResponse;
+
+        return res.status(200).json(
+          withRuntimeState(payload, buildRuntimeState({
+            freshness: 'stale',
+            fallbackUsed: true,
+            lastUpdated: payload.lastUpdated,
+          }))
+        );
       }
     }
 

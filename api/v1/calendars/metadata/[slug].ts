@@ -16,7 +16,14 @@ import {
   CalendarMapping
 } from '../../../../lib/calendar-mappings';
 import { fetchWithRetry, RETRY_CONFIGS, createRetryLogger } from '../../../../lib/retry-utils';
-import { getCache, getStaleCache, setCache } from '../../../../lib/v1-utils';
+import {
+  buildRuntimeState,
+  getCache,
+  getStaleCache,
+  isEnvFlagEnabled,
+  RuntimeState,
+  setCache,
+} from '../../../../lib/v1-utils';
 import { trackAbuseRequest } from '../../../../lib/abuse-monitor';
 import { applyCalendarTransform } from '../../../../lib/ics-transforms';
 
@@ -43,9 +50,11 @@ interface ApiResponse {
   success: boolean;
   data?: FeedMetadata;
   error?: string;
+  runtime?: RuntimeState;
   meta: {
     version: string;
     timestamp: string;
+    killSwitchActive?: boolean;
   };
 }
 
@@ -257,6 +266,25 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const cacheKey = `v1:metadata:${slug}`;
+
+  if (isEnvFlagEnabled('METADATA_KILL_SWITCH')) {
+    res.setHeader('Cache-Control', 'no-store');
+    res.setHeader('Content-Type', 'application/json');
+    return res.status(503).json({
+      success: false,
+      error: 'Metadata temporarily disabled by kill switch',
+      runtime: buildRuntimeState({
+        freshness: 'unavailable',
+        fallbackUsed: false,
+      }),
+      meta: {
+        version: '1.0',
+        timestamp: new Date().toISOString(),
+        killSwitchActive: true,
+      }
+    } as ApiResponse);
+  }
+
   const cached = getCache<FeedMetadata>(cacheKey);
   if (cached) {
     res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600');
@@ -264,6 +292,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(200).json({
       success: true,
       data: cached,
+      runtime: buildRuntimeState({
+        freshness: 'fresh',
+        fallbackUsed: false,
+        lastUpdated: cached.lastUpdated,
+      }),
       meta: { version: '1.0', timestamp: new Date().toISOString() }
     } as ApiResponse);
   }
@@ -338,6 +371,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(200).json({
       success: true,
       data: metadata,
+      runtime: buildRuntimeState({
+        freshness: 'fresh',
+        fallbackUsed: false,
+        lastUpdated: metadata.lastUpdated,
+      }),
       meta: { version: '1.0', timestamp: new Date().toISOString() }
     } as ApiResponse);
 
@@ -351,6 +389,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(200).json({
         success: true,
         data: stale,
+        runtime: buildRuntimeState({
+          freshness: 'stale',
+          fallbackUsed: true,
+          lastUpdated: stale.lastUpdated,
+        }),
         meta: { version: '1.0', timestamp: new Date().toISOString() }
       } as ApiResponse);
     }
@@ -358,6 +401,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(500).json({
       success: false,
       error: error instanceof Error ? error.message : 'Failed to fetch calendar metadata',
+      runtime: buildRuntimeState({
+        freshness: 'unavailable',
+        fallbackUsed: false,
+      }),
       meta: { version: '1.0', timestamp: new Date().toISOString() }
     } as ApiResponse);
   }

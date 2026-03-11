@@ -30,6 +30,7 @@ import {
   SportResultsResponse,
   RugbyResultsResponse,
 } from '../../../../lib/sport-results-types';
+import { buildRuntimeState, withRuntimeState } from '../../../../lib/v1-utils';
 
 type SportType = 'football' | 'rugby' | 'f1' | 'motogp';
 
@@ -141,7 +142,13 @@ export default async function handler(
     }
 
     // Return iOS-compatible format
-    return res.status(200).json(results);
+    return res.status(200).json(
+      withRuntimeState(results, buildRuntimeState({
+        freshness: 'fresh',
+        fallbackUsed: false,
+        lastUpdated: results.lastUpdated,
+      }))
+    );
 
   } catch (error) {
     console.error(`${sportLower} results scraping error:`, error);
@@ -150,15 +157,27 @@ export default async function handler(
     const cachedData = config.getStaleCache(config.cacheKey);
     if (cachedData) {
       console.log('Returning stale cache due to error');
-      return res.status(200).json({
+      const payload = {
         ...cachedData,
         lastUpdated: cachedData.lastUpdated + ' (cached)',
-      });
+      };
+
+      return res.status(200).json(
+        withRuntimeState(payload, buildRuntimeState({
+          freshness: 'stale',
+          fallbackUsed: true,
+          lastUpdated: payload.lastUpdated,
+        }))
+      );
     }
 
     return res.status(500).json({
       error: 'Internal Server Error',
       message: error instanceof Error ? error.message : `Failed to fetch ${sportLower} results`,
+      runtime: buildRuntimeState({
+        freshness: 'unavailable',
+        fallbackUsed: false,
+      }),
     });
   }
 }

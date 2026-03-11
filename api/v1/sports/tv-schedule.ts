@@ -14,6 +14,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { scrapeTVSchedule, filterByTeam } from '../../../lib/scraper';
 import { getCached, getStaleCached, setCache } from '../../../lib/types';
+import { buildRuntimeState, withRuntimeState } from '../../../lib/v1-utils';
 
 const CACHE_KEY = 'v1:tv-schedule:ligue1';
 
@@ -57,7 +58,13 @@ export default async function handler(
     }
 
     // Return iOS-compatible format
-    return res.status(200).json(schedule);
+    return res.status(200).json(
+      withRuntimeState(schedule, buildRuntimeState({
+        freshness: 'fresh',
+        fallbackUsed: false,
+        lastUpdated: schedule.lastUpdated,
+      }))
+    );
 
   } catch (error) {
     console.error('Scraping error:', error);
@@ -66,15 +73,27 @@ export default async function handler(
     const cachedData = getStaleCached(CACHE_KEY);
     if (cachedData) {
       console.log('Returning stale cache due to error');
-      return res.status(200).json({
+      const payload = {
         ...cachedData,
         lastUpdated: cachedData.lastUpdated + ' (cached)',
-      });
+      };
+
+      return res.status(200).json(
+        withRuntimeState(payload, buildRuntimeState({
+          freshness: 'stale',
+          fallbackUsed: true,
+          lastUpdated: payload.lastUpdated,
+        }))
+      );
     }
 
     return res.status(500).json({
       error: 'Internal Server Error',
       message: error instanceof Error ? error.message : 'Failed to fetch TV schedule',
+      runtime: buildRuntimeState({
+        freshness: 'unavailable',
+        fallbackUsed: false,
+      }),
     });
   }
 }
