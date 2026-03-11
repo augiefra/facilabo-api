@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { SERVICE_CONTRACT_VERSION, ServiceResponseBase } from '../../../lib/service-search-types';
+import { buildRuntimeState, withRuntimeState } from '../../../lib/v1-utils';
 import {
   applyServiceCors,
   ensureGetMethod,
@@ -83,14 +84,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       source: postOfficeSourceName(),
     };
 
-    return res.status(200).json(response);
+    return res.status(200).json(
+      withRuntimeState(response, buildRuntimeState({
+        freshness: 'fresh',
+        fallbackUsed: false,
+        lastUpdated: response.lastUpdated,
+      }))
+    );
   } catch (error) {
     console.error('Post offices search error:', error);
 
     if (cacheKey) {
       const stale = getPostOfficeStale(cacheKey);
       if (stale) {
-        return res.status(200).json({
+        const payload = {
           postOffices: stale,
           total: stale.length,
           query,
@@ -99,7 +106,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           lastUpdated: `${new Date().toISOString()} (cached)`,
           source: `${postOfficeSourceName()} (cached)`,
           note: 'Resultats issus du cache stale suite a une indisponibilite upstream.',
-        } as PostOfficeSearchResponse);
+        } as PostOfficeSearchResponse;
+
+        return res.status(200).json(
+          withRuntimeState(payload, buildRuntimeState({
+            freshness: 'stale',
+            fallbackUsed: true,
+            lastUpdated: payload.lastUpdated,
+          }))
+        );
       }
     }
 

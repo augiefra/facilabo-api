@@ -26,6 +26,7 @@ Champs communs retournes par les 4 endpoints:
 - `lastUpdated`: horodatage de generation
 - `source`: source upstream
 - `note` (optionnel): present en mode fallback cache stale
+- `runtime` (optionnel, additif): etat runtime normalise `{ freshness, degraded, fallbackUsed, lastUpdated }`
 
 ## Champs metier par endpoint
 - `pharmacies`: liste de pharmacies + `gardeInfo`
@@ -61,6 +62,9 @@ En cas de panne upstream, si une entree stale existe en cache memoire:
 - status HTTP `200`
 - `note` renseigne la degradation
 - `source` suffixee `(cached)`
+- `runtime.freshness=stale`
+- `runtime.degraded=true`
+- `runtime.fallbackUsed=true`
 
 ## Exemples curl
 ```bash

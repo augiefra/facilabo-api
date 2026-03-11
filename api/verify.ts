@@ -6,7 +6,7 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
  * =============================================================================
  *
  * GET /api/verify - Run data verification checks
- * GET /api/verify?module=health|sport|pharmacy|stations|hospitals|post-offices|services
+ * GET /api/verify?module=health|metadata|sport|pharmacy|stations|hospitals|post-offices|services
  * GET /api/verify?quick=true - Quick health check only
  *
  * =============================================================================
@@ -36,6 +36,15 @@ interface VerificationReport {
   recommendations: string[];
 }
 
+interface RuntimeContractPayload {
+  runtime?: {
+    freshness?: string;
+    degraded?: boolean;
+    fallbackUsed?: boolean;
+    lastUpdated?: string;
+  };
+}
+
 const API_BASE = 'https://facilabo-api.vercel.app/api/v1';
 
 async function fetchWithTiming(url: string): Promise<{
@@ -63,6 +72,24 @@ async function fetchWithTiming(url: string): Promise<{
 
 function nowIso(): string {
   return new Date().toISOString();
+}
+
+function hasRuntimeContract(payload: unknown): payload is RuntimeContractPayload {
+  if (!payload || typeof payload !== 'object') {
+    return false;
+  }
+
+  const runtime = (payload as RuntimeContractPayload).runtime;
+  if (!runtime || typeof runtime !== 'object') {
+    return false;
+  }
+
+  return (
+    typeof runtime.freshness === 'string' &&
+    typeof runtime.degraded === 'boolean' &&
+    typeof runtime.fallbackUsed === 'boolean' &&
+    typeof runtime.lastUpdated === 'string'
+  );
 }
 
 // =============================================================================
@@ -175,6 +202,68 @@ async function verifySportResults(): Promise<VerificationResult[]> {
     timestamp: nowIso(),
   });
 
+  results.push({
+    module: 'sport-results',
+    status: hasRuntimeContract(data) ? 'PASS' : 'FAIL',
+    message: hasRuntimeContract(data)
+      ? `Contrat runtime present (${data.runtime?.freshness})`
+      : 'Contrat runtime manquant',
+    details: hasRuntimeContract(data) ? { runtime: data.runtime } : undefined,
+    timestamp: nowIso(),
+  });
+
+  return results;
+}
+
+async function verifyMetadataContract(): Promise<VerificationResult[]> {
+  const results: VerificationResult[] = [];
+  const response = await fetchWithTiming(`${API_BASE}/calendars/metadata/vacances-zone-a`);
+
+  if (!response.ok) {
+    results.push({
+      module: 'metadata',
+      status: 'FAIL',
+      message: 'Metadata indisponible',
+      details: { error: response.error },
+      timestamp: nowIso(),
+    });
+    return results;
+  }
+
+  const payload = response.data as {
+    success?: boolean;
+    data?: {
+      slug?: string;
+      nextEvent?: unknown;
+    };
+  } & RuntimeContractPayload;
+
+  results.push({
+    module: 'metadata',
+    status: payload.success === true ? 'PASS' : 'FAIL',
+    message: payload.success === true ? 'success=true' : 'success=true manquant',
+    timestamp: nowIso(),
+  });
+
+  results.push({
+    module: 'metadata',
+    status: payload.data?.slug === 'vacances-zone-a' ? 'PASS' : 'FAIL',
+    message: payload.data?.slug === 'vacances-zone-a'
+      ? 'Slug metadata coherent'
+      : `Slug metadata incoherent (${payload.data?.slug ?? 'absent'})`,
+    timestamp: nowIso(),
+  });
+
+  results.push({
+    module: 'metadata',
+    status: hasRuntimeContract(payload) ? 'PASS' : 'FAIL',
+    message: hasRuntimeContract(payload)
+      ? `Contrat runtime present (${payload.runtime?.freshness})`
+      : 'Contrat runtime manquant',
+    details: hasRuntimeContract(payload) ? { runtime: payload.runtime } : undefined,
+    timestamp: nowIso(),
+  });
+
   return results;
 }
 
@@ -228,6 +317,16 @@ async function verifyServiceEndpoint(args: {
       message: typeof payload.contractVersion === 'string'
         ? `${testCase.label}: contractVersion present`
         : `${testCase.label}: contractVersion manquant`,
+      timestamp: nowIso(),
+    });
+
+    results.push({
+      module: args.module,
+      status: hasRuntimeContract(payload) ? 'PASS' : 'FAIL',
+      message: hasRuntimeContract(payload)
+        ? `${testCase.label}: contrat runtime present (${payload.runtime?.freshness})`
+        : `${testCase.label}: contrat runtime manquant`,
+      details: hasRuntimeContract(payload) ? { runtime: payload.runtime } : undefined,
       timestamp: nowIso(),
     });
   }
@@ -337,6 +436,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       allResults = await verifyHealth();
     } else if (module === 'sport') {
       allResults = await verifySportResults();
+    } else if (module === 'metadata') {
+      allResults = await verifyMetadataContract();
     } else if (module === 'pharmacy') {
       allResults = await verifyPharmacies();
     } else if (module === 'stations') {
@@ -348,12 +449,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     } else if (module === 'services') {
       allResults = await verifyServices();
     } else {
-      const [health, sport, services] = await Promise.all([
+      const [health, metadata, sport, services] = await Promise.all([
         verifyHealth(),
+        verifyMetadataContract(),
         verifySportResults(),
         verifyServices(),
       ]);
-      allResults = [...health, ...sport, ...services];
+      allResults = [...health, ...metadata, ...sport, ...services];
     }
 
     const passed = allResults.filter((result) => result.status === 'PASS').length;

@@ -1,3 +1,5 @@
+import type { RuntimeState } from './v1-utils';
+
 export const SERVICE_CONTRACT_VERSION = '2026-02-24.services-v1';
 
 export interface ServiceSearchQuery {
@@ -16,6 +18,7 @@ export interface ServiceErrorPayload {
   upstream?: string;
   contractVersion: string;
   examples?: string[];
+  runtime?: RuntimeState;
 }
 
 export interface ServiceResponseBase {
@@ -26,4 +29,5 @@ export interface ServiceResponseBase {
   source: string;
   limit: number;
   note?: string;
+  runtime?: RuntimeState;
 }

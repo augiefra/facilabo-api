@@ -13,6 +13,7 @@
 2. Si stale dispo: retourner `200` degrade avec `note`.
 3. Si stale indisponible: retourner erreur standardisee (`502` ou `429`).
 4. Ne jamais casser le schema de reponse publique.
+5. Exposer un bloc additif `runtime` pour qualifier `fresh` / `stale` / `unavailable`.
 
 ## Sondes conseillees dans `/api/verify`
 - Nominal: cp, city, geo sur chaque service.
