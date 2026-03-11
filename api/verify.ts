@@ -45,7 +45,29 @@ interface RuntimeContractPayload {
   };
 }
 
+interface MetadataVerifyPayload extends RuntimeContractPayload {
+  success?: boolean;
+  data?: {
+    slug?: string;
+    nextEvent?: unknown;
+  };
+  meta?: {
+    killSwitchActive?: boolean;
+  };
+}
+
+interface MetadataRolloutProbe {
+  slug: string;
+  label: string;
+}
+
 const API_BASE = 'https://facilabo-api.vercel.app/api/v1';
+const METADATA_ROLLOUT_SAMPLE: MetadataRolloutProbe[] = [
+  { slug: 'vacances-zone-a', label: 'Vacances Zone A' },
+  { slug: 'feries-metropole', label: 'Feries Metropole' },
+  { slug: 'fiscal-france', label: 'Fiscalite France' },
+  { slug: 'sport-france-foot-equipe-nationale', label: 'Equipe de France football' },
+];
 
 async function fetchWithTiming(url: string): Promise<{
   ok: boolean;
@@ -230,13 +252,7 @@ async function verifyMetadataContract(): Promise<VerificationResult[]> {
     return results;
   }
 
-  const payload = response.data as {
-    success?: boolean;
-    data?: {
-      slug?: string;
-      nextEvent?: unknown;
-    };
-  } & RuntimeContractPayload;
+  const payload = response.data as MetadataVerifyPayload;
 
   results.push({
     module: 'metadata',
@@ -272,6 +288,73 @@ async function verifyMetadataContract(): Promise<VerificationResult[]> {
       metadataIsOptionalForUpcomingSnapshot: true,
       hasNextEvent: payload.data?.nextEvent != null,
       reliesOnRuntimeContract: true,
+    },
+    timestamp: nowIso(),
+  });
+
+  const probeResponses = await Promise.all(
+    METADATA_ROLLOUT_SAMPLE.map(async (probe) => {
+      const probeResponse = await fetchWithTiming(`${API_BASE}/calendars/metadata/${probe.slug}`);
+      const probePayload = probeResponse.data as MetadataVerifyPayload | undefined;
+
+      return {
+        slug: probe.slug,
+        label: probe.label,
+        ok: probeResponse.ok,
+        status: probeResponse.status,
+        responseTime: probeResponse.responseTime,
+        error: probeResponse.error,
+        runtimePresent: hasRuntimeContract(probePayload),
+        freshness: probePayload?.runtime?.freshness ?? null,
+        degraded: probePayload?.runtime?.degraded ?? null,
+        fallbackUsed: probePayload?.runtime?.fallbackUsed ?? null,
+        killSwitchActive: probePayload?.meta?.killSwitchActive === true,
+      };
+    }),
+  );
+
+  const sampleSize = probeResponses.length;
+  const failedRequests = probeResponses.filter((probe) => !probe.ok).length;
+  const missingRuntime = probeResponses.filter((probe) => probe.ok && !probe.runtimePresent).length;
+  const unavailableCount = probeResponses.filter(
+    (probe) => probe.freshness === 'unavailable' || probe.killSwitchActive,
+  ).length;
+  const degradedCount = probeResponses.filter((probe) => probe.degraded === true).length;
+  const fallbackCount = probeResponses.filter((probe) => probe.fallbackUsed === true).length;
+  const freshCount = probeResponses.filter((probe) => probe.freshness === 'fresh').length;
+  const degradedRatio = sampleSize > 0 ? Math.round((degradedCount / sampleSize) * 100) : 0;
+
+  let rolloutStatus: VerificationResult['status'] = 'PASS';
+  if (failedRequests > 0 || missingRuntime > 0 || unavailableCount > 0) {
+    rolloutStatus = 'FAIL';
+  } else if (degradedCount > 0 || fallbackCount > 0) {
+    rolloutStatus = 'WARN';
+  }
+
+  const rolloutMessage = rolloutStatus === 'PASS'
+    ? `Signal bascule metadata stable: ${freshCount}/${sampleSize} fresh, 0 fallback`
+    : rolloutStatus === 'WARN'
+      ? `Signal bascule metadata degrade: ${degradedCount}/${sampleSize} degraded, ${fallbackCount} fallback`
+      : `Signal bascule metadata critique: ${failedRequests + missingRuntime + unavailableCount} sonde(s) KO/inexploitables`;
+
+  results.push({
+    module: 'metadata',
+    status: rolloutStatus,
+    message: rolloutMessage,
+    details: {
+      signalName: 'metadata-degradation-sample',
+      sampleSize,
+      freshCount,
+      degradedCount,
+      fallbackCount,
+      unavailableCount,
+      failedRequests,
+      missingRuntime,
+      degradedRatio,
+      helpsSubscriptionStateRollout: true,
+      interpretation:
+        'Permet de distinguer une degradation metadata backend d un probleme introduit par une future bascule iOS.',
+      probes: probeResponses,
     },
     timestamp: nowIso(),
   });
@@ -488,6 +571,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
     if (score === 100) {
       recommendations.push('EXCELLENT: Toutes les verifications ont reussi');
+    }
+    const metadataRolloutSignal = allResults.find(
+      (result) =>
+        result.module === 'metadata' &&
+        result.details &&
+        result.details['signalName'] === 'metadata-degradation-sample',
+    );
+    if (metadataRolloutSignal?.status === 'WARN') {
+      recommendations.push(
+        'BASCULE IOS: Echantillon metadata degrade - qualifier le runtime backend avant d attribuer un ecart a la future bascule SubscriptionState',
+      );
+    }
+    if (metadataRolloutSignal?.status === 'FAIL') {
+      recommendations.push(
+        'BASCULE IOS: Echantillon metadata critique - bloquer toute analyse de regression iOS tant que le runtime metadata n est pas stabilise',
+      );
     }
 
     const report: VerificationReport = {
