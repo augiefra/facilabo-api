@@ -26,6 +26,33 @@ function normalizeSummary(summary: string): string {
   return summary.replace(/\s+/g, ' ').trim().toLowerCase();
 }
 
+function normalizeFootballFixtureSummary(summary: string): string {
+  return normalizeSummary(summary).replace(/\s*\(\d+\s*-\s*\d+\)\s*$/, '');
+}
+
+function extractComparableTimestamp(eventBlock: string, propertyName: 'LAST-MODIFIED' | 'CREATED' | 'DTSTAMP'): number {
+  const unfolded = eventBlock.replace(/\r?\n[ \t]/g, '');
+  const match = unfolded.match(
+    new RegExp(`(?:^|\\r?\\n)${propertyName}:(.+?)(?:\\r?\\n|$)`, 'i')
+  );
+  const rawValue = (match?.[1] ?? '').trim();
+  if (!rawValue) {
+    return Number.NEGATIVE_INFINITY;
+  }
+
+  const normalizedValue = rawValue.endsWith('Z') ? rawValue : `${rawValue}Z`;
+  const isoValue = normalizedValue.replace(
+    /^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z$/,
+    '$1-$2-$3T$4:$5:$6Z'
+  );
+  const timestamp = Date.parse(isoValue);
+  return Number.isNaN(timestamp) ? Number.NEGATIVE_INFINITY : timestamp;
+}
+
+function hasResolvedScore(summary: string): boolean {
+  return /\(\d+\s*-\s*\d+\)\s*$/.test(summary);
+}
+
 function isF1RaceEvent(eventBlock: string): boolean {
   const summary = extractSummary(eventBlock).toLowerCase();
   if (!summary) return false;
@@ -72,7 +99,8 @@ function filterEvents(
 
 function dedupeEvents(
   icsContent: string,
-  getEventKey: (eventBlock: string) => string | undefined
+  getEventKey: (eventBlock: string) => string | undefined,
+  isPreferredCandidate?: (candidate: string, current: string) => boolean
 ): string {
   const eventRegex = /BEGIN:VEVENT[\s\S]*?END:VEVENT\r?\n?/g;
   const matches: Array<{ start: number; end: number; block: string }> = [];
@@ -92,38 +120,77 @@ function dedupeEvents(
 
   const header = icsContent.slice(0, matches[0].start);
   const footer = icsContent.slice(matches[matches.length - 1].end);
-  const seenKeys = new Set<string>();
-  const keptEvents: string[] = [];
+  const keptEventsByKey = new Map<
+    string,
+    { block: string; order: number }
+  >();
+  const passthroughEvents: Array<{ block: string; order: number }> = [];
 
-  for (const item of matches) {
+  matches.forEach((item, index) => {
     const eventKey = getEventKey(item.block);
     if (!eventKey) {
-      keptEvents.push(item.block);
-      continue;
+      passthroughEvents.push({ block: item.block, order: index });
+      return;
     }
 
-    if (seenKeys.has(eventKey)) {
-      continue;
+    const existing = keptEventsByKey.get(eventKey);
+    if (!existing) {
+      keptEventsByKey.set(eventKey, { block: item.block, order: index });
+      return;
     }
 
-    seenKeys.add(eventKey);
-    keptEvents.push(item.block);
-  }
+    if (isPreferredCandidate?.(item.block, existing.block) == true) {
+      keptEventsByKey.set(eventKey, {
+        block: item.block,
+        order: existing.order
+      });
+    }
+  });
 
-  return `${header}${keptEvents.join('')}${footer}`;
+  const keptEvents = [
+    ...passthroughEvents,
+    ...Array.from(keptEventsByKey.values())
+  ]
+    .sort((lhs, rhs) => lhs.order - rhs.order)
+    .map((item) => item.block)
+    .join('');
+
+  return `${header}${keptEvents}${footer}`;
 }
 
 function dedupeEuropeanFootballEvents(icsContent: string): string {
   return dedupeEvents(icsContent, (eventBlock) => {
     const dtstart = extractPropertyValue(eventBlock, 'DTSTART');
     const dtend = extractPropertyValue(eventBlock, 'DTEND');
-    const summary = normalizeSummary(extractSummary(eventBlock));
+    const summary = normalizeFootballFixtureSummary(extractSummary(eventBlock));
 
     if (!dtstart || !summary) {
       return undefined;
     }
 
     return `${dtstart}__${dtend}__${summary}`;
+  }, (candidate, current) => {
+    const candidateSummary = extractSummary(candidate);
+    const currentSummary = extractSummary(current);
+
+    const candidateHasScore = hasResolvedScore(candidateSummary);
+    const currentHasScore = hasResolvedScore(currentSummary);
+    if (candidateHasScore != currentHasScore) {
+      return candidateHasScore;
+    }
+
+    const candidateTimestamp = Math.max(
+      extractComparableTimestamp(candidate, 'LAST-MODIFIED'),
+      extractComparableTimestamp(candidate, 'CREATED'),
+      extractComparableTimestamp(candidate, 'DTSTAMP')
+    );
+    const currentTimestamp = Math.max(
+      extractComparableTimestamp(current, 'LAST-MODIFIED'),
+      extractComparableTimestamp(current, 'CREATED'),
+      extractComparableTimestamp(current, 'DTSTAMP')
+    );
+
+    return candidateTimestamp > currentTimestamp;
   });
 }
 
