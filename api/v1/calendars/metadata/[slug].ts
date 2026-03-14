@@ -70,13 +70,41 @@ interface ParsedDateToken {
   parsedDate?: Date;
 }
 
+interface DateTimeComponents {
+  year: number;
+  month: number;
+  day: number;
+  hour: number;
+  minute: number;
+  second: number;
+  isDateOnly: boolean;
+  isUtc: boolean;
+}
+
+interface ParsedRRuleByDay {
+  ordinal?: number;
+  weekday: number; // 0=SU, 1=MO, ... 6=SA
+}
+
+interface ParsedRRule {
+  raw: string;
+  freq: 'YEARLY' | 'MONTHLY';
+  interval: number;
+  byMonth: number[];
+  byDay: ParsedRRuleByDay[];
+  until?: Date;
+}
+
 interface ParsedIcsEvent {
   summary: string;
   start: Date;
   end?: Date;
+  logicalEnd?: Date;
   dtstart: ParsedDateToken;
   dtend?: ParsedDateToken;
   hasMicrosoftAllDay: boolean;
+  hasAmbiguousValueDateSpan: boolean;
+  rrule?: ParsedRRule;
 }
 
 /**
@@ -107,15 +135,21 @@ function parseIcsEvents(icsContent: string): ParsedIcsEvent[] {
 
     const dtend = parseIcsDateToken(eventContent, 'DTEND');
     const hasMicrosoftAllDay = /X-MICROSOFT-CDO-ALLDAYEVENT:TRUE/i.test(eventContent);
+    const hasAmbiguousValueDateSpan = hasSameStartEndValueDate(dtstart, dtend);
+    const logicalEnd = resolveLogicalEventEnd(dtstart, dtend);
+    const rrule = parseRRule(eventContent, dtstart.timeZoneId);
 
     if (summary && !isNaN(dtstart.parsedDate.getTime())) {
       events.push({
         summary,
         start: dtstart.parsedDate,
         end: dtend?.parsedDate,
+        logicalEnd,
         dtstart,
         dtend,
-        hasMicrosoftAllDay
+        hasMicrosoftAllDay,
+        hasAmbiguousValueDateSpan,
+        rrule
       });
     }
   }
@@ -150,39 +184,185 @@ function parseIcsDateToken(eventContent: string, propertyName: 'DTSTART' | 'DTEN
 }
 
 function parseIcsDateValueToDate(value: string, timeZoneId?: string): Date | undefined {
-  if (/^\d{8}$/.test(value)) {
+  const components = extractDateTimeComponents(value);
+  if (!components) {
+    return undefined;
+  }
+
+  if (components.isDateOnly) {
+    return new Date(components.year, components.month - 1, components.day);
+  }
+
+  if (components.isUtc) {
     return new Date(
-      parseInt(value.substring(0, 4), 10),
-      parseInt(value.substring(4, 6), 10) - 1,
-      parseInt(value.substring(6, 8), 10)
+      Date.UTC(
+        components.year,
+        components.month - 1,
+        components.day,
+        components.hour,
+        components.minute,
+        components.second
+      )
     );
   }
 
-  if (/^\d{8}T\d{6}Z?$/.test(value)) {
-    const year = parseInt(value.substring(0, 4), 10);
-    const month = parseInt(value.substring(4, 6), 10) - 1;
-    const day = parseInt(value.substring(6, 8), 10);
-    const hour = parseInt(value.substring(9, 11), 10);
-    const minute = parseInt(value.substring(11, 13), 10);
-    const second = parseInt(value.substring(13, 15), 10);
-
-    if (value.endsWith('Z')) {
-      return new Date(Date.UTC(year, month, day, hour, minute, second));
-    }
-
-    if (timeZoneId) {
-      return createDateInTimeZone({ year, month, day, hour, minute, second }, timeZoneId);
-    }
-
-    return new Date(year, month, day, hour, minute, second);
+  if (timeZoneId) {
+    return createDateInTimeZone(
+      {
+        year: components.year,
+        month: components.month - 1,
+        day: components.day,
+        hour: components.hour,
+        minute: components.minute,
+        second: components.second
+      },
+      timeZoneId
+    );
   }
 
-  return undefined;
+  return new Date(
+    components.year,
+    components.month - 1,
+    components.day,
+    components.hour,
+    components.minute,
+    components.second
+  );
 }
 
 function extractTimeZoneId(rawParams: string): string | undefined {
   const match = rawParams.match(/;TZID=([^;:]+)/i);
   return match?.[1]?.trim() || undefined;
+}
+
+function extractDateTimeComponents(value: string): DateTimeComponents | undefined {
+  if (/^\d{8}$/.test(value)) {
+    return {
+      year: parseInt(value.substring(0, 4), 10),
+      month: parseInt(value.substring(4, 6), 10),
+      day: parseInt(value.substring(6, 8), 10),
+      hour: 0,
+      minute: 0,
+      second: 0,
+      isDateOnly: true,
+      isUtc: false
+    };
+  }
+
+  if (/^\d{8}T\d{6}Z?$/.test(value)) {
+    return {
+      year: parseInt(value.substring(0, 4), 10),
+      month: parseInt(value.substring(4, 6), 10),
+      day: parseInt(value.substring(6, 8), 10),
+      hour: parseInt(value.substring(9, 11), 10),
+      minute: parseInt(value.substring(11, 13), 10),
+      second: parseInt(value.substring(13, 15), 10),
+      isDateOnly: false,
+      isUtc: value.endsWith('Z')
+    };
+  }
+
+  return undefined;
+}
+
+function hasSameStartEndValueDate(dtstart: ParsedDateToken, dtend?: ParsedDateToken): boolean {
+  return dtstart.hasValueDateParam && !!dtend?.hasValueDateParam && dtstart.value === dtend.value;
+}
+
+function resolveLogicalEventEnd(dtstart: ParsedDateToken, dtend?: ParsedDateToken): Date | undefined {
+  if (dtend?.parsedDate) {
+    if (hasSameStartEndValueDate(dtstart, dtend)) {
+      return addDays(dtstart.parsedDate ?? dtend.parsedDate, 1);
+    }
+    return dtend.parsedDate;
+  }
+
+  if (dtstart.hasValueDateParam && dtstart.parsedDate) {
+    return addDays(dtstart.parsedDate, 1);
+  }
+
+  return undefined;
+}
+
+function addDays(date: Date, dayCount: number): Date {
+  return new Date(date.getTime() + dayCount * 24 * 60 * 60 * 1000);
+}
+
+function parseRRule(eventContent: string, timeZoneId?: string): ParsedRRule | undefined {
+  const match = eventContent.match(/(?:^|\r?\n)RRULE:(.+?)(?:\r?\n|$)/i);
+  if (!match) {
+    return undefined;
+  }
+
+  const raw = match[1].trim();
+  const params = new Map<string, string>();
+  raw.split(';').forEach((entry) => {
+    const [rawKey, rawValue] = entry.split('=');
+    if (!rawKey || !rawValue) {
+      return;
+    }
+    params.set(rawKey.toUpperCase(), rawValue.trim());
+  });
+
+  const freqValue = params.get('FREQ');
+  if (freqValue !== 'YEARLY' && freqValue !== 'MONTHLY') {
+    return undefined;
+  }
+
+  const interval = Math.max(1, parseInt(params.get('INTERVAL') ?? '1', 10) || 1);
+  const byMonth = (params.get('BYMONTH') ?? '')
+    .split(',')
+    .map((value) => parseInt(value, 10))
+    .filter((value) => Number.isInteger(value) && value >= 1 && value <= 12);
+  const byDay = (params.get('BYDAY') ?? '')
+    .split(',')
+    .map(parseRRuleByDay)
+    .filter((value): value is ParsedRRuleByDay => value != null);
+  const until = parseRRuleUntil(params.get('UNTIL'), timeZoneId);
+
+  return {
+    raw,
+    freq: freqValue,
+    interval,
+    byMonth,
+    byDay,
+    until
+  };
+}
+
+function parseRRuleByDay(value: string): ParsedRRuleByDay | undefined {
+  const trimmed = value.trim().toUpperCase();
+  if (!trimmed) {
+    return undefined;
+  }
+
+  const match = trimmed.match(/^([+-]?\d+)?(MO|TU|WE|TH|FR|SA|SU)$/);
+  if (!match) {
+    return undefined;
+  }
+
+  const weekdayMap: Record<string, number> = {
+    SU: 0,
+    MO: 1,
+    TU: 2,
+    WE: 3,
+    TH: 4,
+    FR: 5,
+    SA: 6
+  };
+
+  const ordinal = match[1] ? parseInt(match[1], 10) : undefined;
+  return {
+    ordinal: Number.isNaN(ordinal ?? NaN) ? undefined : ordinal,
+    weekday: weekdayMap[match[2]]
+  };
+}
+
+function parseRRuleUntil(value: string | undefined, timeZoneId?: string): Date | undefined {
+  if (!value) {
+    return undefined;
+  }
+  return parseIcsDateValueToDate(value.trim(), timeZoneId);
 }
 
 function createDateInTimeZone(
@@ -242,6 +422,9 @@ function timeZoneOffsetMillis(date: Date, timeZoneId: string): number {
 function detectTimePrecision(event: ParsedIcsEvent): { precision: TimePrecision; rule: string } {
   // Rule 1: DTSTART;VALUE=DATE
   if (event.dtstart.hasValueDateParam) {
+    if (event.hasAmbiguousValueDateSpan) {
+      return { precision: 'day', rule: 'rule-1b-value-date-same-start-end-normalized' };
+    }
     return { precision: 'day', rule: 'rule-1-value-date-param' };
   }
 
@@ -277,6 +460,134 @@ function maybeLogTimePrecision(slug: string, event: ParsedIcsEvent, decision: { 
     `[metadata][timePrecision] slug=${slug} precision=${decision.precision} rule=${decision.rule} ` +
     `dtstart=${event.dtstart.value} dtend=${event.dtend?.value ?? 'none'}`
   );
+}
+
+function supportsTargetedRecurringExpansion(event: ParsedIcsEvent): boolean {
+  if (!event.rrule) {
+    return false;
+  }
+
+  if (event.rrule.byDay.length > 1 || event.rrule.byMonth.length > 1) {
+    return false;
+  }
+
+  if (event.rrule.freq === 'YEARLY') {
+    return event.rrule.interval >= 1;
+  }
+
+  return event.rrule.freq === 'MONTHLY' && event.rrule.interval === 12;
+}
+
+function expandEventCandidatesForNextEvent(
+  event: ParsedIcsEvent,
+  windowStart: Date,
+  windowEnd: Date
+): ParsedIcsEvent[] {
+  if (!supportsTargetedRecurringExpansion(event)) {
+    return [event];
+  }
+
+  const startComponents = extractDateTimeComponents(event.dtstart.value);
+  if (!startComponents || startComponents.isDateOnly) {
+    return [event];
+  }
+
+  const eventDurationMs = Math.max(
+    0,
+    (event.logicalEnd?.getTime() ?? event.end?.getTime() ?? event.start.getTime()) - event.start.getTime()
+  );
+  const years = enumerateCandidateYears(event, windowStart, windowEnd);
+  const months = event.rrule!.byMonth.length > 0 ? event.rrule!.byMonth : [startComponents.month];
+  const byDay = event.rrule!.byDay[0];
+  const occurrences: ParsedIcsEvent[] = [];
+
+  for (const year of years) {
+    for (const month of months) {
+      const day = byDay
+        ? resolveDayOfMonthForOrdinalWeekday(year, month, byDay)
+        : startComponents.day;
+      if (!day) {
+        continue;
+      }
+
+      const occurrenceStart = buildOccurrenceDate(
+        {
+          year,
+          month,
+          day,
+          hour: startComponents.hour,
+          minute: startComponents.minute,
+          second: startComponents.second,
+          isDateOnly: false,
+          isUtc: startComponents.isUtc
+        },
+        event.dtstart.timeZoneId
+      );
+
+      if (!occurrenceStart) {
+        continue;
+      }
+      if (occurrenceStart.getTime() < event.start.getTime()) {
+        continue;
+      }
+      if (event.rrule?.until && occurrenceStart.getTime() > event.rrule.until.getTime()) {
+        continue;
+      }
+      if (occurrenceStart.getTime() < windowStart.getTime() || occurrenceStart.getTime() > windowEnd.getTime()) {
+        continue;
+      }
+
+      occurrences.push({
+        ...event,
+        start: occurrenceStart,
+        end: new Date(occurrenceStart.getTime() + eventDurationMs),
+        logicalEnd: new Date(occurrenceStart.getTime() + eventDurationMs),
+      });
+    }
+  }
+
+  return occurrences;
+}
+
+function enumerateCandidateYears(event: ParsedIcsEvent, windowStart: Date, windowEnd: Date): number[] {
+  const firstYear = Math.min(event.start.getUTCFullYear(), windowStart.getUTCFullYear());
+  const lastYear = Math.max(event.start.getUTCFullYear(), windowEnd.getUTCFullYear()) + 1;
+  const years: number[] = [];
+  for (let year = firstYear; year <= lastYear; year += 1) {
+    years.push(year);
+  }
+  return years;
+}
+
+function resolveDayOfMonthForOrdinalWeekday(
+  year: number,
+  month: number,
+  byDay: ParsedRRuleByDay
+): number | undefined {
+  const ordinal = byDay.ordinal ?? 1;
+  const firstDay = new Date(Date.UTC(year, month - 1, 1));
+
+  if (ordinal > 0) {
+    const firstWeekday = firstDay.getUTCDay();
+    const delta = (byDay.weekday - firstWeekday + 7) % 7;
+    const day = 1 + delta + (ordinal - 1) * 7;
+    const lastDayOfMonth = new Date(Date.UTC(year, month, 0)).getUTCDate();
+    return day <= lastDayOfMonth ? day : undefined;
+  }
+
+  const lastDayOfMonth = new Date(Date.UTC(year, month, 0));
+  const lastWeekday = lastDayOfMonth.getUTCDay();
+  const delta = (lastWeekday - byDay.weekday + 7) % 7;
+  const day = lastDayOfMonth.getUTCDate() - delta + (ordinal + 1) * 7;
+  return day >= 1 ? day : undefined;
+}
+
+function buildOccurrenceDate(
+  components: DateTimeComponents,
+  timeZoneId?: string
+): Date | undefined {
+  const value = `${String(components.year).padStart(4, '0')}${String(components.month).padStart(2, '0')}${String(components.day).padStart(2, '0')}T${String(components.hour).padStart(2, '0')}${String(components.minute).padStart(2, '0')}${String(components.second).padStart(2, '0')}${components.isUtc ? 'Z' : ''}`;
+  return parseIcsDateValueToDate(value, timeZoneId);
 }
 
 /**
@@ -393,12 +704,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     let icsContent = await response.text();
     icsContent = applyCalendarTransform(slug, icsContent);
 
-    // Parse events
+    // Parse source events.
     const events = parseIcsEvents(icsContent);
 
-    // Find next upcoming event
+    // Expand only the recurring cases we explicitly support, and only for nextEvent.
+    // Why: this keeps the public payload stable while making recurring critical feeds
+    // like changement-heure exploitable without pretending to solve generic RRULE.
     const now = new Date();
+    const nextEventHorizon = addDays(now, 370 * 2);
     const upcomingEvents = events
+      .flatMap((event) => expandEventCandidatesForNextEvent(event, now, nextEventHorizon))
       .filter(e => e.start > now)
       .sort((a, b) => a.start.getTime() - b.start.getTime());
 
