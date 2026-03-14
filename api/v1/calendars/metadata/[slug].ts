@@ -66,6 +66,7 @@ interface ParsedDateToken {
   hasValueDateParam: boolean;
   isDateOnly: boolean;
   isMidnightValue: boolean;
+  timeZoneId?: string;
   parsedDate?: Date;
 }
 
@@ -128,12 +129,14 @@ function parseIcsDateToken(eventContent: string, propertyName: 'DTSTART' | 'DTEN
 
   const raw = match[0];
   const params = (match[1] ?? '').toUpperCase();
+  const rawParams = match[1] ?? '';
   const value = (match[2] ?? '').trim();
   const hasValueDateParam = /;VALUE=DATE(?:;|$)/.test(params);
   const isDateOnly = /^\d{8}$/.test(value);
   const timePart = value.match(/^\d{8}T(\d{6})Z?$/)?.[1];
   const isMidnightValue = isDateOnly || timePart === '000000';
-  const parsedDate = parseIcsDateValueToDate(value);
+  const timeZoneId = extractTimeZoneId(rawParams);
+  const parsedDate = parseIcsDateValueToDate(value, timeZoneId);
 
   return {
     raw,
@@ -141,11 +144,12 @@ function parseIcsDateToken(eventContent: string, propertyName: 'DTSTART' | 'DTEN
     hasValueDateParam,
     isDateOnly,
     isMidnightValue,
+    timeZoneId,
     parsedDate
   };
 }
 
-function parseIcsDateValueToDate(value: string): Date | undefined {
+function parseIcsDateValueToDate(value: string, timeZoneId?: string): Date | undefined {
   if (/^\d{8}$/.test(value)) {
     return new Date(
       parseInt(value.substring(0, 4), 10),
@@ -166,10 +170,73 @@ function parseIcsDateValueToDate(value: string): Date | undefined {
       return new Date(Date.UTC(year, month, day, hour, minute, second));
     }
 
+    if (timeZoneId) {
+      return createDateInTimeZone({ year, month, day, hour, minute, second }, timeZoneId);
+    }
+
     return new Date(year, month, day, hour, minute, second);
   }
 
   return undefined;
+}
+
+function extractTimeZoneId(rawParams: string): string | undefined {
+  const match = rawParams.match(/;TZID=([^;:]+)/i);
+  return match?.[1]?.trim() || undefined;
+}
+
+function createDateInTimeZone(
+  components: { year: number; month: number; day: number; hour: number; minute: number; second: number },
+  timeZoneId: string
+): Date {
+  let timestamp = Date.UTC(
+    components.year,
+    components.month,
+    components.day,
+    components.hour,
+    components.minute,
+    components.second
+  );
+
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const offset = timeZoneOffsetMillis(new Date(timestamp), timeZoneId);
+    timestamp = Date.UTC(
+      components.year,
+      components.month,
+      components.day,
+      components.hour,
+      components.minute,
+      components.second
+    ) - offset;
+  }
+
+  return new Date(timestamp);
+}
+
+function timeZoneOffsetMillis(date: Date, timeZoneId: string): number {
+  const formatter = new Intl.DateTimeFormat('en-CA', {
+    timeZone: timeZoneId,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  });
+
+  const parts = formatter.formatToParts(date);
+  const byType = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+  const asUtc = Date.UTC(
+    Number.parseInt(byType.year, 10),
+    Number.parseInt(byType.month, 10) - 1,
+    Number.parseInt(byType.day, 10),
+    Number.parseInt(byType.hour, 10),
+    Number.parseInt(byType.minute, 10),
+    Number.parseInt(byType.second, 10)
+  );
+
+  return asUtc - date.getTime();
 }
 
 function detectTimePrecision(event: ParsedIcsEvent): { precision: TimePrecision; rule: string } {
