@@ -14,7 +14,8 @@ const cases = [
   { file: '03-midnight-multi-day.ics', expected: 'day' },
   { file: '04-midnight-short-time.ics', expected: 'time' },
   { file: '05-utc-z-timed.ics', expected: 'time' },
-  { file: '06-microsoft-all-day-flag.ics', expected: 'day' }
+  { file: '06-microsoft-all-day-flag.ics', expected: 'day' },
+  { file: '07-tzid-europe-paris-timed.ics', expected: 'time', expectedIso: '2027-03-10T20:10:00.000Z' }
 ];
 
 function parseFixture(filePath) {
@@ -63,23 +64,26 @@ function parseDateToken(eventContent, propertyName) {
   if (!match) return undefined;
 
   const params = (match[1] ?? '').toUpperCase();
+  const rawParams = match[1] ?? '';
   const value = (match[2] ?? '').trim();
   const hasValueDateParam = /;VALUE=DATE(?:;|$)/.test(params);
   const isDateOnly = /^\d{8}$/.test(value);
   const timePart = value.match(/^\d{8}T(\d{6})Z?$/)?.[1];
   const isMidnightValue = isDateOnly || timePart === '000000';
-  const parsedDate = parseDateValue(value);
+  const timeZoneId = extractTimeZoneId(rawParams);
+  const parsedDate = parseDateValue(value, timeZoneId);
 
   return {
     value,
     hasValueDateParam,
     isDateOnly,
     isMidnightValue,
+    timeZoneId,
     parsedDate
   };
 }
 
-function parseDateValue(value) {
+function parseDateValue(value, timeZoneId) {
   if (/^\d{8}$/.test(value)) {
     return new Date(
       Number.parseInt(value.slice(0, 4), 10),
@@ -100,10 +104,70 @@ function parseDateValue(value) {
       return new Date(Date.UTC(year, month, day, hour, minute, second));
     }
 
+    if (timeZoneId) {
+      return createDateInTimeZone({ year, month, day, hour, minute, second }, timeZoneId);
+    }
+
     return new Date(year, month, day, hour, minute, second);
   }
 
   return undefined;
+}
+
+function extractTimeZoneId(rawParams) {
+  const match = rawParams.match(/;TZID=([^;:]+)/i);
+  return match?.[1]?.trim();
+}
+
+function createDateInTimeZone(components, timeZoneId) {
+  let timestamp = Date.UTC(
+    components.year,
+    components.month,
+    components.day,
+    components.hour,
+    components.minute,
+    components.second
+  );
+
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    const offset = timeZoneOffsetMillis(new Date(timestamp), timeZoneId);
+    timestamp = Date.UTC(
+      components.year,
+      components.month,
+      components.day,
+      components.hour,
+      components.minute,
+      components.second
+    ) - offset;
+  }
+
+  return new Date(timestamp);
+}
+
+function timeZoneOffsetMillis(date, timeZoneId) {
+  const formatter = new Intl.DateTimeFormat('en-CA', {
+    timeZone: timeZoneId,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  });
+
+  const parts = formatter.formatToParts(date);
+  const byType = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+  const asUtc = Date.UTC(
+    Number.parseInt(byType.year, 10),
+    Number.parseInt(byType.month, 10) - 1,
+    Number.parseInt(byType.day, 10),
+    Number.parseInt(byType.hour, 10),
+    Number.parseInt(byType.minute, 10),
+    Number.parseInt(byType.second, 10)
+  );
+
+  return asUtc - date.getTime();
 }
 
 function detectTimePrecision(event) {
@@ -137,11 +201,15 @@ function run() {
     const filePath = path.join(fixturesDir, testCase.file);
     const event = parseFixture(filePath);
     const decision = detectTimePrecision(event);
-    const passed = decision.precision === testCase.expected;
+    const precisionPassed = decision.precision === testCase.expected;
+    const isoPassed = !testCase.expectedIso || event.start.toISOString() === testCase.expectedIso;
+    const passed = precisionPassed && isoPassed;
 
     const badge = passed ? 'PASS' : 'FAIL';
     console.log(
-      `[${badge}] ${testCase.file} expected=${testCase.expected} got=${decision.precision} rule=${decision.rule} summary="${event.summary}"`
+      `[${badge}] ${testCase.file} expected=${testCase.expected} got=${decision.precision}` +
+      `${testCase.expectedIso ? ` expectedIso=${testCase.expectedIso} gotIso=${event.start.toISOString()}` : ''}` +
+      ` rule=${decision.rule} summary="${event.summary}"`
     );
 
     if (!passed) {
