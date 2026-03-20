@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "API for FacilAbo TV schedule scraping",
   "private": true,
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "dev": "vercel dev",
     "typecheck": "tsc --noEmit"
