@@ -33,7 +33,7 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     description: "Dates des soldes d'hiver et d'été en France"
   },
   'changement-heure-france': {
-    sourceUrl: 'https://www.data.gouv.fr/api/1/datasets/r/44a31e90-3391-41aa-9c6a-18fae257b9e4',
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/societe/changement-heure-france.ics',
     frenchName: "Changement d'heure France",
     description: "Passage officiel heure d'été / heure d'hiver (Europe/Paris)"
   },
