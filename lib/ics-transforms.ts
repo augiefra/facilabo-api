@@ -3,7 +3,12 @@
  */
 
 const RACE_ONLY_F1_SLUG = 'f1-races-only';
+const F1_FULL_SLUG = 'f1';
 const EUROPEAN_FOOTBALL_SLUG_PREFIX = 'football-europe-';
+const CANCELLED_F1_GRAND_PRIX_MARKERS = [
+  'f1 bahrain gp',
+  'f1 saudi arabian gp',
+];
 
 const NON_RACE_SESSION_PATTERN =
   /\b(sprint|qualif(?:ying|ication)?|practice|essai(?:s| libre| libres)?|fp1|fp2|fp3|shootout|testing|test session)\b/i;
@@ -65,6 +70,13 @@ function isF1RaceEvent(eventBlock: string): boolean {
   const looksLikeGrandPrix = /\b(grand prix|gp)\b/i.test(summary);
 
   return hasRaceToken || looksLikeGrandPrix;
+}
+
+function isCancelledF1Event(eventBlock: string): boolean {
+  const summary = normalizeSummary(extractSummary(eventBlock));
+  if (!summary) return false;
+
+  return CANCELLED_F1_GRAND_PRIX_MARKERS.some((marker) => summary.includes(marker));
 }
 
 function filterEvents(
@@ -196,6 +208,10 @@ function dedupeEuropeanFootballEvents(icsContent: string): string {
 
 export function applyCalendarTransform(slug: string, icsContent: string): string {
   let transformedContent = icsContent;
+
+  if (slug === F1_FULL_SLUG || slug === RACE_ONLY_F1_SLUG) {
+    transformedContent = filterEvents(transformedContent, (eventBlock) => !isCancelledF1Event(eventBlock));
+  }
 
   if (slug === RACE_ONLY_F1_SLUG) {
     transformedContent = filterEvents(transformedContent, isF1RaceEvent);
