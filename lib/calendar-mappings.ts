@@ -333,6 +333,31 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     frenchName: 'WEC - Championnat du monde d endurance',
     description: 'Manches officielles FIA WEC datees, avec horaire ajoute des publication officielle'
   },
+  'worldcup-2026-all': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-all.ics',
+    frenchName: 'Coupe du Monde 2026 - Tous les matchs',
+    description: 'Les 104 matchs de la Coupe du Monde 2026, avec UID stable par numero de match FIFA'
+  },
+  'worldcup-2026-france': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-france.ics',
+    frenchName: 'Coupe du Monde 2026 - France',
+    description: 'Les matchs de groupe connus de la France pendant la Coupe du Monde 2026'
+  },
+  'worldcup-2026-belgium': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-belgium.ics',
+    frenchName: 'Coupe du Monde 2026 - Belgique',
+    description: 'Les matchs de groupe connus de la Belgique pendant la Coupe du Monde 2026'
+  },
+  'worldcup-2026-knockout': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-knockout.ics',
+    frenchName: 'Coupe du Monde 2026 - Phases finales',
+    description: 'Tous les matchs a elimination directe de la Coupe du Monde 2026'
+  },
+  'worldcup-2026-big-nights': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-big-nights.ics',
+    frenchName: 'Coupe du Monde 2026 - Grands soirs',
+    description: 'Selection editoriale FacilAbo: ouverture, France, Belgique et grandes affiches finales'
+  },
   'societe-reperes-france': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/societe/reperes-france.ics',
     frenchName: 'Societe - Reperes France',
@@ -369,6 +394,31 @@ const CALENDAR_CACHE_POLICY_OVERRIDES: Record<string, Partial<CalendarCachePolic
     inMemoryTtl: 1800
   },
   'sport-rugby-six-nations-complet': {
+    sMaxAge: 900,
+    staleWhileRevalidate: 3600,
+    inMemoryTtl: 900
+  },
+  'worldcup-2026-all': {
+    sMaxAge: 900,
+    staleWhileRevalidate: 3600,
+    inMemoryTtl: 900
+  },
+  'worldcup-2026-france': {
+    sMaxAge: 900,
+    staleWhileRevalidate: 3600,
+    inMemoryTtl: 900
+  },
+  'worldcup-2026-belgium': {
+    sMaxAge: 900,
+    staleWhileRevalidate: 3600,
+    inMemoryTtl: 900
+  },
+  'worldcup-2026-knockout': {
+    sMaxAge: 900,
+    staleWhileRevalidate: 3600,
+    inMemoryTtl: 900
+  },
+  'worldcup-2026-big-nights': {
     sMaxAge: 900,
     staleWhileRevalidate: 3600,
     inMemoryTtl: 900
