@@ -339,22 +339,22 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     description: 'Les 104 matchs de la Coupe du Monde 2026, avec UID stable par numero de match FIFA'
   },
   'worldcup-2026-france': {
-    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-france.ics',
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-all.ics',
     frenchName: 'Coupe du Monde 2026 - France',
-    description: 'Les matchs de groupe connus de la France pendant la Coupe du Monde 2026'
+    description: 'Les matchs connus de la France pendant la Coupe du Monde 2026, derives des numeros de match FIFA'
   },
   'worldcup-2026-belgium': {
-    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-belgium.ics',
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-all.ics',
     frenchName: 'Coupe du Monde 2026 - Belgique',
-    description: 'Les matchs de groupe connus de la Belgique pendant la Coupe du Monde 2026'
+    description: 'Les matchs connus de la Belgique pendant la Coupe du Monde 2026, derives des numeros de match FIFA'
   },
   'worldcup-2026-knockout': {
-    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-knockout.ics',
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-all.ics',
     frenchName: 'Coupe du Monde 2026 - Phases finales',
     description: 'Tous les matchs a elimination directe de la Coupe du Monde 2026'
   },
   'worldcup-2026-big-nights': {
-    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-big-nights.ics',
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-all.ics',
     frenchName: 'Coupe du Monde 2026 - Grands soirs',
     description: 'Selection editoriale FacilAbo: ouverture, France, Belgique et grandes affiches finales'
   },
