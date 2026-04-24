@@ -197,6 +197,16 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     frenchName: 'Belgique - Grands événements',
     description: 'Festivals, traditions et événements sportifs belges'
   },
+  'education-examens-2026': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/education/examens-2026.ics',
+    frenchName: 'Examens 2026',
+    description: 'Repères nationaux utiles pour le bac, le brevet, le CAP, le BTS, le BP et le BMA'
+  },
+  'education-parcoursup-2026': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/education/parcoursup-2026.ics',
+    frenchName: 'Parcoursup 2026',
+    description: 'Grandes échéances Parcoursup 2026, de la formulation des vœux à la fin de la phase complémentaire'
+  },
   'fiscal-france': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/fiscal/france.ics',
     frenchName: 'Calendrier Fiscal France',
@@ -209,8 +219,8 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
   },
   'culture-france': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/culture/france.ics',
-    frenchName: 'Événements Culturels France',
-    description: 'Nuit des Musées, Fête de la Musique, Journées du Patrimoine'
+    frenchName: 'Sorties gratuites culture',
+    description: 'Nuit des Musées, Fête de la Musique et Journées du Patrimoine'
   },
   'culture-ceremonies': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/culture/ceremonies.ics',
