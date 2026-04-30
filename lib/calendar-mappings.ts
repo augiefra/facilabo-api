@@ -319,7 +319,7 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     description: 'Matchs de l equipe de France de football (fenetre glissante 24 mois)'
   },
   'sport-france-rugby-equipe-nationale': {
-    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/france-rugby-equipe-nationale.ics',
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/refs/heads/main/sport/france-rugby-equipe-nationale.ics',
     frenchName: 'Equipe de France Rugby',
     description: 'Matchs de l equipe de France de rugby (fenetre glissante 24 mois)'
   },
