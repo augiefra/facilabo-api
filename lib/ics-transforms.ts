@@ -21,7 +21,7 @@ function extractSummary(eventBlock: string): string {
   return (match?.[1] ?? '').trim();
 }
 
-function extractPropertyValue(eventBlock: string, propertyName: 'DTSTART' | 'DTEND'): string {
+function extractPropertyValue(eventBlock: string, propertyName: 'DTSTART' | 'DTEND' | 'URL'): string {
   const unfolded = eventBlock.replace(/\r?\n[ \t]/g, '');
   const match = unfolded.match(
     new RegExp(`(?:^|\\r?\\n)${propertyName}[^:]*:(.+?)(?:\\r?\\n|$)`, 'i')
@@ -208,6 +208,33 @@ function dedupeEuropeanFootballEvents(icsContent: string): string {
   });
 }
 
+function dedupeF1ScheduleUpdateEvents(icsContent: string): string {
+  return dedupeEvents(icsContent, (eventBlock) => {
+    const dtstart = extractPropertyValue(eventBlock, 'DTSTART');
+    const summary = normalizeSummary(extractSummary(eventBlock));
+    const sourceUrl = extractPropertyValue(eventBlock, 'URL');
+    const eventDate = dtstart.slice(0, 8);
+
+    if (!eventDate || !summary || !sourceUrl) {
+      return undefined;
+    }
+
+    return `${eventDate}__${summary}__${sourceUrl}`;
+  }, (candidate, current) => {
+    const candidateStart = extractPropertyValue(candidate, 'DTSTART');
+    const currentStart = extractPropertyValue(current, 'DTSTART');
+
+    if (!candidateStart || !currentStart) {
+      return false;
+    }
+
+    // F1 can publish an advanced start while the old slot is still present
+    // in the upstream ICS. Keep the earliest slot for same-day duplicate
+    // session keys so the visible next event matches the latest safety move.
+    return candidateStart < currentStart;
+  });
+}
+
 function extractWorldCup2026MatchNumber(eventBlock: string): number | undefined {
   const unfolded = eventBlock.replace(/\r?\n[ \t]/g, '');
   const uidMatch = unfolded.match(/(?:^|\r?\n)UID:worldcup-2026-match-(\d+)@facilabo\.app(?:\r?\n|$)/i);
@@ -238,6 +265,7 @@ export function applyCalendarTransform(slug: string, icsContent: string): string
 
   if (slug === F1_FULL_SLUG || slug === RACE_ONLY_F1_SLUG) {
     transformedContent = filterEvents(transformedContent, (eventBlock) => !isCancelledF1Event(eventBlock));
+    transformedContent = dedupeF1ScheduleUpdateEvents(transformedContent);
   }
 
   if (slug === RACE_ONLY_F1_SLUG) {
