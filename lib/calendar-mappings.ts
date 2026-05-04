@@ -264,8 +264,8 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
   },
   'religion-saints-francais': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/religion/saints-francais.ics',
-    frenchName: 'Saints Français',
-    description: 'Saint du jour (calendrier quotidien)'
+    frenchName: 'Saint du jour',
+    description: 'Calendrier quotidien des saints et fêtes du jour'
   },
   // Compatibilité legacy (ne pas supprimer avant migration complète des clients)
   'religion-multi-cultes': {
@@ -361,17 +361,17 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
   'worldcup-2026-knockout': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-all.ics',
     frenchName: 'Coupe du Monde 2026 - Phases finales',
-    description: 'Tous les matchs a elimination directe de la Coupe du Monde 2026'
+    description: 'Tous les matchs à élimination directe de la Coupe du Monde 2026'
   },
   'worldcup-2026-big-nights': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-all.ics',
     frenchName: 'Coupe du Monde 2026 - Grands soirs',
-    description: 'Selection editoriale FacilAbo: ouverture, France, Belgique et grandes affiches finales'
+    description: 'Sélection éditoriale FacilAbo : ouverture, France, Belgique et grandes affiches finales'
   },
   'societe-reperes-france': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/societe/reperes-france.ics',
-    frenchName: 'Societe - Reperes France',
-    description: 'Reperes societaux France (Meres, Peres, Bonheur, Octobre Rose, etc.)'
+    frenchName: 'Société - Repères France',
+    description: 'Repères sociétaux France (Mères, Pères, Bonheur, Octobre Rose, etc.)'
   }
 };
 
