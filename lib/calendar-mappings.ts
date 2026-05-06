@@ -217,6 +217,46 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     frenchName: 'Luxembourg - Ponts utiles',
     description: 'Opportunités de pont dérivées des jours fériés légaux luxembourgeois, à confirmer selon employeur'
   },
+  'suisse-romande-geneve-feries': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/suisse/romande-geneve-feries.ics',
+    frenchName: 'Suisse romande - Genève - Jours fériés',
+    description: 'Jours fériés officiels du canton de Genève, sans couverture Suisse entière'
+  },
+  'suisse-romande-geneve-vacances': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/suisse/romande-geneve-vacances.ics',
+    frenchName: 'Suisse romande - Genève - Vacances scolaires',
+    description: 'Vacances et congés scolaires du canton de Genève'
+  },
+  'suisse-romande-vaud-feries': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/suisse/romande-vaud-feries.ics',
+    frenchName: 'Suisse romande - Vaud - Jours fériés',
+    description: 'Jours fériés officiels du canton de Vaud, sans couverture Suisse entière'
+  },
+  'suisse-romande-vaud-vacances': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/suisse/romande-vaud-vacances.ics',
+    frenchName: 'Suisse romande - Vaud - Vacances scolaires',
+    description: 'Vacances scolaires du canton de Vaud depuis la source officielle cantonale'
+  },
+  'suisse-romande-neuchatel-feries': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/suisse/romande-neuchatel-feries.ics',
+    frenchName: 'Suisse romande - Neuchâtel - Jours fériés',
+    description: 'Jours fériés officiels du canton de Neuchâtel, hors congés propres à l’administration cantonale'
+  },
+  'suisse-romande-neuchatel-vacances': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/suisse/romande-neuchatel-vacances.ics',
+    frenchName: 'Suisse romande - Neuchâtel - Vacances scolaires',
+    description: 'Vacances scolaires du canton de Neuchâtel'
+  },
+  'suisse-romande-jura-feries': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/suisse/romande-jura-feries.ics',
+    frenchName: 'Suisse romande - Jura - Jours fériés',
+    description: 'Jours fériés officiels du canton du Jura, sans couverture Suisse entière'
+  },
+  'suisse-romande-jura-vacances': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/suisse/romande-jura-vacances.ics',
+    frenchName: 'Suisse romande - Jura - Vacances scolaires',
+    description: 'Vacances scolaires du canton du Jura, couverture HTML officielle disponible pour le MVP'
+  },
   'education-examens-2026': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/education/examens-2026.ics',
     frenchName: 'Examens 2026',
