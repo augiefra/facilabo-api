@@ -197,6 +197,26 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     frenchName: 'Belgique - Grands événements',
     description: 'Festivals, traditions et événements sportifs belges'
   },
+  'belgique-ponts': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/belgique/ponts.ics',
+    frenchName: 'Belgique - Ponts utiles',
+    description: 'Opportunités de pont dérivées des jours fériés légaux belges, à confirmer selon employeur'
+  },
+  'luxembourg-feries-legaux': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/luxembourg/feries-legaux.ics',
+    frenchName: 'Luxembourg - Jours fériés légaux',
+    description: 'Jours fériés légaux nationaux du Luxembourg'
+  },
+  'luxembourg-vacances-scolaires': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/luxembourg/vacances-scolaires.ics',
+    frenchName: 'Luxembourg - Vacances scolaires',
+    description: 'Vacances et congés scolaires nationaux publiés par le MENJE, couverture officielle disponible jusqu’à l’été 2028'
+  },
+  'luxembourg-ponts': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/luxembourg/ponts.ics',
+    frenchName: 'Luxembourg - Ponts utiles',
+    description: 'Opportunités de pont dérivées des jours fériés légaux luxembourgeois, à confirmer selon employeur'
+  },
   'education-examens-2026': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/education/examens-2026.ics',
     frenchName: 'Examens 2026',
