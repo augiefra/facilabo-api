@@ -257,6 +257,16 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     frenchName: 'Suisse romande - Jura - Vacances scolaires',
     description: 'Vacances scolaires du canton du Jura, couverture HTML officielle disponible pour le MVP'
   },
+  'canada-feries-publics': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/canada/feries-publics.ics',
+    frenchName: 'Canada - Jours fériés publics',
+    description: 'Repères publics reconnus par l’ARC pour les échéances administratives; les provinces et territoires peuvent avoir leurs propres règles'
+  },
+  'canada-quebec-feries': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/canada/quebec-feries.ics',
+    frenchName: 'Québec - Jours fériés',
+    description: 'Jours fériés du Québec selon la CNESST, sans vacances scolaires ni calendrier administratif complet'
+  },
   'education-examens-2026': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/education/examens-2026.ics',
     frenchName: 'Examens 2026',
