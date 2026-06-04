@@ -38,7 +38,7 @@ interface HealthResponse {
   uptimeMessage: string;
   abuseSummary?: {
     mode: 'observe' | 'enforce';
-    provider: 'upstash' | 'disabled';
+    provider: 'disabled';
     requests5m: number;
     suspicious: boolean;
   };

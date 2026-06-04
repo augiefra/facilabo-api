@@ -1,6 +1,5 @@
 import net from 'node:net';
 import tls from 'node:tls';
-import { executeUpstashCommand } from './upstash-rest';
 
 interface EmailConfig {
   host: string;
@@ -11,6 +10,8 @@ interface EmailConfig {
   from: string;
   to: string[];
 }
+
+const memoryDedupLocks = new Map<string, number>();
 
 export interface EmailResult {
   sent: boolean;
@@ -58,12 +59,14 @@ function asBase64(input: string): string {
 }
 
 async function acquireDedupLock(key: string, ttlSeconds: number): Promise<boolean> {
-  const result = await executeUpstashCommand(['SET', `alert-lock:${key}`, Date.now().toString(), 'EX', ttlSeconds, 'NX']);
-  if (result === null) {
-    // Fail-open if redis unavailable
-    return true;
+  const now = Date.now();
+  const expiresAt = memoryDedupLocks.get(key);
+  if (expiresAt && expiresAt > now) {
+    return false;
   }
-  return String(result).toUpperCase() === 'OK';
+
+  memoryDedupLocks.set(key, now + ttlSeconds * 1000);
+  return true;
 }
 
 async function sendSmtpEmail(config: EmailConfig, subject: string, text: string): Promise<void> {
