@@ -342,6 +342,96 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     frenchName: 'Noël à Kaysersberg 2026',
     description: 'Marché de Noël artisanal de Kaysersberg, les week-ends'
   },
+  'sorties-ville-allauch': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/allauch',
+    frenchName: 'Agenda Allauch',
+    description: 'Agenda local dynamique pour Allauch'
+  },
+  'sorties-ville-marseille': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/marseille',
+    frenchName: 'Agenda Marseille',
+    description: 'Agenda local dynamique pour Marseille'
+  },
+  'sorties-ville-aix-en-provence': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/aix-en-provence',
+    frenchName: 'Agenda Aix-en-Provence',
+    description: 'Agenda local dynamique pour Aix-en-Provence'
+  },
+  'sorties-ville-aubagne': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/aubagne',
+    frenchName: 'Agenda Aubagne',
+    description: 'Agenda local dynamique pour Aubagne'
+  },
+  'sorties-ville-paris': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/paris',
+    frenchName: 'Agenda Paris',
+    description: 'Agenda local dynamique pour Paris'
+  },
+  'sorties-ville-lyon': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/lyon',
+    frenchName: 'Agenda Lyon',
+    description: 'Agenda local dynamique pour Lyon'
+  },
+  'sorties-metropole-aix-marseille-provence': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/metropole-aix-marseille-provence',
+    frenchName: 'Métropole Aix-Marseille-Provence',
+    description: 'Agenda local dynamique pour la métropole Aix-Marseille-Provence'
+  },
+  'sorties-departement-bouches-du-rhone': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/bouches-du-rhone',
+    frenchName: 'Département Bouches-du-Rhône',
+    description: 'Agenda local dynamique pour les Bouches-du-Rhône'
+  },
+  'sorties-region-sud': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/region-sud',
+    frenchName: 'Région Sud',
+    description: 'Agenda local dynamique pour la Région Sud'
+  },
+  'sorties-carnaval-nice': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/carnaval-nice',
+    frenchName: 'Carnaval de Nice',
+    description: 'Flux dynamique autour du Carnaval de Nice'
+  },
+  'sorties-braderie-lille': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/braderie-lille',
+    frenchName: 'Braderie de Lille',
+    description: 'Flux dynamique autour de la Braderie de Lille'
+  },
+  'sorties-strasbourg-noel-2026': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/strasbourg-noel-2026',
+    frenchName: 'Strasbourg Noël 2026',
+    description: 'Flux dynamique autour du marché de Noël de Strasbourg 2026'
+  },
+  'sorties-armada-rouen-2027': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/armada-rouen-2027',
+    frenchName: 'Armada de Rouen 2027',
+    description: 'Flux dynamique autour de l’Armada de Rouen 2027'
+  },
+  'sorties-cannes-2027': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/cannes-2027',
+    frenchName: 'Cannes 2027',
+    description: 'Flux dynamique autour des grands événements de Cannes 2027'
+  },
+  'sorties-foire-paris-2027': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/foire-paris-2027',
+    frenchName: 'Foire de Paris 2027',
+    description: 'Flux dynamique autour de la Foire de Paris 2027'
+  },
+  'sorties-salon-agriculture-2027': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/salon-agriculture-2027',
+    frenchName: 'Salon de l’Agriculture 2027',
+    description: 'Flux dynamique autour du Salon de l’Agriculture 2027'
+  },
+  'sorties-rencontres-arles': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/rencontres-arles',
+    frenchName: 'Rencontres d’Arles',
+    description: 'Flux dynamique autour des Rencontres d’Arles'
+  },
+  'sorties-journees-nationales-architecture-2026': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/journees-nationales-architecture-2026',
+    frenchName: 'Journées nationales de l’architecture 2026',
+    description: 'Flux dynamique autour des Journées nationales de l’architecture 2026'
+  },
   'religion-chretienne': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/religion/chretienne.ics',
     frenchName: 'Fêtes Chrétiennes',
