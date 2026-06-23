@@ -664,7 +664,7 @@ function mapOpenAgendaEvent(
     latitude,
     longitude,
     sourceAgendaTitle: agendaTitle,
-    sourceAgendaUid: agendaUid,
+    sourceAgendaUid: String(agendaUid),
     url: stringOf(event.canonicalUrl ?? event.registrationUrl ?? event.url),
     imageUrl: stringOf(image?.base ?? image?.url ?? event.imageUrl),
     source: 'openagenda',
