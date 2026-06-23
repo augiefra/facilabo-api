@@ -302,6 +302,46 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     frenchName: 'Conférences Tech/Gaming',
     description: 'CES, NVIDIA GTC, PAX, Cloud Next, Summer Game Fest, SIGGRAPH, gamescom dev, BlizzCon'
   },
+  'sorties-patrimoine-culture-gratuite-2026': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/patrimoine-culture-gratuite-2026.ics',
+    frenchName: 'Sorties patrimoine et culture gratuite 2026',
+    description: 'JEP, Nuit des musées, Fête de la musique, JEMA, archéologie, jardins et nature'
+  },
+  'sorties-fetes-traditions-2026': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/fetes-traditions-2026.ics',
+    frenchName: 'Fêtes et traditions 2026',
+    description: 'Carnaval, fêtes populaires, feria et Fête des Lumières, avec lieux clairement indiqués'
+  },
+  'sorties-festivals-culture-2026': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/festivals-culture-2026.ics',
+    frenchName: 'Festivals culturels 2026',
+    description: "Festival d'Avignon et Festival d'Aix-en-Provence"
+  },
+  'sorties-salons-grand-public-2026': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/salons-grand-public-2026.ics',
+    frenchName: 'Salons grand public 2026',
+    description: 'Japan Expo Paris et Paris Games Week'
+  },
+  'sorties-noel-colmar-2026': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/noel-colmar-2026.ics',
+    frenchName: 'Noël à Colmar 2026',
+    description: 'Marchés de Noël de Colmar'
+  },
+  'sorties-noel-eguisheim-2026': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/noel-eguisheim-2026.ics',
+    frenchName: 'Noël à Eguisheim 2026',
+    description: 'Marché de Noël authentique à Eguisheim'
+  },
+  'sorties-noel-riquewihr-2026': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/noel-riquewihr-2026.ics',
+    frenchName: 'Noël à Riquewihr 2026',
+    description: 'Marché de Noël traditionnel de Riquewihr'
+  },
+  'sorties-noel-kaysersberg-2026': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/noel-kaysersberg-2026.ics',
+    frenchName: 'Noël à Kaysersberg 2026',
+    description: 'Marché de Noël artisanal de Kaysersberg, les week-ends'
+  },
   'religion-chretienne': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/religion/chretienne.ics',
     frenchName: 'Fêtes Chrétiennes',
