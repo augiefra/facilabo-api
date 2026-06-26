@@ -317,10 +317,30 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     frenchName: 'Festivals culturels 2026',
     description: "Festival d'Avignon et Festival d'Aix-en-Provence"
   },
+  'sorties-festival-avignon-2026': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/festival-avignon-2026.ics',
+    frenchName: "Festival d'Avignon 2026",
+    description: "80e Festival d'Avignon, du 4 au 25 juillet 2026"
+  },
+  'sorties-festival-aix-2026': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/festival-aix-2026.ics',
+    frenchName: "Festival d'Aix-en-Provence 2026",
+    description: "Festival d'Aix-en-Provence, du 2 au 21 juillet 2026"
+  },
   'sorties-salons-grand-public-2026': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/salons-grand-public-2026.ics',
     frenchName: 'Salons grand public 2026',
     description: 'Japan Expo Paris et Paris Games Week'
+  },
+  'sorties-foire-marseille-2026': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/foire-marseille-2026.ics',
+    frenchName: 'Foire de Marseille 2026',
+    description: 'Foire Internationale de Marseille, du 25 septembre au 5 octobre 2026'
+  },
+  'sorties-marseille-cassis-2026': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/marseille-cassis-2026.ics',
+    frenchName: 'Marseille-Cassis 2026',
+    description: "Course Marseille-Cassis, dernier dimanche d'octobre 2026"
   },
   'sorties-noel-colmar-2026': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/noel-colmar-2026.ics',
@@ -352,15 +372,160 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     frenchName: 'Agenda Aix-en-Provence',
     description: 'Agenda local dynamique pour Aix-en-Provence'
   },
+  'sorties-ville-salon-de-provence': {
+    sourceUrl: 'https://www.salondeprovence.fr/agenda/liste/?ical=1',
+    frenchName: 'Agenda Salon-de-Provence',
+    description: 'Agenda officiel de la Ville de Salon-de-Provence'
+  },
+  'sorties-ville-antibes': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/antibes',
+    frenchName: 'Agenda Antibes',
+    description: 'Agenda officiel Antibes Juan-les-Pins'
+  },
   'sorties-ville-paris': {
     sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/paris',
     frenchName: 'Agenda Paris',
     description: 'Agenda local dynamique pour Paris'
   },
+  'sorties-ville-lyon': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/lyon',
+    frenchName: 'Agenda Lyon',
+    description: 'Agenda local dynamique pour Lyon'
+  },
+  'sorties-ville-toulouse': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/toulouse',
+    frenchName: 'Agenda Toulouse',
+    description: 'Agenda local dynamique pour Toulouse'
+  },
+  'sorties-ville-nice': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/nice',
+    frenchName: 'Agenda Nice',
+    description: 'Agenda local dynamique pour Nice'
+  },
+  'sorties-ville-nantes': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/nantes',
+    frenchName: 'Agenda Nantes',
+    description: 'Agenda local dynamique pour Nantes'
+  },
+  'sorties-ville-montpellier': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/montpellier',
+    frenchName: 'Agenda Montpellier',
+    description: 'Agenda local dynamique pour Montpellier'
+  },
+  'sorties-ville-strasbourg': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/strasbourg',
+    frenchName: 'Agenda Strasbourg',
+    description: 'Agenda local dynamique pour Strasbourg'
+  },
+  'sorties-ville-bordeaux': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/bordeaux',
+    frenchName: 'Agenda Bordeaux',
+    description: 'Agenda local dynamique pour Bordeaux'
+  },
+  'sorties-ville-lille': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/lille',
+    frenchName: 'Agenda Lille',
+    description: 'Agenda local dynamique pour Lille'
+  },
+  'sorties-ville-rennes': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/rennes',
+    frenchName: 'Agenda Rennes',
+    description: 'Agenda local dynamique pour Rennes'
+  },
+  'sorties-ville-reims': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/reims',
+    frenchName: 'Agenda Reims',
+    description: 'Agenda local dynamique pour Reims'
+  },
+  'sorties-ville-saint-etienne': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/saint-etienne',
+    frenchName: 'Agenda Saint-Étienne',
+    description: 'Agenda local dynamique pour Saint-Étienne'
+  },
+  'sorties-ville-toulon': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/toulon',
+    frenchName: 'Agenda Toulon',
+    description: 'Agenda local dynamique pour Toulon'
+  },
+  'sorties-ville-le-havre': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/le-havre',
+    frenchName: 'Agenda Le Havre',
+    description: 'Agenda local dynamique pour Le Havre'
+  },
+  'sorties-ville-grenoble': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/grenoble',
+    frenchName: 'Agenda Grenoble',
+    description: 'Agenda local dynamique pour Grenoble'
+  },
+  'sorties-ville-dijon': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/dijon',
+    frenchName: 'Agenda Dijon',
+    description: 'Agenda local dynamique pour Dijon'
+  },
+  'sorties-ville-angers': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/angers',
+    frenchName: 'Agenda Angers',
+    description: 'Agenda local dynamique pour Angers'
+  },
+  'sorties-ville-nimes': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/nimes',
+    frenchName: 'Agenda Nîmes',
+    description: 'Agenda local dynamique pour Nîmes'
+  },
+  'sorties-ville-villeurbanne': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/villeurbanne',
+    frenchName: 'Agenda Villeurbanne',
+    description: 'Agenda local dynamique pour Villeurbanne'
+  },
+  'sorties-metropole-grand-paris': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/grand-paris',
+    frenchName: 'Métropole du Grand Paris',
+    description: 'Agenda local dynamique pour la Métropole du Grand Paris'
+  },
   'sorties-metropole-aix-marseille-provence': {
     sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/metropole-aix-marseille-provence',
     frenchName: 'Métropole Aix-Marseille-Provence',
     description: 'Agenda local dynamique pour la métropole Aix-Marseille-Provence'
+  },
+  'sorties-metropole-grand-lyon': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/grand-lyon',
+    frenchName: 'Métropole de Lyon',
+    description: 'Agenda local dynamique pour la Métropole de Lyon'
+  },
+  'sorties-metropole-europeenne-lille': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/metropole-europeenne-lille',
+    frenchName: 'Métropole Européenne de Lille',
+    description: 'Agenda local dynamique pour la Métropole Européenne de Lille'
+  },
+  'sorties-metropole-toulouse': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/toulouse-metropole',
+    frenchName: 'Toulouse Métropole',
+    description: 'Agenda local dynamique pour Toulouse Métropole'
+  },
+  'sorties-metropole-bordeaux': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/bordeaux-metropole',
+    frenchName: 'Bordeaux Métropole',
+    description: 'Agenda local dynamique pour Bordeaux Métropole'
+  },
+  'sorties-metropole-nantes': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/nantes-metropole',
+    frenchName: 'Nantes Métropole',
+    description: 'Agenda local dynamique pour Nantes Métropole'
+  },
+  'sorties-metropole-strasbourg': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/eurometropole-strasbourg',
+    frenchName: 'Eurométropole de Strasbourg',
+    description: 'Agenda local dynamique pour l’Eurométropole de Strasbourg'
+  },
+  'sorties-metropole-montpellier': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/montpellier-mediterranee-metropole',
+    frenchName: 'Montpellier Méditerranée Métropole',
+    description: 'Agenda local dynamique pour Montpellier Méditerranée Métropole'
+  },
+  'sorties-metropole-rennes': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/rennes-metropole',
+    frenchName: 'Rennes Métropole',
+    description: 'Agenda local dynamique pour Rennes Métropole'
   },
   'sorties-region-sud': {
     sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/region-sud',

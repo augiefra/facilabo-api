@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { applyServiceCors, handleServiceOptions } from '../../../../lib/service-search-utils';
+import { fetchAntibesAgendaIcs } from '../../../../lib/antibes-events';
 import { getLocalEventTarget, localEventsToIcs, searchLocalEvents } from '../../../../lib/local-events';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -17,6 +18,26 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const slug = Array.isArray(rawTarget) ? rawTarget[0] : rawTarget;
   if (!slug) {
     return res.status(400).json({ error: 'Missing local event target' });
+  }
+
+  if (slug === 'antibes') {
+    try {
+      const ics = await fetchAntibesAgendaIcs();
+      res.setHeader('Content-Type', 'text/calendar; charset=utf-8');
+      res.setHeader('Content-Disposition', 'attachment; filename="antibes.ics"');
+      res.setHeader('Cache-Control', 's-maxage=1800, stale-while-revalidate=3600');
+
+      if (req.method === 'HEAD') {
+        return res.status(200).end();
+      }
+
+      return res.status(200).send(ics);
+    } catch (error) {
+      return res.status(502).json({
+        error: 'Antibes RSS source unavailable',
+        message: error instanceof Error ? error.message : 'Unknown error',
+      });
+    }
   }
 
   const target = getLocalEventTarget(slug);
