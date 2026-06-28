@@ -661,12 +661,12 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
   'worldcup-2026-france': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-all.ics',
     frenchName: 'Coupe du Monde 2026 - France',
-    description: 'Les matchs connus de la France pendant la Coupe du Monde 2026, derives des numeros de match FIFA'
+    description: 'Les matchs officiels de la France pendant la Coupe du Monde 2026, groupes et phase finale, derives des numeros de match FIFA'
   },
   'worldcup-2026-belgium': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-all.ics',
     frenchName: 'Coupe du Monde 2026 - Belgique',
-    description: 'Les matchs connus de la Belgique pendant la Coupe du Monde 2026, derives des numeros de match FIFA'
+    description: 'Les matchs officiels de la Belgique pendant la Coupe du Monde 2026, groupes et phase finale, derives des numeros de match FIFA'
   },
   'worldcup-2026-knockout': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-all.ics',
@@ -719,29 +719,29 @@ const CALENDAR_CACHE_POLICY_OVERRIDES: Record<string, Partial<CalendarCachePolic
     inMemoryTtl: 900
   },
   'worldcup-2026-all': {
-    sMaxAge: 900,
-    staleWhileRevalidate: 3600,
-    inMemoryTtl: 900
+    sMaxAge: 60,
+    staleWhileRevalidate: 300,
+    inMemoryTtl: 60
   },
   'worldcup-2026-france': {
-    sMaxAge: 900,
-    staleWhileRevalidate: 3600,
-    inMemoryTtl: 900
+    sMaxAge: 60,
+    staleWhileRevalidate: 300,
+    inMemoryTtl: 60
   },
   'worldcup-2026-belgium': {
-    sMaxAge: 900,
-    staleWhileRevalidate: 3600,
-    inMemoryTtl: 900
+    sMaxAge: 60,
+    staleWhileRevalidate: 300,
+    inMemoryTtl: 60
   },
   'worldcup-2026-knockout': {
-    sMaxAge: 900,
-    staleWhileRevalidate: 3600,
-    inMemoryTtl: 900
+    sMaxAge: 60,
+    staleWhileRevalidate: 300,
+    inMemoryTtl: 60
   },
   'worldcup-2026-big-nights': {
-    sMaxAge: 900,
-    staleWhileRevalidate: 3600,
-    inMemoryTtl: 900
+    sMaxAge: 60,
+    staleWhileRevalidate: 300,
+    inMemoryTtl: 60
   }
 };
 

@@ -5,11 +5,13 @@ const WORLD_CUP_2026_ROUTE_MATCHES: Record<string, number[]> = {
     17,
     42,
     61,
+    77,
   ],
   'worldcup-2026-belgium': [
     16,
     39,
     64,
+    82,
   ],
   'worldcup-2026-knockout': [
     73,
@@ -56,6 +58,8 @@ const WORLD_CUP_2026_ROUTE_MATCHES: Record<string, number[]> = {
     42,
     61,
     64,
+    77,
+    82,
     89,
     90,
     91,
