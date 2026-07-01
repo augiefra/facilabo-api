@@ -337,6 +337,11 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     frenchName: 'Foire de Marseille 2026',
     description: 'Foire Internationale de Marseille, du 25 septembre au 5 octobre 2026'
   },
+  'sorties-savim-marseille': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/savim-marseille.ics',
+    frenchName: 'SAVIM Marseille 2026',
+    description: 'Salon des vins et de la gastronomie au Parc Chanot, 27 au 30 mars et 20 au 23 novembre 2026'
+  },
   'sorties-marseille-cassis-2026': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/marseille-cassis-2026.ics',
     frenchName: 'Marseille-Cassis 2026',
