@@ -659,22 +659,22 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     description: 'Les 104 matchs de la Coupe du Monde 2026, avec UID stable par numero de match FIFA'
   },
   'worldcup-2026-france': {
-    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-all.ics',
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-france.ics',
     frenchName: 'Coupe du Monde 2026 - France',
-    description: 'Les matchs officiels de la France pendant la Coupe du Monde 2026, groupes et phase finale, derives des numeros de match FIFA'
+    description: 'Les matchs officiels de la France pendant la Coupe du Monde 2026, groupes et phase finale'
   },
   'worldcup-2026-belgium': {
-    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-all.ics',
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-belgium.ics',
     frenchName: 'Coupe du Monde 2026 - Belgique',
-    description: 'Les matchs officiels de la Belgique pendant la Coupe du Monde 2026, groupes et phase finale, derives des numeros de match FIFA'
+    description: 'Les matchs officiels de la Belgique pendant la Coupe du Monde 2026, groupes et phase finale'
   },
   'worldcup-2026-knockout': {
-    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-all.ics',
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-knockout.ics',
     frenchName: 'Coupe du Monde 2026 - Phases finales',
     description: 'Tous les matchs à élimination directe de la Coupe du Monde 2026'
   },
   'worldcup-2026-big-nights': {
-    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-all.ics',
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-big-nights.ics',
     frenchName: 'Coupe du Monde 2026 - Grands soirs',
     description: 'Sélection éditoriale FacilAbo : ouverture, France, Belgique et grandes affiches finales'
   },

@@ -2,8 +2,6 @@
  * ICS transforms shared by proxy and metadata endpoints.
  */
 
-import { getWorldCup2026MatchNumbers } from './worldcup-2026-routes';
-
 const RACE_ONLY_F1_SLUG = 'f1-races-only';
 const F1_FULL_SLUG = 'f1';
 const EUROPEAN_FOOTBALL_SLUG_PREFIX = 'football-europe-';
@@ -235,31 +233,6 @@ function dedupeF1ScheduleUpdateEvents(icsContent: string): string {
   });
 }
 
-function extractWorldCup2026MatchNumber(eventBlock: string): number | undefined {
-  const unfolded = eventBlock.replace(/\r?\n[ \t]/g, '');
-  const uidMatch = unfolded.match(/(?:^|\r?\n)UID:worldcup-2026-match-(\d+)@facilabo\.app(?:\r?\n|$)/i);
-  const descriptionMatch = unfolded.match(/(?:^|\r?\n)DESCRIPTION[^:]*:Match FIFA (\d+)/i);
-  const rawMatchNumber = uidMatch?.[1] ?? descriptionMatch?.[1];
-  if (!rawMatchNumber) {
-    return undefined;
-  }
-
-  const matchNumber = Number.parseInt(rawMatchNumber, 10);
-  return Number.isFinite(matchNumber) ? matchNumber : undefined;
-}
-
-function filterWorldCup2026Route(icsContent: string, slug: string): string {
-  const matchNumbers = getWorldCup2026MatchNumbers(slug);
-  if (!matchNumbers) {
-    return icsContent;
-  }
-
-  return filterEvents(icsContent, (eventBlock) => {
-    const matchNumber = extractWorldCup2026MatchNumber(eventBlock);
-    return matchNumber !== undefined && matchNumbers.has(matchNumber);
-  });
-}
-
 export function applyCalendarTransform(slug: string, icsContent: string): string {
   let transformedContent = icsContent;
 
@@ -275,8 +248,6 @@ export function applyCalendarTransform(slug: string, icsContent: string): string
   if (slug.startsWith(EUROPEAN_FOOTBALL_SLUG_PREFIX)) {
     transformedContent = dedupeEuropeanFootballEvents(transformedContent);
   }
-
-  transformedContent = filterWorldCup2026Route(transformedContent, slug);
 
   return transformedContent;
 }
