@@ -287,6 +287,11 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     frenchName: 'Paye Fonction publique',
     description: 'Dates officielles de virement des agents publics (source ministerielle)'
   },
+  'fiscal-paiements-retraite-2026': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/fiscal/paiements-retraite-2026.ics',
+    frenchName: 'Paiements retraite 2026',
+    description: "Dates de versement des retraites de l'Assurance retraite"
+  },
   'culture-france': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/culture/france.ics',
     frenchName: 'Sorties gratuites culture',
