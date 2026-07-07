@@ -22,6 +22,11 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     frenchName: 'Astronomie',
     description: 'Phases lunaires, éclipses, météores et événements astronomiques'
   },
+  'marees-coefficients-2026': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/astronomie/marees-coefficients-2026.ics',
+    frenchName: 'Grandes marées 2026',
+    description: 'Grosses marées océaniques avec coefficients SHOM élevés (référence Brest)'
+  },
   'jardin-lunaire': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/jardin/lunaire.ics',
     frenchName: 'Calendrier Lunaire Jardin',
@@ -692,6 +697,11 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/societe/reperes-france.ics',
     frenchName: 'Société - Repères France',
     description: 'Repères sociétaux France (Mères, Pères, Bonheur, Octobre Rose, etc.)'
+  },
+  'societe-elections-scrutins-2026': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/societe/elections-scrutins-2026.ics',
+    frenchName: 'Élections et scrutins 2026',
+    description: 'Dates utiles des scrutins nationaux confirmés par les sources officielles'
   }
 };
 
