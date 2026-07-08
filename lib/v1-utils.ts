@@ -78,6 +78,7 @@ export const CACHE_TTL = {
   CALENDAR: 3600,       // 1 hour for ICS calendars
   TV_SCHEDULE: 1800,    // 30 minutes for TV schedule
   SPORT_RESULTS: 300,   // 5 minutes for live results
+  UPDATE_NOTICES: 300,   // 5 minutes for editorial update notices
   PHARMACIES: 86400,    // 24 hours for pharmacy data
   HEALTH: 60,           // 1 minute for health check
 } as const;
