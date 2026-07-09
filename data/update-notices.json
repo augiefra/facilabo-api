@@ -1,5 +1,15 @@
 [
   {
+    "id": "facilabo-172-update-notices-intro-v1",
+    "title": "Mises à jour des calendriers",
+    "titleEn": "Calendar update notices",
+    "message": "Nouveau : FacilAbo vous prévient quand un calendrier que vous suivez a été corrigé ou mis à jour.",
+    "messageEn": "New: FacilAbo lets you know when a calendar you follow has been corrected or updated.",
+    "startsAt": "2026-07-09T08:00:00.000Z",
+    "endsAt": "2026-08-15T22:00:00.000Z",
+    "priority": "normal"
+  },
+  {
     "id": "soldes-ete-2026-prolongation",
     "title": "Soldes d'été prolongés",
     "titleEn": "Summer sales extended",
