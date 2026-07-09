@@ -1,0 +1,18 @@
+[
+  {
+    "id": "soldes-ete-2026-prolongation",
+    "title": "Soldes d'été prolongés",
+    "titleEn": "Summer sales extended",
+    "message": "FacilAbo a déjà intégré les nouvelles dates dans votre calendrier.",
+    "messageEn": "FacilAbo has already added the updated dates to your calendar.",
+    "feedSlugs": [
+      "soldes-france"
+    ],
+    "categoryTypes": [
+      "soldes"
+    ],
+    "startsAt": "2026-07-08T00:00:00.000Z",
+    "endsAt": "2026-08-01T23:59:59.000Z",
+    "priority": "high"
+  }
+]

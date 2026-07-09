@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { CACHE_TTL, errorResponse, handleOptions, successResponse } from '../../../lib/v1-utils';
+import updateNotices from '../../../data/update-notices.json';
 
 type UpdateNoticePriority = 'low' | 'normal' | 'high';
 
@@ -19,20 +20,7 @@ interface FacilAboUpdateNotice {
   actionURL?: string;
 }
 
-const UPDATE_NOTICES: FacilAboUpdateNotice[] = [
-  {
-    id: 'soldes-ete-2026-prolongation',
-    title: "Soldes d'été prolongés",
-    titleEn: 'Summer sales extended',
-    message: "Les nouvelles dates sont déjà prises en compte dans FacilAbo.",
-    messageEn: 'The updated dates are already available in FacilAbo.',
-    feedSlugs: ['soldes-france'],
-    categoryTypes: ['soldes'],
-    startsAt: '2026-07-08T00:00:00.000Z',
-    endsAt: '2026-08-01T23:59:59.000Z',
-    priority: 'high',
-  },
-];
+const UPDATE_NOTICES = updateNotices as FacilAboUpdateNotice[];
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method === 'OPTIONS') {
