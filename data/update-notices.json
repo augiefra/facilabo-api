@@ -24,5 +24,18 @@
     "startsAt": "2026-07-08T00:00:00.000Z",
     "endsAt": "2026-08-01T23:59:59.000Z",
     "priority": "high"
+  },
+  {
+    "id": "worldcup-2026-france-match-101-event-added-v1",
+    "title": "La France est en demi-finale",
+    "titleEn": "France reached the semi-final",
+    "message": "Le calendrier Coupe du Monde 2026 - France a été mis à jour avec la demi-finale du 14 juillet à 21 h. L'adversaire sera ajouté dès sa confirmation.",
+    "messageEn": "The Coupe du Monde 2026 - France calendar now includes the semi-final on July 14 at 9:00 PM Paris time. The opponent will be added as soon as it is confirmed.",
+    "feedSlugs": [
+      "worldcup-2026-france"
+    ],
+    "startsAt": "2026-07-10T06:30:00Z",
+    "endsAt": "2026-07-14T19:00:00Z",
+    "priority": "high"
   }
 ]
