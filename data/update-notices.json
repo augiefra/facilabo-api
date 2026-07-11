@@ -37,5 +37,18 @@
     "startsAt": "2026-07-10T06:30:00Z",
     "endsAt": "2026-07-14T19:00:00Z",
     "priority": "high"
+  },
+  {
+    "id": "worldcup-2026-france-match-101-details-confirmed-v1",
+    "title": "L'affiche de la France est confirmée",
+    "titleEn": "France's fixture is confirmed",
+    "message": "La demi-finale France - Espagne du 14 juillet à 21 h est à jour dans votre calendrier.",
+    "messageEn": "The semi-final fixture on July 14 at 9:00 PM Paris time is now up to date in your calendar.",
+    "feedSlugs": [
+      "worldcup-2026-france"
+    ],
+    "startsAt": "2026-07-11T06:11:36Z",
+    "endsAt": "2026-07-14T19:00:00Z",
+    "priority": "high"
   }
 ]
