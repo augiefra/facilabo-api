@@ -47,6 +47,9 @@
     "feedSlugs": [
       "worldcup-2026-france"
     ],
+    "supersedesIds": [
+      "worldcup-2026-france-match-101-event-added-v1"
+    ],
     "startsAt": "2026-07-11T06:11:36Z",
     "endsAt": "2026-07-14T19:00:00Z",
     "priority": "high"

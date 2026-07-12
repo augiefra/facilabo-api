@@ -13,6 +13,7 @@ interface FacilAboUpdateNotice {
   feedSlugs?: string[];
   feedIds?: string[];
   categoryTypes?: string[];
+  supersedesIds?: string[];
   startsAt?: string;
   endsAt?: string;
   priority: UpdateNoticePriority;
@@ -21,6 +22,24 @@ interface FacilAboUpdateNotice {
 }
 
 const UPDATE_NOTICES = updateNotices as FacilAboUpdateNotice[];
+
+export function filterSupersededNotices(
+  notices: FacilAboUpdateNotice[],
+  now: Date = new Date()
+): FacilAboUpdateNotice[] {
+  const nowTimestamp = now.getTime();
+  const supersededIds = new Set(
+    notices
+      .filter((notice) => {
+        if (!notice.startsAt) return true;
+        const startsAt = Date.parse(notice.startsAt);
+        return !Number.isNaN(startsAt) && startsAt <= nowTimestamp;
+      })
+      .flatMap((notice) => notice.supersedesIds ?? [])
+  );
+
+  return notices.filter((notice) => !supersededIds.has(notice.id));
+}
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method === 'OPTIONS') {
@@ -37,7 +56,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     );
   }
 
-  return successResponse(res, UPDATE_NOTICES, {
+  return successResponse(res, filterSupersededNotices(UPDATE_NOTICES), {
     source: 'facilabo-editorial-updates',
     ttl: CACHE_TTL.UPDATE_NOTICES,
   });
