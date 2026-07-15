@@ -53,5 +53,23 @@
     "startsAt": "2026-07-11T06:11:36Z",
     "endsAt": "2026-07-14T19:00:00Z",
     "priority": "high"
+  },
+  {
+    "id": "worldcup-2026-france-match-103-event-added-v1",
+    "title": "La France jouera la petite finale",
+    "titleEn": "France reached the third-place play-off",
+    "message": "Le calendrier Coupe du Monde 2026 - France a été mis à jour avec la petite finale du 18 juillet à 23 h.",
+    "messageEn": "The Coupe du Monde 2026 - France calendar now includes the third-place play-off on July 18 at 11:00 PM Paris time.",
+    "feedSlugs": [
+      "worldcup-2026-france"
+    ],
+    "startsAt": "2026-07-15T06:39:50Z",
+    "endsAt": "2026-07-18T21:00:00Z",
+    "priority": "high",
+    "supersedesIds": [
+      "worldcup-2026-france-match-103-event-removed-v1",
+      "worldcup-2026-france-match-103-schedule-changed-v1",
+      "worldcup-2026-france-match-103-details-confirmed-v1"
+    ]
   }
 ]
