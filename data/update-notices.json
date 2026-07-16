@@ -68,8 +68,25 @@
     "priority": "high",
     "supersedesIds": [
       "worldcup-2026-france-match-103-event-removed-v1",
-      "worldcup-2026-france-match-103-schedule-changed-v1",
-      "worldcup-2026-france-match-103-details-confirmed-v1"
+      "worldcup-2026-france-match-103-schedule-changed-v1"
+    ]
+  },
+  {
+    "id": "worldcup-2026-france-match-103-details-confirmed-v1",
+    "title": "L'affiche de la France est confirmée",
+    "titleEn": "France's fixture is confirmed",
+    "message": "La petite finale France - Angleterre du 18 juillet à 23 h est à jour dans votre calendrier.",
+    "messageEn": "The third-place play-off fixture on July 18 at 11:00 PM Paris time is now up to date in your calendar.",
+    "feedSlugs": [
+      "worldcup-2026-france"
+    ],
+    "startsAt": "2026-07-16T06:34:24Z",
+    "endsAt": "2026-07-18T21:00:00Z",
+    "priority": "high",
+    "supersedesIds": [
+      "worldcup-2026-france-match-103-event-added-v1",
+      "worldcup-2026-france-match-103-event-removed-v1",
+      "worldcup-2026-france-match-103-schedule-changed-v1"
     ]
   }
 ]
