@@ -1,0 +1,1290 @@
+{
+  "catalogSchemaVersion": 2,
+  "entries": {
+    "angers": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "asMonaco": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "astronomie": {
+      "discoverable": true,
+      "family": "sciences",
+      "category": "astronomy"
+    },
+    "auxerre": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "basketball": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "basketball"
+    },
+    "bayonne": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "rugby"
+    },
+    "belgique-feries-remplacement": {
+      "discoverable": true,
+      "family": "pays",
+      "category": "belgique"
+    },
+    "belgique-fetes-institutionnelles": {
+      "discoverable": true,
+      "family": "pays",
+      "category": "belgique"
+    },
+    "belgique-grands-evenements": {
+      "discoverable": true,
+      "family": "pays",
+      "category": "belgique"
+    },
+    "belgique-ponts": {
+      "discoverable": true,
+      "family": "pays",
+      "category": "belgique"
+    },
+    "belgique-soldes-attente": {
+      "discoverable": true,
+      "family": "pays",
+      "category": "belgique"
+    },
+    "belgique-vacances-fwb": {
+      "discoverable": true,
+      "family": "pays",
+      "category": "belgique"
+    },
+    "belgique-vacances-vlaanderen": {
+      "discoverable": true,
+      "family": "pays",
+      "category": "belgique"
+    },
+    "bordeaux": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "rugby"
+    },
+    "canada-feries-publics": {
+      "discoverable": true,
+      "family": "pays",
+      "category": "canada"
+    },
+    "canada-quebec-feries": {
+      "discoverable": true,
+      "family": "pays",
+      "category": "canada"
+    },
+    "castres": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "rugby"
+    },
+    "changement-heure-france": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "timeChange"
+    },
+    "clermont": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "rugby"
+    },
+    "culture-ceremonies": {
+      "discoverable": true,
+      "family": "sorties",
+      "category": "culture"
+    },
+    "culture-france": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "culture"
+    },
+    "culture-tech-gaming": {
+      "discoverable": true,
+      "family": "sorties",
+      "category": "salonsFoires"
+    },
+    "ecommerce-blackfriday": {
+      "discoverable": true,
+      "family": "shopping",
+      "category": "ecommerce"
+    },
+    "ecommerce-fetes-commerciales": {
+      "discoverable": true,
+      "family": "shopping",
+      "category": "ecommerce"
+    },
+    "ecommerce-frenchdays": {
+      "discoverable": true,
+      "family": "shopping",
+      "category": "ecommerce"
+    },
+    "ecommerce-primeday": {
+      "discoverable": true,
+      "family": "shopping",
+      "category": "ecommerce"
+    },
+    "education-examens-2026": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "education"
+    },
+    "education-parcoursup-2026": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "education"
+    },
+    "f1": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "f1"
+    },
+    "f1-races-only": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "f1"
+    },
+    "fcNantes": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "feries-alsace-moselle": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "civil"
+    },
+    "feries-guadeloupe": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "civil"
+    },
+    "feries-guyane": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "civil"
+    },
+    "feries-la-reunion": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "civil"
+    },
+    "feries-martinique": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "civil"
+    },
+    "feries-mayotte": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "civil"
+    },
+    "feries-metropole": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "civil"
+    },
+    "feries-nouvelle-caledonie": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "civil"
+    },
+    "feries-polynesie-francaise": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "civil"
+    },
+    "feries-saint-barthelemy": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "civil"
+    },
+    "feries-saint-martin": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "civil"
+    },
+    "feries-saint-pierre-et-miquelon": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "civil"
+    },
+    "feries-wallis-et-futuna": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "civil"
+    },
+    "fiscal-france": {
+      "discoverable": true,
+      "family": "administratif",
+      "category": "fiscal"
+    },
+    "fiscal-paiements-retraite-2026": {
+      "discoverable": true,
+      "family": "administratif",
+      "category": "fiscal"
+    },
+    "fiscal-paye-fonction-publique": {
+      "discoverable": true,
+      "family": "administratif",
+      "category": "fiscal"
+    },
+    "football-europe-1899-hoffenheim": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-1fc-heidenheim": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-1fc-koln": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-ac-milan": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-afc-bournemouth": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-arsenal": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-as-roma": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-aston-villa": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-atalanta": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-athletic-bilbao": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-atletico-madrid": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-bayer-leverkusen": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-bayern-munchen": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-bologna": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-borussia-dortmund": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-borussia-monchengladbach": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-brentford-fc": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-brighton-hove-albion-fc": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-burnley-fc": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-ca-osasuna": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-cagliari": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-celta-de-vigo": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-chelsea": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-como": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-cremonese": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-crystal-palace": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-deportivo-alaves": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-eintracht-frankfurt": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-elche-cf": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-espanyol": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-everton": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-fc-augsburg": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-fc-barcelona": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-fc-genoa": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-fc-st-pauli": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-fc-union-berlin": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-fiorentina": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-fsv-mainz-05": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-fulham": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-getafe": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-girona-fc": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-hamburger-sv": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-hellas-verona-fc": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-inter": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-juventus": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-lazio-roma": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-lecce": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-leeds-united": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-levante": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-liverpool": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-manchester-city": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-manchester-united": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-napoli": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-newcastle-united": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-nottingham-forest": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-parma": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-pisa": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-rayo-vallecano": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-rb-leipzig": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-real-betis-sevilla": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-real-madrid": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-real-mallorca": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-real-oviedo": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-real-sociedad": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-sc-freiburg": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-sevilla": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-sunderland": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-torino": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-tottenham-hotspur": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-udinese": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-us-sassuolo-calcio": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-valencia": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-vfb-stuttgart": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-vfl-wolfsburg": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-villarreal": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-werder-bremen": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-west-ham-united": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "football-europe-wolverhampton-wanderers": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "jardin-lunaire": {
+      "discoverable": true,
+      "family": "nature",
+      "category": "jardin"
+    },
+    "laRochelle": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "rugby"
+    },
+    "lehavre": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "lorient": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "losc": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "luxembourg-feries-legaux": {
+      "discoverable": true,
+      "family": "pays",
+      "category": "luxembourg"
+    },
+    "luxembourg-ponts": {
+      "discoverable": true,
+      "family": "pays",
+      "category": "luxembourg"
+    },
+    "luxembourg-vacances-scolaires": {
+      "discoverable": true,
+      "family": "pays",
+      "category": "luxembourg"
+    },
+    "lyon": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "rugby"
+    },
+    "marees-coefficients-2026": {
+      "discoverable": true,
+      "family": "sciences",
+      "category": "astronomy"
+    },
+    "metz": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "montauban": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "rugby"
+    },
+    "montpellier": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "rugby"
+    },
+    "montpellierHsc": {
+      "discoverable": false,
+      "family": "sports",
+      "category": "football"
+    },
+    "motogp": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "motogp"
+    },
+    "nascar": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "nascar"
+    },
+    "nice": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "ol": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "om": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "parisFc": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "pau": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "rugby"
+    },
+    "perpignan": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "rugby"
+    },
+    "psg": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "racing92": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "rugby"
+    },
+    "rcLens": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "rcStrasbourg": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "religion-bouddhiste": {
+      "discoverable": true,
+      "family": "religion",
+      "category": "religion"
+    },
+    "religion-chretienne": {
+      "discoverable": true,
+      "family": "religion",
+      "category": "religion"
+    },
+    "religion-hindoue": {
+      "discoverable": true,
+      "family": "religion",
+      "category": "religion"
+    },
+    "religion-juive": {
+      "discoverable": true,
+      "family": "religion",
+      "category": "religion"
+    },
+    "religion-multi-cultes": {
+      "discoverable": false,
+      "family": "religion",
+      "category": "religion"
+    },
+    "religion-musulmane": {
+      "discoverable": true,
+      "family": "religion",
+      "category": "religion"
+    },
+    "religion-saints-francais": {
+      "discoverable": true,
+      "family": "religion",
+      "category": "religion"
+    },
+    "religion-sikhe": {
+      "discoverable": true,
+      "family": "religion",
+      "category": "religion"
+    },
+    "saintEtienne": {
+      "discoverable": false,
+      "family": "sports",
+      "category": "football"
+    },
+    "societe-elections-scrutins-2026": {
+      "discoverable": true,
+      "family": "reperes",
+      "category": "societe"
+    },
+    "societe-reperes-france": {
+      "discoverable": true,
+      "family": "reperes",
+      "category": "societe"
+    },
+    "soldes-france": {
+      "discoverable": true,
+      "family": "shopping",
+      "category": "soldes"
+    },
+    "sorties-braderie-lille": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-festival-aix-2026": {
+      "discoverable": true,
+      "family": "sorties",
+      "category": "culture"
+    },
+    "sorties-festival-avignon-2026": {
+      "discoverable": true,
+      "family": "sorties",
+      "category": "culture"
+    },
+    "sorties-festivals-culture-2026": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "culture"
+    },
+    "sorties-fetes-traditions-2026": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-foire-marseille-2026": {
+      "discoverable": true,
+      "family": "sorties",
+      "category": "salonsFoires"
+    },
+    "sorties-marseille-cassis-2026": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-metropole-aix-marseille-provence": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-metropole-bordeaux": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-metropole-europeenne-lille": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-metropole-grand-lyon": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-metropole-grand-paris": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-metropole-montpellier": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-metropole-nantes": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-metropole-rennes": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-metropole-strasbourg": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-metropole-toulouse": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-noel-colmar-2026": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-noel-eguisheim-2026": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-noel-kaysersberg-2026": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-noel-riquewihr-2026": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-patrimoine-culture-gratuite-2026": {
+      "discoverable": true,
+      "family": "sorties",
+      "category": "culture"
+    },
+    "sorties-region-sud": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-rencontres-arles": {
+      "discoverable": true,
+      "family": "sorties",
+      "category": "culture"
+    },
+    "sorties-salons-grand-public-2026": {
+      "discoverable": true,
+      "family": "sorties",
+      "category": "salonsFoires"
+    },
+    "sorties-savim-marseille": {
+      "discoverable": true,
+      "family": "sorties",
+      "category": "salonsFoires"
+    },
+    "sorties-ville-aix-en-provence": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-ville-angers": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-ville-antibes": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-ville-bordeaux": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-ville-dijon": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-ville-grenoble": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-ville-le-havre": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-ville-lille": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-ville-lyon": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-ville-marseille": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-ville-montpellier": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-ville-nantes": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-ville-nice": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-ville-nimes": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-ville-paris": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-ville-reims": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-ville-rennes": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-ville-saint-etienne": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-ville-salon-de-provence": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-ville-strasbourg": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-ville-toulon": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-ville-toulouse": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sorties-ville-villeurbanne": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
+    "sport-cyclisme-majeurs": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "cycling"
+    },
+    "sport-france-foot-equipe-nationale": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "sport-france-rugby-equipe-nationale": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "rugby"
+    },
+    "sport-rugby-six-nations-complet": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "rugby"
+    },
+    "sport-rugby-top-14-complet": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "rugby"
+    },
+    "sport-wec": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "wec"
+    },
+    "stadeBrest": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "stadefrancais": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "rugby"
+    },
+    "stadeReims": {
+      "discoverable": false,
+      "family": "sports",
+      "category": "football"
+    },
+    "stadeRennais": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "suisse-romande-geneve-feries": {
+      "discoverable": true,
+      "family": "pays",
+      "category": "suisse"
+    },
+    "suisse-romande-geneve-vacances": {
+      "discoverable": true,
+      "family": "pays",
+      "category": "suisse"
+    },
+    "suisse-romande-jura-feries": {
+      "discoverable": true,
+      "family": "pays",
+      "category": "suisse"
+    },
+    "suisse-romande-jura-vacances": {
+      "discoverable": true,
+      "family": "pays",
+      "category": "suisse"
+    },
+    "suisse-romande-neuchatel-feries": {
+      "discoverable": true,
+      "family": "pays",
+      "category": "suisse"
+    },
+    "suisse-romande-neuchatel-vacances": {
+      "discoverable": true,
+      "family": "pays",
+      "category": "suisse"
+    },
+    "suisse-romande-vaud-feries": {
+      "discoverable": true,
+      "family": "pays",
+      "category": "suisse"
+    },
+    "suisse-romande-vaud-vacances": {
+      "discoverable": true,
+      "family": "pays",
+      "category": "suisse"
+    },
+    "tennis-atp-complet": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "tennis"
+    },
+    "tennis-atp-majeurs": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "tennis"
+    },
+    "tennis-wta-complet": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "tennis"
+    },
+    "tennis-wta-majeurs": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "tennis"
+    },
+    "toulon": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "rugby"
+    },
+    "toulouse": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "rugby"
+    },
+    "toulouseFc": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "football"
+    },
+    "vacances-corse": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "education"
+    },
+    "vacances-guadeloupe": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "education"
+    },
+    "vacances-guyane": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "education"
+    },
+    "vacances-la-reunion": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "education"
+    },
+    "vacances-martinique": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "education"
+    },
+    "vacances-mayotte": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "education"
+    },
+    "vacances-nouvelle-caledonie": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "education"
+    },
+    "vacances-polynesie": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "education"
+    },
+    "vacances-saint-pierre-et-miquelon": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "education"
+    },
+    "vacances-toutes-zones": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "education"
+    },
+    "vacances-wallis-et-futuna": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "education"
+    },
+    "vacances-zone-a": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "education"
+    },
+    "vacances-zone-b": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "education"
+    },
+    "vacances-zone-c": {
+      "discoverable": true,
+      "family": "conges",
+      "category": "education"
+    },
+    "vannes": {
+      "discoverable": false,
+      "family": "sports",
+      "category": "rugby"
+    },
+    "worldcup-2026-all": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "worldCup2026"
+    },
+    "worldcup-2026-belgium": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "worldCup2026"
+    },
+    "worldcup-2026-big-nights": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "worldCup2026"
+    },
+    "worldcup-2026-france": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "worldCup2026"
+    },
+    "worldcup-2026-knockout": {
+      "discoverable": true,
+      "family": "sports",
+      "category": "worldCup2026"
+    }
+  }
+}

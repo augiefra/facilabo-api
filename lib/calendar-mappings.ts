@@ -57,6 +57,11 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     frenchName: 'Vacances scolaires Zone C',
     description: "Calendrier scolaire officiel - Zone C (ministère de l'Éducation nationale)"
   },
+  'vacances-toutes-zones': {
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/education/vacances-toutes-zones.ics',
+    frenchName: 'Vacances scolaires - Toutes zones',
+    description: 'Zones A, B et C dans un calendrier combiné sans doublons quotidiens'
+  },
   'vacances-corse': {
     sourceUrl: 'https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/Corse.ics',
     frenchName: 'Vacances scolaires Corse',

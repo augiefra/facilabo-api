@@ -3,8 +3,9 @@ import { CACHE_TTL, errorResponse, handleOptions, successResponse } from '../../
 import updateNotices from '../../../data/update-notices.json';
 
 type UpdateNoticePriority = 'low' | 'normal' | 'high';
+export type UpdateNoticePlatform = 'ios' | 'android';
 
-interface FacilAboUpdateNotice {
+export interface FacilAboUpdateNotice {
   id: string;
   title: string;
   titleEn?: string;
@@ -13,12 +14,20 @@ interface FacilAboUpdateNotice {
   feedSlugs?: string[];
   feedIds?: string[];
   categoryTypes?: string[];
+  platforms?: UpdateNoticePlatform[];
   supersedesIds?: string[];
   startsAt?: string;
   endsAt?: string;
   priority: UpdateNoticePriority;
   actionTitle?: string;
   actionURL?: string;
+}
+
+export function isNoticeVisibleOnPlatform(
+  notice: Pick<FacilAboUpdateNotice, 'platforms'>,
+  platform: UpdateNoticePlatform
+): boolean {
+  return notice.platforms === undefined || notice.platforms.includes(platform);
 }
 
 const UPDATE_NOTICES = updateNotices as FacilAboUpdateNotice[];

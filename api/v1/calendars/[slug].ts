@@ -18,6 +18,7 @@ import { fetchWithRetry, createRetryLogger, RETRY_CONFIGS } from '../../../lib/r
 import { getCache, getStaleCache, setCache } from '../../../lib/v1-utils';
 import { trackAbuseRequest } from '../../../lib/abuse-monitor';
 import { applyCalendarTransform } from '../../../lib/ics-transforms';
+import { buildCalendarListResponse } from '../../../lib/calendar-catalog';
 
 export default async function handler(
   req: VercelRequest,
@@ -61,13 +62,7 @@ export default async function handler(
       res.setHeader('Content-Type', 'application/json; charset=utf-8');
       return res.status(200).end();
     }
-    return res.status(200).json({
-      calendars: Object.entries(getAllMappings()).map(([key, mapping]) => ({
-        slug: key,
-        name: mapping.frenchName,
-        description: mapping.description,
-      })),
-    });
+    return res.status(200).json(buildCalendarListResponse(getAllMappings()));
   }
 
   const mapping = getMapping(slug);

@@ -8,7 +8,9 @@
   },
   "scripts": {
     "dev": "vercel dev",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "check:client-contracts": "node scripts/check-client-contracts.mjs",
+    "check": "npm run typecheck && npm run check:client-contracts"
   },
   "dependencies": {
     "cheerio": "^1.0.0"
