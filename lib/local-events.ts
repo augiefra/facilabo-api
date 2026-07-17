@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { InMemoryTTLCache } from './service-search-utils';
 
 export const LOCAL_EVENTS_CONTRACT_VERSION = '2026-06-23.local-events-v1';
@@ -756,7 +757,7 @@ export function localEventsToIcs(
     if (!start) continue;
 
     const end = parseDate(event.endDate) ?? new Date(start.getTime() + 2 * 60 * 60 * 1000);
-    const uid = `${slugify(event.id)}@facilabo-local-events`;
+    const uid = stableLocalEventUid(event.id);
     const description = [
       event.subtitle,
       event.locationName,
@@ -951,7 +952,23 @@ function mapOpenAgendaEvent(
   const longitude = numberOf(location.longitude ?? location.lng ?? location.lon ?? event.longitude);
   const startDate = stringOf(timing.begin ?? timing.start ?? event.startDate);
   const endDate = stringOf(timing.end ?? timing.finish ?? event.endDate);
-  const id = stringOf(event.uid ?? event.id) ?? `${target.slug}-${title}-${startDate ?? ''}`;
+  const locationName = textOf(location.name ?? event.locationName);
+  const address = textOf(location.address ?? event.address);
+  const city = textOf(location.city ?? event.city) ?? target.city;
+  const url = stringOf(event.canonicalUrl ?? event.registrationUrl ?? event.url);
+  const sourceEventId = identifierOf(event.uid) ?? identifierOf(event.id) ?? url;
+  const id = sourceEventId ?? buildFallbackLocalEventId({
+    targetSlug: target.slug,
+    title,
+    startDate,
+    endDate,
+    locationName,
+    address,
+    city,
+    latitude,
+    longitude,
+    url,
+  });
 
   return {
     id: `${agendaUid}-${id}`,
@@ -959,16 +976,16 @@ function mapOpenAgendaEvent(
     subtitle,
     startDate,
     endDate,
-    locationName: textOf(location.name ?? event.locationName),
-    address: textOf(location.address ?? event.address),
-    city: textOf(location.city ?? event.city) ?? target.city,
+    locationName,
+    address,
+    city,
     department: textOf(location.department ?? event.department) ?? target.department,
     region: textOf(location.region ?? event.region) ?? target.region,
     latitude,
     longitude,
     sourceAgendaTitle: agendaTitle,
     sourceAgendaUid: String(agendaUid),
-    url: stringOf(event.canonicalUrl ?? event.registrationUrl ?? event.url),
+    url,
     imageUrl: stringOf(image?.base ?? image?.url ?? event.imageUrl),
     source: 'openagenda',
   };
@@ -1053,6 +1070,38 @@ function textOf(value: unknown): string | undefined {
 
 function stringOf(value: unknown): string | undefined {
   return typeof value === 'string' && value.trim() ? value.trim() : undefined;
+}
+
+function identifierOf(value: unknown): string | undefined {
+  if (typeof value === 'string' && value.trim()) return value.trim();
+  if (typeof value === 'number' && Number.isFinite(value)) return String(value);
+  return undefined;
+}
+
+export function buildFallbackLocalEventId(args: {
+  targetSlug: string;
+  title: string;
+  startDate?: string;
+  endDate?: string;
+  locationName?: string;
+  address?: string;
+  city?: string;
+  latitude?: number;
+  longitude?: number;
+  url?: string;
+}): string {
+  return [
+    args.targetSlug,
+    args.title,
+    args.startDate,
+    args.endDate,
+    args.locationName,
+    args.address,
+    args.city,
+    args.latitude,
+    args.longitude,
+    args.url,
+  ].filter((value) => value !== undefined && value !== '').join('|');
 }
 
 function numberOf(value: unknown): number | undefined {
@@ -1166,8 +1215,12 @@ function normalize(value: string): string {
     .trim();
 }
 
-function slugify(value: string): string {
-  return normalize(value).replace(/\s+/g, '-').slice(0, 120) || 'event';
+export function stableLocalEventUid(value: string): string {
+  const normalized = normalize(value).replace(/\s+/g, '-') || 'event';
+  const localPart = normalized.length <= 120
+    ? normalized
+    : `${normalized.slice(0, 103)}-${createHash('sha256').update(normalized).digest('hex').slice(0, 16)}`;
+  return `${localPart}@facilabo-local-events`;
 }
 
 function parseDate(value?: string): Date | undefined {
