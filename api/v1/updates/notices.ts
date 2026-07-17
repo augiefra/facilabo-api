@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { CACHE_TTL, errorResponse, handleOptions, successResponse } from '../../../lib/v1-utils';
+import { filterVisibleUpdateNotices } from '../../../lib/update-notice-visibility';
 import updateNotices from '../../../data/update-notices.json';
 
 type UpdateNoticePriority = 'low' | 'normal' | 'high';
@@ -16,8 +17,8 @@ export interface FacilAboUpdateNotice {
   categoryTypes?: string[];
   platforms?: UpdateNoticePlatform[];
   supersedesIds?: string[];
-  startsAt?: string;
-  endsAt?: string;
+  startsAt: string;
+  endsAt: string;
   priority: UpdateNoticePriority;
   actionTitle?: string;
   actionURL?: string;
@@ -31,24 +32,6 @@ export function isNoticeVisibleOnPlatform(
 }
 
 const UPDATE_NOTICES = updateNotices as FacilAboUpdateNotice[];
-
-export function filterSupersededNotices(
-  notices: FacilAboUpdateNotice[],
-  now: Date = new Date()
-): FacilAboUpdateNotice[] {
-  const nowTimestamp = now.getTime();
-  const supersededIds = new Set(
-    notices
-      .filter((notice) => {
-        if (!notice.startsAt) return true;
-        const startsAt = Date.parse(notice.startsAt);
-        return !Number.isNaN(startsAt) && startsAt <= nowTimestamp;
-      })
-      .flatMap((notice) => notice.supersedesIds ?? [])
-  );
-
-  return notices.filter((notice) => !supersededIds.has(notice.id));
-}
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method === 'OPTIONS') {
@@ -65,7 +48,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     );
   }
 
-  return successResponse(res, filterSupersededNotices(UPDATE_NOTICES), {
+  return successResponse(res, filterVisibleUpdateNotices(UPDATE_NOTICES), {
     source: 'facilabo-editorial-updates',
     ttl: CACHE_TTL.UPDATE_NOTICES,
   });
