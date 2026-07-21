@@ -27,7 +27,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       res.setHeader('Content-Type', 'text/calendar; charset=utf-8');
       res.setHeader('Content-Disposition', 'attachment; filename="allauch.ics"');
       res.setHeader('Cache-Control', 's-maxage=1800, stale-while-revalidate=86400');
-      res.setHeader('X-Facilabo-Calendar-Source', 'Ville d’Allauch RSS');
+      res.setHeader('X-Facilabo-Calendar-Source', "Ville d'Allauch RSS");
 
       if (req.method === 'HEAD') {
         return res.status(200).end();
