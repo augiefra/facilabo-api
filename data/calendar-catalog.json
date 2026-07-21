@@ -951,6 +951,11 @@
       "family": "sorties",
       "category": "localEvents"
     },
+    "sorties-ville-allauch": {
+      "discoverable": false,
+      "family": "sorties",
+      "category": "localEvents"
+    },
     "sorties-ville-angers": {
       "discoverable": false,
       "family": "sorties",

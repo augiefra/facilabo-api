@@ -402,6 +402,11 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
     frenchName: 'Agenda Antibes',
     description: 'Agenda officiel Antibes Juan-les-Pins'
   },
+  'sorties-ville-allauch': {
+    sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/allauch',
+    frenchName: 'Agenda officiel d’Allauch',
+    description: 'Agenda officiel publié par la Ville d’Allauch'
+  },
   'sorties-ville-paris': {
     sourceUrl: 'https://facilabo-api.vercel.app/api/v1/local-events/ics/paris',
     frenchName: 'Agenda Paris',

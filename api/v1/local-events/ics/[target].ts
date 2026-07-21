@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { applyServiceCors, handleServiceOptions } from '../../../../lib/service-search-utils';
+import { fetchAllauchAgendaIcs } from '../../../../lib/allauch-events';
 import { fetchAntibesAgendaIcs } from '../../../../lib/antibes-events';
 import { getLocalEventTarget, localEventsToIcs, searchLocalEvents } from '../../../../lib/local-events';
 
@@ -18,6 +19,27 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const slug = Array.isArray(rawTarget) ? rawTarget[0] : rawTarget;
   if (!slug) {
     return res.status(400).json({ error: 'Missing local event target' });
+  }
+
+  if (slug === 'allauch') {
+    try {
+      const ics = await fetchAllauchAgendaIcs();
+      res.setHeader('Content-Type', 'text/calendar; charset=utf-8');
+      res.setHeader('Content-Disposition', 'attachment; filename="allauch.ics"');
+      res.setHeader('Cache-Control', 's-maxage=1800, stale-while-revalidate=86400');
+      res.setHeader('X-Facilabo-Calendar-Source', 'Ville d’Allauch RSS');
+
+      if (req.method === 'HEAD') {
+        return res.status(200).end();
+      }
+
+      return res.status(200).send(ics);
+    } catch (error) {
+      return res.status(502).json({
+        error: 'Allauch RSS source unavailable',
+        message: error instanceof Error ? error.message : 'Unknown error',
+      });
+    }
   }
 
   if (slug === 'antibes') {

@@ -9,9 +9,10 @@
   "scripts": {
     "dev": "vercel dev",
     "typecheck": "tsc --noEmit",
+    "test:municipal-rss": "node --experimental-strip-types --test lib/municipal-rss-events.test.ts",
     "test:update-notices": "node --experimental-strip-types --test lib/update-notice-visibility.test.ts",
     "check:client-contracts": "node scripts/check-client-contracts.mjs",
-    "check": "npm run typecheck && npm run test:update-notices && npm run check:client-contracts"
+    "check": "npm run typecheck && npm run test:municipal-rss && npm run test:update-notices && npm run check:client-contracts"
   },
   "dependencies": {
     "cheerio": "^1.0.0"
