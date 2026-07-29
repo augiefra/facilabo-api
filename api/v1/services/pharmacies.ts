@@ -5,7 +5,7 @@
  * via OpenDataSoft.
  */
 
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+import type { VercelRequest, VercelResponse } from '../../../lib/vercel-http';
 import { PharmacySearchResponse, getPharmacyStale } from '../../../lib/pharmacy-types';
 import { SERVICE_CONTRACT_VERSION } from '../../../lib/service-search-types';
 import { buildRuntimeState, withRuntimeState } from '../../../lib/v1-utils';

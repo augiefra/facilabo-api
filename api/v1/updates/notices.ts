@@ -1,4 +1,4 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+import type { VercelRequest, VercelResponse } from '../../../lib/vercel-http';
 import { CACHE_TTL, errorResponse, handleOptions, successResponse } from '../../../lib/v1-utils';
 import { filterVisibleUpdateNotices } from '../../../lib/update-notice-visibility';
 import updateNotices from '../../../data/update-notices.json';

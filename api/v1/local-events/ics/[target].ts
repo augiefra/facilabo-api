@@ -1,4 +1,4 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+import type { VercelRequest, VercelResponse } from '../../../../lib/vercel-http';
 import { applyServiceCors, handleServiceOptions } from '../../../../lib/service-search-utils';
 import { fetchAllauchAgendaIcs } from '../../../../lib/allauch-events';
 import { fetchAntibesAgendaIcs } from '../../../../lib/antibes-events';

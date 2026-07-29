@@ -12,7 +12,7 @@
  * - 503: System unhealthy (50%+ sources down OR multiple critical sources down)
  */
 
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+import type { VercelRequest, VercelResponse } from '../../../lib/vercel-http';
 import { getAbuseHealthSummary } from '../../../lib/abuse-monitor';
 
 interface SourceStatus {

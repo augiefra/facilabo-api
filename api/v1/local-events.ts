@@ -1,4 +1,4 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+import type { VercelRequest, VercelResponse } from '../../lib/vercel-http';
 import { applyServiceCors, ensureGetMethod, handleServiceOptions } from '../../lib/service-search-utils';
 import { getLocalEventTargetSummaries, searchLocalEvents } from '../../lib/local-events';
 
