@@ -55,6 +55,16 @@ Champs:
    - `degraded=true`
    - `fallbackUsed=false`
 
+### Resultats F1 et MotoGP
+
+- F1 utilise l'API JSON Jolpica (`api.jolpi.ca`), successeur compatible d'Ergast.
+- MotoGP utilise l'API de resultats structuree MotoGP/Pulse (`api.motogp.pulselive.com`).
+- un podium nominal contient exactement les positions 1, 2 et 3;
+- un HTTP upstream non-2xx, un JSON invalide ou un podium incomplet leve une erreur;
+- une erreur ne doit jamais etre convertie en tableau vide marque `fresh` ni entrer dans le cache frais;
+- le routeur sert le dernier cache stale disponible, sinon `502` avec `runtime.freshness=unavailable`.
+- `/api/verify?module=sport` exige un podium `1,2,3`, la source attendue et un contrat runtime exploitable pour chaque discipline.
+
 ## Kill switch metadata
 
 Variable d'environnement:

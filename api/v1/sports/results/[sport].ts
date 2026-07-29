@@ -69,7 +69,7 @@ const SPORT_CONFIG: Record<SportType, SportConfig> = {
     getStaleCache: (key) => getRaceStale(key),
     setCache: (key, data) => setRaceCache(key, data as RaceResultsResponse),
     scraper: scrapeF1Results,
-    source: 'flashscore.fr',
+    source: 'api.jolpi.ca',
   },
   motogp: {
     cacheKey: 'v1:results:motogp',
@@ -77,7 +77,7 @@ const SPORT_CONFIG: Record<SportType, SportConfig> = {
     getStaleCache: (key) => getRaceStale(key),
     setCache: (key, data) => setRaceCache(key, data as RaceResultsResponse),
     scraper: scrapeMotoGPResults,
-    source: 'flashscore.fr',
+    source: 'motogp.com',
   },
 };
 
@@ -171,8 +171,8 @@ export default async function handler(
       );
     }
 
-    return res.status(500).json({
-      error: 'Internal Server Error',
+    return res.status(502).json({
+      error: 'Bad Gateway',
       message: error instanceof Error ? error.message : `Failed to fetch ${sportLower} results`,
       runtime: buildRuntimeState({
         freshness: 'unavailable',

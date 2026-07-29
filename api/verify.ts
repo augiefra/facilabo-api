@@ -150,7 +150,7 @@ async function verifyHealth(): Promise<VerificationResult[]> {
   return results;
 }
 
-async function verifySportResults(): Promise<VerificationResult[]> {
+async function verifyFootballResults(): Promise<VerificationResult[]> {
   const results: VerificationResult[] = [];
 
   const response = await fetchWithTiming(`${API_BASE}/sports/results/football`);
@@ -235,6 +235,70 @@ async function verifySportResults(): Promise<VerificationResult[]> {
   });
 
   return results;
+}
+
+async function verifyRaceResults(): Promise<VerificationResult[]> {
+  const results: VerificationResult[] = [];
+  const raceEndpoints = [
+    { sport: 'f1', competition: 'Formula 1', expectedSource: 'api.jolpi.ca' },
+    { sport: 'motogp', competition: 'MotoGP', expectedSource: 'motogp.com' },
+  ];
+
+  for (const endpoint of raceEndpoints) {
+    const response = await fetchWithTiming(`${API_BASE}/sports/results/${endpoint.sport}`);
+    if (!response.ok) {
+      results.push({
+        module: `sport-results-${endpoint.sport}`,
+        status: 'FAIL',
+        message: `${endpoint.competition}: API indisponible`,
+        details: { error: response.error },
+        timestamp: nowIso(),
+      });
+      continue;
+    }
+
+    const payload = response.data as {
+      competition?: string;
+      raceName?: string;
+      date?: string;
+      podium?: Array<{ position?: number; driver?: string }>;
+      source?: string;
+      runtime?: RuntimeContractPayload['runtime'];
+    };
+    const positions = payload.podium?.map((entry) => entry.position).sort((a, b) => (a ?? 0) - (b ?? 0));
+    const hasCompletePodium = positions?.length === 3 && positions.join(',') === '1,2,3';
+    const sourceMatches = payload.source === endpoint.expectedSource;
+    const runtimeIsUsable = hasRuntimeContract(payload) && payload.runtime?.freshness !== 'unavailable';
+
+    results.push({
+      module: `sport-results-${endpoint.sport}`,
+      status: hasCompletePodium && sourceMatches && runtimeIsUsable
+        ? (payload.runtime?.freshness === 'fresh' ? 'PASS' : 'WARN')
+        : 'FAIL',
+      message: hasCompletePodium
+        ? `${endpoint.competition}: podium ${positions?.join('-')} (${payload.runtime?.freshness ?? 'runtime absent'})`
+        : `${endpoint.competition}: podium absent ou incomplet`,
+      details: {
+        raceName: payload.raceName,
+        date: payload.date,
+        source: payload.source,
+        expectedSource: endpoint.expectedSource,
+        positions,
+        runtime: payload.runtime,
+      },
+      timestamp: nowIso(),
+    });
+  }
+
+  return results;
+}
+
+async function verifySportResults(): Promise<VerificationResult[]> {
+  const [football, races] = await Promise.all([
+    verifyFootballResults(),
+    verifyRaceResults(),
+  ]);
+  return [...football, ...races];
 }
 
 async function verifyMetadataContract(): Promise<VerificationResult[]> {
