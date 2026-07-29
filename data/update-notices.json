@@ -88,5 +88,23 @@
       "worldcup-2026-france-match-103-event-removed-v1",
       "worldcup-2026-france-match-103-schedule-changed-v1"
     ]
+  },
+  {
+    "id": "sport-rugby-top-14-complet-sport-rugby-top-14-complet-top14-2026-bayonne-to-schedule-changed-v1",
+    "title": "Horaires du Top 14 confirmés",
+    "titleEn": "Top 14 kick-off times confirmed",
+    "message": "Les horaires de la première journée du Top 14 sont désormais confirmés dans votre calendrier.",
+    "messageEn": "The Top 14 opening round kick-off times are now confirmed in your calendar.",
+    "feedSlugs": [
+      "sport-rugby-top-14-complet"
+    ],
+    "startsAt": "2026-07-29T08:12:00Z",
+    "endsAt": "2026-07-31T08:12:00Z",
+    "priority": "normal",
+    "supersedesIds": [
+      "sport-rugby-top-14-complet-sport-rugby-top-14-complet-top14-2026-bayonne-to-event-added-v1",
+      "sport-rugby-top-14-complet-sport-rugby-top-14-complet-top14-2026-bayonne-to-event-removed-v1",
+      "sport-rugby-top-14-complet-sport-rugby-top-14-complet-top14-2026-bayonne-to-details-confirmed-v1"
+    ]
   }
 ]
