@@ -11,7 +11,7 @@
  * @fragility HIGH - Web scraping, formats can change
  */
 
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+import type { VercelRequest, VercelResponse } from '../../../../lib/vercel-http';
 import { scrapeSportResults, filterResultsByTeam } from '../../../../lib/sport-results-scraper';
 import { scrapeRugbyResults, filterRugbyResultsByTeam } from '../../../../lib/rugby-scraper';
 import { scrapeF1Results } from '../../../../lib/f1-scraper';

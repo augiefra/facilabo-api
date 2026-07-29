@@ -1,4 +1,4 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+import type { VercelRequest, VercelResponse } from './vercel-http';
 import {
   SERVICE_CONTRACT_VERSION,
   ServiceErrorPayload,

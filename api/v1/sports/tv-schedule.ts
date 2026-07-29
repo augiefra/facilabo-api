@@ -11,7 +11,7 @@
  * @fragility HIGH - Web scraping, format can change
  */
 
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+import type { VercelRequest, VercelResponse } from '../../../lib/vercel-http';
 import { scrapeTVSchedule, filterByTeam } from '../../../lib/scraper';
 import { getCached, getStaleCached, setCache } from '../../../lib/types';
 import { buildRuntimeState, withRuntimeState } from '../../../lib/v1-utils';

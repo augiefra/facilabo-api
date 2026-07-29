@@ -1,4 +1,4 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+import type { VercelRequest, VercelResponse } from '../../../lib/vercel-http';
 
 /**
  * Rugby Calendar API - Individual Team Calendars

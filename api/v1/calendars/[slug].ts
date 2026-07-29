@@ -12,7 +12,7 @@
  * @returns ICS file with French calendar name
  */
 
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+import type { VercelRequest, VercelResponse } from '../../../lib/vercel-http';
 import { getMapping, getAllMappings, getCalendarCachePolicy } from '../../../lib/calendar-mappings';
 import { fetchWithRetry, createRetryLogger, RETRY_CONFIGS } from '../../../lib/retry-utils';
 import { getCache, getStaleCache, setCache } from '../../../lib/v1-utils';

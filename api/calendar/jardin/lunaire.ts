@@ -1,4 +1,4 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+import type { VercelRequest, VercelResponse } from '../../../lib/vercel-http';
 import {
   generateLunarCalendar,
   PLANT_TYPE_INFO,

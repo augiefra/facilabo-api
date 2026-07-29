@@ -8,7 +8,7 @@
  * @author FacilAbo
  */
 
-import type { VercelResponse } from '@vercel/node';
+import type { VercelResponse } from './vercel-http';
 
 // ============================================================================
 // TYPES
