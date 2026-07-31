@@ -295,7 +295,7 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
   'fiscal-paye-fonction-publique': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/fiscal/paye-fonction-publique.ics',
     frenchName: 'Paye Fonction publique',
-    description: 'Dates officielles de virement des agents publics (source ministerielle)'
+    description: 'Dates officielles de virement des agents publics (source ministérielle)'
   },
   'fiscal-paiements-retraite-2026': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/fiscal/paiements-retraite-2026.ics',
@@ -570,12 +570,12 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
   'religion-chretienne': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/religion/chretienne.ics',
     frenchName: 'Fêtes Chrétiennes',
-    description: 'Paques et Noel'
+    description: 'Pâques et Noël'
   },
   'religion-musulmane': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/religion/musulmane.ics',
     frenchName: 'Fêtes Musulmanes',
-    description: 'Aid al-Fitr et Aid al-Adha (dates lunaires susceptibles de varier)'
+    description: 'Aïd al-Fitr et Aïd al-Adha (dates lunaires susceptibles de varier)'
   },
   'religion-juive': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/religion/juive.ics',
@@ -650,13 +650,13 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
   },
   'sport-france-foot-equipe-nationale': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/france-foot-equipe-nationale.ics',
-    frenchName: 'Equipe de France Football',
-    description: 'Matchs de l equipe de France de football (fenetre glissante 24 mois)'
+    frenchName: 'Équipe de France Football',
+    description: 'Matchs de l’équipe de France de football (fenêtre glissante 24 mois)'
   },
   'sport-france-rugby-equipe-nationale': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/refs/heads/main/sport/france-rugby-equipe-nationale.ics',
-    frenchName: 'Equipe de France Rugby',
-    description: 'Matchs de l equipe de France de rugby (fenetre glissante 24 mois)'
+    frenchName: 'Équipe de France Rugby',
+    description: 'Matchs de l’équipe de France de rugby (fenêtre glissante 24 mois)'
   },
   'sport-rugby-top-14-complet': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/rugby-top-14-complet.ics',
@@ -671,17 +671,17 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
   'sport-cyclisme-majeurs': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/cyclisme-majeurs.ics',
     frenchName: 'Cyclisme - Grandes courses',
-    description: 'Monuments, Grands Tours, Mondiaux route, classiques WorldTour ciblees et championnats FR/Europe (fenetre glissante 24 mois)'
+    description: 'Monuments, Grands Tours, Mondiaux route, classiques WorldTour ciblées et championnats FR/Europe (fenêtre glissante 24 mois)'
   },
   'sport-wec': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/wec.ics',
-    frenchName: 'WEC - Championnat du monde d endurance',
-    description: 'Manches officielles FIA WEC datees, avec horaire ajoute des publication officielle'
+    frenchName: 'WEC - Championnat du monde d’endurance',
+    description: 'Manches officielles FIA WEC datées, avec horaire ajouté dès publication officielle'
   },
   'worldcup-2026-all': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-all.ics',
     frenchName: 'Coupe du Monde 2026 - Tous les matchs',
-    description: 'Les 104 matchs de la Coupe du Monde 2026, avec UID stable par numero de match FIFA'
+    description: 'Les 104 matchs de la Coupe du Monde 2026, avec UID stable par numéro de match FIFA'
   },
   'worldcup-2026-france': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-france.ics',
