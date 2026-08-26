@@ -52,7 +52,7 @@ export function antibesRssToIcs(xml: string): string {
       startDate,
       endDate,
       category: cleanText(node.find('category').first().text()),
-      description: htmlToText(descriptionHtml),
+      description: htmlToCalendarText(descriptionHtml),
       location: extractLocation(descriptionHtml),
     });
   });
@@ -72,13 +72,6 @@ export function antibesRssToIcs(xml: string): string {
   ];
 
   for (const event of events) {
-    const description = [
-      event.description,
-      event.category ? `Catégorie: ${event.category}` : undefined,
-      'Source: Office de tourisme Antibes Juan-les-Pins',
-      event.link,
-    ].filter(Boolean).join('\\n');
-
     lines.push(
       'BEGIN:VEVENT',
       `UID:${escapeIcsText(`sorties-ville-antibes-${slugify(event.guid)}@facilabo.app`)}`,
@@ -86,8 +79,10 @@ export function antibesRssToIcs(xml: string): string {
       `DTSTART:${formatIcsDateTime(event.startDate)}`,
       `DTEND:${formatIcsDateTime(event.endDate)}`,
       `SUMMARY:${escapeIcsText(event.title)}`,
-      `DESCRIPTION:${escapeIcsText(description)}`,
     );
+    if (event.description) {
+      lines.push(`DESCRIPTION:${escapeIcsText(event.description)}`);
+    }
 
     if (event.location) {
       lines.push(`LOCATION:${escapeIcsText(event.location)}`);
@@ -96,8 +91,10 @@ export function antibesRssToIcs(xml: string): string {
       lines.push(`URL:${escapeIcsText(event.link)}`);
     }
 
+    const categories = ['Sorties', 'Agenda ville', 'Antibes', event.category]
+      .filter(Boolean) as string[];
     lines.push(
-      'CATEGORIES:Sorties,Agenda ville,Antibes',
+      `CATEGORIES:${categories.map(escapeIcsText).join(',')}`,
       'STATUS:CONFIRMED',
       'END:VEVENT',
     );
@@ -119,9 +116,26 @@ function cleanText(value: string | undefined): string | undefined {
   return text.length > 0 ? text : undefined;
 }
 
-function htmlToText(html: string): string | undefined {
-  const $ = cheerio.load(html);
-  const text = $.root().text().replace(/\s+/g, ' ').trim();
+function htmlToCalendarText(html: string): string | undefined {
+  const htmlWithLineBreaks = html
+    .replace(/\r\n?/g, '\n')
+    .replace(/<br\b[^>]*\/?>/gi, '\n')
+    .replace(/<li\b[^>]*>/gi, '\n• ')
+    .replace(/<\/li>/gi, '\n')
+    .replace(/<\/(?:address|article|aside|blockquote|div|footer|h[1-6]|header|main|nav|ol|p|pre|section|table|tbody|td|tfoot|th|thead|tr|ul)>/gi, '\n\n');
+
+  const $ = cheerio.load(htmlWithLineBreaks);
+  $('img, script, style, noscript, svg').remove();
+
+  const text = $.root()
+    .text()
+    .replace(/\u00a0/g, ' ')
+    .split('\n')
+    .map((line) => line.replace(/[\t\f\v ]+/g, ' ').trim())
+    .join('\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+
   return text.length > 0 ? text : undefined;
 }
 

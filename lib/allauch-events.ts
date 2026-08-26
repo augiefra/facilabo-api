@@ -9,7 +9,6 @@ const ALLAUCH_CONFIG: MunicipalRssCalendarConfig = {
   userAgent: 'FacilAbo/2.0 local-events-allauch',
   calendarName: 'Agenda officiel d’Allauch',
   calendarDescription: 'Événements officiels publiés par la Ville d’Allauch',
-  sourceAttribution: 'Ville d’Allauch',
   uidPrefix: 'sorties-ville-allauch',
   prodId: '-//FacilAbo//Agenda officiel Allauch RSS//FR',
   fallbackLocation: 'Allauch',

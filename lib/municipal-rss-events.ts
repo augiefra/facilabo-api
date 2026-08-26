@@ -5,7 +5,6 @@ export interface MunicipalRssCalendarConfig {
   userAgent: string;
   calendarName: string;
   calendarDescription: string;
-  sourceAttribution: string;
   uidPrefix: string;
   prodId: string;
   fallbackLocation?: string;
@@ -78,7 +77,7 @@ export function municipalRssToIcs(
       endDate,
       isAllDay,
       category: cleanText(node.find('category').first().text()),
-      description: htmlToText(node.find('description').first().text()),
+      description: htmlToCalendarText(node.find('description').first().text()),
       location: cleanText(node.find('ev\\:location').first().text()) ?? config.fallbackLocation,
       latitude,
       longitude,
@@ -100,13 +99,6 @@ export function municipalRssToIcs(
   ];
 
   for (const event of events) {
-    const description = [
-      event.description,
-      event.category ? `Catégorie: ${event.category}` : undefined,
-      `Source: ${config.sourceAttribution}`,
-      event.link,
-    ].filter(Boolean).join('\\n');
-
     lines.push(
       'BEGIN:VEVENT',
       `UID:${escapeIcsText(`${config.uidPrefix}-${slugify(event.guid)}@facilabo.app`)}`,
@@ -125,10 +117,10 @@ export function municipalRssToIcs(
       );
     }
 
-    lines.push(
-      `SUMMARY:${escapeIcsText(event.title)}`,
-      `DESCRIPTION:${escapeIcsText(description)}`,
-    );
+    lines.push(`SUMMARY:${escapeIcsText(event.title)}`);
+    if (event.description) {
+      lines.push(`DESCRIPTION:${escapeIcsText(event.description)}`);
+    }
 
     if (event.location) {
       lines.push(`LOCATION:${escapeIcsText(event.location)}`);
@@ -200,9 +192,26 @@ function cleanText(value: string | undefined): string | undefined {
   return text.length > 0 ? text : undefined;
 }
 
-function htmlToText(html: string): string | undefined {
-  const $ = cheerio.load(html);
-  const text = $.root().text().replace(/\s+/g, ' ').trim();
+function htmlToCalendarText(html: string): string | undefined {
+  const htmlWithLineBreaks = html
+    .replace(/\r\n?/g, '\n')
+    .replace(/<br\b[^>]*\/?>/gi, '\n')
+    .replace(/<li\b[^>]*>/gi, '\n• ')
+    .replace(/<\/li>/gi, '\n')
+    .replace(/<\/(?:address|article|aside|blockquote|div|footer|h[1-6]|header|main|nav|ol|p|pre|section|table|tbody|td|tfoot|th|thead|tr|ul)>/gi, '\n\n');
+
+  const $ = cheerio.load(htmlWithLineBreaks);
+  $('img, script, style, noscript, svg').remove();
+
+  const text = $.root()
+    .text()
+    .replace(/\u00a0/g, ' ')
+    .split('\n')
+    .map((line) => line.replace(/[\t\f\v ]+/g, ' ').trim())
+    .join('\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+
   return text.length > 0 ? text : undefined;
 }
 

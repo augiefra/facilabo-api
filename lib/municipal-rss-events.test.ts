@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { antibesRssToIcs } from './antibes-events.ts';
 import { municipalRssToIcs } from './municipal-rss-events.ts';
 
 const allauchConfig = {
@@ -7,7 +8,6 @@ const allauchConfig = {
   userAgent: 'FacilAbo/2.0 local-events-allauch',
   calendarName: 'Agenda officiel d’Allauch',
   calendarDescription: 'Événements officiels publiés par la Ville d’Allauch',
-  sourceAttribution: 'Ville d’Allauch',
   uidPrefix: 'sorties-ville-allauch',
   prodId: '-//FacilAbo//Agenda officiel Allauch RSS//FR',
   fallbackLocation: 'Allauch',
@@ -24,7 +24,12 @@ const fixture = `<?xml version="1.0" encoding="UTF-8"?>
       <title>Concert du soir</title>
       <link>https://www.allauch.com/agenda/concert-du-soir/</link>
       <category>Musique</category>
-      <description><![CDATA[<p>Concert officiel.</p>]]></description>
+      <description><![CDATA[
+        <h2>Concert officiel</h2>
+        <p>Première partie.<br />Entrée libre.</p>
+        <blockquote><p>Une soirée pour tous.</p></blockquote>
+        <ul><li>Accueil à 18 h</li><li>Début à 19 h</li></ul>
+      ]]></description>
       <ev:startdate>2026-07-24T21:00:00+02:00</ev:startdate>
       <ev:enddate>2026-07-24T22:00:00+02:00</ev:enddate>
       <ev:location>Bastide de Fontvieille</ev:location>
@@ -53,6 +58,8 @@ const fixture = `<?xml version="1.0" encoding="UTF-8"?>
 
 test('Allauch RSS is converted into stable and calendar-safe events', () => {
   const ics = municipalRssToIcs(fixture, allauchConfig);
+  const unfolded = ics.replace(/\r\n[ \t]/g, '');
+  const description = unfolded.match(/DESCRIPTION:([^\r\n]*)/)?.[1];
 
   assert.equal((ics.match(/BEGIN:VEVENT/g) ?? []).length, 3);
   assert.match(ics, /UID:sorties-ville-allauch-0119731@facilabo\.app/);
@@ -66,4 +73,43 @@ test('Allauch RSS is converted into stable and calendar-safe events', () => {
   assert.match(ics, /DTEND;VALUE=DATE:20260816/);
   assert.match(ics, /LOCATION:Allauch/);
   assert.doesNotMatch(ics, /2027/);
+  assert.equal(
+    description,
+    'Concert officiel\\n\\nPremière partie.\\nEntrée libre.\\n\\nUne soirée pour tous.\\n\\n• Accueil à 18 h\\n\\n• Début à 19 h',
+  );
+  assert.doesNotMatch(description ?? '', /Catégorie:|Source:|https?:\/\//);
+  assert.equal(description?.includes('\\\\n'), false);
+  assert.match(unfolded, /CATEGORIES:Sorties,Agenda ville,Allauch,Musique/);
+  assert.equal(
+    (unfolded.match(/https:\/\/www\.allauch\.com\/agenda\/concert-du-soir\//g) ?? []).length,
+    1,
+  );
+});
+
+test('Antibes keeps editorial text separate from URL and categories', () => {
+  const antibesFixture = `<?xml version="1.0" encoding="UTF-8"?>
+  <rss version="2.0" xmlns:ev="http://purl.org/rss/1.0/modules/event/">
+    <channel>
+      <item>
+        <title>Festival du port</title>
+        <link>https://www.antibes-juanlespins.com/agenda/festival-du-port</link>
+        <category>Musique</category>
+        <description><![CDATA[<h2>Au programme</h2><p>Concert.<br>Entrée libre.</p>]]></description>
+        <ev:startdate>2026-09-12T19:00:00+02:00</ev:startdate>
+        <ev:enddate>2026-09-12T22:00:00+02:00</ev:enddate>
+        <guid isPermaLink="false">antibes-42</guid>
+      </item>
+    </channel>
+  </rss>`;
+
+  const unfolded = antibesRssToIcs(antibesFixture).replace(/\r\n[ \t]/g, '');
+  const description = unfolded.match(/DESCRIPTION:([^\r\n]*)/)?.[1];
+
+  assert.equal(description, 'Au programme\\n\\nConcert.\\nEntrée libre.');
+  assert.doesNotMatch(description ?? '', /Catégorie:|Source:|https?:\/\//);
+  assert.match(unfolded, /CATEGORIES:Sorties,Agenda ville,Antibes,Musique/);
+  assert.equal(
+    (unfolded.match(/https:\/\/www\.antibes-juanlespins\.com\/agenda\/festival-du-port/g) ?? []).length,
+    1,
+  );
 });
