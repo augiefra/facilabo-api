@@ -122,5 +122,15 @@
       "b8a40b56-71a5-5caf-923a-34d0cd343e41",
       "9b0a92ed-e26d-c41e-3928-2df10dac6a55"
     ]
+  },
+  {
+    "id": "facilabo-rentree-calendriers-2026-v1",
+    "title": "Les calendriers font leur rentrée ✨",
+    "titleEn": "Your calendars are ready ✨",
+    "message": "Examens, sports, vacances et grands rendez-vous : de nombreuses dates ont été ajoutées ou mises à jour. Les calendriers concernés que vous suivez sont déjà actualisés dans FacilAbo.",
+    "messageEn": "Exams, sports, holidays and major events: many dates have been added or updated. Any affected calendars you follow are already up to date in FacilAbo.",
+    "startsAt": "2026-08-29T20:57:51Z",
+    "endsAt": "2026-09-03T20:57:51Z",
+    "priority": "normal"
   }
 ]
