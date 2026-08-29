@@ -279,8 +279,8 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
   },
   'education-examens-2026': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/education/examens-2026.ics',
-    frenchName: 'Examens 2026',
-    description: 'Repères nationaux utiles pour le bac, le brevet, le CAP, le BTS, le BP et le BMA'
+    frenchName: 'Examens 2027',
+    description: 'Repères nationaux 2027 pour le bac, le brevet, le CAP, le BP, le BMA et le brevet de technicien ; slug historique conservé pour les abonnements actifs'
   },
   'education-parcoursup-2026': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/education/parcoursup-2026.ics',
