@@ -11,10 +11,11 @@
     "typecheck": "tsc --noEmit",
     "test:municipal-rss": "node --experimental-strip-types --test lib/municipal-rss-events.test.ts",
     "test:update-notices": "node --experimental-strip-types --test lib/update-notice-visibility.test.ts",
+    "test:calendar-corrections": "node --experimental-strip-types --test lib/ics-transforms.test.ts lib/calendar-source-health.test.ts",
     "test:sports": "node -r ts-node/register --test lib/race-results-sources.test.ts",
     "check:tooling": "node scripts/check-tooling-contract.mjs",
     "check:client-contracts": "node scripts/check-client-contracts.mjs",
-    "check": "npm run check:tooling && npm run typecheck && npm run test:municipal-rss && npm run test:update-notices && npm run test:sports && npm run check:client-contracts"
+    "check": "npm run check:tooling && npm run typecheck && npm run test:municipal-rss && npm run test:update-notices && npm run test:calendar-corrections && npm run test:sports && npm run check:client-contracts"
   },
   "dependencies": {
     "cheerio": "^1.2.0"

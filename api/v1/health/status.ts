@@ -14,6 +14,8 @@
 
 import type { VercelRequest, VercelResponse } from '../../../lib/vercel-http';
 import { getAbuseHealthSummary } from '../../../lib/abuse-monitor';
+import { validateNbaCalendar } from '../../../lib/calendar-source-health';
+import { NBA_CALENDARS } from '../../../lib/calendar-mappings';
 
 interface SourceStatus {
   name: string;
@@ -44,8 +46,17 @@ interface HealthResponse {
   };
 }
 
+interface HealthSource {
+  name: string;
+  category: string;
+  url: string;
+  method: 'GET' | 'HEAD';
+  critical: boolean;
+  validateBody?: (body: string) => string | undefined;
+}
+
 // Sources to monitor with criticality flag
-const SOURCES_TO_CHECK = [
+const SOURCES_TO_CHECK: HealthSource[] = [
   // Core calendars (critical)
   {
     name: 'Opendatasoft (Vacances)',
@@ -98,11 +109,12 @@ const SOURCES_TO_CHECK = [
     critical: false,
   },
   {
-    name: 'FixtureDownload (NBA)',
+    name: 'GitHub (NBA 2026-27)',
     category: 'calendars',
-    url: 'https://fixturedownload.com/download/nba-2024-GMTStandardTime.ics',
-    method: 'HEAD' as const,
+    url: NBA_CALENDARS.basketball.sourceUrl,
+    method: 'GET' as const,
     critical: false,
+    validateBody: validateNbaCalendar,
   },
   {
     name: "Data.gouv (Changement d'heure)",
@@ -207,7 +219,7 @@ const SOURCES_TO_CHECK = [
   },
 ];
 
-async function checkSource(source: typeof SOURCES_TO_CHECK[0]): Promise<SourceStatus> {
+async function checkSource(source: HealthSource): Promise<SourceStatus> {
   const startTime = Date.now();
 
   try {
@@ -227,6 +239,17 @@ async function checkSource(source: typeof SOURCES_TO_CHECK[0]): Promise<SourceSt
     const latency = Date.now() - startTime;
 
     if (response.ok) {
+      const validationError = source.validateBody?.(await response.text());
+      if (validationError) {
+        return {
+          name: source.name,
+          category: source.category,
+          status: 'degraded',
+          latency,
+          error: validationError,
+          critical: source.critical,
+        };
+      }
       return {
         name: source.name,
         category: source.category,

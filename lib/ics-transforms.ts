@@ -5,10 +5,187 @@
 const RACE_ONLY_F1_SLUG = 'f1-races-only';
 const F1_FULL_SLUG = 'f1';
 const EUROPEAN_FOOTBALL_SLUG_PREFIX = 'football-europe-';
-const CANCELLED_F1_GRAND_PRIX_MARKERS = [
-  'f1 bahrain gp',
-  'f1 saudi arabian gp',
-];
+
+interface SchoolHolidayCorrection {
+  uid: string;
+  dtstart: string;
+  oldDtend: string;
+  correctedDtend: string;
+  summary: string;
+}
+
+interface SupplementalSchoolHoliday {
+  uid: string;
+  dtstart: string;
+  dtend?: string;
+  summary: string;
+  description: string;
+  sourceUrl: string;
+}
+
+const SCHOOL_HOLIDAY_CORRECTIONS: Record<string, SchoolHolidayCorrection[]> = {
+  'vacances-guadeloupe': [{
+    uid: '20260820T093502Z-Guadeloupe@data.education.gouv.fr',
+    dtstart: '20261219',
+    oldDtend: '20260104',
+    correctedDtend: '20270104',
+    summary: 'Vacances de Noël',
+  }],
+  'vacances-saint-pierre-et-miquelon': [{
+    uid: '20260820T094023Z-SaintPierreEtMiquelon@data.education.gouv.fr',
+    dtstart: '20261218',
+    oldDtend: '20260104',
+    correctedDtend: '20270104',
+    summary: 'Vacances de Noël',
+  }],
+};
+
+const MAYOTTE_SOURCE_URL =
+  'https://www.ac-mayotte.fr/sites/ac_mayotte/files/2025-12/calendrier-scolaire-2026-2027---mayotte-24459.pdf';
+const NEW_CALEDONIA_SOURCE_URL =
+  'https://www.ac-noumea.nc/spip.php?rubrique64=&sm=smenu11';
+
+const SUPPLEMENTAL_SCHOOL_HOLIDAYS: Record<string, SupplementalSchoolHoliday[]> = {
+  'vacances-mayotte': [
+    {
+      uid: 'vacances-mayotte-2026-2027-toussaint@facilabo.app',
+      dtstart: '20261010',
+      dtend: '20261026',
+      summary: 'Vacances de la Toussaint',
+      description: 'Calendrier scolaire officiel de Mayotte 2026-2027.',
+      sourceUrl: MAYOTTE_SOURCE_URL,
+    },
+    {
+      uid: 'vacances-mayotte-2026-2027-noel@facilabo.app',
+      dtstart: '20261212',
+      dtend: '20270111',
+      summary: 'Vacances de Noël',
+      description: 'Calendrier scolaire officiel de Mayotte 2026-2027.',
+      sourceUrl: MAYOTTE_SOURCE_URL,
+    },
+    {
+      uid: 'vacances-mayotte-2026-2027-carnaval@facilabo.app',
+      dtstart: '20270220',
+      dtend: '20270308',
+      summary: 'Vacances de Carnaval',
+      description: 'Calendrier scolaire officiel de Mayotte 2026-2027.',
+      sourceUrl: MAYOTTE_SOURCE_URL,
+    },
+    {
+      // Official end of classes: 1 May; classes resume: 17 May.
+      // DTEND is exclusive for an all-day holiday interval.
+      uid: 'vacances-mayotte-2026-2027-paques@facilabo.app',
+      dtstart: '20270501',
+      dtend: '20270517',
+      summary: 'Vacances de Pâques',
+      description: 'Calendrier scolaire officiel de Mayotte 2026-2027.',
+      sourceUrl: MAYOTTE_SOURCE_URL,
+    },
+    {
+      uid: 'vacances-mayotte-2026-2027-ete@facilabo.app',
+      dtstart: '20270710',
+      summary: "Début des vacances d'été",
+      description: "Dernier jour de classe officiel à Mayotte; aucune date de fin n'est publiée.",
+      sourceUrl: MAYOTTE_SOURCE_URL,
+    },
+  ],
+  'vacances-nouvelle-caledonie': [
+    {
+      uid: 'vacances-nouvelle-caledonie-2027-prerentree@facilabo.app',
+      dtstart: '20270212',
+      dtend: '20270215',
+      summary: 'Pré-rentrée des enseignants',
+      description: 'Calendrier scolaire officiel de Nouvelle-Calédonie 2027.',
+      sourceUrl: NEW_CALEDONIA_SOURCE_URL,
+    },
+    {
+      uid: 'vacances-nouvelle-caledonie-2027-periode-1@facilabo.app',
+      dtstart: '20270403',
+      dtend: '20270419',
+      summary: 'Vacances de la 1re période',
+      description: 'Calendrier scolaire officiel de Nouvelle-Calédonie 2027.',
+      sourceUrl: NEW_CALEDONIA_SOURCE_URL,
+    },
+    {
+      uid: 'vacances-nouvelle-caledonie-2027-periode-2@facilabo.app',
+      dtstart: '20270605',
+      dtend: '20270621',
+      summary: 'Vacances de la 2e période',
+      description: 'Calendrier scolaire officiel de Nouvelle-Calédonie 2027.',
+      sourceUrl: NEW_CALEDONIA_SOURCE_URL,
+    },
+    {
+      uid: 'vacances-nouvelle-caledonie-2027-periode-3@facilabo.app',
+      dtstart: '20270807',
+      dtend: '20270823',
+      summary: 'Vacances de la 3e période',
+      description: 'Calendrier scolaire officiel de Nouvelle-Calédonie 2027.',
+      sourceUrl: NEW_CALEDONIA_SOURCE_URL,
+    },
+    {
+      uid: 'vacances-nouvelle-caledonie-2027-periode-4@facilabo.app',
+      dtstart: '20271009',
+      dtend: '20271025',
+      summary: 'Vacances de la 4e période',
+      description: 'Calendrier scolaire officiel de Nouvelle-Calédonie 2027.',
+      sourceUrl: NEW_CALEDONIA_SOURCE_URL,
+    },
+    {
+      uid: 'vacances-nouvelle-caledonie-2027-ete@facilabo.app',
+      dtstart: '20271218',
+      summary: "Début des vacances d'été",
+      description: "Date officielle de début; aucune date de fin n'est publiée.",
+      sourceUrl: NEW_CALEDONIA_SOURCE_URL,
+    },
+    {
+      uid: 'vacances-nouvelle-caledonie-2028-prerentree@facilabo.app',
+      dtstart: '20280211',
+      dtend: '20280214',
+      summary: 'Pré-rentrée des enseignants',
+      description: 'Calendrier scolaire officiel de Nouvelle-Calédonie 2028.',
+      sourceUrl: NEW_CALEDONIA_SOURCE_URL,
+    },
+    {
+      uid: 'vacances-nouvelle-caledonie-2028-periode-1@facilabo.app',
+      dtstart: '20280408',
+      dtend: '20280424',
+      summary: 'Vacances de la 1re période',
+      description: 'Calendrier scolaire officiel de Nouvelle-Calédonie 2028.',
+      sourceUrl: NEW_CALEDONIA_SOURCE_URL,
+    },
+    {
+      uid: 'vacances-nouvelle-caledonie-2028-periode-2@facilabo.app',
+      dtstart: '20280610',
+      dtend: '20280626',
+      summary: 'Vacances de la 2e période',
+      description: 'Calendrier scolaire officiel de Nouvelle-Calédonie 2028.',
+      sourceUrl: NEW_CALEDONIA_SOURCE_URL,
+    },
+    {
+      uid: 'vacances-nouvelle-caledonie-2028-periode-3@facilabo.app',
+      dtstart: '20280812',
+      dtend: '20280828',
+      summary: 'Vacances de la 3e période',
+      description: 'Calendrier scolaire officiel de Nouvelle-Calédonie 2028.',
+      sourceUrl: NEW_CALEDONIA_SOURCE_URL,
+    },
+    {
+      uid: 'vacances-nouvelle-caledonie-2028-periode-4@facilabo.app',
+      dtstart: '20281014',
+      dtend: '20281030',
+      summary: 'Vacances de la 4e période',
+      description: 'Calendrier scolaire officiel de Nouvelle-Calédonie 2028.',
+      sourceUrl: NEW_CALEDONIA_SOURCE_URL,
+    },
+    {
+      uid: 'vacances-nouvelle-caledonie-2028-ete@facilabo.app',
+      dtstart: '20281216',
+      summary: "Début des vacances d'été",
+      description: "Date officielle de début; aucune date de fin n'est publiée.",
+      sourceUrl: NEW_CALEDONIA_SOURCE_URL,
+    },
+  ],
+};
 
 const NON_RACE_SESSION_PATTERN =
   /\b(sprint|qualif(?:ying|ication)?|practice|essai(?:s| libre| libres)?|fp1|fp2|fp3|shootout|testing|test session)\b/i;
@@ -19,7 +196,10 @@ function extractSummary(eventBlock: string): string {
   return (match?.[1] ?? '').trim();
 }
 
-function extractPropertyValue(eventBlock: string, propertyName: 'DTSTART' | 'DTEND' | 'URL'): string {
+function extractPropertyValue(
+  eventBlock: string,
+  propertyName: 'UID' | 'DTSTART' | 'DTEND' | 'URL'
+): string {
   const unfolded = eventBlock.replace(/\r?\n[ \t]/g, '');
   const match = unfolded.match(
     new RegExp(`(?:^|\\r?\\n)${propertyName}[^:]*:(.+?)(?:\\r?\\n|$)`, 'i')
@@ -70,13 +250,6 @@ function isF1RaceEvent(eventBlock: string): boolean {
   const looksLikeGrandPrix = /\b(grand prix|gp)\b/i.test(summary);
 
   return hasRaceToken || looksLikeGrandPrix;
-}
-
-function isCancelledF1Event(eventBlock: string): boolean {
-  const summary = normalizeSummary(extractSummary(eventBlock));
-  if (!summary) return false;
-
-  return CANCELLED_F1_GRAND_PRIX_MARKERS.some((marker) => summary.includes(marker));
 }
 
 function filterEvents(
@@ -233,11 +406,66 @@ function dedupeF1ScheduleUpdateEvents(icsContent: string): string {
   });
 }
 
+function correctKnownSchoolHolidayIntervals(slug: string, icsContent: string): string {
+  const corrections = SCHOOL_HOLIDAY_CORRECTIONS[slug];
+  if (!corrections) return icsContent;
+
+  return icsContent.replace(/BEGIN:VEVENT[\s\S]*?END:VEVENT/g, (eventBlock) => {
+    const correction = corrections.find((candidate) =>
+      extractPropertyValue(eventBlock, 'UID') === candidate.uid &&
+      extractPropertyValue(eventBlock, 'DTSTART') === candidate.dtstart &&
+      extractPropertyValue(eventBlock, 'DTEND') === candidate.oldDtend &&
+      extractSummary(eventBlock) === candidate.summary
+    );
+
+    if (!correction) return eventBlock;
+
+    return eventBlock.replace(
+      /(^|\r?\n)(DTEND[^:]*:)\d{8}(?=\r?\n|$)/i,
+      `$1$2${correction.correctedDtend}`
+    );
+  });
+}
+
+function appendMissingSchoolHolidays(slug: string, icsContent: string): string {
+  const supplements = SUPPLEMENTAL_SCHOOL_HOLIDAYS[slug];
+  if (!supplements) return icsContent;
+
+  const calendarEndIndex = icsContent.lastIndexOf('END:VCALENDAR');
+  if (calendarEndIndex < 0) return icsContent;
+
+  const existingUids = new Set(
+    Array.from(icsContent.matchAll(/(?:^|\r?\n)UID:(.+?)(?:\r?\n|$)/gi))
+      .map((match) => match[1].trim())
+  );
+  const missing = supplements.filter((event) => !existingUids.has(event.uid));
+  if (missing.length === 0) return icsContent;
+
+  const newline = icsContent.includes('\r\n') ? '\r\n' : '\n';
+  const blocks = missing.map((event) => [
+    'BEGIN:VEVENT',
+    `UID:${event.uid}`,
+    'DTSTAMP:20260829T000000Z',
+    `DTSTART;VALUE=DATE:${event.dtstart}`,
+    ...(event.dtend ? [`DTEND;VALUE=DATE:${event.dtend}`] : []),
+    `SUMMARY:${event.summary}`,
+    `DESCRIPTION:${event.description}`,
+    `URL:${event.sourceUrl}`,
+    'CATEGORIES:Vacances scolaires',
+    'STATUS:CONFIRMED',
+    'END:VEVENT',
+    '',
+  ].join(newline)).join('');
+
+  const beforeEnd = icsContent.slice(0, calendarEndIndex);
+  const separator = beforeEnd.endsWith(newline) ? '' : newline;
+  return `${beforeEnd}${separator}${blocks}${icsContent.slice(calendarEndIndex)}`;
+}
+
 export function applyCalendarTransform(slug: string, icsContent: string): string {
   let transformedContent = icsContent;
 
   if (slug === F1_FULL_SLUG || slug === RACE_ONLY_F1_SLUG) {
-    transformedContent = filterEvents(transformedContent, (eventBlock) => !isCancelledF1Event(eventBlock));
     transformedContent = dedupeF1ScheduleUpdateEvents(transformedContent);
   }
 
@@ -248,6 +476,9 @@ export function applyCalendarTransform(slug: string, icsContent: string): string
   if (slug.startsWith(EUROPEAN_FOOTBALL_SLUG_PREFIX)) {
     transformedContent = dedupeEuropeanFootballEvents(transformedContent);
   }
+
+  transformedContent = correctKnownSchoolHolidayIntervals(slug, transformedContent);
+  transformedContent = appendMissingSchoolHolidays(slug, transformedContent);
 
   return transformedContent;
 }

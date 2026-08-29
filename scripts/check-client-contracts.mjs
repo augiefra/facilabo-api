@@ -46,6 +46,16 @@ try {
     }
   }
 
+  assert.deepEqual(
+    mappingsModule.NBA_CALENDARS.basketball,
+    {
+      sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/nba-2026-27.ics',
+      frenchName: 'NBA - Calendrier complet',
+      description: 'Tous les matchs NBA 2026-27',
+    },
+    'The rolling basketball slug must stay pinned to the validated NBA 2026-27 source.'
+  );
+
   const catalogErrors = catalogModule.validateCalendarCatalog(mappings);
   assert.deepEqual(catalogErrors, [], catalogErrors.join('\n'));
 

@@ -826,13 +826,13 @@ export const NASCAR_CALENDARS: Record<string, CalendarMapping> = {
 };
 
 /**
- * NBA Calendar - FixtureDownload.com source
+ * NBA Calendar - validated FixtureDownload snapshot, self-hosted by FacilAbo
  */
 export const NBA_CALENDARS: Record<string, CalendarMapping> = {
   'basketball': {
-    sourceUrl: 'https://fixturedownload.com/download/nba-2024-GMTStandardTime.ics',
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/nba-2026-27.ics',
     frenchName: 'NBA - Calendrier complet',
-    description: 'Tous les matchs NBA 2024-25'
+    description: 'Tous les matchs NBA 2026-27'
   }
 };
 
