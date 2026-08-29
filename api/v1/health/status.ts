@@ -14,8 +14,8 @@
 
 import type { VercelRequest, VercelResponse } from '../../../lib/vercel-http';
 import { getAbuseHealthSummary } from '../../../lib/abuse-monitor';
-import { validateNbaCalendar } from '../../../lib/calendar-source-health';
-import { NBA_CALENDARS } from '../../../lib/calendar-mappings';
+import { validateNascarCalendar, validateNbaCalendar } from '../../../lib/calendar-source-health';
+import { NASCAR_CALENDARS, NBA_CALENDARS } from '../../../lib/calendar-mappings';
 
 interface SourceStatus {
   name: string;
@@ -102,11 +102,12 @@ const SOURCES_TO_CHECK: HealthSource[] = [
     critical: false,
   },
   {
-    name: 'Google Calendar (NASCAR)',
+    name: 'GitHub (NASCAR Cup 2027)',
     category: 'calendars',
-    url: 'https://calendar.google.com/calendar/ical/db8c47ne2bt9qbld2mhdabm0u8%40group.calendar.google.com/public/basic.ics',
-    method: 'HEAD' as const,
+    url: NASCAR_CALENDARS.nascar.sourceUrl,
+    method: 'GET' as const,
     critical: false,
+    validateBody: validateNascarCalendar,
   },
   {
     name: 'GitHub (NBA 2026-27)',

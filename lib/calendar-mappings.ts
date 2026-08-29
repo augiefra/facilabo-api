@@ -831,13 +831,13 @@ export const MOTOGP_CALENDARS: Record<string, CalendarMapping> = {
 };
 
 /**
- * NASCAR Calendar - Google Calendar source (official)
+ * NASCAR Calendar - FacilAbo self-hosted from the official NASCAR schedule
  */
 export const NASCAR_CALENDARS: Record<string, CalendarMapping> = {
   'nascar': {
-    sourceUrl: 'https://calendar.google.com/calendar/ical/db8c47ne2bt9qbld2mhdabm0u8%40group.calendar.google.com/public/basic.ics',
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/nascar-cup-2027.ics',
     frenchName: 'NASCAR Cup Series',
-    description: 'Toutes les courses NASCAR'
+    description: 'Les 39 dates officielles de la NASCAR Cup Series 2027, sans horaires ni diffuseurs inventés'
   }
 };
 
@@ -1325,8 +1325,9 @@ export const RUGBY_TEAMS: Record<string, CalendarMapping> = {
     frenchName: 'Aviron Bayonnais'
   },
   'montauban': {
-    sourceUrl: 'https://facilabo-api.vercel.app/api/calendar/rugby/montauban',
-    frenchName: 'US Montauban'
+    sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/rugby-montauban-2026-27.ics',
+    frenchName: 'US Montauban',
+    description: 'Les 30 journées de l’US Montauban en PRO D2, saison 2026-2027'
   },
   // Backward compatibility for existing app versions still subscribed to RC Vannes.
   'vannes': {
