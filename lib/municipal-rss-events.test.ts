@@ -113,3 +113,36 @@ test('Antibes keeps editorial text separate from URL and categories', () => {
     1,
   );
 });
+
+test('Antibes deterministically deduplicates semantic RSS duplicates and preserves distinct occurrences', () => {
+  const item = (guid: string, title: string, start: string, end: string, location: string) => `
+    <item>
+      <title>${title}</title>
+      <link>https://www.antibes-juanlespins.com/agenda/${guid}</link>
+      <description><![CDATA[<p>Lieu : ${location}</p>]]></description>
+      <ev:startdate>${start}</ev:startdate>
+      <ev:enddate>${end}</ev:enddate>
+      <guid isPermaLink="false">${guid}</guid>
+    </item>`;
+  const antibesFixture = `<?xml version="1.0" encoding="UTF-8"?>
+    <rss version="2.0" xmlns:ev="http://purl.org/rss/1.0/modules/event/">
+      <channel>
+        ${item('news-4496', 'EN ATTENDANT   GODOT - Théâtre Antibéa', '2026-11-13T20:30:00+01:00', '2026-11-15T18:00:00+01:00', 'Antibéa Théâtre')}
+        ${item('news-4495', 'En attendant Godot – Théâtre Antibéa', '2026-11-13T20:30:00+01:00', '2026-11-15T18:00:00+01:00', 'Antibea theatre')}
+        ${item('news-4503', 'Duos sur canapé - Théâtre Antibéa', '2027-01-15T20:30:00+01:00', '2027-01-17T18:00:00+01:00', 'Antibéa Théâtre')}
+        ${item('news-4501', 'Duos sur canapé – Théâtre Antibéa', '2027-01-15T20:30:00+01:00', '2027-01-17T18:00:00+01:00', 'Antibea theatre')}
+        ${item('news-4510', 'En attendant Godot – Théâtre Antibéa', '2026-11-20T20:30:00+01:00', '2026-11-20T22:00:00+01:00', 'Antibéa Théâtre')}
+        ${item('news-4511', 'En attendant Godot – Théâtre Antibéa', '2026-11-13T20:30:00+01:00', '2026-11-15T18:00:00+01:00', 'Salle des Associations')}
+      </channel>
+    </rss>`;
+
+  const ics = antibesRssToIcs(antibesFixture);
+
+  assert.equal((ics.match(/BEGIN:VEVENT/g) ?? []).length, 4);
+  assert.match(ics, /UID:sorties-ville-antibes-news-4495@facilabo\.app/);
+  assert.doesNotMatch(ics, /UID:sorties-ville-antibes-news-4496@facilabo\.app/);
+  assert.match(ics, /UID:sorties-ville-antibes-news-4501@facilabo\.app/);
+  assert.doesNotMatch(ics, /UID:sorties-ville-antibes-news-4503@facilabo\.app/);
+  assert.match(ics, /UID:sorties-ville-antibes-news-4510@facilabo\.app/);
+  assert.match(ics, /UID:sorties-ville-antibes-news-4511@facilabo\.app/);
+});

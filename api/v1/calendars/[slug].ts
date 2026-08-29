@@ -13,7 +13,7 @@
  */
 
 import type { VercelRequest, VercelResponse } from '../../../lib/vercel-http';
-import { getMapping, getAllMappings, getCalendarCachePolicy } from '../../../lib/calendar-mappings';
+import { getMapping, getAllMappings, getCalendarCacheControlHeader, getCalendarCachePolicy } from '../../../lib/calendar-mappings';
 import { fetchWithRetry, createRetryLogger, RETRY_CONFIGS } from '../../../lib/retry-utils';
 import { getCache, getStaleCache, setCache } from '../../../lib/v1-utils';
 import { trackAbuseRequest } from '../../../lib/abuse-monitor';
@@ -80,7 +80,7 @@ export default async function handler(
   const retryLogger = createRetryLogger(`calendar:${slug}`);
   const cacheKey = `v1:ics:${slug}:suffix:${disableSuffix ? 'off' : 'on'}`;
   const cachePolicy = getCalendarCachePolicy(slug);
-  const cacheControlValue = `s-maxage=${cachePolicy.sMaxAge}, stale-while-revalidate=${cachePolicy.staleWhileRevalidate}`;
+  const cacheControlValue = getCalendarCacheControlHeader(slug);
 
   const cached = getCache<string>(cacheKey);
   if (cached) {

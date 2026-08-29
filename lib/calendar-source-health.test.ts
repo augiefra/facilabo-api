@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { getCalendarCacheControlHeader, getCalendarCachePolicy } from './calendar-mappings.ts';
 import { validateNbaCalendar } from './calendar-source-health.ts';
 
 function nbaCalendar(count = 1200): string {
@@ -29,5 +30,18 @@ test('rejects stale, short or duplicate NBA source data', () => {
   assert.match(
     validateNbaCalendar(nbaCalendar().replace('nba-2026-1@fixture-download', 'nba-2026-0@fixture-download')) ?? '',
     /duplicate UIDs/
+  );
+});
+
+test('self-hosted ICS proxy headers bound CDN and stale cache between publications', () => {
+  assert.equal(
+    getCalendarCacheControlHeader('tennis-atp-majeurs'),
+    's-maxage=60, stale-while-revalidate=300',
+  );
+  assert.equal(getCalendarCachePolicy('tennis-atp-majeurs').inMemoryTtl, 60);
+  assert.equal(
+    getCalendarCacheControlHeader('f1'),
+    's-maxage=3600, stale-while-revalidate=7200',
+    'dynamic upstream calendars keep the existing performance policy',
   );
 });

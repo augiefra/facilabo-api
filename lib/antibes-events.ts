@@ -57,7 +57,11 @@ export function antibesRssToIcs(xml: string): string {
     });
   });
 
-  events.sort((lhs, rhs) => lhs.startDate.getTime() - rhs.startDate.getTime());
+  const deduplicatedEvents = deduplicateAntibesEvents(events);
+  deduplicatedEvents.sort((lhs, rhs) => {
+    const startDifference = lhs.startDate.getTime() - rhs.startDate.getTime();
+    return startDifference !== 0 ? startDifference : compareCanonicalGuids(lhs.guid, rhs.guid);
+  });
 
   const lines = [
     'BEGIN:VCALENDAR',
@@ -71,7 +75,7 @@ export function antibesRssToIcs(xml: string): string {
     'X-WR-TIMEZONE:Europe/Paris',
   ];
 
-  for (const event of events) {
+  for (const event of deduplicatedEvents) {
     lines.push(
       'BEGIN:VEVENT',
       `UID:${escapeIcsText(`sorties-ville-antibes-${slugify(event.guid)}@facilabo.app`)}`,
@@ -102,6 +106,54 @@ export function antibesRssToIcs(xml: string): string {
 
   lines.push('END:VCALENDAR');
   return lines.join('\r\n') + '\r\n';
+}
+
+function deduplicateAntibesEvents(events: AntibesRssEvent[]): AntibesRssEvent[] {
+  const canonicalBySignature = new Map<string, AntibesRssEvent>();
+
+  for (const event of events) {
+    const signature = [
+      normalizeSemanticText(event.title),
+      event.startDate.toISOString(),
+      event.endDate.toISOString(),
+      normalizeSemanticText(event.location),
+    ].join('\u0000');
+    const current = canonicalBySignature.get(signature);
+
+    if (!current || compareCanonicalGuids(event.guid, current.guid) < 0) {
+      canonicalBySignature.set(signature, event);
+    }
+  }
+
+  return Array.from(canonicalBySignature.values());
+}
+
+function compareCanonicalGuids(lhs: string, rhs: string): number {
+  const lhsNumeric = numericGuid(lhs);
+  const rhsNumeric = numericGuid(rhs);
+
+  if (lhsNumeric !== undefined && rhsNumeric !== undefined && lhsNumeric !== rhsNumeric) {
+    return lhsNumeric - rhsNumeric;
+  }
+  if (lhsNumeric !== undefined && rhsNumeric === undefined) return -1;
+  if (lhsNumeric === undefined && rhsNumeric !== undefined) return 1;
+  return lhs.localeCompare(rhs, 'en');
+}
+
+function numericGuid(value: string): number | undefined {
+  const matches = value.match(/\d+/g);
+  if (!matches || matches.length === 0) return undefined;
+  const parsed = Number.parseInt(matches[matches.length - 1], 10);
+  return Number.isSafeInteger(parsed) ? parsed : undefined;
+}
+
+function normalizeSemanticText(value: string | undefined): string {
+  return (value ?? '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
 }
 
 function parseDate(value: string): Date | undefined {

@@ -727,6 +727,12 @@ const DEFAULT_CALENDAR_CACHE_POLICY: CalendarCachePolicy = {
   inMemoryTtl: 3600
 };
 
+const SELF_HOSTED_CALENDAR_CACHE_POLICY: CalendarCachePolicy = {
+  sMaxAge: 60,
+  staleWhileRevalidate: 300,
+  inMemoryTtl: 60
+};
+
 const CALENDAR_CACHE_POLICY_OVERRIDES: Record<string, Partial<CalendarCachePolicy>> = {
   'sport-france-foot-equipe-nationale': {
     sMaxAge: 900,
@@ -777,14 +783,24 @@ const CALENDAR_CACHE_POLICY_OVERRIDES: Record<string, Partial<CalendarCachePolic
 
 export function getCalendarCachePolicy(slug: string): CalendarCachePolicy {
   const override = CALENDAR_CACHE_POLICY_OVERRIDES[slug];
-  if (!override) {
-    return DEFAULT_CALENDAR_CACHE_POLICY;
+  if (override) {
+    return {
+      ...DEFAULT_CALENDAR_CACHE_POLICY,
+      ...override
+    };
   }
 
-  return {
-    ...DEFAULT_CALENDAR_CACHE_POLICY,
-    ...override
-  };
+  const sourceUrl = FACILABO_CALENDARS[slug]?.sourceUrl;
+  if (sourceUrl?.startsWith('https://raw.githubusercontent.com/augiefra/facilabo/')) {
+    return SELF_HOSTED_CALENDAR_CACHE_POLICY;
+  }
+
+  return DEFAULT_CALENDAR_CACHE_POLICY;
+}
+
+export function getCalendarCacheControlHeader(slug: string): string {
+  const policy = getCalendarCachePolicy(slug);
+  return `s-maxage=${policy.sMaxAge}, stale-while-revalidate=${policy.staleWhileRevalidate}`;
 }
 
 /**

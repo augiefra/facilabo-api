@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { InMemoryTTLCache } from './service-search-utils';
 
-export const LOCAL_EVENTS_CONTRACT_VERSION = '2026-06-23.local-events-v1';
+export const LOCAL_EVENTS_CONTRACT_VERSION = '2026-08-29.local-events-v2';
 const OPENAGENDA_BASE_URL = 'https://api.openagenda.com/v2';
 const OPENAGENDA_SOURCE = 'OpenAgenda v2';
 
@@ -63,12 +63,28 @@ export interface LocalEventSearchResponse {
   lastUpdated: string;
   source: string;
   note?: string;
+  coverage: LocalEventCoverage;
   runtime: {
     freshness: 'fresh' | 'stale' | 'unavailable';
     degraded: boolean;
     fallbackUsed: boolean;
     lastUpdated: string;
   };
+}
+
+export interface LocalEventCoverage {
+  returned: number;
+  limit: number;
+  complete: boolean;
+  truncated: boolean;
+  agendasDiscovered: number;
+  agendasSelected: number;
+  agendasFetched: number;
+  pagesFetched: number;
+  agendaDiscoveryPagesFetched: number;
+  eventPagesFetched: number;
+  upstreamEventsFetched: number;
+  upstreamTotal?: number;
 }
 
 interface OpenAgendaAgenda {
@@ -88,8 +104,21 @@ interface EventFetchContext {
   to?: string;
 }
 
+interface AgendaDiscoveryResult {
+  agendas: OpenAgendaAgenda[];
+  complete: boolean;
+  pagesFetched: number;
+}
+
+interface EventPageResult {
+  events: LocalEventItem[];
+  complete: boolean;
+  pagesFetched: number;
+  total?: number;
+}
+
 const eventCache = new InMemoryTTLCache<LocalEventSearchResponse>(20 * 60 * 1000);
-const agendaCache = new InMemoryTTLCache<OpenAgendaAgenda[]>(60 * 60 * 1000);
+const agendaCache = new InMemoryTTLCache<AgendaDiscoveryResult>(60 * 60 * 1000);
 
 export const LOCAL_EVENT_TARGETS: LocalEventTarget[] = [
   {
@@ -661,6 +690,7 @@ export async function searchLocalEvents(query: LocalEventSearchQuery): Promise<L
       degraded: true,
       fallbackUsed: true,
       note: 'OPENAGENDA_PUBLIC_KEY non configuree cote API FacilAbo.',
+      coverage: unavailableCoverage(limit),
     });
   }
 
@@ -668,12 +698,12 @@ export async function searchLocalEvents(query: LocalEventSearchQuery): Promise<L
     const agendaLists = await Promise.all(
       targets.map(async (target) => ({
         target,
-        agendas: await findAgendasForTarget(target, apiKey),
+        discovery: await findAgendasForTarget(target, apiKey),
       })),
     );
 
-    const contexts = agendaLists.flatMap(({ target, agendas }) =>
-      agendas.slice(0, 3).map((agenda) => ({
+    const contexts = agendaLists.flatMap(({ target, discovery }) =>
+      discovery.agendas.slice(0, 3).map((agenda) => ({
         target,
         agenda,
         lat: query.lat,
@@ -684,15 +714,26 @@ export async function searchLocalEvents(query: LocalEventSearchQuery): Promise<L
       })),
     );
 
-    const eventLists = await Promise.all(
+    const eventPages = await Promise.all(
       contexts.map((context) => fetchEventsForAgenda(context, apiKey, Math.min(limit, 40))),
     );
 
-    const events = dedupeEvents(eventLists.flat())
+    const matchingEvents = dedupeEvents(eventPages.flatMap((page) => page.events))
       .map((event) => addDistance(event, query.lat, query.lng))
       .filter((event) => withinRadius(event, query))
-      .sort(compareEvents)
-      .slice(0, limit);
+      .sort(compareEvents);
+    const events = matchingEvents.slice(0, limit);
+    const agendasDiscovered = agendaLists.reduce((count, item) => count + item.discovery.agendas.length, 0);
+    const agendaDiscoveryPagesFetched = agendaLists.reduce((count, item) => count + item.discovery.pagesFetched, 0);
+    const eventPagesFetched = eventPages.reduce((count, page) => count + page.pagesFetched, 0);
+    const upstreamTotals = eventPages.map((page) => page.total);
+    const upstreamTotal = upstreamTotals.every((total) => total !== undefined)
+      ? upstreamTotals.reduce<number>((sum, total) => sum + (total ?? 0), 0)
+      : undefined;
+    const complete = agendaLists.every((item) => item.discovery.complete)
+      && agendasDiscovered === contexts.length
+      && eventPages.every((page) => page.complete)
+      && matchingEvents.length <= limit;
 
     const response = makeResponse({
       events,
@@ -703,6 +744,23 @@ export async function searchLocalEvents(query: LocalEventSearchQuery): Promise<L
       freshness: 'fresh',
       degraded: false,
       fallbackUsed: false,
+      note: complete
+        ? undefined
+        : 'Couverture partielle: pagination amont ou limite publique non exhaustive; promotion du flux bloquee.',
+      coverage: {
+        returned: events.length,
+        limit,
+        complete,
+        truncated: !complete,
+        agendasDiscovered,
+        agendasSelected: contexts.length,
+        agendasFetched: eventPages.length,
+        pagesFetched: agendaDiscoveryPagesFetched + eventPagesFetched,
+        agendaDiscoveryPagesFetched,
+        eventPagesFetched,
+        upstreamEventsFetched: eventPages.reduce((count, page) => count + page.events.length, 0),
+        upstreamTotal,
+      },
     });
 
     eventCache.set(cacheKey, response);
@@ -732,6 +790,7 @@ export async function searchLocalEvents(query: LocalEventSearchQuery): Promise<L
       degraded: true,
       fallbackUsed: true,
       note: error instanceof Error ? error.message : 'OpenAgenda indisponible.',
+      coverage: unavailableCoverage(limit),
     });
   }
 }
@@ -830,10 +889,14 @@ function resolveTargets(query: LocalEventSearchQuery): LocalEventTarget[] {
   return LOCAL_EVENT_TARGETS.filter((target) => ['allauch', 'marseille', 'aix-en-provence', 'aubagne', 'paris', 'lyon'].includes(target.slug));
 }
 
-async function findAgendasForTarget(target: LocalEventTarget, apiKey: string): Promise<OpenAgendaAgenda[]> {
+async function findAgendasForTarget(target: LocalEventTarget, apiKey: string): Promise<AgendaDiscoveryResult> {
   const envUidList = process.env[`OPENAGENDA_TARGET_${target.slug.toUpperCase().replace(/-/g, '_')}_UIDS`];
   if (envUidList) {
-    return envUidList.split(',').map((uid) => ({ uid: uid.trim(), title: target.title })).filter((agenda) => agenda.uid);
+    return {
+      agendas: envUidList.split(',').map((uid) => ({ uid: uid.trim(), title: target.title })).filter((agenda) => agenda.uid),
+      complete: true,
+      pagesFetched: 0,
+    };
   }
 
   const cacheKey = `agendas:${target.slug}`;
@@ -841,6 +904,8 @@ async function findAgendasForTarget(target: LocalEventTarget, apiKey: string): P
   if (cached) return cached;
 
   const agendasByUid = new Map<string, OpenAgendaAgenda>();
+  let complete = true;
+  let pagesFetched = 0;
   for (const term of target.searchTerms.slice(0, 3)) {
     const url = new URL(`${OPENAGENDA_BASE_URL}/agendas`);
     url.searchParams.set('official', '1');
@@ -852,20 +917,29 @@ async function findAgendasForTarget(target: LocalEventTarget, apiKey: string): P
     url.searchParams.append('includeFields[]', 'official');
 
     const json = await fetchOpenAgendaJson(url, apiKey);
-    for (const agenda of extractArray<OpenAgendaAgenda>(json, ['agendas', 'data', 'items'])) {
+    const agendas = extractArray<OpenAgendaAgenda>(json, ['agendas', 'data', 'items']);
+    const pagination = readPaginationState(json, agendas.length);
+    pagesFetched += 1;
+    complete = complete && pagination.complete;
+    for (const agenda of agendas) {
       if (agenda.uid === undefined || agenda.uid === null) continue;
       agendasByUid.set(String(agenda.uid), agenda);
     }
   }
 
-  const agendas = Array.from(agendasByUid.values()).slice(0, 8);
-  agendaCache.set(cacheKey, agendas);
-  return agendas;
+  const discoveredAgendas = Array.from(agendasByUid.values());
+  const result: AgendaDiscoveryResult = {
+    agendas: discoveredAgendas.slice(0, 8),
+    complete: complete && discoveredAgendas.length <= 8,
+    pagesFetched,
+  };
+  agendaCache.set(cacheKey, result);
+  return result;
 }
 
-async function fetchEventsForAgenda(context: EventFetchContext, apiKey: string, size: number): Promise<LocalEventItem[]> {
+async function fetchEventsForAgenda(context: EventFetchContext, apiKey: string, size: number): Promise<EventPageResult> {
   if (context.agenda.uid === undefined || context.agenda.uid === null) {
-    return [];
+    return { events: [], complete: false, pagesFetched: 0 };
   }
 
   const url = new URL(`${OPENAGENDA_BASE_URL}/agendas/${context.agenda.uid}/events`);
@@ -908,16 +982,25 @@ async function fetchEventsForAgenda(context: EventFetchContext, apiKey: string, 
     url.searchParams.set('search', context.target.searchTerms[0]);
   }
 
+  // The Vercel request stays bounded to one upstream page. OpenAgenda's total/after
+  // metadata is retained below so the public contract blocks promotion whenever
+  // this page does not prove exhaustive coverage.
   const json = await fetchOpenAgendaJson(url, apiKey);
   const events = extractArray<Record<string, unknown>>(json, ['events', 'data', 'items']);
+  const pagination = readPaginationState(json, events.length);
   const agendaTitle = textOf(context.agenda.title ?? context.agenda.name) ?? context.target.title;
   const agendaUid = context.agenda.uid;
 
   if (agendaUid === undefined || agendaUid === null) {
-    return [];
+    return { events: [], complete: false, pagesFetched: 1, total: pagination.total };
   }
 
-  return events.map((event) => mapOpenAgendaEvent(event, context.target, agendaUid, agendaTitle));
+  return {
+    events: events.map((event) => mapOpenAgendaEvent(event, context.target, agendaUid, agendaTitle)),
+    complete: pagination.complete,
+    pagesFetched: 1,
+    total: pagination.total,
+  };
 }
 
 async function fetchOpenAgendaJson(url: URL, apiKey: string): Promise<unknown> {
@@ -1001,6 +1084,7 @@ function makeResponse(args: {
   degraded: boolean;
   fallbackUsed: boolean;
   note?: string;
+  coverage: LocalEventCoverage;
 }): LocalEventSearchResponse {
   return {
     events: args.events,
@@ -1012,12 +1096,29 @@ function makeResponse(args: {
     lastUpdated: args.lastUpdated,
     source: OPENAGENDA_SOURCE,
     note: args.note,
+    coverage: args.coverage,
     runtime: {
       freshness: args.freshness,
       degraded: args.degraded,
       fallbackUsed: args.fallbackUsed,
       lastUpdated: args.lastUpdated,
     },
+  };
+}
+
+function unavailableCoverage(limit: number): LocalEventCoverage {
+  return {
+    returned: 0,
+    limit,
+    complete: false,
+    truncated: false,
+    agendasDiscovered: 0,
+    agendasSelected: 0,
+    agendasFetched: 0,
+    pagesFetched: 0,
+    agendaDiscoveryPagesFetched: 0,
+    eventPagesFetched: 0,
+    upstreamEventsFetched: 0,
   };
 }
 
@@ -1052,6 +1153,25 @@ function extractArray<T>(value: unknown, keys: string[]): T[] {
   }
 
   return [];
+}
+
+function readPaginationState(value: unknown, returned: number): { complete: boolean; total?: number } {
+  const payload = objectOf(value);
+  if (!payload) return { complete: false };
+
+  const total = numberOf(payload.total);
+  const hasAfterField = Object.prototype.hasOwnProperty.call(payload, 'after');
+  const after = payload.after;
+  const hasNextPage = Array.isArray(after)
+    ? after.length > 0
+    : after !== undefined && after !== null && String(after).length > 0;
+  const paginationTerminated = hasAfterField
+    ? !hasNextPage
+    : total !== undefined && total <= returned;
+  const complete = paginationTerminated
+    && (total === undefined || total <= returned);
+
+  return { complete, total };
 }
 
 function textOf(value: unknown): string | undefined {
