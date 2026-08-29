@@ -7,6 +7,12 @@
         { "key": "Access-Control-Allow-Methods", "value": "GET, OPTIONS" },
         { "key": "Cache-Control", "value": "s-maxage=3600, stale-while-revalidate" }
       ]
+    },
+    {
+      "source": "/api/v1/calendars/:slug",
+      "headers": [
+        { "key": "Cache-Control", "value": "s-maxage=60, stale-while-revalidate=300" }
+      ]
     }
   ]
 }

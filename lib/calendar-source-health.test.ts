@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import test from 'node:test';
 import { getCalendarCacheControlHeader, getCalendarCachePolicy } from './calendar-mappings.ts';
 import { validateNbaCalendar } from './calendar-source-health.ts';
@@ -44,4 +45,12 @@ test('self-hosted ICS proxy headers bound CDN and stale cache between publicatio
     's-maxage=3600, stale-while-revalidate=7200',
     'dynamic upstream calendars keep the existing performance policy',
   );
+
+  const vercelConfig = JSON.parse(
+    readFileSync(new URL('../vercel.json', import.meta.url), 'utf8'),
+  ) as { headers?: Array<{ source?: string; headers?: Array<{ key?: string; value?: string }> }> };
+  const proxyRule = vercelConfig.headers?.find((rule) => rule.source === '/api/v1/calendars/:slug');
+  assert.deepEqual(proxyRule?.headers, [
+    { key: 'Cache-Control', value: 's-maxage=60, stale-while-revalidate=300' },
+  ]);
 });
