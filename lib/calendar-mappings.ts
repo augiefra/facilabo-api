@@ -60,7 +60,7 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
   'vacances-toutes-zones': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/education/vacances-toutes-zones.ics',
     frenchName: 'Vacances scolaires - Toutes zones',
-    description: 'Zones A, B et C dans un calendrier combiné sans doublons quotidiens'
+    description: 'Zones A, B et C dans un calendrier combiné 2024-2028 sans doublons quotidiens'
   },
   'vacances-corse': {
     sourceUrl: 'https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/Corse.ics',
@@ -300,7 +300,7 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
   'fiscal-paiements-retraite-2026': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/fiscal/paiements-retraite-2026.ics',
     frenchName: 'Paiements retraite 2026',
-    description: "Dates de versement des retraites de l'Assurance retraite"
+    description: "Versements liés aux pensions 2026, jusqu'au paiement du 8 janvier 2027"
   },
   'culture-france': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/culture/france.ics',
@@ -315,22 +315,22 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
   'culture-tech-gaming': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/culture/tech-gaming.ics',
     frenchName: 'Conférences Tech/Gaming',
-    description: 'CES, NVIDIA GTC, PAX, Cloud Next, Summer Game Fest, SIGGRAPH, gamescom dev, BlizzCon'
+    description: 'Conférences tech et gaming 2026-2027 dont les dates officielles sont confirmées'
   },
   'sorties-patrimoine-culture-gratuite-2026': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/patrimoine-culture-gratuite-2026.ics',
-    frenchName: 'Sorties patrimoine et culture gratuite 2026',
+    frenchName: 'Sorties patrimoine et culture gratuite 2026-2027',
     description: 'JEP, Nuit des musées, Fête de la musique, JEMA, archéologie, jardins et nature'
   },
   'sorties-fetes-traditions-2026': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/fetes-traditions-2026.ics',
-    frenchName: 'Fêtes et traditions 2026',
+    frenchName: 'Fêtes et traditions 2026-2027',
     description: 'Carnaval, fêtes populaires, feria et Fête des Lumières, avec lieux clairement indiqués'
   },
   'sorties-festivals-culture-2026': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/festivals-culture-2026.ics',
-    frenchName: 'Festivals culturels 2026',
-    description: "Festival d'Avignon et Festival d'Aix-en-Provence"
+    frenchName: 'Festivals culturels 2026-2027',
+    description: "Festival d'Avignon 2026, Festival d'Aix-en-Provence 2026-2027 et Rencontres d'Arles 2027"
   },
   'sorties-festival-avignon-2026': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/festival-avignon-2026.ics',
@@ -339,13 +339,13 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
   },
   'sorties-festival-aix-2026': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/festival-aix-2026.ics',
-    frenchName: "Festival d'Aix-en-Provence 2026",
-    description: "Festival d'Aix-en-Provence, du 2 au 21 juillet 2026"
+    frenchName: "Festival d'Aix-en-Provence 2026-2027",
+    description: "Festival d'Aix-en-Provence, éditions 2026 et 2027"
   },
   'sorties-salons-grand-public-2026': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/salons-grand-public-2026.ics',
-    frenchName: 'Salons grand public 2026',
-    description: 'Japan Expo Paris et Paris Games Week'
+    frenchName: 'Salons grand public 2026-2027',
+    description: 'Japan Expo Paris 2026-2027 et Paris Games Week 2026'
   },
   'sorties-foire-marseille-2026': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/foire-marseille-2026.ics',
@@ -354,8 +354,8 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
   },
   'sorties-savim-marseille': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/savim-marseille.ics',
-    frenchName: 'SAVIM Marseille 2026',
-    description: 'Salon des vins et de la gastronomie au Parc Chanot, 27 au 30 mars et 20 au 23 novembre 2026'
+    frenchName: 'SAVIM Marseille 2026-2027',
+    description: 'Salon des vins et de la gastronomie au Parc Chanot, éditions officielles 2026-2027'
   },
   'sorties-marseille-cassis-2026': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/marseille-cassis-2026.ics',
@@ -631,7 +631,7 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
   'tennis-atp-complet': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/tennis/atp-complet.ics',
     frenchName: 'Tennis ATP - Calendrier complet',
-    description: 'ATP Tour 2026'
+    description: 'ATP Tour 2026-2027'
   },
   'tennis-wta-complet': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/tennis/wta-complet.ics',
@@ -641,7 +641,7 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
   'tennis-atp-majeurs': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/tennis/atp-majeurs.ics',
     frenchName: 'Tennis ATP - Majeurs',
-    description: 'Grand Chelem + tournois majeurs 2026'
+    description: 'Grand Chelem + tournois majeurs ATP 2026-2027'
   },
   'tennis-wta-majeurs': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/tennis/wta-majeurs.ics',
@@ -676,7 +676,7 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
   'sport-wec': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/wec.ics',
     frenchName: 'WEC - Championnat du monde d endurance',
-    description: 'Manches officielles FIA WEC datees, avec horaire ajoute des publication officielle'
+    description: 'Manches officielles FIA WEC 2026-2027, avec horaires ajoutés après publication officielle'
   },
   'worldcup-2026-all': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-all.ics',
@@ -710,8 +710,8 @@ export const FACILABO_CALENDARS: Record<string, CalendarMapping> = {
   },
   'societe-elections-scrutins-2026': {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/societe/elections-scrutins-2026.ics',
-    frenchName: 'Élections et scrutins 2026',
-    description: 'Dates utiles des scrutins nationaux confirmés par les sources officielles'
+    frenchName: 'Élections et scrutins 2026-2027',
+    description: 'Dates officielles des municipales et sénatoriales 2026 et de la présidentielle 2027'
   }
 };
 
