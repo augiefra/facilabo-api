@@ -107,6 +107,25 @@ test('self-hosted ICS proxy headers bound CDN and stale cache between publicatio
   ]);
 });
 
+test('health status bypasses CDN caching so Guardian observes the current run', () => {
+  const vercelConfig = JSON.parse(
+    readFileSync(new URL('../vercel.json', import.meta.url), 'utf8'),
+  ) as { headers?: Array<{ source?: string; headers?: Array<{ key?: string; value?: string }> }> };
+  const healthRule = vercelConfig.headers?.find(
+    (rule) => rule.source === '/api/v1/health/status',
+  );
+  assert.deepEqual(healthRule?.headers, [
+    { key: 'Cache-Control', value: 'no-store' },
+  ]);
+
+  const healthSource = readFileSync(
+    new URL('../api/v1/health/status.ts', import.meta.url),
+    'utf8',
+  );
+  assert.match(healthSource, /res\.setHeader\('Cache-Control', 'no-store'\)/);
+  assert.doesNotMatch(healthSource, /s-maxage=60, stale-while-revalidate=120/);
+});
+
 test('Montauban uses its self-hosted PRO D2 calendar without changing other legacy rugby routes', () => {
   assert.deepEqual(getMapping('montauban'), {
     sourceUrl: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/rugby-montauban-2026-27.ics',

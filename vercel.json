@@ -9,6 +9,12 @@
       ]
     },
     {
+      "source": "/api/v1/health/status",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store" }
+      ]
+    },
+    {
       "source": "/api/v1/calendars/:slug",
       "headers": [
         { "key": "Cache-Control", "value": "s-maxage=60, stale-while-revalidate=300" }
