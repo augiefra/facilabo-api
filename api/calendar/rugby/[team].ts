@@ -14,6 +14,9 @@ import type { VercelRequest, VercelResponse } from '../../../lib/vercel-http';
 
 // Top 14 source calendar
 const TOP14_SOURCE_URL = 'https://data.rugbyfixture.io/ical/v1/top14.ics';
+const TEAM_SOURCE_OVERRIDES: Record<string, string> = {
+  montauban: 'https://raw.githubusercontent.com/augiefra/facilabo/main/sport/rugby-montauban-2026-27.ics',
+};
 
 // Team name mappings: iOS slug -> [names that appear in calendar SUMMARY]
 const TEAM_MAPPINGS: Record<string, { names: string[]; frenchName: string }> = {
@@ -180,8 +183,11 @@ export default async function handler(
   const displayName = `${teamMapping.frenchName} (FacilAbo)`;
 
   try {
-    // Fetch the full Top 14 calendar
-    const response = await fetch(TOP14_SOURCE_URL, {
+    // Preserve the historical subscription URL while allowing a club outside Top 14
+    // to use its dedicated published calendar.
+    const sourceOverride = TEAM_SOURCE_OVERRIDES[team];
+    const sourceUrl = sourceOverride ?? TOP14_SOURCE_URL;
+    const response = await fetch(sourceUrl, {
       headers: {
         'User-Agent': 'FacilAbo/1.0 (iOS Calendar App)',
         'Accept': 'text/calendar, text/plain, */*'
@@ -189,7 +195,7 @@ export default async function handler(
     });
 
     if (!response.ok) {
-      console.error(`Failed to fetch Top 14 calendar: ${response.status} ${response.statusText}`);
+      console.error(`Failed to fetch rugby calendar: ${response.status} ${response.statusText}`);
       return res.status(502).json({
         error: 'Failed to fetch calendar from source',
         status: response.status
@@ -198,8 +204,10 @@ export default async function handler(
 
     let icsContent = await response.text();
 
-    // Filter events for this team
-    icsContent = filterIcsForTeam(icsContent, teamMapping.names);
+    // Dedicated team feeds are already scoped. The shared Top 14 source still needs filtering.
+    if (!sourceOverride) {
+      icsContent = filterIcsForTeam(icsContent, teamMapping.names);
+    }
 
     // Some sources contain blank lines which are not valid in some iCalendar clients.
     // Normalize to CRLF and ensure header props are set (suffix "(FacilAbo)" to distinguish in Apple Calendar).

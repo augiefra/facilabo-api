@@ -140,6 +140,17 @@ test('Montauban uses its self-hosted PRO D2 calendar without changing other lega
     getMapping('vannes')?.sourceUrl,
     'https://facilabo-api.vercel.app/api/calendar/rugby/vannes',
   );
+
+  const legacyRugbyRoute = readFileSync(
+    new URL('../api/calendar/rugby/[team].ts', import.meta.url),
+    'utf8',
+  );
+  assert.match(
+    legacyRugbyRoute,
+    /montauban:\s*'https:\/\/raw\.githubusercontent\.com\/augiefra\/facilabo\/main\/sport\/rugby-montauban-2026-27\.ics'/,
+  );
+  assert.match(legacyRugbyRoute, /const sourceUrl = sourceOverride \?\? TOP14_SOURCE_URL/);
+  assert.match(legacyRugbyRoute, /if \(!sourceOverride\) \{\s*icsContent = filterIcsForTeam/);
 });
 
 test('NASCAR uses the self-hosted official 2027 Cup schedule', () => {
