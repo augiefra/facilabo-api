@@ -163,7 +163,7 @@ export class VercelBlobLocalEventsSnapshotStore implements LocalEventsSnapshotMa
       || after.pathname !== key
       || result.blob.pathname !== key
       || before.size !== after.size
-      || result.blob.size !== after.size
+      || (result.blob.size !== null && result.blob.size !== after.size)
       || rawSize !== after.size) {
       throw new Error(`BLOB_READ_IDENTITY_MISMATCH:${key}`);
     }

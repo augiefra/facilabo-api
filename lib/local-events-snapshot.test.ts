@@ -789,7 +789,7 @@ test('Blob CAS uses the origin metadata ETag while binding it to the downloaded 
         contentDisposition: 'inline',
         cacheControl: 'public, max-age=60',
         etag: '"delivery-etag"',
-        size: body.length,
+        size: null,
         uploadedAt,
       },
     }),
