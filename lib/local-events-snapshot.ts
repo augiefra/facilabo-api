@@ -126,7 +126,7 @@ export class VercelBlobLocalEventsSnapshotStore implements LocalEventsSnapshotMa
 
   constructor(
     private readonly token: string,
-    private readonly loadBlob: () => Promise<Pick<typeof import('@vercel/blob'), 'get' | 'put' | 'del'> & Partial<Pick<typeof import('@vercel/blob'), 'list'>>> = () => import('@vercel/blob'),
+    private readonly loadBlob: () => Promise<Pick<typeof import('@vercel/blob'), 'get' | 'head' | 'put' | 'del' | 'BlobNotFoundError'> & Partial<Pick<typeof import('@vercel/blob'), 'list'>>> = () => import('@vercel/blob'),
   ) {}
 
   async readJson<T>(key: string): Promise<T | undefined> {
@@ -139,13 +139,37 @@ export class VercelBlobLocalEventsSnapshotStore implements LocalEventsSnapshotMa
   }
 
   private async readRawVersioned(key: string): Promise<{ raw: string; version: string } | undefined> {
-    const { get } = await this.loadBlob();
+    const { get, head, BlobNotFoundError } = await this.loadBlob();
+    let before;
+    try {
+      before = await head(key, { token: this.token });
+    } catch (error) {
+      if (error instanceof BlobNotFoundError) return undefined;
+      throw error;
+    }
+    const beforeVersion = requireVersion(before.etag, `Blob metadata before read ${key}`);
     const result = await get(key, { access: 'private', token: this.token, useCache: false });
-    if (!result) return undefined;
+    if (!result) throw new Error(`BLOB_DISAPPEARED_DURING_READ:${key}`);
     if (result.statusCode !== 200) throw new Error(`Unexpected Blob read status ${result.statusCode}`);
+    const raw = await new Response(result.stream).text();
+    // Vercel's conditional-write contract is anchored on the metadata ETag
+    // returned by head(). Private get() can expose a delivery ETag, so bracket
+    // the byte read with origin metadata and reject any concurrent mutation.
+    const after = await head(key, { token: this.token });
+    const afterVersion = requireVersion(after.etag, `Blob metadata after read ${key}`);
+    const rawSize = Buffer.byteLength(raw);
+    if (beforeVersion !== afterVersion
+      || before.pathname !== key
+      || after.pathname !== key
+      || result.blob.pathname !== key
+      || before.size !== after.size
+      || result.blob.size !== after.size
+      || rawSize !== after.size) {
+      throw new Error(`BLOB_READ_IDENTITY_MISMATCH:${key}`);
+    }
     return {
-      raw: await new Response(result.stream).text(),
-      version: requireVersion(result.blob.etag, `Blob read ${key}`),
+      raw,
+      version: afterVersion,
     };
   }
 

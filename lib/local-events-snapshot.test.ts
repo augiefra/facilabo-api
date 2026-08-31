@@ -771,6 +771,85 @@ test('Blob store uses supported cache options and rejects empty versions before 
   await assert.rejects(emptyEtagStore.writeJson('test.json', { value: 1 }), /empty version\/ETag/);
 });
 
+test('Blob CAS uses the origin metadata ETag while binding it to the downloaded object', async () => {
+  const uploadedAt = new Date('2030-01-01T00:00:00.000Z');
+  const body = JSON.stringify({ value: 1 });
+  const puts: Array<Record<string, unknown>> = [];
+  class TestBlobNotFoundError extends Error {}
+  const loader = async () => ({
+    get: async () => ({
+      statusCode: 200,
+      stream: new Response(body).body,
+      headers: new Headers(),
+      blob: {
+        url: 'https://example.private.blob.vercel-storage.com/test.json',
+        downloadUrl: 'https://example.private.blob.vercel-storage.com/test.json?download=1',
+        pathname: 'test.json',
+        contentType: 'application/json',
+        contentDisposition: 'inline',
+        cacheControl: 'public, max-age=60',
+        etag: '"delivery-etag"',
+        size: body.length,
+        uploadedAt,
+      },
+    }),
+    head: async () => ({
+      size: body.length,
+      uploadedAt,
+      pathname: 'test.json',
+      contentType: 'application/json',
+      contentDisposition: 'inline',
+      url: 'https://example.private.blob.vercel-storage.com/test.json',
+      downloadUrl: 'https://example.private.blob.vercel-storage.com/test.json?download=1',
+      cacheControl: 'public, max-age=60',
+      etag: '"origin-etag"',
+    }),
+    BlobNotFoundError: TestBlobNotFoundError,
+    put: async (_key: string, _body: string, options: Record<string, unknown>) => {
+      puts.push(options);
+      return { etag: '"next-origin-etag"' };
+    },
+    del: async () => undefined,
+  }) as never;
+  const store = new VercelBlobLocalEventsSnapshotStore('token', loader);
+
+  const versioned = await store.readJsonVersioned<{ value: number }>('test.json');
+  assert.deepEqual(versioned, { value: { value: 1 }, version: '"origin-etag"' });
+  await store.compareAndSwapJson('test.json', { value: 2 }, versioned?.version);
+  assert.equal(puts[0].ifMatch, '"origin-etag"');
+});
+
+test('Blob read fails closed when origin metadata changes around the downloaded bytes', async () => {
+  const uploadedAt = new Date('2030-01-01T00:00:00.000Z');
+  const body = JSON.stringify({ value: 1 });
+  let heads = 0;
+  class TestBlobNotFoundError extends Error {}
+  const store = new VercelBlobLocalEventsSnapshotStore('token', async () => ({
+    get: async () => ({
+      statusCode: 200,
+      stream: new Response(body).body,
+      headers: new Headers(),
+      blob: {
+        url: 'https://example.private.blob.vercel-storage.com/test.json',
+        downloadUrl: 'https://example.private.blob.vercel-storage.com/test.json?download=1',
+        pathname: 'test.json', contentType: 'application/json', contentDisposition: 'inline',
+        cacheControl: 'public, max-age=60', etag: '"delivery-etag"', size: body.length, uploadedAt,
+      },
+    }),
+    head: async () => ({
+      size: body.length, uploadedAt, pathname: 'test.json', contentType: 'application/json',
+      contentDisposition: 'inline', url: 'https://example.private.blob.vercel-storage.com/test.json',
+      downloadUrl: 'https://example.private.blob.vercel-storage.com/test.json?download=1',
+      cacheControl: 'public, max-age=60', etag: heads++ === 0 ? '"etag-1"' : '"etag-2"',
+    }),
+    BlobNotFoundError: TestBlobNotFoundError,
+    put: async () => ({ etag: '"unexpected"' }),
+    del: async () => undefined,
+  }) as never);
+
+  await assert.rejects(store.readJsonVersioned('test.json'), /BLOB_READ_IDENTITY_MISMATCH/);
+});
+
 test('accepted read-back rejects tampered root, counts or content digest', async () => {
   for (const mutate of [
     (value: Record<string, unknown>) => { value.snapshotId = 'tampered'; },
