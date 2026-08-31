@@ -3,6 +3,7 @@ import { applyServiceCors, handleServiceOptions } from '../../../../lib/service-
 import { fetchAllauchAgendaIcs } from '../../../../lib/allauch-events';
 import { fetchAntibesAgendaIcs } from '../../../../lib/antibes-events';
 import { getLocalEventTarget, localEventsToIcs, searchLocalEvents } from '../../../../lib/local-events';
+import { getAcceptedLocalEventsSnapshot } from '../../../../lib/local-events-snapshot';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (handleServiceOptions(req, res)) {
@@ -67,6 +68,24 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(404).json({ error: 'Local event target not found' });
   }
 
+  try {
+    const accepted = await getAcceptedLocalEventsSnapshot(target.slug);
+    if (accepted) {
+      res.setHeader('Content-Type', 'text/calendar; charset=utf-8');
+      res.setHeader('Content-Disposition', `attachment; filename="${target.slug}.ics"`);
+      res.setHeader('Cache-Control', 'no-store');
+      res.setHeader('X-Facilabo-Local-Events-State', accepted.response.runtime.freshness);
+      res.setHeader('X-Facilabo-Snapshot-Id', accepted.response.snapshotId ?? '');
+      res.setHeader('X-Facilabo-Snapshot-Event-Digest', accepted.response.snapshotEventDigest ?? accepted.response.eventDigest ?? '');
+      res.setHeader('X-Facilabo-Event-Digest', accepted.response.eventDigest ?? '');
+      res.setHeader('X-Facilabo-Local-Events-Qualified', String(accepted.response.qualification.qualified));
+      if (req.method === 'HEAD') return res.status(200).end();
+      return res.status(200).send(accepted.ics);
+    }
+  } catch (error) {
+    console.error('[local-events:ics] accepted snapshot read failed; direct mode remains fail-closed', error);
+  }
+
   const response = await searchLocalEvents({
     target: target.slug,
     radius: target.radiusKm,
@@ -75,12 +94,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const note = response.note ? ` ${response.note}` : '';
   const description = `${target.title} via OpenAgenda.${note}`.trim();
-  const ics = localEventsToIcs(target.title, description, response.events);
+  const ics = localEventsToIcs(target.title, description, response.events, {
+    snapshotId: response.snapshotId,
+    qualified: response.qualification.qualified,
+    complete: response.coverage.complete,
+    truncated: response.coverage.truncated,
+    futureEventCount: response.coverage.futureEventCount,
+    horizonDays: response.coverage.horizonDays,
+    eventDigest: response.eventDigest,
+  });
 
   res.setHeader('Content-Type', 'text/calendar; charset=utf-8');
   res.setHeader('Content-Disposition', `attachment; filename="${target.slug}.ics"`);
-  res.setHeader('Cache-Control', response.runtime.degraded ? 's-maxage=60' : 's-maxage=1800, stale-while-revalidate=3600');
-  res.setHeader('X-Facilabo-Local-Events-State', response.runtime.freshness);
+  res.setHeader('Cache-Control', 'no-store');
+  res.setHeader('X-Facilabo-Local-Events-State', 'unavailable');
+  res.setHeader('X-Facilabo-Local-Events-Qualified', 'false');
+  if (response.eventDigest) res.setHeader('X-Facilabo-Event-Digest', response.eventDigest);
 
   if (req.method === 'HEAD') {
     return res.status(200).end();

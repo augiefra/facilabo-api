@@ -67,7 +67,9 @@ test('local-events exposes honest truncation when one fetched page cannot prove 
       assert.equal(payload.contractVersion, LOCAL_EVENTS_CONTRACT_VERSION);
       assert.equal(payload.events.length, 80);
       assert.match(payload.note ?? '', /promotion du flux bloquee/);
-      assert.deepEqual(payload.coverage, {
+      const { horizonDays, ...stableCoverage } = payload.coverage;
+      assert.ok(horizonDays >= 14);
+      assert.deepEqual(stableCoverage, {
         returned: 80,
         limit: 80,
         complete: false,
@@ -80,7 +82,15 @@ test('local-events exposes honest truncation when one fetched page cannot prove 
         eventPagesFetched: 3,
         upstreamEventsFetched: 120,
         upstreamTotal: 300,
+        beforeFiltering: 120,
+        afterFiltering: 80,
+        futureEventCount: 80,
+        snapshotAgeHours: 0,
+        cursorsExhausted: false,
       });
+      assert.equal(payload.qualification.qualified, false);
+      assert.ok(payload.qualification.blockers.includes('DIRECT_MODE_NOT_AUDITABLE'));
+      assert.equal(payload.storage.durable, false);
     },
   );
 });

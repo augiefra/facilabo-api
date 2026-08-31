@@ -1,4 +1,15 @@
 {
+  "functions": {
+    "api/v1/local-events/internal/ingest.ts": {
+      "maxDuration": 60
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/v1/local-events/internal/ingest",
+      "schedule": "*/5 * * * *"
+    }
+  ],
   "headers": [
     {
       "source": "/api/(.*)",

@@ -1262,32 +1262,32 @@
       "category": "education"
     },
     "vannes": {
-      "discoverable": false,
+      "discoverable": true,
       "family": "sports",
       "category": "rugby"
     },
     "worldcup-2026-all": {
-      "discoverable": true,
+      "discoverable": false,
       "family": "sports",
       "category": "worldCup2026"
     },
     "worldcup-2026-belgium": {
-      "discoverable": true,
+      "discoverable": false,
       "family": "sports",
       "category": "worldCup2026"
     },
     "worldcup-2026-big-nights": {
-      "discoverable": true,
+      "discoverable": false,
       "family": "sports",
       "category": "worldCup2026"
     },
     "worldcup-2026-france": {
-      "discoverable": true,
+      "discoverable": false,
       "family": "sports",
       "category": "worldCup2026"
     },
     "worldcup-2026-knockout": {
-      "discoverable": true,
+      "discoverable": false,
       "family": "sports",
       "category": "worldCup2026"
     }

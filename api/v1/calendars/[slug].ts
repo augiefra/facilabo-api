@@ -19,6 +19,7 @@ import { getCache, getStaleCache, setCache } from '../../../lib/v1-utils';
 import { trackAbuseRequest } from '../../../lib/abuse-monitor';
 import { applyCalendarTransform } from '../../../lib/ics-transforms';
 import { buildCalendarListResponse } from '../../../lib/calendar-catalog';
+import { getAcceptedLocalEventsSnapshot, localEventsTargetFromSourceUrl } from '../../../lib/local-events-snapshot';
 
 export default async function handler(
   req: VercelRequest,
@@ -77,12 +78,38 @@ export default async function handler(
   const suffixParam = typeof req.query.suffix === 'string' ? req.query.suffix.toLowerCase() : '';
   const disableSuffix = suffixParam === 'off' || suffixParam === '0' || suffixParam === 'false';
   const displayName = disableSuffix ? mapping.frenchName : `${mapping.frenchName} (FacilAbo)`;
+  const localEventsTarget = localEventsTargetFromSourceUrl(mapping.sourceUrl);
+  if (localEventsTarget) {
+    try {
+      const accepted = await getAcceptedLocalEventsSnapshot(localEventsTarget);
+      if (accepted) {
+        let snapshotIcs = applyCalendarTransform(slug, accepted.ics)
+          .replace(/^X-WR-CALNAME:.*$/m, `X-WR-CALNAME:${displayName}`)
+          .replace(/^NAME:.*$/m, `NAME:${displayName}`)
+          .replace(/^PRODID:.*$/m, 'PRODID:-//FacilAbo//Calendar Proxy v1//FR');
+        if (!snapshotIcs.endsWith('\r\n')) snapshotIcs += '\r\n';
+        res.setHeader('Content-Type', 'text/calendar; charset=utf-8');
+        res.setHeader('Content-Disposition', `attachment; filename="${slug}.ics"`);
+        res.setHeader('Cache-Control', 'no-store');
+        res.setHeader('X-Facilabo-Cache', 'accepted-snapshot');
+        res.setHeader('X-Facilabo-Local-Events-State', accepted.response.runtime.freshness);
+        res.setHeader('X-Facilabo-Snapshot-Id', accepted.response.snapshotId ?? '');
+        res.setHeader('X-Facilabo-Snapshot-Event-Digest', accepted.response.snapshotEventDigest ?? accepted.response.eventDigest ?? '');
+        res.setHeader('X-Facilabo-Event-Digest', accepted.response.eventDigest ?? '');
+        res.setHeader('X-Facilabo-Local-Events-Qualified', String(accepted.response.qualification.qualified));
+        if (req.method === 'HEAD') return res.status(200).end();
+        return res.status(200).send(snapshotIcs);
+      }
+    } catch (error) {
+      console.error(`[calendar:${slug}] accepted local-events snapshot unavailable; existing fail-closed fallback retained`, error);
+    }
+  }
   const retryLogger = createRetryLogger(`calendar:${slug}`);
   const cacheKey = `v1:ics:${slug}:suffix:${disableSuffix ? 'off' : 'on'}`;
   const cachePolicy = getCalendarCachePolicy(slug);
   const cacheControlValue = getCalendarCacheControlHeader(slug);
 
-  const cached = getCache<string>(cacheKey);
+  const cached = localEventsTarget ? undefined : getCache<string>(cacheKey);
   if (cached) {
     res.setHeader('Content-Type', 'text/calendar; charset=utf-8');
     res.setHeader('Content-Disposition', `attachment; filename="${slug}.ics"`);
@@ -94,7 +121,11 @@ export default async function handler(
   if (req.method === 'HEAD') {
     res.setHeader('Content-Type', 'text/calendar; charset=utf-8');
     res.setHeader('Content-Disposition', `attachment; filename="${slug}.ics"`);
-    res.setHeader('Cache-Control', cacheControlValue);
+    res.setHeader('Cache-Control', localEventsTarget ? 'no-store' : cacheControlValue);
+    if (localEventsTarget) {
+      res.setHeader('X-FacilAbo-Local-Events-Qualified', 'false');
+      res.setHeader('X-FacilAbo-Local-Events-State', 'unavailable');
+    }
     return res.status(200).end();
   }
 
@@ -156,6 +187,7 @@ export default async function handler(
     let lines = filteredLines;
     lines = upsertHeaderProp(lines, 'X-WR-CALNAME', displayName);
     lines = upsertHeaderProp(lines, 'NAME', displayName);
+    if (localEventsTarget) lines = upsertHeaderProp(lines, 'X-FACILABO-QUALIFIED', 'FALSE');
 
     icsContent = lines.join('\r\n');
     if (!icsContent.endsWith('\r\n')) icsContent += '\r\n';
@@ -170,15 +202,25 @@ export default async function handler(
 
     res.setHeader('Content-Type', 'text/calendar; charset=utf-8');
     res.setHeader('Content-Disposition', `attachment; filename="${slug}.ics"`);
-    res.setHeader('Cache-Control', cacheControlValue);
+    const sourceSnapshotId = response.headers.get('x-facilabo-snapshot-id');
+    res.setHeader('Cache-Control', localEventsTarget ? 'no-store' : cacheControlValue);
+    if (localEventsTarget) {
+      if (sourceSnapshotId) {
+        res.setHeader('X-Facilabo-Snapshot-Id', sourceSnapshotId);
+      }
+      const sourceEventDigest = response.headers.get('x-facilabo-event-digest');
+      if (sourceEventDigest) res.setHeader('X-Facilabo-Event-Digest', sourceEventDigest);
+      res.setHeader('X-Facilabo-Local-Events-Qualified', 'false');
+      res.setHeader('X-Facilabo-Local-Events-State', 'unavailable');
+    }
 
-    setCache(cacheKey, icsContent, cachePolicy.inMemoryTtl);
-    res.setHeader('X-Facilabo-Cache', 'miss');
+    if (!localEventsTarget) setCache(cacheKey, icsContent, cachePolicy.inMemoryTtl);
+    res.setHeader('X-Facilabo-Cache', localEventsTarget ? 'unqualified-fallback' : 'miss');
     return res.status(200).send(icsContent);
 
   } catch (error) {
     console.error('Calendar proxy error:', error);
-    const stale = getStaleCache<string>(cacheKey);
+    const stale = localEventsTarget ? undefined : getStaleCache<string>(cacheKey);
     if (stale) {
       res.setHeader('Content-Type', 'text/calendar; charset=utf-8');
       res.setHeader('Content-Disposition', `attachment; filename="${slug}.ics"`);

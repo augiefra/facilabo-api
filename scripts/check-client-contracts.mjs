@@ -72,6 +72,30 @@ try {
   assert.equal(new Set(responseSlugs).size, responseSlugs.length, 'The list response contains duplicate slugs.');
   assert.equal(slugOwners.size, mappingSlugs.length, 'Mapping groups and getAllMappings() disagree.');
 
+  const cacoreContract = JSON.parse(
+    fs.readFileSync(path.join(repoRoot, 'data', 'cacore-contract.v1.json'), 'utf8')
+  );
+  assert.deepEqual(
+    cacoreContract.entries.map((entry) => ({
+      discoverable: entry.discovery.discoverable,
+      family: entry.discovery.family,
+      ...(entry.discovery.category === null ? {} : { category: entry.discovery.category }),
+    })),
+    response.calendars.map((calendar) => calendar.catalog),
+    'The complete 258-entry CaCORE discovery vector drifted from the live API projection.'
+  );
+  assert.equal(
+    cacoreContract.entries.filter((entry) => entry.discovery.discoverable).length,
+    205,
+    'The post-A CaCORE discovery vector must expose exactly 205 entries.'
+  );
+  for (const entry of cacoreContract.entries) {
+    assert.equal(entry.routes.configurationState, 'MAPPED', `CaCORE route is not mapped: ${entry.slug}`);
+    assert.equal(entry.routes.deliveryURL, mappings[entry.slug].sourceUrl);
+    assert.equal(entry.routes.v1IcsPath, `/api/v1/calendars/${entry.slug}`);
+    assert.equal(entry.routes.v1MetadataPath, `/api/v1/calendars/metadata/${entry.slug}`);
+  }
+
   const futureUncataloguedSlug = '__contract_test_uncatalogued_slug__';
   const mappingsWithFutureUncataloguedFeed = {
     ...mappings,
@@ -129,6 +153,35 @@ try {
     mappingSlugs,
     'The endpoint renamed, removed or duplicated at least one mapping slug.'
   );
+
+  const catalogBySlug = Object.fromEntries(
+    endpointResponse.body.calendars.map((calendar) => [calendar.slug, calendar.catalog])
+  );
+  assert.equal(catalogBySlug.vannes.discoverable, true, 'Vannes must remain discoverable.');
+  assert.equal(catalogBySlug.montauban.discoverable, true, 'Montauban must remain discoverable.');
+  assert.deepEqual(
+    catalogBySlug['sorties-rencontres-arles'],
+    { discoverable: true, family: 'sorties', category: 'culture' },
+    'Rencontres d’Arles is a released cultural feed, not a paused local-events surface.'
+  );
+  assert.equal(
+    mappings['sorties-rencontres-arles'].sourceUrl,
+    'https://facilabo-api.vercel.app/api/v1/local-events/ics/rencontres-arles',
+    'Rencontres d’Arles must keep its established dynamic delivery route.'
+  );
+  for (const slug of [
+    'worldcup-2026-all',
+    'worldcup-2026-belgium',
+    'worldcup-2026-big-nights',
+    'worldcup-2026-france',
+    'worldcup-2026-knockout',
+  ]) {
+    assert.equal(
+      catalogBySlug[slug].discoverable,
+      false,
+      `${slug} must stay served but leave catalogue discovery after completion.`
+    );
+  }
 
   const knownFamilies = new Set(catalogModule.CATALOG_FAMILIES);
   const knownCategories = new Set(catalogModule.CATALOG_CATEGORIES);

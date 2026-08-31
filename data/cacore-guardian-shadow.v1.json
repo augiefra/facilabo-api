@@ -1,0 +1,2690 @@
+{
+  "entries": [
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "astronomie"
+    },
+    {
+      "editionAliases": [
+        "2026"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "marees-coefficients-2026"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "jardin-lunaire"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "soldes-france"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "CALCULATED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "changement-heure-france"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "vacances-zone-a"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "vacances-zone-b"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "vacances-zone-c"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "vacances-toutes-zones"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "vacances-corse"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "vacances-guadeloupe"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "vacances-guyane"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "vacances-martinique"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "vacances-mayotte"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "vacances-la-reunion"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "vacances-polynesie"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "vacances-nouvelle-caledonie"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "vacances-saint-pierre-et-miquelon"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "WAITING_NEXT_EDITION",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": "Le calendrier scolaire officiel 2026 reste conservé pour les abonnés; l'édition suivante n'est pas encore publiée avec une couverture vérifiable."
+      },
+      "slug": "vacances-wallis-et-futuna"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "CALCULATED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "feries-metropole"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "CALCULATED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "feries-alsace-moselle"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "CALCULATED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "feries-guadeloupe"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "CALCULATED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "feries-guyane"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "CALCULATED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "feries-martinique"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "CALCULATED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "feries-la-reunion"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "CALCULATED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "feries-mayotte"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "CALCULATED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "feries-nouvelle-caledonie"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "CALCULATED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "feries-polynesie-francaise"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "CALCULATED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "feries-saint-barthelemy"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "CALCULATED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "feries-saint-martin"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "CALCULATED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "feries-saint-pierre-et-miquelon"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "CALCULATED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "feries-wallis-et-futuna"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "CALCULATED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "belgique-feries-remplacement"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "belgique-vacances-fwb"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "belgique-vacances-vlaanderen"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "belgique-soldes-attente"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "belgique-fetes-institutionnelles"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "belgique-grands-evenements"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "CALCULATED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "belgique-ponts"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "CALCULATED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "luxembourg-feries-legaux"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "luxembourg-vacances-scolaires"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "CALCULATED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "luxembourg-ponts"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "CALCULATED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "suisse-romande-geneve-feries"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "suisse-romande-geneve-vacances"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "CALCULATED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "suisse-romande-vaud-feries"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "suisse-romande-vaud-vacances"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "CALCULATED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "suisse-romande-neuchatel-feries"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "suisse-romande-neuchatel-vacances"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "CALCULATED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "suisse-romande-jura-feries"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "suisse-romande-jura-vacances"
+    },
+    {
+      "editionAliases": [
+        "2026"
+      ],
+      "lifecycle": {
+        "editorialState": "WAITING_NEXT_EDITION",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": "Les repères publics 2026 reconnus par l'ARC restent conservés pour les abonnés; aucune édition 2027 exhaustive et vérifiable n'est encore publiée."
+      },
+      "slug": "canada-feries-publics"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "CALCULATED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "canada-quebec-feries"
+    },
+    {
+      "editionAliases": [
+        "2027"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "education-examens-2026"
+    },
+    {
+      "editionAliases": [
+        "2026"
+      ],
+      "lifecycle": {
+        "editorialState": "WAITING_NEXT_EDITION",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": "Le calendrier officiel Parcoursup 2026 reste conservé pour les abonnés; le calendrier 2027 complet n'est pas encore officiellement publié."
+      },
+      "slug": "education-parcoursup-2026"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "fiscal-france"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "fiscal-paye-fonction-publique"
+    },
+    {
+      "editionAliases": [
+        "2026"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "fiscal-paiements-retraite-2026"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "culture-france"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "culture-ceremonies"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "culture-tech-gaming"
+    },
+    {
+      "editionAliases": [
+        "2026"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "sorties-patrimoine-culture-gratuite-2026"
+    },
+    {
+      "editionAliases": [
+        "2026"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "sorties-fetes-traditions-2026"
+    },
+    {
+      "editionAliases": [
+        "2026-27",
+        "2026/27",
+        "2026-2027",
+        "2026/2027"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "sorties-festivals-culture-2026"
+    },
+    {
+      "editionAliases": [
+        "2026"
+      ],
+      "lifecycle": {
+        "editorialState": "WAITING_NEXT_EDITION",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": "L'édition 2027 du Festival d'Avignon n'est pas encore publiée et vérifiable dans les sources officielles suivies."
+      },
+      "slug": "sorties-festival-avignon-2026"
+    },
+    {
+      "editionAliases": [
+        "2026-27",
+        "2026/27",
+        "2026-2027",
+        "2026/2027"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "sorties-festival-aix-2026"
+    },
+    {
+      "editionAliases": [
+        "2026"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "sorties-salons-grand-public-2026"
+    },
+    {
+      "editionAliases": [
+        "2026"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "sorties-foire-marseille-2026"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "sorties-savim-marseille"
+    },
+    {
+      "editionAliases": [
+        "2026"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "sorties-marseille-cassis-2026"
+    },
+    {
+      "editionAliases": [
+        "2026"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "sorties-noel-colmar-2026"
+    },
+    {
+      "editionAliases": [
+        "2026"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "sorties-noel-eguisheim-2026"
+    },
+    {
+      "editionAliases": [
+        "2026"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "sorties-noel-riquewihr-2026"
+    },
+    {
+      "editionAliases": [
+        "2026"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "sorties-noel-kaysersberg-2026"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-ville-marseille"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-ville-aix-en-provence"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "sorties-ville-salon-de-provence"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-ville-antibes"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-ville-allauch"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-ville-paris"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-ville-lyon"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-ville-toulouse"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-ville-nice"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-ville-nantes"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-ville-montpellier"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-ville-strasbourg"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-ville-bordeaux"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-ville-lille"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-ville-rennes"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-ville-reims"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-ville-saint-etienne"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-ville-toulon"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-ville-le-havre"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-ville-grenoble"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-ville-dijon"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-ville-angers"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-ville-nimes"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-ville-villeurbanne"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-metropole-grand-paris"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-metropole-aix-marseille-provence"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-metropole-grand-lyon"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-metropole-europeenne-lille"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-metropole-toulouse"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-metropole-bordeaux"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-metropole-nantes"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-metropole-strasbourg"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-metropole-montpellier"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-metropole-rennes"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-region-sud"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": true,
+        "releaseScope": "UNRELEASED_MONITORED",
+        "stateReason": null
+      },
+      "slug": "sorties-braderie-lille"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "sorties-rencontres-arles"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "religion-chretienne"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "religion-musulmane"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "religion-juive"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "religion-hindoue"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "religion-bouddhiste"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "religion-sikhe"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "religion-saints-francais"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "religion-multi-cultes"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "ecommerce-blackfriday"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "ecommerce-primeday"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "ecommerce-frenchdays"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "ecommerce-fetes-commerciales"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "tennis-atp-complet"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "tennis-wta-complet"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "tennis-atp-majeurs"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "tennis-wta-majeurs"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "sport-france-foot-equipe-nationale"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "sport-france-rugby-equipe-nationale"
+    },
+    {
+      "editionAliases": [
+        "2026-2027",
+        "2026/2027"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "sport-rugby-top-14-complet"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "sport-rugby-six-nations-complet"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "sport-cyclisme-majeurs"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "sport-wec"
+    },
+    {
+      "editionAliases": [
+        "2026"
+      ],
+      "lifecycle": {
+        "editorialState": "ARCHIVE_COMPLETE",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "worldcup-2026-all"
+    },
+    {
+      "editionAliases": [
+        "2026"
+      ],
+      "lifecycle": {
+        "editorialState": "ARCHIVE_COMPLETE",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "worldcup-2026-france"
+    },
+    {
+      "editionAliases": [
+        "2026"
+      ],
+      "lifecycle": {
+        "editorialState": "ARCHIVE_COMPLETE",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "worldcup-2026-belgium"
+    },
+    {
+      "editionAliases": [
+        "2026"
+      ],
+      "lifecycle": {
+        "editorialState": "ARCHIVE_COMPLETE",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "worldcup-2026-knockout"
+    },
+    {
+      "editionAliases": [
+        "2026"
+      ],
+      "lifecycle": {
+        "editorialState": "ARCHIVE_COMPLETE",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "worldcup-2026-big-nights"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "societe-reperes-france"
+    },
+    {
+      "editionAliases": [
+        "2026"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "societe-elections-scrutins-2026"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "f1"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "f1-races-only"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "motogp"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "nascar"
+    },
+    {
+      "editionAliases": [
+        "2026-27",
+        "2026/27",
+        "2026-2027",
+        "2026/2027"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "basketball"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "psg"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "om"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "ol"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "asMonaco"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "losc"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "rcLens"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "stadeRennais"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "lorient"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "metz"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "parisFc"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "nice"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "rcStrasbourg"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "fcNantes"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "stadeReims"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "montpellierHsc"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "toulouseFc"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "stadeBrest"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "auxerre"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "angers"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "saintEtienne"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "lehavre"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-afc-bournemouth"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-arsenal"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-aston-villa"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-brentford-fc"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-brighton-hove-albion-fc"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-burnley-fc"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-chelsea"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-crystal-palace"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-everton"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-fulham"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-leeds-united"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-liverpool"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-manchester-city"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-manchester-united"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-newcastle-united"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-nottingham-forest"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-sunderland"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-tottenham-hotspur"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-west-ham-united"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-wolverhampton-wanderers"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-ac-milan"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-as-roma"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-atalanta"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-bologna"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-cagliari"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-como"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-cremonese"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-fc-genoa"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-fiorentina"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-hellas-verona-fc"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-inter"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-juventus"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-lecce"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-napoli"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-parma"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-pisa"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-lazio-roma"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-torino"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-udinese"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-us-sassuolo-calcio"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-athletic-bilbao"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-atletico-madrid"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-ca-osasuna"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-celta-de-vigo"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-deportivo-alaves"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-elche-cf"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-espanyol"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-fc-barcelona"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-getafe"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-girona-fc"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-levante"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-rayo-vallecano"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-real-betis-sevilla"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-real-madrid"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-real-mallorca"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-real-oviedo"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-real-sociedad"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-sevilla"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-valencia"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-villarreal"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-fc-union-berlin"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-1fc-heidenheim"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-1fc-koln"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-1899-hoffenheim"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-bayer-leverkusen"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-bayern-munchen"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-borussia-dortmund"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-borussia-monchengladbach"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-eintracht-frankfurt"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-fc-augsburg"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-fc-st-pauli"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-fsv-mainz-05"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-hamburger-sv"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-rb-leipzig"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-sc-freiburg"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-vfb-stuttgart"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-vfl-wolfsburg"
+    },
+    {
+      "editionAliases": [],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "football-europe-werder-bremen"
+    },
+    {
+      "editionAliases": [
+        "2026-2027",
+        "2026/2027"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "toulouse"
+    },
+    {
+      "editionAliases": [
+        "2026-2027",
+        "2026/2027"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "stadefrancais"
+    },
+    {
+      "editionAliases": [
+        "2026-2027",
+        "2026/2027"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "racing92"
+    },
+    {
+      "editionAliases": [
+        "2026-2027",
+        "2026/2027"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "laRochelle"
+    },
+    {
+      "editionAliases": [
+        "2026-2027",
+        "2026/2027"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "bordeaux"
+    },
+    {
+      "editionAliases": [
+        "2026-2027",
+        "2026/2027"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "clermont"
+    },
+    {
+      "editionAliases": [
+        "2026-2027",
+        "2026/2027"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "toulon"
+    },
+    {
+      "editionAliases": [
+        "2026-2027",
+        "2026/2027"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "lyon"
+    },
+    {
+      "editionAliases": [
+        "2026-2027",
+        "2026/2027"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "montpellier"
+    },
+    {
+      "editionAliases": [
+        "2026-2027",
+        "2026/2027"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "castres"
+    },
+    {
+      "editionAliases": [
+        "2026-2027",
+        "2026/2027"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "pau"
+    },
+    {
+      "editionAliases": [
+        "2026-2027",
+        "2026/2027"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "perpignan"
+    },
+    {
+      "editionAliases": [
+        "2026-2027",
+        "2026/2027"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "bayonne"
+    },
+    {
+      "editionAliases": [
+        "2026-2027",
+        "2026/2027"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "montauban"
+    },
+    {
+      "editionAliases": [
+        "2026-2027",
+        "2026/2027"
+      ],
+      "lifecycle": {
+        "editorialState": "PUBLISHED",
+        "monitorOnly": false,
+        "releaseScope": "PUBLIC",
+        "stateReason": null
+      },
+      "slug": "vannes"
+    }
+  ],
+  "schemaVersion": 1
+}

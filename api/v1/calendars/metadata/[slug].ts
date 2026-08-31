@@ -26,6 +26,15 @@ import {
 } from '../../../../lib/v1-utils';
 import { trackAbuseRequest } from '../../../../lib/abuse-monitor';
 import { applyCalendarTransform } from '../../../../lib/ics-transforms';
+import {
+  getAcceptedLocalEventsSnapshot,
+  localEventsTargetFromSourceUrl,
+} from '../../../../lib/local-events-snapshot';
+import type {
+  LocalEventCoverage,
+  LocalEventsConvergenceProof,
+  LocalEventsQualification,
+} from '../../../../lib/local-events';
 
 interface NextEvent {
   summary: string;
@@ -36,6 +45,7 @@ interface NextEvent {
 
 interface FeedMetadata {
   slug: string;
+  type: 'calendar';
   name: string;
   nextEvent?: NextEvent;
   lastUpdated: string;  // ISO timestamp
@@ -44,6 +54,12 @@ interface FeedMetadata {
     start: string;
     end: string;
   };
+  snapshotId?: string;
+  contentDigest?: string;
+  eventDigest?: string;
+  qualification?: LocalEventsQualification;
+  coverage?: LocalEventCoverage;
+  convergence?: LocalEventsConvergenceProof;
 }
 
 interface ApiResponse {
@@ -663,7 +679,70 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     } as ApiResponse);
   }
 
-  const cached = getCache<FeedMetadata>(cacheKey);
+  const localEventsTarget = localEventsTargetFromSourceUrl(mapping.sourceUrl);
+  if (localEventsTarget) {
+    try {
+      const accepted = await getAcceptedLocalEventsSnapshot(localEventsTarget);
+      if (accepted) {
+        const events = parseIcsEvents(accepted.ics);
+        const now = new Date();
+        const upcomingEvents = events
+          .filter((event) => event.start > now)
+          .sort((left, right) => left.start.getTime() - right.start.getTime());
+        const nextEvent = upcomingEvents[0];
+        const nextEventTimePrecision = nextEvent ? detectTimePrecision(nextEvent) : undefined;
+        const allDates = events.map((event) => event.start).sort((left, right) => left.getTime() - right.getTime());
+        const metadata: FeedMetadata = {
+          slug,
+          type: 'calendar',
+          name: mapping.frenchName,
+          nextEvent: nextEvent ? {
+            summary: nextEvent.summary,
+            start: nextEvent.start.toISOString(),
+            daysUntil: daysUntil(nextEvent.start),
+            timePrecision: nextEventTimePrecision?.precision,
+          } : undefined,
+          lastUpdated: accepted.response.lastUpdated,
+          eventCount: events.length,
+          dateRange: allDates.length > 0 ? {
+            start: allDates[0].toISOString().split('T')[0],
+            end: allDates[allDates.length - 1].toISOString().split('T')[0],
+          } : undefined,
+          snapshotId: accepted.response.snapshotId,
+          contentDigest: accepted.response.contentDigest,
+          eventDigest: accepted.response.eventDigest,
+          qualification: accepted.response.qualification,
+          coverage: accepted.response.coverage,
+          convergence: accepted.response.convergence,
+        };
+        if (metadata.eventCount !== accepted.response.total
+          || JSON.stringify(metadata.dateRange) !== JSON.stringify(accepted.response.dateRange)) {
+          throw new Error('LOCAL_EVENTS_METADATA_PROOF_MISMATCH');
+        }
+        res.setHeader('Cache-Control', 'no-store');
+        res.setHeader('Content-Type', 'application/json');
+        res.setHeader('X-Facilabo-Local-Events-State', accepted.response.runtime.freshness);
+        res.setHeader('X-Facilabo-Snapshot-Id', accepted.response.snapshotId ?? '');
+        res.setHeader('X-Facilabo-Snapshot-Event-Digest', accepted.response.snapshotEventDigest ?? accepted.response.eventDigest ?? '');
+        res.setHeader('X-Facilabo-Event-Digest', accepted.response.eventDigest ?? '');
+        res.setHeader('X-Facilabo-Local-Events-Qualified', String(accepted.response.qualification.qualified));
+        return res.status(200).json({
+          success: true,
+          data: metadata,
+          runtime: buildRuntimeState({
+            freshness: accepted.response.runtime.freshness,
+            fallbackUsed: false,
+            lastUpdated: accepted.response.lastUpdated,
+          }),
+          meta: { version: '1.0', timestamp: new Date().toISOString() },
+        } as ApiResponse);
+      }
+    } catch (error) {
+      console.error(`[metadata:${slug}] accepted local-events snapshot unavailable; existing fail-closed fallback retained`, error);
+    }
+  }
+
+  const cached = localEventsTarget ? undefined : getCache<FeedMetadata>(cacheKey);
   if (cached) {
     res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600');
     res.setHeader('Content-Type', 'application/json');
@@ -733,6 +812,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Build response
     const metadata: FeedMetadata = {
       slug,
+      type: 'calendar',
       name: mapping.frenchName,
       nextEvent: nextEvent ? {
         summary: nextEvent.summary,
@@ -745,17 +825,24 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       dateRange
     };
 
-    // Set cache headers (5 minutes for metadata)
-    res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600');
+    // Local-events fallback has no accepted snapshot identity: keep it explicitly
+    // unavailable/non-qualified and never cache it across a future promotion.
+    res.setHeader('Cache-Control', localEventsTarget ? 'no-store' : 's-maxage=300, stale-while-revalidate=600');
     res.setHeader('Content-Type', 'application/json');
-    setCache(cacheKey, metadata, 300);
+    if (localEventsTarget) {
+      res.setHeader('X-Facilabo-Local-Events-Qualified', 'false');
+      res.setHeader('X-Facilabo-Local-Events-State', 'unavailable');
+      const sourceEventDigest = response.headers.get('x-facilabo-event-digest');
+      if (sourceEventDigest) res.setHeader('X-Facilabo-Event-Digest', sourceEventDigest);
+    }
+    if (!localEventsTarget) setCache(cacheKey, metadata, 300);
 
     return res.status(200).json({
       success: true,
       data: metadata,
       runtime: buildRuntimeState({
-        freshness: 'fresh',
-        fallbackUsed: false,
+        freshness: localEventsTarget ? 'unavailable' : 'fresh',
+        fallbackUsed: localEventsTarget ? true : false,
         lastUpdated: metadata.lastUpdated,
       }),
       meta: { version: '1.0', timestamp: new Date().toISOString() }
@@ -764,7 +851,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   } catch (error) {
     console.error(`[metadata] Error fetching ${slug}:`, error);
 
-    const stale = getStaleCache<FeedMetadata>(cacheKey);
+    const stale = localEventsTarget ? undefined : getStaleCache<FeedMetadata>(cacheKey);
     if (stale) {
       res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600');
       res.setHeader('Content-Type', 'application/json');

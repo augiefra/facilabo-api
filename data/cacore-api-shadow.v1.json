@@ -1,0 +1,5681 @@
+{
+  "entries": [
+    {
+      "discovery": {
+        "category": "astronomy",
+        "discoverable": true,
+        "family": "sciences",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 0,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/astronomie/calendrier-astronomie.ics",
+        "v1IcsPath": "/api/v1/calendars/astronomie",
+        "v1MetadataPath": "/api/v1/calendars/metadata/astronomie"
+      },
+      "slug": "astronomie"
+    },
+    {
+      "discovery": {
+        "category": "astronomy",
+        "discoverable": true,
+        "family": "sciences",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 1,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/astronomie/marees-coefficients-2026.ics",
+        "v1IcsPath": "/api/v1/calendars/marees-coefficients-2026",
+        "v1MetadataPath": "/api/v1/calendars/metadata/marees-coefficients-2026"
+      },
+      "slug": "marees-coefficients-2026"
+    },
+    {
+      "discovery": {
+        "category": "jardin",
+        "discoverable": true,
+        "family": "nature",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 2,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/jardin/lunaire.ics",
+        "v1IcsPath": "/api/v1/calendars/jardin-lunaire",
+        "v1MetadataPath": "/api/v1/calendars/metadata/jardin-lunaire"
+      },
+      "slug": "jardin-lunaire"
+    },
+    {
+      "discovery": {
+        "category": "soldes",
+        "discoverable": true,
+        "family": "shopping",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 3,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/soldes/france.ics",
+        "v1IcsPath": "/api/v1/calendars/soldes-france",
+        "v1MetadataPath": "/api/v1/calendars/metadata/soldes-france"
+      },
+      "slug": "soldes-france"
+    },
+    {
+      "discovery": {
+        "category": "timeChange",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 4,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/societe/changement-heure-france.ics",
+        "v1IcsPath": "/api/v1/calendars/changement-heure-france",
+        "v1MetadataPath": "/api/v1/calendars/metadata/changement-heure-france"
+      },
+      "slug": "changement-heure-france"
+    },
+    {
+      "discovery": {
+        "category": "education",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 5,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/Zone-A.ics",
+        "v1IcsPath": "/api/v1/calendars/vacances-zone-a",
+        "v1MetadataPath": "/api/v1/calendars/metadata/vacances-zone-a"
+      },
+      "slug": "vacances-zone-a"
+    },
+    {
+      "discovery": {
+        "category": "education",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 6,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/Zone-B.ics",
+        "v1IcsPath": "/api/v1/calendars/vacances-zone-b",
+        "v1MetadataPath": "/api/v1/calendars/metadata/vacances-zone-b"
+      },
+      "slug": "vacances-zone-b"
+    },
+    {
+      "discovery": {
+        "category": "education",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 7,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/Zone-C.ics",
+        "v1IcsPath": "/api/v1/calendars/vacances-zone-c",
+        "v1MetadataPath": "/api/v1/calendars/metadata/vacances-zone-c"
+      },
+      "slug": "vacances-zone-c"
+    },
+    {
+      "discovery": {
+        "category": "education",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 8,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/education/vacances-toutes-zones.ics",
+        "v1IcsPath": "/api/v1/calendars/vacances-toutes-zones",
+        "v1MetadataPath": "/api/v1/calendars/metadata/vacances-toutes-zones"
+      },
+      "slug": "vacances-toutes-zones"
+    },
+    {
+      "discovery": {
+        "category": "education",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 9,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/Corse.ics",
+        "v1IcsPath": "/api/v1/calendars/vacances-corse",
+        "v1MetadataPath": "/api/v1/calendars/metadata/vacances-corse"
+      },
+      "slug": "vacances-corse"
+    },
+    {
+      "discovery": {
+        "category": "education",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 10,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/Guadeloupe.ics",
+        "v1IcsPath": "/api/v1/calendars/vacances-guadeloupe",
+        "v1MetadataPath": "/api/v1/calendars/metadata/vacances-guadeloupe"
+      },
+      "slug": "vacances-guadeloupe"
+    },
+    {
+      "discovery": {
+        "category": "education",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 11,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/Guyane.ics",
+        "v1IcsPath": "/api/v1/calendars/vacances-guyane",
+        "v1MetadataPath": "/api/v1/calendars/metadata/vacances-guyane"
+      },
+      "slug": "vacances-guyane"
+    },
+    {
+      "discovery": {
+        "category": "education",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 12,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/Martinique.ics",
+        "v1IcsPath": "/api/v1/calendars/vacances-martinique",
+        "v1MetadataPath": "/api/v1/calendars/metadata/vacances-martinique"
+      },
+      "slug": "vacances-martinique"
+    },
+    {
+      "discovery": {
+        "category": "education",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 13,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/Mayotte.ics",
+        "v1IcsPath": "/api/v1/calendars/vacances-mayotte",
+        "v1MetadataPath": "/api/v1/calendars/metadata/vacances-mayotte"
+      },
+      "slug": "vacances-mayotte"
+    },
+    {
+      "discovery": {
+        "category": "education",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 14,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/Reunion.ics",
+        "v1IcsPath": "/api/v1/calendars/vacances-la-reunion",
+        "v1MetadataPath": "/api/v1/calendars/metadata/vacances-la-reunion"
+      },
+      "slug": "vacances-la-reunion"
+    },
+    {
+      "discovery": {
+        "category": "education",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 15,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/Polynesie.ics",
+        "v1IcsPath": "/api/v1/calendars/vacances-polynesie",
+        "v1MetadataPath": "/api/v1/calendars/metadata/vacances-polynesie"
+      },
+      "slug": "vacances-polynesie"
+    },
+    {
+      "discovery": {
+        "category": "education",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 16,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/NouvelleCaledonie.ics",
+        "v1IcsPath": "/api/v1/calendars/vacances-nouvelle-caledonie",
+        "v1MetadataPath": "/api/v1/calendars/metadata/vacances-nouvelle-caledonie"
+      },
+      "slug": "vacances-nouvelle-caledonie"
+    },
+    {
+      "discovery": {
+        "category": "education",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 17,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/SaintPierreEtMiquelon.ics",
+        "v1IcsPath": "/api/v1/calendars/vacances-saint-pierre-et-miquelon",
+        "v1MetadataPath": "/api/v1/calendars/metadata/vacances-saint-pierre-et-miquelon"
+      },
+      "slug": "vacances-saint-pierre-et-miquelon"
+    },
+    {
+      "discovery": {
+        "category": "education",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 18,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://fr.ftp.opendatasoft.com/openscol/fr-en-calendrier-scolaire/WallisEtFutuna.ics",
+        "v1IcsPath": "/api/v1/calendars/vacances-wallis-et-futuna",
+        "v1MetadataPath": "/api/v1/calendars/metadata/vacances-wallis-et-futuna"
+      },
+      "slug": "vacances-wallis-et-futuna"
+    },
+    {
+      "discovery": {
+        "category": "civil",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 19,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://etalab.github.io/jours-feries-france-data/ics/jours_feries_metropole.ics",
+        "v1IcsPath": "/api/v1/calendars/feries-metropole",
+        "v1MetadataPath": "/api/v1/calendars/metadata/feries-metropole"
+      },
+      "slug": "feries-metropole"
+    },
+    {
+      "discovery": {
+        "category": "civil",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 20,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://etalab.github.io/jours-feries-france-data/ics/jours_feries_alsace-moselle.ics",
+        "v1IcsPath": "/api/v1/calendars/feries-alsace-moselle",
+        "v1MetadataPath": "/api/v1/calendars/metadata/feries-alsace-moselle"
+      },
+      "slug": "feries-alsace-moselle"
+    },
+    {
+      "discovery": {
+        "category": "civil",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 21,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://etalab.github.io/jours-feries-france-data/ics/jours_feries_guadeloupe.ics",
+        "v1IcsPath": "/api/v1/calendars/feries-guadeloupe",
+        "v1MetadataPath": "/api/v1/calendars/metadata/feries-guadeloupe"
+      },
+      "slug": "feries-guadeloupe"
+    },
+    {
+      "discovery": {
+        "category": "civil",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 22,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://etalab.github.io/jours-feries-france-data/ics/jours_feries_guyane.ics",
+        "v1IcsPath": "/api/v1/calendars/feries-guyane",
+        "v1MetadataPath": "/api/v1/calendars/metadata/feries-guyane"
+      },
+      "slug": "feries-guyane"
+    },
+    {
+      "discovery": {
+        "category": "civil",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 23,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://etalab.github.io/jours-feries-france-data/ics/jours_feries_martinique.ics",
+        "v1IcsPath": "/api/v1/calendars/feries-martinique",
+        "v1MetadataPath": "/api/v1/calendars/metadata/feries-martinique"
+      },
+      "slug": "feries-martinique"
+    },
+    {
+      "discovery": {
+        "category": "civil",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 24,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://etalab.github.io/jours-feries-france-data/ics/jours_feries_la-reunion.ics",
+        "v1IcsPath": "/api/v1/calendars/feries-la-reunion",
+        "v1MetadataPath": "/api/v1/calendars/metadata/feries-la-reunion"
+      },
+      "slug": "feries-la-reunion"
+    },
+    {
+      "discovery": {
+        "category": "civil",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 25,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://etalab.github.io/jours-feries-france-data/ics/jours_feries_mayotte.ics",
+        "v1IcsPath": "/api/v1/calendars/feries-mayotte",
+        "v1MetadataPath": "/api/v1/calendars/metadata/feries-mayotte"
+      },
+      "slug": "feries-mayotte"
+    },
+    {
+      "discovery": {
+        "category": "civil",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 26,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://etalab.github.io/jours-feries-france-data/ics/jours_feries_nouvelle-caledonie.ics",
+        "v1IcsPath": "/api/v1/calendars/feries-nouvelle-caledonie",
+        "v1MetadataPath": "/api/v1/calendars/metadata/feries-nouvelle-caledonie"
+      },
+      "slug": "feries-nouvelle-caledonie"
+    },
+    {
+      "discovery": {
+        "category": "civil",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 27,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://etalab.github.io/jours-feries-france-data/ics/jours_feries_polynesie-francaise.ics",
+        "v1IcsPath": "/api/v1/calendars/feries-polynesie-francaise",
+        "v1MetadataPath": "/api/v1/calendars/metadata/feries-polynesie-francaise"
+      },
+      "slug": "feries-polynesie-francaise"
+    },
+    {
+      "discovery": {
+        "category": "civil",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 28,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://etalab.github.io/jours-feries-france-data/ics/jours_feries_saint-barthelemy.ics",
+        "v1IcsPath": "/api/v1/calendars/feries-saint-barthelemy",
+        "v1MetadataPath": "/api/v1/calendars/metadata/feries-saint-barthelemy"
+      },
+      "slug": "feries-saint-barthelemy"
+    },
+    {
+      "discovery": {
+        "category": "civil",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 29,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://etalab.github.io/jours-feries-france-data/ics/jours_feries_saint-martin.ics",
+        "v1IcsPath": "/api/v1/calendars/feries-saint-martin",
+        "v1MetadataPath": "/api/v1/calendars/metadata/feries-saint-martin"
+      },
+      "slug": "feries-saint-martin"
+    },
+    {
+      "discovery": {
+        "category": "civil",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 30,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://etalab.github.io/jours-feries-france-data/ics/jours_feries_saint-pierre-et-miquelon.ics",
+        "v1IcsPath": "/api/v1/calendars/feries-saint-pierre-et-miquelon",
+        "v1MetadataPath": "/api/v1/calendars/metadata/feries-saint-pierre-et-miquelon"
+      },
+      "slug": "feries-saint-pierre-et-miquelon"
+    },
+    {
+      "discovery": {
+        "category": "civil",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 31,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://etalab.github.io/jours-feries-france-data/ics/jours_feries_wallis-et-futuna.ics",
+        "v1IcsPath": "/api/v1/calendars/feries-wallis-et-futuna",
+        "v1MetadataPath": "/api/v1/calendars/metadata/feries-wallis-et-futuna"
+      },
+      "slug": "feries-wallis-et-futuna"
+    },
+    {
+      "discovery": {
+        "category": "belgique",
+        "discoverable": true,
+        "family": "pays",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 32,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/belgique/feries-remplacement.ics",
+        "v1IcsPath": "/api/v1/calendars/belgique-feries-remplacement",
+        "v1MetadataPath": "/api/v1/calendars/metadata/belgique-feries-remplacement"
+      },
+      "slug": "belgique-feries-remplacement"
+    },
+    {
+      "discovery": {
+        "category": "belgique",
+        "discoverable": true,
+        "family": "pays",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 33,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/belgique/vacances-fwb.ics",
+        "v1IcsPath": "/api/v1/calendars/belgique-vacances-fwb",
+        "v1MetadataPath": "/api/v1/calendars/metadata/belgique-vacances-fwb"
+      },
+      "slug": "belgique-vacances-fwb"
+    },
+    {
+      "discovery": {
+        "category": "belgique",
+        "discoverable": true,
+        "family": "pays",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 34,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/belgique/vacances-vlaanderen.ics",
+        "v1IcsPath": "/api/v1/calendars/belgique-vacances-vlaanderen",
+        "v1MetadataPath": "/api/v1/calendars/metadata/belgique-vacances-vlaanderen"
+      },
+      "slug": "belgique-vacances-vlaanderen"
+    },
+    {
+      "discovery": {
+        "category": "belgique",
+        "discoverable": true,
+        "family": "pays",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 35,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/belgique/soldes-attente.ics",
+        "v1IcsPath": "/api/v1/calendars/belgique-soldes-attente",
+        "v1MetadataPath": "/api/v1/calendars/metadata/belgique-soldes-attente"
+      },
+      "slug": "belgique-soldes-attente"
+    },
+    {
+      "discovery": {
+        "category": "belgique",
+        "discoverable": true,
+        "family": "pays",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 36,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/belgique/fetes-institutionnelles.ics",
+        "v1IcsPath": "/api/v1/calendars/belgique-fetes-institutionnelles",
+        "v1MetadataPath": "/api/v1/calendars/metadata/belgique-fetes-institutionnelles"
+      },
+      "slug": "belgique-fetes-institutionnelles"
+    },
+    {
+      "discovery": {
+        "category": "belgique",
+        "discoverable": true,
+        "family": "pays",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 37,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/belgique/grands-evenements.ics",
+        "v1IcsPath": "/api/v1/calendars/belgique-grands-evenements",
+        "v1MetadataPath": "/api/v1/calendars/metadata/belgique-grands-evenements"
+      },
+      "slug": "belgique-grands-evenements"
+    },
+    {
+      "discovery": {
+        "category": "belgique",
+        "discoverable": true,
+        "family": "pays",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 38,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/belgique/ponts.ics",
+        "v1IcsPath": "/api/v1/calendars/belgique-ponts",
+        "v1MetadataPath": "/api/v1/calendars/metadata/belgique-ponts"
+      },
+      "slug": "belgique-ponts"
+    },
+    {
+      "discovery": {
+        "category": "luxembourg",
+        "discoverable": true,
+        "family": "pays",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 39,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/luxembourg/feries-legaux.ics",
+        "v1IcsPath": "/api/v1/calendars/luxembourg-feries-legaux",
+        "v1MetadataPath": "/api/v1/calendars/metadata/luxembourg-feries-legaux"
+      },
+      "slug": "luxembourg-feries-legaux"
+    },
+    {
+      "discovery": {
+        "category": "luxembourg",
+        "discoverable": true,
+        "family": "pays",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 40,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/luxembourg/vacances-scolaires.ics",
+        "v1IcsPath": "/api/v1/calendars/luxembourg-vacances-scolaires",
+        "v1MetadataPath": "/api/v1/calendars/metadata/luxembourg-vacances-scolaires"
+      },
+      "slug": "luxembourg-vacances-scolaires"
+    },
+    {
+      "discovery": {
+        "category": "luxembourg",
+        "discoverable": true,
+        "family": "pays",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 41,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/luxembourg/ponts.ics",
+        "v1IcsPath": "/api/v1/calendars/luxembourg-ponts",
+        "v1MetadataPath": "/api/v1/calendars/metadata/luxembourg-ponts"
+      },
+      "slug": "luxembourg-ponts"
+    },
+    {
+      "discovery": {
+        "category": "suisse",
+        "discoverable": true,
+        "family": "pays",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 42,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/suisse/romande-geneve-feries.ics",
+        "v1IcsPath": "/api/v1/calendars/suisse-romande-geneve-feries",
+        "v1MetadataPath": "/api/v1/calendars/metadata/suisse-romande-geneve-feries"
+      },
+      "slug": "suisse-romande-geneve-feries"
+    },
+    {
+      "discovery": {
+        "category": "suisse",
+        "discoverable": true,
+        "family": "pays",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 43,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/suisse/romande-geneve-vacances.ics",
+        "v1IcsPath": "/api/v1/calendars/suisse-romande-geneve-vacances",
+        "v1MetadataPath": "/api/v1/calendars/metadata/suisse-romande-geneve-vacances"
+      },
+      "slug": "suisse-romande-geneve-vacances"
+    },
+    {
+      "discovery": {
+        "category": "suisse",
+        "discoverable": true,
+        "family": "pays",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 44,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/suisse/romande-vaud-feries.ics",
+        "v1IcsPath": "/api/v1/calendars/suisse-romande-vaud-feries",
+        "v1MetadataPath": "/api/v1/calendars/metadata/suisse-romande-vaud-feries"
+      },
+      "slug": "suisse-romande-vaud-feries"
+    },
+    {
+      "discovery": {
+        "category": "suisse",
+        "discoverable": true,
+        "family": "pays",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 45,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/suisse/romande-vaud-vacances.ics",
+        "v1IcsPath": "/api/v1/calendars/suisse-romande-vaud-vacances",
+        "v1MetadataPath": "/api/v1/calendars/metadata/suisse-romande-vaud-vacances"
+      },
+      "slug": "suisse-romande-vaud-vacances"
+    },
+    {
+      "discovery": {
+        "category": "suisse",
+        "discoverable": true,
+        "family": "pays",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 46,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/suisse/romande-neuchatel-feries.ics",
+        "v1IcsPath": "/api/v1/calendars/suisse-romande-neuchatel-feries",
+        "v1MetadataPath": "/api/v1/calendars/metadata/suisse-romande-neuchatel-feries"
+      },
+      "slug": "suisse-romande-neuchatel-feries"
+    },
+    {
+      "discovery": {
+        "category": "suisse",
+        "discoverable": true,
+        "family": "pays",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 47,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/suisse/romande-neuchatel-vacances.ics",
+        "v1IcsPath": "/api/v1/calendars/suisse-romande-neuchatel-vacances",
+        "v1MetadataPath": "/api/v1/calendars/metadata/suisse-romande-neuchatel-vacances"
+      },
+      "slug": "suisse-romande-neuchatel-vacances"
+    },
+    {
+      "discovery": {
+        "category": "suisse",
+        "discoverable": true,
+        "family": "pays",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 48,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/suisse/romande-jura-feries.ics",
+        "v1IcsPath": "/api/v1/calendars/suisse-romande-jura-feries",
+        "v1MetadataPath": "/api/v1/calendars/metadata/suisse-romande-jura-feries"
+      },
+      "slug": "suisse-romande-jura-feries"
+    },
+    {
+      "discovery": {
+        "category": "suisse",
+        "discoverable": true,
+        "family": "pays",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 49,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/suisse/romande-jura-vacances.ics",
+        "v1IcsPath": "/api/v1/calendars/suisse-romande-jura-vacances",
+        "v1MetadataPath": "/api/v1/calendars/metadata/suisse-romande-jura-vacances"
+      },
+      "slug": "suisse-romande-jura-vacances"
+    },
+    {
+      "discovery": {
+        "category": "canada",
+        "discoverable": true,
+        "family": "pays",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 50,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/canada/feries-publics.ics",
+        "v1IcsPath": "/api/v1/calendars/canada-feries-publics",
+        "v1MetadataPath": "/api/v1/calendars/metadata/canada-feries-publics"
+      },
+      "slug": "canada-feries-publics"
+    },
+    {
+      "discovery": {
+        "category": "canada",
+        "discoverable": true,
+        "family": "pays",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 51,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/canada/quebec-feries.ics",
+        "v1IcsPath": "/api/v1/calendars/canada-quebec-feries",
+        "v1MetadataPath": "/api/v1/calendars/metadata/canada-quebec-feries"
+      },
+      "slug": "canada-quebec-feries"
+    },
+    {
+      "discovery": {
+        "category": "education",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 52,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/education/examens-2026.ics",
+        "v1IcsPath": "/api/v1/calendars/education-examens-2026",
+        "v1MetadataPath": "/api/v1/calendars/metadata/education-examens-2026"
+      },
+      "slug": "education-examens-2026"
+    },
+    {
+      "discovery": {
+        "category": "education",
+        "discoverable": true,
+        "family": "conges",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 53,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/education/parcoursup-2026.ics",
+        "v1IcsPath": "/api/v1/calendars/education-parcoursup-2026",
+        "v1MetadataPath": "/api/v1/calendars/metadata/education-parcoursup-2026"
+      },
+      "slug": "education-parcoursup-2026"
+    },
+    {
+      "discovery": {
+        "category": "fiscal",
+        "discoverable": true,
+        "family": "administratif",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 54,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/fiscal/france.ics",
+        "v1IcsPath": "/api/v1/calendars/fiscal-france",
+        "v1MetadataPath": "/api/v1/calendars/metadata/fiscal-france"
+      },
+      "slug": "fiscal-france"
+    },
+    {
+      "discovery": {
+        "category": "fiscal",
+        "discoverable": true,
+        "family": "administratif",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 55,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/fiscal/paye-fonction-publique.ics",
+        "v1IcsPath": "/api/v1/calendars/fiscal-paye-fonction-publique",
+        "v1MetadataPath": "/api/v1/calendars/metadata/fiscal-paye-fonction-publique"
+      },
+      "slug": "fiscal-paye-fonction-publique"
+    },
+    {
+      "discovery": {
+        "category": "fiscal",
+        "discoverable": true,
+        "family": "administratif",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 56,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/fiscal/paiements-retraite-2026.ics",
+        "v1IcsPath": "/api/v1/calendars/fiscal-paiements-retraite-2026",
+        "v1MetadataPath": "/api/v1/calendars/metadata/fiscal-paiements-retraite-2026"
+      },
+      "slug": "fiscal-paiements-retraite-2026"
+    },
+    {
+      "discovery": {
+        "category": "culture",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "DECLARED_INACTIVE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "DECLARED_INACTIVE",
+        "symbol": "cultureFrance"
+      },
+      "publicOrder": 57,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/culture/france.ics",
+        "v1IcsPath": "/api/v1/calendars/culture-france",
+        "v1MetadataPath": "/api/v1/calendars/metadata/culture-france"
+      },
+      "slug": "culture-france"
+    },
+    {
+      "discovery": {
+        "category": "culture",
+        "discoverable": true,
+        "family": "sorties",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 58,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/culture/ceremonies.ics",
+        "v1IcsPath": "/api/v1/calendars/culture-ceremonies",
+        "v1MetadataPath": "/api/v1/calendars/metadata/culture-ceremonies"
+      },
+      "slug": "culture-ceremonies"
+    },
+    {
+      "discovery": {
+        "category": "salonsFoires",
+        "discoverable": true,
+        "family": "sorties",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 59,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/culture/tech-gaming.ics",
+        "v1IcsPath": "/api/v1/calendars/culture-tech-gaming",
+        "v1MetadataPath": "/api/v1/calendars/metadata/culture-tech-gaming"
+      },
+      "slug": "culture-tech-gaming"
+    },
+    {
+      "discovery": {
+        "category": "culture",
+        "discoverable": true,
+        "family": "sorties",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 60,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/patrimoine-culture-gratuite-2026.ics",
+        "v1IcsPath": "/api/v1/calendars/sorties-patrimoine-culture-gratuite-2026",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-patrimoine-culture-gratuite-2026"
+      },
+      "slug": "sorties-patrimoine-culture-gratuite-2026"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "FEATURE_FLAGGED"
+      },
+      "iosDeclaration": {
+        "gate": "FacilAboFeatureFlags.localEventsEnabled",
+        "state": "FEATURE_FLAGGED",
+        "symbol": "sortiesFetesTraditions2026"
+      },
+      "publicOrder": 61,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/fetes-traditions-2026.ics",
+        "v1IcsPath": "/api/v1/calendars/sorties-fetes-traditions-2026",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-fetes-traditions-2026"
+      },
+      "slug": "sorties-fetes-traditions-2026"
+    },
+    {
+      "discovery": {
+        "category": "culture",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "HIDDEN"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 62,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/festivals-culture-2026.ics",
+        "v1IcsPath": "/api/v1/calendars/sorties-festivals-culture-2026",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-festivals-culture-2026"
+      },
+      "slug": "sorties-festivals-culture-2026"
+    },
+    {
+      "discovery": {
+        "category": "culture",
+        "discoverable": true,
+        "family": "sorties",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 63,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/festival-avignon-2026.ics",
+        "v1IcsPath": "/api/v1/calendars/sorties-festival-avignon-2026",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-festival-avignon-2026"
+      },
+      "slug": "sorties-festival-avignon-2026"
+    },
+    {
+      "discovery": {
+        "category": "culture",
+        "discoverable": true,
+        "family": "sorties",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 64,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/festival-aix-2026.ics",
+        "v1IcsPath": "/api/v1/calendars/sorties-festival-aix-2026",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-festival-aix-2026"
+      },
+      "slug": "sorties-festival-aix-2026"
+    },
+    {
+      "discovery": {
+        "category": "salonsFoires",
+        "discoverable": true,
+        "family": "sorties",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 65,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/salons-grand-public-2026.ics",
+        "v1IcsPath": "/api/v1/calendars/sorties-salons-grand-public-2026",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-salons-grand-public-2026"
+      },
+      "slug": "sorties-salons-grand-public-2026"
+    },
+    {
+      "discovery": {
+        "category": "salonsFoires",
+        "discoverable": true,
+        "family": "sorties",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 66,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/foire-marseille-2026.ics",
+        "v1IcsPath": "/api/v1/calendars/sorties-foire-marseille-2026",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-foire-marseille-2026"
+      },
+      "slug": "sorties-foire-marseille-2026"
+    },
+    {
+      "discovery": {
+        "category": "salonsFoires",
+        "discoverable": true,
+        "family": "sorties",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 67,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/savim-marseille.ics",
+        "v1IcsPath": "/api/v1/calendars/sorties-savim-marseille",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-savim-marseille"
+      },
+      "slug": "sorties-savim-marseille"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "FEATURE_FLAGGED"
+      },
+      "iosDeclaration": {
+        "gate": "FacilAboFeatureFlags.localEventsEnabled",
+        "state": "FEATURE_FLAGGED",
+        "symbol": "sortiesMarseilleCassis2026"
+      },
+      "publicOrder": 68,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/marseille-cassis-2026.ics",
+        "v1IcsPath": "/api/v1/calendars/sorties-marseille-cassis-2026",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-marseille-cassis-2026"
+      },
+      "slug": "sorties-marseille-cassis-2026"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "FEATURE_FLAGGED"
+      },
+      "iosDeclaration": {
+        "gate": "FacilAboFeatureFlags.localEventsEnabled",
+        "state": "FEATURE_FLAGGED",
+        "symbol": "sortiesNoelColmar2026"
+      },
+      "publicOrder": 69,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/noel-colmar-2026.ics",
+        "v1IcsPath": "/api/v1/calendars/sorties-noel-colmar-2026",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-noel-colmar-2026"
+      },
+      "slug": "sorties-noel-colmar-2026"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "FEATURE_FLAGGED"
+      },
+      "iosDeclaration": {
+        "gate": "FacilAboFeatureFlags.localEventsEnabled",
+        "state": "FEATURE_FLAGGED",
+        "symbol": "sortiesNoelEguisheim2026"
+      },
+      "publicOrder": 70,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/noel-eguisheim-2026.ics",
+        "v1IcsPath": "/api/v1/calendars/sorties-noel-eguisheim-2026",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-noel-eguisheim-2026"
+      },
+      "slug": "sorties-noel-eguisheim-2026"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "FEATURE_FLAGGED"
+      },
+      "iosDeclaration": {
+        "gate": "FacilAboFeatureFlags.localEventsEnabled",
+        "state": "FEATURE_FLAGGED",
+        "symbol": "sortiesNoelRiquewihr2026"
+      },
+      "publicOrder": 71,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/noel-riquewihr-2026.ics",
+        "v1IcsPath": "/api/v1/calendars/sorties-noel-riquewihr-2026",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-noel-riquewihr-2026"
+      },
+      "slug": "sorties-noel-riquewihr-2026"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "FEATURE_FLAGGED"
+      },
+      "iosDeclaration": {
+        "gate": "FacilAboFeatureFlags.localEventsEnabled",
+        "state": "FEATURE_FLAGGED",
+        "symbol": "sortiesNoelKaysersberg2026"
+      },
+      "publicOrder": 72,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/sorties/noel-kaysersberg-2026.ics",
+        "v1IcsPath": "/api/v1/calendars/sorties-noel-kaysersberg-2026",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-noel-kaysersberg-2026"
+      },
+      "slug": "sorties-noel-kaysersberg-2026"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": "FacilAboFeatureFlags.localEventsEnabled",
+        "state": "FEATURE_FLAGGED",
+        "symbol": "sortiesVilleMarseille"
+      },
+      "publicOrder": 73,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/marseille",
+        "v1IcsPath": "/api/v1/calendars/sorties-ville-marseille",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-ville-marseille"
+      },
+      "slug": "sorties-ville-marseille"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": "FacilAboFeatureFlags.localEventsEnabled",
+        "state": "FEATURE_FLAGGED",
+        "symbol": "sortiesVilleAix"
+      },
+      "publicOrder": 74,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/aix-en-provence",
+        "v1IcsPath": "/api/v1/calendars/sorties-ville-aix-en-provence",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-ville-aix-en-provence"
+      },
+      "slug": "sorties-ville-aix-en-provence"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "FEATURE_FLAGGED"
+      },
+      "iosDeclaration": {
+        "gate": "FacilAboFeatureFlags.localEventsEnabled",
+        "state": "FEATURE_FLAGGED",
+        "symbol": "sortiesVilleSalonDeProvence"
+      },
+      "publicOrder": 75,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://www.salondeprovence.fr/agenda/liste/?ical=1",
+        "v1IcsPath": "/api/v1/calendars/sorties-ville-salon-de-provence",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-ville-salon-de-provence"
+      },
+      "slug": "sorties-ville-salon-de-provence"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": "FacilAboFeatureFlags.localEventsEnabled",
+        "state": "FEATURE_FLAGGED",
+        "symbol": "sortiesVilleAntibes"
+      },
+      "publicOrder": 76,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/antibes",
+        "v1IcsPath": "/api/v1/calendars/sorties-ville-antibes",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-ville-antibes"
+      },
+      "slug": "sorties-ville-antibes"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "DECLARED_INACTIVE",
+        "symbol": "sortiesVilleAllauch"
+      },
+      "publicOrder": 77,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/allauch",
+        "v1IcsPath": "/api/v1/calendars/sorties-ville-allauch",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-ville-allauch"
+      },
+      "slug": "sorties-ville-allauch"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": "FacilAboFeatureFlags.localEventsEnabled",
+        "state": "FEATURE_FLAGGED",
+        "symbol": "sortiesVilleParis"
+      },
+      "publicOrder": 78,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/paris",
+        "v1IcsPath": "/api/v1/calendars/sorties-ville-paris",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-ville-paris"
+      },
+      "slug": "sorties-ville-paris"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "DECLARED_INACTIVE",
+        "symbol": "sortiesVilleLyon"
+      },
+      "publicOrder": 79,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/lyon",
+        "v1IcsPath": "/api/v1/calendars/sorties-ville-lyon",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-ville-lyon"
+      },
+      "slug": "sorties-ville-lyon"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": "FacilAboFeatureFlags.localEventsEnabled",
+        "state": "FEATURE_FLAGGED",
+        "symbol": "sortiesVilleToulouse"
+      },
+      "publicOrder": 80,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/toulouse",
+        "v1IcsPath": "/api/v1/calendars/sorties-ville-toulouse",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-ville-toulouse"
+      },
+      "slug": "sorties-ville-toulouse"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "DECLARED_INACTIVE",
+        "symbol": "sortiesVilleNice"
+      },
+      "publicOrder": 81,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/nice",
+        "v1IcsPath": "/api/v1/calendars/sorties-ville-nice",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-ville-nice"
+      },
+      "slug": "sorties-ville-nice"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": "FacilAboFeatureFlags.localEventsEnabled",
+        "state": "FEATURE_FLAGGED",
+        "symbol": "sortiesVilleNantes"
+      },
+      "publicOrder": 82,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/nantes",
+        "v1IcsPath": "/api/v1/calendars/sorties-ville-nantes",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-ville-nantes"
+      },
+      "slug": "sorties-ville-nantes"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "DECLARED_INACTIVE",
+        "symbol": "sortiesVilleMontpellier"
+      },
+      "publicOrder": 83,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/montpellier",
+        "v1IcsPath": "/api/v1/calendars/sorties-ville-montpellier",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-ville-montpellier"
+      },
+      "slug": "sorties-ville-montpellier"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "DECLARED_INACTIVE",
+        "symbol": "sortiesVilleStrasbourg"
+      },
+      "publicOrder": 84,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/strasbourg",
+        "v1IcsPath": "/api/v1/calendars/sorties-ville-strasbourg",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-ville-strasbourg"
+      },
+      "slug": "sorties-ville-strasbourg"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": "FacilAboFeatureFlags.localEventsEnabled",
+        "state": "FEATURE_FLAGGED",
+        "symbol": "sortiesVilleBordeaux"
+      },
+      "publicOrder": 85,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/bordeaux",
+        "v1IcsPath": "/api/v1/calendars/sorties-ville-bordeaux",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-ville-bordeaux"
+      },
+      "slug": "sorties-ville-bordeaux"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": "FacilAboFeatureFlags.localEventsEnabled",
+        "state": "FEATURE_FLAGGED",
+        "symbol": "sortiesVilleLille"
+      },
+      "publicOrder": 86,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/lille",
+        "v1IcsPath": "/api/v1/calendars/sorties-ville-lille",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-ville-lille"
+      },
+      "slug": "sorties-ville-lille"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": "FacilAboFeatureFlags.localEventsEnabled",
+        "state": "FEATURE_FLAGGED",
+        "symbol": "sortiesVilleRennes"
+      },
+      "publicOrder": 87,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/rennes",
+        "v1IcsPath": "/api/v1/calendars/sorties-ville-rennes",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-ville-rennes"
+      },
+      "slug": "sorties-ville-rennes"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "DECLARED_INACTIVE",
+        "symbol": "sortiesVilleReims"
+      },
+      "publicOrder": 88,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/reims",
+        "v1IcsPath": "/api/v1/calendars/sorties-ville-reims",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-ville-reims"
+      },
+      "slug": "sorties-ville-reims"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "DECLARED_INACTIVE",
+        "symbol": "sortiesVilleSaintEtienne"
+      },
+      "publicOrder": 89,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/saint-etienne",
+        "v1IcsPath": "/api/v1/calendars/sorties-ville-saint-etienne",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-ville-saint-etienne"
+      },
+      "slug": "sorties-ville-saint-etienne"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "DECLARED_INACTIVE",
+        "symbol": "sortiesVilleToulon"
+      },
+      "publicOrder": 90,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/toulon",
+        "v1IcsPath": "/api/v1/calendars/sorties-ville-toulon",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-ville-toulon"
+      },
+      "slug": "sorties-ville-toulon"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "DECLARED_INACTIVE",
+        "symbol": "sortiesVilleLeHavre"
+      },
+      "publicOrder": 91,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/le-havre",
+        "v1IcsPath": "/api/v1/calendars/sorties-ville-le-havre",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-ville-le-havre"
+      },
+      "slug": "sorties-ville-le-havre"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "DECLARED_INACTIVE",
+        "symbol": "sortiesVilleGrenoble"
+      },
+      "publicOrder": 92,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/grenoble",
+        "v1IcsPath": "/api/v1/calendars/sorties-ville-grenoble",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-ville-grenoble"
+      },
+      "slug": "sorties-ville-grenoble"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": "FacilAboFeatureFlags.localEventsEnabled",
+        "state": "FEATURE_FLAGGED",
+        "symbol": "sortiesVilleDijon"
+      },
+      "publicOrder": 93,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/dijon",
+        "v1IcsPath": "/api/v1/calendars/sorties-ville-dijon",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-ville-dijon"
+      },
+      "slug": "sorties-ville-dijon"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "DECLARED_INACTIVE",
+        "symbol": "sortiesVilleAngers"
+      },
+      "publicOrder": 94,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/angers",
+        "v1IcsPath": "/api/v1/calendars/sorties-ville-angers",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-ville-angers"
+      },
+      "slug": "sorties-ville-angers"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "DECLARED_INACTIVE",
+        "symbol": "sortiesVilleNimes"
+      },
+      "publicOrder": 95,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/nimes",
+        "v1IcsPath": "/api/v1/calendars/sorties-ville-nimes",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-ville-nimes"
+      },
+      "slug": "sorties-ville-nimes"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": "FacilAboFeatureFlags.localEventsEnabled",
+        "state": "FEATURE_FLAGGED",
+        "symbol": "sortiesVilleVilleurbanne"
+      },
+      "publicOrder": 96,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/villeurbanne",
+        "v1IcsPath": "/api/v1/calendars/sorties-ville-villeurbanne",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-ville-villeurbanne"
+      },
+      "slug": "sorties-ville-villeurbanne"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "DECLARED_INACTIVE",
+        "symbol": "sortiesMetropoleGrandParis"
+      },
+      "publicOrder": 97,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/grand-paris",
+        "v1IcsPath": "/api/v1/calendars/sorties-metropole-grand-paris",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-metropole-grand-paris"
+      },
+      "slug": "sorties-metropole-grand-paris"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": "FacilAboFeatureFlags.localEventsEnabled",
+        "state": "FEATURE_FLAGGED",
+        "symbol": "sortiesMetropoleAixMarseilleProvence"
+      },
+      "publicOrder": 98,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/metropole-aix-marseille-provence",
+        "v1IcsPath": "/api/v1/calendars/sorties-metropole-aix-marseille-provence",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-metropole-aix-marseille-provence"
+      },
+      "slug": "sorties-metropole-aix-marseille-provence"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "DECLARED_INACTIVE",
+        "symbol": "sortiesMetropoleGrandLyon"
+      },
+      "publicOrder": 99,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/grand-lyon",
+        "v1IcsPath": "/api/v1/calendars/sorties-metropole-grand-lyon",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-metropole-grand-lyon"
+      },
+      "slug": "sorties-metropole-grand-lyon"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": "FacilAboFeatureFlags.localEventsEnabled",
+        "state": "FEATURE_FLAGGED",
+        "symbol": "sortiesMetropoleEuropeenneLille"
+      },
+      "publicOrder": 100,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/metropole-europeenne-lille",
+        "v1IcsPath": "/api/v1/calendars/sorties-metropole-europeenne-lille",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-metropole-europeenne-lille"
+      },
+      "slug": "sorties-metropole-europeenne-lille"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": "FacilAboFeatureFlags.localEventsEnabled",
+        "state": "FEATURE_FLAGGED",
+        "symbol": "sortiesMetropoleToulouse"
+      },
+      "publicOrder": 101,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/toulouse-metropole",
+        "v1IcsPath": "/api/v1/calendars/sorties-metropole-toulouse",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-metropole-toulouse"
+      },
+      "slug": "sorties-metropole-toulouse"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": "FacilAboFeatureFlags.localEventsEnabled",
+        "state": "FEATURE_FLAGGED",
+        "symbol": "sortiesMetropoleBordeaux"
+      },
+      "publicOrder": 102,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/bordeaux-metropole",
+        "v1IcsPath": "/api/v1/calendars/sorties-metropole-bordeaux",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-metropole-bordeaux"
+      },
+      "slug": "sorties-metropole-bordeaux"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": "FacilAboFeatureFlags.localEventsEnabled",
+        "state": "FEATURE_FLAGGED",
+        "symbol": "sortiesMetropoleNantes"
+      },
+      "publicOrder": 103,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/nantes-metropole",
+        "v1IcsPath": "/api/v1/calendars/sorties-metropole-nantes",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-metropole-nantes"
+      },
+      "slug": "sorties-metropole-nantes"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "DECLARED_INACTIVE",
+        "symbol": "sortiesMetropoleStrasbourg"
+      },
+      "publicOrder": 104,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/eurometropole-strasbourg",
+        "v1IcsPath": "/api/v1/calendars/sorties-metropole-strasbourg",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-metropole-strasbourg"
+      },
+      "slug": "sorties-metropole-strasbourg"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": "FacilAboFeatureFlags.localEventsEnabled",
+        "state": "FEATURE_FLAGGED",
+        "symbol": "sortiesMetropoleMontpellier"
+      },
+      "publicOrder": 105,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/montpellier-mediterranee-metropole",
+        "v1IcsPath": "/api/v1/calendars/sorties-metropole-montpellier",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-metropole-montpellier"
+      },
+      "slug": "sorties-metropole-montpellier"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": "FacilAboFeatureFlags.localEventsEnabled",
+        "state": "FEATURE_FLAGGED",
+        "symbol": "sortiesMetropoleRennes"
+      },
+      "publicOrder": 106,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/rennes-metropole",
+        "v1IcsPath": "/api/v1/calendars/sorties-metropole-rennes",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-metropole-rennes"
+      },
+      "slug": "sorties-metropole-rennes"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": "FacilAboFeatureFlags.localEventsEnabled",
+        "state": "FEATURE_FLAGGED",
+        "symbol": "sortiesRegionSud"
+      },
+      "publicOrder": 107,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/region-sud",
+        "v1IcsPath": "/api/v1/calendars/sorties-region-sud",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-region-sud"
+      },
+      "slug": "sorties-region-sud"
+    },
+    {
+      "discovery": {
+        "category": "localEvents",
+        "discoverable": false,
+        "family": "sorties",
+        "state": "MONITORED_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": "FacilAboFeatureFlags.localEventsEnabled",
+        "state": "FEATURE_FLAGGED",
+        "symbol": "sortiesBraderieLille"
+      },
+      "publicOrder": 108,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/braderie-lille",
+        "v1IcsPath": "/api/v1/calendars/sorties-braderie-lille",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-braderie-lille"
+      },
+      "slug": "sorties-braderie-lille"
+    },
+    {
+      "discovery": {
+        "category": "culture",
+        "discoverable": true,
+        "family": "sorties",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 109,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LOCAL_EVENTS_V1",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/v1/local-events/ics/rencontres-arles",
+        "v1IcsPath": "/api/v1/calendars/sorties-rencontres-arles",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sorties-rencontres-arles"
+      },
+      "slug": "sorties-rencontres-arles"
+    },
+    {
+      "discovery": {
+        "category": "religion",
+        "discoverable": true,
+        "family": "religion",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 110,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/religion/chretienne.ics",
+        "v1IcsPath": "/api/v1/calendars/religion-chretienne",
+        "v1MetadataPath": "/api/v1/calendars/metadata/religion-chretienne"
+      },
+      "slug": "religion-chretienne"
+    },
+    {
+      "discovery": {
+        "category": "religion",
+        "discoverable": true,
+        "family": "religion",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 111,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/religion/musulmane.ics",
+        "v1IcsPath": "/api/v1/calendars/religion-musulmane",
+        "v1MetadataPath": "/api/v1/calendars/metadata/religion-musulmane"
+      },
+      "slug": "religion-musulmane"
+    },
+    {
+      "discovery": {
+        "category": "religion",
+        "discoverable": true,
+        "family": "religion",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 112,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/religion/juive.ics",
+        "v1IcsPath": "/api/v1/calendars/religion-juive",
+        "v1MetadataPath": "/api/v1/calendars/metadata/religion-juive"
+      },
+      "slug": "religion-juive"
+    },
+    {
+      "discovery": {
+        "category": "religion",
+        "discoverable": true,
+        "family": "religion",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 113,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/religion/hindoue.ics",
+        "v1IcsPath": "/api/v1/calendars/religion-hindoue",
+        "v1MetadataPath": "/api/v1/calendars/metadata/religion-hindoue"
+      },
+      "slug": "religion-hindoue"
+    },
+    {
+      "discovery": {
+        "category": "religion",
+        "discoverable": true,
+        "family": "religion",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 114,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/religion/bouddhiste.ics",
+        "v1IcsPath": "/api/v1/calendars/religion-bouddhiste",
+        "v1MetadataPath": "/api/v1/calendars/metadata/religion-bouddhiste"
+      },
+      "slug": "religion-bouddhiste"
+    },
+    {
+      "discovery": {
+        "category": "religion",
+        "discoverable": true,
+        "family": "religion",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 115,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/religion/sikhe.ics",
+        "v1IcsPath": "/api/v1/calendars/religion-sikhe",
+        "v1MetadataPath": "/api/v1/calendars/metadata/religion-sikhe"
+      },
+      "slug": "religion-sikhe"
+    },
+    {
+      "discovery": {
+        "category": "religion",
+        "discoverable": true,
+        "family": "religion",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 116,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/religion/saints-francais.ics",
+        "v1IcsPath": "/api/v1/calendars/religion-saints-francais",
+        "v1MetadataPath": "/api/v1/calendars/metadata/religion-saints-francais"
+      },
+      "slug": "religion-saints-francais"
+    },
+    {
+      "discovery": {
+        "category": "religion",
+        "discoverable": false,
+        "family": "religion",
+        "state": "API_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "API_ONLY",
+        "symbol": null
+      },
+      "publicOrder": 117,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/religion/multi-cultes.ics",
+        "v1IcsPath": "/api/v1/calendars/religion-multi-cultes",
+        "v1MetadataPath": "/api/v1/calendars/metadata/religion-multi-cultes"
+      },
+      "slug": "religion-multi-cultes"
+    },
+    {
+      "discovery": {
+        "category": "ecommerce",
+        "discoverable": true,
+        "family": "shopping",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 118,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/ecommerce/blackfriday.ics",
+        "v1IcsPath": "/api/v1/calendars/ecommerce-blackfriday",
+        "v1MetadataPath": "/api/v1/calendars/metadata/ecommerce-blackfriday"
+      },
+      "slug": "ecommerce-blackfriday"
+    },
+    {
+      "discovery": {
+        "category": "ecommerce",
+        "discoverable": true,
+        "family": "shopping",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 119,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/ecommerce/primeday.ics",
+        "v1IcsPath": "/api/v1/calendars/ecommerce-primeday",
+        "v1MetadataPath": "/api/v1/calendars/metadata/ecommerce-primeday"
+      },
+      "slug": "ecommerce-primeday"
+    },
+    {
+      "discovery": {
+        "category": "ecommerce",
+        "discoverable": true,
+        "family": "shopping",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 120,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/ecommerce/frenchdays.ics",
+        "v1IcsPath": "/api/v1/calendars/ecommerce-frenchdays",
+        "v1MetadataPath": "/api/v1/calendars/metadata/ecommerce-frenchdays"
+      },
+      "slug": "ecommerce-frenchdays"
+    },
+    {
+      "discovery": {
+        "category": "ecommerce",
+        "discoverable": true,
+        "family": "shopping",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 121,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/ecommerce/fetes-commerciales.ics",
+        "v1IcsPath": "/api/v1/calendars/ecommerce-fetes-commerciales",
+        "v1MetadataPath": "/api/v1/calendars/metadata/ecommerce-fetes-commerciales"
+      },
+      "slug": "ecommerce-fetes-commerciales"
+    },
+    {
+      "discovery": {
+        "category": "tennis",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 122,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/tennis/atp-complet.ics",
+        "v1IcsPath": "/api/v1/calendars/tennis-atp-complet",
+        "v1MetadataPath": "/api/v1/calendars/metadata/tennis-atp-complet"
+      },
+      "slug": "tennis-atp-complet"
+    },
+    {
+      "discovery": {
+        "category": "tennis",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 123,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/tennis/wta-complet.ics",
+        "v1IcsPath": "/api/v1/calendars/tennis-wta-complet",
+        "v1MetadataPath": "/api/v1/calendars/metadata/tennis-wta-complet"
+      },
+      "slug": "tennis-wta-complet"
+    },
+    {
+      "discovery": {
+        "category": "tennis",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 124,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/tennis/atp-majeurs.ics",
+        "v1IcsPath": "/api/v1/calendars/tennis-atp-majeurs",
+        "v1MetadataPath": "/api/v1/calendars/metadata/tennis-atp-majeurs"
+      },
+      "slug": "tennis-atp-majeurs"
+    },
+    {
+      "discovery": {
+        "category": "tennis",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 125,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/tennis/wta-majeurs.ics",
+        "v1IcsPath": "/api/v1/calendars/tennis-wta-majeurs",
+        "v1MetadataPath": "/api/v1/calendars/metadata/tennis-wta-majeurs"
+      },
+      "slug": "tennis-wta-majeurs"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 126,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/sport/france-foot-equipe-nationale.ics",
+        "v1IcsPath": "/api/v1/calendars/sport-france-foot-equipe-nationale",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sport-france-foot-equipe-nationale"
+      },
+      "slug": "sport-france-foot-equipe-nationale"
+    },
+    {
+      "discovery": {
+        "category": "rugby",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 127,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/refs/heads/main/sport/france-rugby-equipe-nationale.ics",
+        "v1IcsPath": "/api/v1/calendars/sport-france-rugby-equipe-nationale",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sport-france-rugby-equipe-nationale"
+      },
+      "slug": "sport-france-rugby-equipe-nationale"
+    },
+    {
+      "discovery": {
+        "category": "rugby",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 128,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/sport/rugby-top-14-complet.ics",
+        "v1IcsPath": "/api/v1/calendars/sport-rugby-top-14-complet",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sport-rugby-top-14-complet"
+      },
+      "slug": "sport-rugby-top-14-complet"
+    },
+    {
+      "discovery": {
+        "category": "rugby",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 129,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/sport/rugby-six-nations-complet.ics",
+        "v1IcsPath": "/api/v1/calendars/sport-rugby-six-nations-complet",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sport-rugby-six-nations-complet"
+      },
+      "slug": "sport-rugby-six-nations-complet"
+    },
+    {
+      "discovery": {
+        "category": "cycling",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 130,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/sport/cyclisme-majeurs.ics",
+        "v1IcsPath": "/api/v1/calendars/sport-cyclisme-majeurs",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sport-cyclisme-majeurs"
+      },
+      "slug": "sport-cyclisme-majeurs"
+    },
+    {
+      "discovery": {
+        "category": "wec",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 131,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/sport/wec.ics",
+        "v1IcsPath": "/api/v1/calendars/sport-wec",
+        "v1MetadataPath": "/api/v1/calendars/metadata/sport-wec"
+      },
+      "slug": "sport-wec"
+    },
+    {
+      "discovery": {
+        "category": "worldCup2026",
+        "discoverable": false,
+        "family": "sports",
+        "state": "HIDDEN"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 132,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-all.ics",
+        "v1IcsPath": "/api/v1/calendars/worldcup-2026-all",
+        "v1MetadataPath": "/api/v1/calendars/metadata/worldcup-2026-all"
+      },
+      "slug": "worldcup-2026-all"
+    },
+    {
+      "discovery": {
+        "category": "worldCup2026",
+        "discoverable": false,
+        "family": "sports",
+        "state": "HIDDEN"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 133,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-france.ics",
+        "v1IcsPath": "/api/v1/calendars/worldcup-2026-france",
+        "v1MetadataPath": "/api/v1/calendars/metadata/worldcup-2026-france"
+      },
+      "slug": "worldcup-2026-france"
+    },
+    {
+      "discovery": {
+        "category": "worldCup2026",
+        "discoverable": false,
+        "family": "sports",
+        "state": "HIDDEN"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 134,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-belgium.ics",
+        "v1IcsPath": "/api/v1/calendars/worldcup-2026-belgium",
+        "v1MetadataPath": "/api/v1/calendars/metadata/worldcup-2026-belgium"
+      },
+      "slug": "worldcup-2026-belgium"
+    },
+    {
+      "discovery": {
+        "category": "worldCup2026",
+        "discoverable": false,
+        "family": "sports",
+        "state": "HIDDEN"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 135,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-knockout.ics",
+        "v1IcsPath": "/api/v1/calendars/worldcup-2026-knockout",
+        "v1MetadataPath": "/api/v1/calendars/metadata/worldcup-2026-knockout"
+      },
+      "slug": "worldcup-2026-knockout"
+    },
+    {
+      "discovery": {
+        "category": "worldCup2026",
+        "discoverable": false,
+        "family": "sports",
+        "state": "HIDDEN"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 136,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/sport/worldcup-2026-big-nights.ics",
+        "v1IcsPath": "/api/v1/calendars/worldcup-2026-big-nights",
+        "v1MetadataPath": "/api/v1/calendars/metadata/worldcup-2026-big-nights"
+      },
+      "slug": "worldcup-2026-big-nights"
+    },
+    {
+      "discovery": {
+        "category": "societe",
+        "discoverable": true,
+        "family": "reperes",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 137,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/societe/reperes-france.ics",
+        "v1IcsPath": "/api/v1/calendars/societe-reperes-france",
+        "v1MetadataPath": "/api/v1/calendars/metadata/societe-reperes-france"
+      },
+      "slug": "societe-reperes-france"
+    },
+    {
+      "discovery": {
+        "category": "societe",
+        "discoverable": true,
+        "family": "reperes",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 138,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/societe/elections-scrutins-2026.ics",
+        "v1IcsPath": "/api/v1/calendars/societe-elections-scrutins-2026",
+        "v1MetadataPath": "/api/v1/calendars/metadata/societe-elections-scrutins-2026"
+      },
+      "slug": "societe-elections-scrutins-2026"
+    },
+    {
+      "discovery": {
+        "category": "f1",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 139,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://better-f1-calendar.vercel.app/api/calendar.ics",
+        "v1IcsPath": "/api/v1/calendars/f1",
+        "v1MetadataPath": "/api/v1/calendars/metadata/f1"
+      },
+      "slug": "f1"
+    },
+    {
+      "discovery": {
+        "category": "f1",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 140,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://better-f1-calendar.vercel.app/api/calendar.ics",
+        "v1IcsPath": "/api/v1/calendars/f1-races-only",
+        "v1MetadataPath": "/api/v1/calendars/metadata/f1-races-only"
+      },
+      "slug": "f1-races-only"
+    },
+    {
+      "discovery": {
+        "category": "motogp",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 141,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/league/motogp.ics",
+        "v1IcsPath": "/api/v1/calendars/motogp",
+        "v1MetadataPath": "/api/v1/calendars/metadata/motogp"
+      },
+      "slug": "motogp"
+    },
+    {
+      "discovery": {
+        "category": "nascar",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 142,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/sport/nascar-cup-2027.ics",
+        "v1IcsPath": "/api/v1/calendars/nascar",
+        "v1MetadataPath": "/api/v1/calendars/metadata/nascar"
+      },
+      "slug": "nascar"
+    },
+    {
+      "discovery": {
+        "category": "basketball",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 143,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/sport/nba-2026-27.ics",
+        "v1IcsPath": "/api/v1/calendars/basketball",
+        "v1MetadataPath": "/api/v1/calendars/metadata/basketball"
+      },
+      "slug": "basketball"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 144,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/paris-saint-germain.ics",
+        "v1IcsPath": "/api/v1/calendars/psg",
+        "v1MetadataPath": "/api/v1/calendars/metadata/psg"
+      },
+      "slug": "psg"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 145,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/olympique-marseille.ics",
+        "v1IcsPath": "/api/v1/calendars/om",
+        "v1MetadataPath": "/api/v1/calendars/metadata/om"
+      },
+      "slug": "om"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 146,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/olympique-lyon.ics",
+        "v1IcsPath": "/api/v1/calendars/ol",
+        "v1MetadataPath": "/api/v1/calendars/metadata/ol"
+      },
+      "slug": "ol"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 147,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/as-monaco.ics",
+        "v1IcsPath": "/api/v1/calendars/asMonaco",
+        "v1MetadataPath": "/api/v1/calendars/metadata/asMonaco"
+      },
+      "slug": "asMonaco"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 148,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/lille.ics",
+        "v1IcsPath": "/api/v1/calendars/losc",
+        "v1MetadataPath": "/api/v1/calendars/metadata/losc"
+      },
+      "slug": "losc"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 149,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/lens.ics",
+        "v1IcsPath": "/api/v1/calendars/rcLens",
+        "v1MetadataPath": "/api/v1/calendars/metadata/rcLens"
+      },
+      "slug": "rcLens"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 150,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/stade-rennes.ics",
+        "v1IcsPath": "/api/v1/calendars/stadeRennais",
+        "v1MetadataPath": "/api/v1/calendars/metadata/stadeRennais"
+      },
+      "slug": "stadeRennais"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 151,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/lorient.ics",
+        "v1IcsPath": "/api/v1/calendars/lorient",
+        "v1MetadataPath": "/api/v1/calendars/metadata/lorient"
+      },
+      "slug": "lorient"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 152,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/fc-metz.ics",
+        "v1IcsPath": "/api/v1/calendars/metz",
+        "v1MetadataPath": "/api/v1/calendars/metadata/metz"
+      },
+      "slug": "metz"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 153,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/paris-fc.ics",
+        "v1IcsPath": "/api/v1/calendars/parisFc",
+        "v1MetadataPath": "/api/v1/calendars/metadata/parisFc"
+      },
+      "slug": "parisFc"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 154,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/ogc-nice.ics",
+        "v1IcsPath": "/api/v1/calendars/nice",
+        "v1MetadataPath": "/api/v1/calendars/metadata/nice"
+      },
+      "slug": "nice"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 155,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/rc-strasbourg.ics",
+        "v1IcsPath": "/api/v1/calendars/rcStrasbourg",
+        "v1MetadataPath": "/api/v1/calendars/metadata/rcStrasbourg"
+      },
+      "slug": "rcStrasbourg"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 156,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/fc-nantes.ics",
+        "v1IcsPath": "/api/v1/calendars/fcNantes",
+        "v1MetadataPath": "/api/v1/calendars/metadata/fcNantes"
+      },
+      "slug": "fcNantes"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": false,
+        "family": "sports",
+        "state": "API_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "API_ONLY",
+        "symbol": null
+      },
+      "publicOrder": 157,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/stade-de-reims.ics",
+        "v1IcsPath": "/api/v1/calendars/stadeReims",
+        "v1MetadataPath": "/api/v1/calendars/metadata/stadeReims"
+      },
+      "slug": "stadeReims"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": false,
+        "family": "sports",
+        "state": "API_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "API_ONLY",
+        "symbol": null
+      },
+      "publicOrder": 158,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/montpellier.ics",
+        "v1IcsPath": "/api/v1/calendars/montpellierHsc",
+        "v1MetadataPath": "/api/v1/calendars/metadata/montpellierHsc"
+      },
+      "slug": "montpellierHsc"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 159,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/toulouse.ics",
+        "v1IcsPath": "/api/v1/calendars/toulouseFc",
+        "v1MetadataPath": "/api/v1/calendars/metadata/toulouseFc"
+      },
+      "slug": "toulouseFc"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 160,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/stade-brestois-29.ics",
+        "v1IcsPath": "/api/v1/calendars/stadeBrest",
+        "v1MetadataPath": "/api/v1/calendars/metadata/stadeBrest"
+      },
+      "slug": "stadeBrest"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 161,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/auxerre.ics",
+        "v1IcsPath": "/api/v1/calendars/auxerre",
+        "v1MetadataPath": "/api/v1/calendars/metadata/auxerre"
+      },
+      "slug": "auxerre"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 162,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/angers-sco.ics",
+        "v1IcsPath": "/api/v1/calendars/angers",
+        "v1MetadataPath": "/api/v1/calendars/metadata/angers"
+      },
+      "slug": "angers"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": false,
+        "family": "sports",
+        "state": "API_ONLY"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "API_ONLY",
+        "symbol": null
+      },
+      "publicOrder": 163,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/saint-etienne.ics",
+        "v1IcsPath": "/api/v1/calendars/saintEtienne",
+        "v1MetadataPath": "/api/v1/calendars/metadata/saintEtienne"
+      },
+      "slug": "saintEtienne"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 164,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/le-havre.ics",
+        "v1IcsPath": "/api/v1/calendars/lehavre",
+        "v1MetadataPath": "/api/v1/calendars/metadata/lehavre"
+      },
+      "slug": "lehavre"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 165,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/afc-bournemouth.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-afc-bournemouth",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-afc-bournemouth"
+      },
+      "slug": "football-europe-afc-bournemouth"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 166,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/arsenal.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-arsenal",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-arsenal"
+      },
+      "slug": "football-europe-arsenal"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 167,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/aston-villa.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-aston-villa",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-aston-villa"
+      },
+      "slug": "football-europe-aston-villa"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 168,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/brentford-fc.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-brentford-fc",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-brentford-fc"
+      },
+      "slug": "football-europe-brentford-fc"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 169,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/brighton-hove-albion-fc.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-brighton-hove-albion-fc",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-brighton-hove-albion-fc"
+      },
+      "slug": "football-europe-brighton-hove-albion-fc"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 170,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/burnley-fc.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-burnley-fc",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-burnley-fc"
+      },
+      "slug": "football-europe-burnley-fc"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 171,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/chelsea.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-chelsea",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-chelsea"
+      },
+      "slug": "football-europe-chelsea"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 172,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/crystal-palace.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-crystal-palace",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-crystal-palace"
+      },
+      "slug": "football-europe-crystal-palace"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 173,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/everton.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-everton",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-everton"
+      },
+      "slug": "football-europe-everton"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 174,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/fulham.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-fulham",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-fulham"
+      },
+      "slug": "football-europe-fulham"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 175,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/leeds-united.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-leeds-united",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-leeds-united"
+      },
+      "slug": "football-europe-leeds-united"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 176,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/liverpool.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-liverpool",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-liverpool"
+      },
+      "slug": "football-europe-liverpool"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 177,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/manchester-city.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-manchester-city",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-manchester-city"
+      },
+      "slug": "football-europe-manchester-city"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 178,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/manchester-united.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-manchester-united",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-manchester-united"
+      },
+      "slug": "football-europe-manchester-united"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 179,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/newcastle-united.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-newcastle-united",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-newcastle-united"
+      },
+      "slug": "football-europe-newcastle-united"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 180,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/nottingham-forest.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-nottingham-forest",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-nottingham-forest"
+      },
+      "slug": "football-europe-nottingham-forest"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 181,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/sunderland.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-sunderland",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-sunderland"
+      },
+      "slug": "football-europe-sunderland"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 182,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/tottenham-hotspur.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-tottenham-hotspur",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-tottenham-hotspur"
+      },
+      "slug": "football-europe-tottenham-hotspur"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 183,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/west-ham-united.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-west-ham-united",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-west-ham-united"
+      },
+      "slug": "football-europe-west-ham-united"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 184,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/wolverhampton-wanderers.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-wolverhampton-wanderers",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-wolverhampton-wanderers"
+      },
+      "slug": "football-europe-wolverhampton-wanderers"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 185,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/ac-milan.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-ac-milan",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-ac-milan"
+      },
+      "slug": "football-europe-ac-milan"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 186,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/as-roma.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-as-roma",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-as-roma"
+      },
+      "slug": "football-europe-as-roma"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 187,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/atalanta.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-atalanta",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-atalanta"
+      },
+      "slug": "football-europe-atalanta"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 188,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/bologna.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-bologna",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-bologna"
+      },
+      "slug": "football-europe-bologna"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 189,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/cagliari.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-cagliari",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-cagliari"
+      },
+      "slug": "football-europe-cagliari"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 190,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/como.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-como",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-como"
+      },
+      "slug": "football-europe-como"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 191,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/cremonese.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-cremonese",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-cremonese"
+      },
+      "slug": "football-europe-cremonese"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 192,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/fc-genoa.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-fc-genoa",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-fc-genoa"
+      },
+      "slug": "football-europe-fc-genoa"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 193,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/fiorentina.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-fiorentina",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-fiorentina"
+      },
+      "slug": "football-europe-fiorentina"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 194,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/hellas-verona-fc.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-hellas-verona-fc",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-hellas-verona-fc"
+      },
+      "slug": "football-europe-hellas-verona-fc"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 195,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/inter.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-inter",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-inter"
+      },
+      "slug": "football-europe-inter"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 196,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/juventus.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-juventus",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-juventus"
+      },
+      "slug": "football-europe-juventus"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 197,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/lecce.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-lecce",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-lecce"
+      },
+      "slug": "football-europe-lecce"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 198,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/napoli.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-napoli",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-napoli"
+      },
+      "slug": "football-europe-napoli"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 199,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/parma.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-parma",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-parma"
+      },
+      "slug": "football-europe-parma"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 200,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/pisa.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-pisa",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-pisa"
+      },
+      "slug": "football-europe-pisa"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 201,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/lazio-roma.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-lazio-roma",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-lazio-roma"
+      },
+      "slug": "football-europe-lazio-roma"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 202,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/torino.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-torino",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-torino"
+      },
+      "slug": "football-europe-torino"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 203,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/udinese.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-udinese",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-udinese"
+      },
+      "slug": "football-europe-udinese"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 204,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/us-sassuolo-calcio.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-us-sassuolo-calcio",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-us-sassuolo-calcio"
+      },
+      "slug": "football-europe-us-sassuolo-calcio"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 205,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/athletic-bilbao.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-athletic-bilbao",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-athletic-bilbao"
+      },
+      "slug": "football-europe-athletic-bilbao"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 206,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/atletico-madrid.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-atletico-madrid",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-atletico-madrid"
+      },
+      "slug": "football-europe-atletico-madrid"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 207,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/ca-osasuna.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-ca-osasuna",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-ca-osasuna"
+      },
+      "slug": "football-europe-ca-osasuna"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 208,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/celta-de-vigo.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-celta-de-vigo",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-celta-de-vigo"
+      },
+      "slug": "football-europe-celta-de-vigo"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 209,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/deportivo-alaves.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-deportivo-alaves",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-deportivo-alaves"
+      },
+      "slug": "football-europe-deportivo-alaves"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 210,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/elche-cf.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-elche-cf",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-elche-cf"
+      },
+      "slug": "football-europe-elche-cf"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 211,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/espanyol.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-espanyol",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-espanyol"
+      },
+      "slug": "football-europe-espanyol"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 212,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/fc-barcelona.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-fc-barcelona",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-fc-barcelona"
+      },
+      "slug": "football-europe-fc-barcelona"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 213,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/getafe.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-getafe",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-getafe"
+      },
+      "slug": "football-europe-getafe"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 214,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/girona-fc.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-girona-fc",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-girona-fc"
+      },
+      "slug": "football-europe-girona-fc"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 215,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/levante.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-levante",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-levante"
+      },
+      "slug": "football-europe-levante"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 216,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/rayo-vallecano.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-rayo-vallecano",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-rayo-vallecano"
+      },
+      "slug": "football-europe-rayo-vallecano"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 217,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/real-betis-sevilla.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-real-betis-sevilla",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-real-betis-sevilla"
+      },
+      "slug": "football-europe-real-betis-sevilla"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 218,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/real-madrid.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-real-madrid",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-real-madrid"
+      },
+      "slug": "football-europe-real-madrid"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 219,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/real-mallorca.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-real-mallorca",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-real-mallorca"
+      },
+      "slug": "football-europe-real-mallorca"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 220,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/real-oviedo.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-real-oviedo",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-real-oviedo"
+      },
+      "slug": "football-europe-real-oviedo"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 221,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/real-sociedad.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-real-sociedad",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-real-sociedad"
+      },
+      "slug": "football-europe-real-sociedad"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 222,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/sevilla.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-sevilla",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-sevilla"
+      },
+      "slug": "football-europe-sevilla"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 223,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/valencia.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-valencia",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-valencia"
+      },
+      "slug": "football-europe-valencia"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 224,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/villarreal.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-villarreal",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-villarreal"
+      },
+      "slug": "football-europe-villarreal"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 225,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/fc-union-berlin.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-fc-union-berlin",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-fc-union-berlin"
+      },
+      "slug": "football-europe-fc-union-berlin"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 226,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/1fc-heidenheim.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-1fc-heidenheim",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-1fc-heidenheim"
+      },
+      "slug": "football-europe-1fc-heidenheim"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 227,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/1fc-koln.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-1fc-koln",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-1fc-koln"
+      },
+      "slug": "football-europe-1fc-koln"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 228,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/1899-hoffenheim.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-1899-hoffenheim",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-1899-hoffenheim"
+      },
+      "slug": "football-europe-1899-hoffenheim"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 229,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/bayer-leverkusen.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-bayer-leverkusen",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-bayer-leverkusen"
+      },
+      "slug": "football-europe-bayer-leverkusen"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 230,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/bayern-munchen.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-bayern-munchen",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-bayern-munchen"
+      },
+      "slug": "football-europe-bayern-munchen"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 231,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/borussia-dortmund.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-borussia-dortmund",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-borussia-dortmund"
+      },
+      "slug": "football-europe-borussia-dortmund"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 232,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/borussia-monchengladbach.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-borussia-monchengladbach",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-borussia-monchengladbach"
+      },
+      "slug": "football-europe-borussia-monchengladbach"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 233,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/eintracht-frankfurt.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-eintracht-frankfurt",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-eintracht-frankfurt"
+      },
+      "slug": "football-europe-eintracht-frankfurt"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 234,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/fc-augsburg.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-fc-augsburg",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-fc-augsburg"
+      },
+      "slug": "football-europe-fc-augsburg"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 235,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/fc-st-pauli.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-fc-st-pauli",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-fc-st-pauli"
+      },
+      "slug": "football-europe-fc-st-pauli"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 236,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/fsv-mainz-05.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-fsv-mainz-05",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-fsv-mainz-05"
+      },
+      "slug": "football-europe-fsv-mainz-05"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 237,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/hamburger-sv.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-hamburger-sv",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-hamburger-sv"
+      },
+      "slug": "football-europe-hamburger-sv"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 238,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/rb-leipzig.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-rb-leipzig",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-rb-leipzig"
+      },
+      "slug": "football-europe-rb-leipzig"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 239,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/sc-freiburg.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-sc-freiburg",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-sc-freiburg"
+      },
+      "slug": "football-europe-sc-freiburg"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 240,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/vfb-stuttgart.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-vfb-stuttgart",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-vfb-stuttgart"
+      },
+      "slug": "football-europe-vfb-stuttgart"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 241,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/vfl-wolfsburg.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-vfl-wolfsburg",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-vfl-wolfsburg"
+      },
+      "slug": "football-europe-vfl-wolfsburg"
+    },
+    {
+      "discovery": {
+        "category": "football",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 242,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "EXTERNAL_ICS",
+        "deliveryURL": "https://ics.fixtur.es/v2/werder-bremen.ics",
+        "v1IcsPath": "/api/v1/calendars/football-europe-werder-bremen",
+        "v1MetadataPath": "/api/v1/calendars/metadata/football-europe-werder-bremen"
+      },
+      "slug": "football-europe-werder-bremen"
+    },
+    {
+      "discovery": {
+        "category": "rugby",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 243,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LEGACY_ADAPTER",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/calendar/rugby/toulouse",
+        "v1IcsPath": "/api/v1/calendars/toulouse",
+        "v1MetadataPath": "/api/v1/calendars/metadata/toulouse"
+      },
+      "slug": "toulouse"
+    },
+    {
+      "discovery": {
+        "category": "rugby",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 244,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LEGACY_ADAPTER",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/calendar/rugby/stadefrancais",
+        "v1IcsPath": "/api/v1/calendars/stadefrancais",
+        "v1MetadataPath": "/api/v1/calendars/metadata/stadefrancais"
+      },
+      "slug": "stadefrancais"
+    },
+    {
+      "discovery": {
+        "category": "rugby",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 245,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LEGACY_ADAPTER",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/calendar/rugby/racing92",
+        "v1IcsPath": "/api/v1/calendars/racing92",
+        "v1MetadataPath": "/api/v1/calendars/metadata/racing92"
+      },
+      "slug": "racing92"
+    },
+    {
+      "discovery": {
+        "category": "rugby",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 246,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LEGACY_ADAPTER",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/calendar/rugby/laRochelle",
+        "v1IcsPath": "/api/v1/calendars/laRochelle",
+        "v1MetadataPath": "/api/v1/calendars/metadata/laRochelle"
+      },
+      "slug": "laRochelle"
+    },
+    {
+      "discovery": {
+        "category": "rugby",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 247,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LEGACY_ADAPTER",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/calendar/rugby/bordeaux",
+        "v1IcsPath": "/api/v1/calendars/bordeaux",
+        "v1MetadataPath": "/api/v1/calendars/metadata/bordeaux"
+      },
+      "slug": "bordeaux"
+    },
+    {
+      "discovery": {
+        "category": "rugby",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 248,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LEGACY_ADAPTER",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/calendar/rugby/clermont",
+        "v1IcsPath": "/api/v1/calendars/clermont",
+        "v1MetadataPath": "/api/v1/calendars/metadata/clermont"
+      },
+      "slug": "clermont"
+    },
+    {
+      "discovery": {
+        "category": "rugby",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 249,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LEGACY_ADAPTER",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/calendar/rugby/toulon",
+        "v1IcsPath": "/api/v1/calendars/toulon",
+        "v1MetadataPath": "/api/v1/calendars/metadata/toulon"
+      },
+      "slug": "toulon"
+    },
+    {
+      "discovery": {
+        "category": "rugby",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 250,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LEGACY_ADAPTER",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/calendar/rugby/lyon",
+        "v1IcsPath": "/api/v1/calendars/lyon",
+        "v1MetadataPath": "/api/v1/calendars/metadata/lyon"
+      },
+      "slug": "lyon"
+    },
+    {
+      "discovery": {
+        "category": "rugby",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 251,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LEGACY_ADAPTER",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/calendar/rugby/montpellier",
+        "v1IcsPath": "/api/v1/calendars/montpellier",
+        "v1MetadataPath": "/api/v1/calendars/metadata/montpellier"
+      },
+      "slug": "montpellier"
+    },
+    {
+      "discovery": {
+        "category": "rugby",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 252,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LEGACY_ADAPTER",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/calendar/rugby/castres",
+        "v1IcsPath": "/api/v1/calendars/castres",
+        "v1MetadataPath": "/api/v1/calendars/metadata/castres"
+      },
+      "slug": "castres"
+    },
+    {
+      "discovery": {
+        "category": "rugby",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 253,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LEGACY_ADAPTER",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/calendar/rugby/pau",
+        "v1IcsPath": "/api/v1/calendars/pau",
+        "v1MetadataPath": "/api/v1/calendars/metadata/pau"
+      },
+      "slug": "pau"
+    },
+    {
+      "discovery": {
+        "category": "rugby",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 254,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LEGACY_ADAPTER",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/calendar/rugby/perpignan",
+        "v1IcsPath": "/api/v1/calendars/perpignan",
+        "v1MetadataPath": "/api/v1/calendars/metadata/perpignan"
+      },
+      "slug": "perpignan"
+    },
+    {
+      "discovery": {
+        "category": "rugby",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 255,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LEGACY_ADAPTER",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/calendar/rugby/bayonne",
+        "v1IcsPath": "/api/v1/calendars/bayonne",
+        "v1MetadataPath": "/api/v1/calendars/metadata/bayonne"
+      },
+      "slug": "bayonne"
+    },
+    {
+      "discovery": {
+        "category": "rugby",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 256,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "SELF_HOSTED_ICS",
+        "deliveryURL": "https://raw.githubusercontent.com/augiefra/facilabo/main/sport/rugby-montauban-2026-27.ics",
+        "v1IcsPath": "/api/v1/calendars/montauban",
+        "v1MetadataPath": "/api/v1/calendars/metadata/montauban"
+      },
+      "slug": "montauban"
+    },
+    {
+      "discovery": {
+        "category": "rugby",
+        "discoverable": true,
+        "family": "sports",
+        "state": "VISIBLE"
+      },
+      "iosDeclaration": {
+        "gate": null,
+        "state": "RUNTIME",
+        "symbol": null
+      },
+      "publicOrder": 257,
+      "routes": {
+        "configurationState": "MAPPED",
+        "deliveryKind": "LEGACY_ADAPTER",
+        "deliveryURL": "https://facilabo-api.vercel.app/api/calendar/rugby/vannes",
+        "v1IcsPath": "/api/v1/calendars/vannes",
+        "v1MetadataPath": "/api/v1/calendars/metadata/vannes"
+      },
+      "slug": "vannes"
+    }
+  ],
+  "schemaVersion": 1
+}

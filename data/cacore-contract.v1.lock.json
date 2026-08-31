@@ -1,0 +1,11 @@
+{
+  "contractSha256": "ce23d0dd3cd19ce1b23409f43ce2340147597483da86d136ec30b95b18d5c9fd",
+  "entryCount": 258,
+  "projectionSha256": {
+    "api": "72d23d68ea4f46e2cee6c3df918c5e22d6f70bfccf312e1279fece5414532ade",
+    "guardian": "ce73d4cbe852064a6fd4734f8251706c2b8ab1faf87761175a775c6116e8d910",
+    "ios": "16a588d4a2eb69784a2d63eee7a84e823f74cb71ed26d31ce9f2f77815911eae"
+  },
+  "publicOrderSha256": "b8db957b445deb7c33dd877ba603fe51e02896d3999275a0d6da35b55c705874",
+  "schemaVersion": 1
+}

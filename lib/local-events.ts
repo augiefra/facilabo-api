@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { InMemoryTTLCache } from './service-search-utils';
 
-export const LOCAL_EVENTS_CONTRACT_VERSION = '2026-08-29.local-events-v2';
+export const LOCAL_EVENTS_CONTRACT_VERSION = '2026-08-31.local-events-v3';
 const OPENAGENDA_BASE_URL = 'https://api.openagenda.com/v2';
 const OPENAGENDA_SOURCE = 'OpenAgenda v2';
 
@@ -63,7 +63,21 @@ export interface LocalEventSearchResponse {
   lastUpdated: string;
   source: string;
   note?: string;
+  snapshotId?: string;
+  /** Number of events in the immutable accepted snapshot before request projection. */
+  snapshotEventCount?: number;
+  /** Digest of the complete immutable snapshot event set, independent of request limit. */
+  snapshotEventDigest?: string;
+  /** Limit supplied by the caller when this response is a projection of a snapshot. */
+  requestedLimit?: number;
+  contentDigest?: string;
+  eventDigest?: string;
+  freshUntil?: string;
+  dateRange?: LocalEventDateRange;
   coverage: LocalEventCoverage;
+  qualification: LocalEventsQualification;
+  storage: LocalEventsStorageState;
+  convergence: LocalEventsConvergenceProof;
   runtime: {
     freshness: 'fresh' | 'stale' | 'unavailable';
     degraded: boolean;
@@ -85,9 +99,50 @@ export interface LocalEventCoverage {
   eventPagesFetched: number;
   upstreamEventsFetched: number;
   upstreamTotal?: number;
+  beforeFiltering: number;
+  afterFiltering: number;
+  futureEventCount: number;
+  horizonDays: number;
+  snapshotAgeHours: number;
+  cursorsExhausted: boolean;
 }
 
-interface OpenAgendaAgenda {
+export interface LocalEventsQualification {
+  qualified: boolean;
+  evaluatedAt: string;
+  blockers: string[];
+  thresholds: {
+    minimumFutureEvents: 5;
+    minimumHorizonDays: 14;
+    maximumSnapshotAgeHours: 36;
+  };
+}
+
+export interface LocalEventsStorageState {
+  adapter: 'vercel-blob-private' | 'memory';
+  configured: boolean;
+  durable: boolean;
+}
+
+export interface LocalEventsConvergenceProof {
+  converged: boolean;
+  jsonSnapshotId?: string;
+  icsSnapshotId?: string;
+  metadataSnapshotId?: string;
+  jsonEventCount: number;
+  icsEventCount: number;
+  metadataEventCount: number;
+  jsonEventDigest?: string;
+  icsEventDigest?: string;
+  metadataEventDigest?: string;
+}
+
+export interface LocalEventDateRange {
+  start: string;
+  end: string;
+}
+
+export interface OpenAgendaAgenda {
   uid?: number | string;
   title?: unknown;
   name?: unknown;
@@ -670,7 +725,9 @@ export async function searchLocalEvents(query: LocalEventSearchQuery): Promise<L
       ...cached,
       runtime: {
         ...cached.runtime,
-        freshness: 'fresh',
+        freshness: cached.snapshotId ? 'fresh' : 'unavailable',
+        degraded: cached.snapshotId ? cached.runtime.degraded : true,
+        fallbackUsed: cached.snapshotId ? cached.runtime.fallbackUsed : true,
       },
     };
   }
@@ -799,6 +856,15 @@ export function localEventsToIcs(
   calendarName: string,
   calendarDescription: string,
   events: LocalEventItem[],
+  proof?: {
+    snapshotId?: string;
+    qualified?: boolean;
+    complete?: boolean;
+    truncated?: boolean;
+    futureEventCount?: number;
+    horizonDays?: number;
+    eventDigest?: string;
+  },
 ): string {
   const lines = [
     'BEGIN:VCALENDAR',
@@ -810,6 +876,14 @@ export function localEventsToIcs(
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
   ];
+
+  if (proof?.snapshotId) lines.push(`X-FACILABO-SNAPSHOT-ID:${escapeIcsText(proof.snapshotId)}`);
+  if (proof?.qualified !== undefined) lines.push(`X-FACILABO-QUALIFIED:${proof.qualified ? 'TRUE' : 'FALSE'}`);
+  if (proof?.complete !== undefined) lines.push(`X-FACILABO-COVERAGE-COMPLETE:${proof.complete ? 'TRUE' : 'FALSE'}`);
+  if (proof?.truncated !== undefined) lines.push(`X-FACILABO-COVERAGE-TRUNCATED:${proof.truncated ? 'TRUE' : 'FALSE'}`);
+  if (proof?.futureEventCount !== undefined) lines.push(`X-FACILABO-FUTURE-EVENT-COUNT:${proof.futureEventCount}`);
+  if (proof?.horizonDays !== undefined) lines.push(`X-FACILABO-HORIZON-DAYS:${proof.horizonDays}`);
+  if (proof?.eventDigest) lines.push(`X-FACILABO-EVENT-DIGEST:${proof.eventDigest}`);
 
   for (const event of events) {
     const start = parseDate(event.startDate);
@@ -851,6 +925,48 @@ export function localEventsToIcs(
 
   lines.push('END:VCALENDAR');
   return lines.join('\r\n') + '\r\n';
+}
+
+/**
+ * Material identity shared by JSON, ICS, metadata and Guardian. It deliberately
+ * excludes descriptions, transport timestamps and presentation-only headers.
+ */
+export function localEventsEventMaterial(events: LocalEventItem[]): Array<[string, string, string, string, string]> {
+  return events.flatMap((event) => {
+    const start = parseDate(event.startDate);
+    if (!start) return [];
+    const end = parseDate(event.endDate) ?? new Date(start.getTime() + 2 * 60 * 60 * 1000);
+    const location = [event.locationName, event.address, event.city].filter(Boolean).join(', ');
+    return [[
+      stableLocalEventUid(event.id),
+      formatIcsDateTime(start),
+      formatIcsDateTime(end),
+      event.title,
+      location,
+    ] as [string, string, string, string, string]];
+  }).sort((left, right) => {
+    for (let index = 0; index < left.length; index += 1) {
+      const comparison = left[index] < right[index] ? -1 : left[index] > right[index] ? 1 : 0;
+      if (comparison !== 0) return comparison;
+    }
+    return 0;
+  });
+}
+
+export function localEventsEventDigest(events: LocalEventItem[]): string {
+  return createHash('sha256').update(JSON.stringify(localEventsEventMaterial(events))).digest('hex');
+}
+
+export function localEventsDateRange(events: LocalEventItem[]): LocalEventDateRange | undefined {
+  const dates = events
+    .map((event) => parseDate(event.startDate))
+    .filter((value): value is Date => value !== undefined)
+    .sort((left, right) => left.getTime() - right.getTime());
+  if (dates.length === 0) return undefined;
+  return {
+    start: dates[0].toISOString().slice(0, 10),
+    end: dates[dates.length - 1].toISOString().slice(0, 10),
+  };
 }
 
 function resolveTargets(query: LocalEventSearchQuery): LocalEventTarget[] {
@@ -1019,7 +1135,7 @@ async function fetchOpenAgendaJson(url: URL, apiKey: string): Promise<unknown> {
   return response.json();
 }
 
-function mapOpenAgendaEvent(
+export function mapOpenAgendaEvent(
   event: Record<string, unknown>,
   target: LocalEventTarget,
   agendaUid: number | string,
@@ -1084,8 +1200,39 @@ function makeResponse(args: {
   degraded: boolean;
   fallbackUsed: boolean;
   note?: string;
-  coverage: LocalEventCoverage;
+  coverage: Omit<LocalEventCoverage, 'beforeFiltering' | 'afterFiltering' | 'futureEventCount' | 'horizonDays' | 'snapshotAgeHours' | 'cursorsExhausted'>
+    & Partial<Pick<LocalEventCoverage, 'beforeFiltering' | 'afterFiltering' | 'futureEventCount' | 'horizonDays' | 'snapshotAgeHours' | 'cursorsExhausted'>>;
 }): LocalEventSearchResponse {
+  const futureEvents = args.events.filter((event) => {
+    const value = event.endDate ?? event.startDate;
+    return value ? new Date(value).getTime() >= Date.now() : false;
+  });
+  const latestFutureTimestamp = futureEvents.reduce((latest, event) => {
+    const value = event.endDate ?? event.startDate;
+    const timestamp = value ? new Date(value).getTime() : Number.NaN;
+    return Number.isFinite(timestamp) ? Math.max(latest, timestamp) : latest;
+  }, 0);
+  const horizonDays = latestFutureTimestamp > 0
+    ? Math.max(0, Math.floor((latestFutureTimestamp - Date.now()) / 86_400_000))
+    : 0;
+  const coverage: LocalEventCoverage = {
+    ...args.coverage,
+    beforeFiltering: args.coverage.beforeFiltering ?? args.coverage.upstreamEventsFetched,
+    afterFiltering: args.coverage.afterFiltering ?? args.events.length,
+    futureEventCount: args.coverage.futureEventCount ?? futureEvents.length,
+    horizonDays: args.coverage.horizonDays ?? horizonDays,
+    snapshotAgeHours: args.coverage.snapshotAgeHours ?? 0,
+    cursorsExhausted: args.coverage.cursorsExhausted ?? (args.coverage.complete && !args.coverage.truncated),
+  };
+  const directBlockers = [
+    'DIRECT_MODE_NOT_AUDITABLE',
+    'DURABLE_STORE_UNAVAILABLE',
+    ...(!coverage.complete ? ['COVERAGE_INCOMPLETE'] : []),
+    ...(coverage.truncated ? ['COVERAGE_TRUNCATED'] : []),
+    ...(coverage.futureEventCount < 5 ? ['SPARSE_FUTURE_EVENTS'] : []),
+    ...(coverage.horizonDays < 14 ? ['HORIZON_INSUFFICIENT'] : []),
+  ];
+  const eventDigest = localEventsEventDigest(args.events);
   return {
     events: args.events,
     targets: args.targets.map(toTargetSummary),
@@ -1096,11 +1243,37 @@ function makeResponse(args: {
     lastUpdated: args.lastUpdated,
     source: OPENAGENDA_SOURCE,
     note: args.note,
-    coverage: args.coverage,
+    eventDigest,
+    dateRange: localEventsDateRange(args.events),
+    coverage,
+    qualification: {
+      qualified: false,
+      evaluatedAt: args.lastUpdated,
+      blockers: Array.from(new Set(directBlockers)),
+      thresholds: {
+        minimumFutureEvents: 5,
+        minimumHorizonDays: 14,
+        maximumSnapshotAgeHours: 36,
+      },
+    },
+    storage: {
+      adapter: 'memory',
+      configured: false,
+      durable: false,
+    },
+    convergence: {
+      converged: false,
+      jsonEventCount: args.events.length,
+      icsEventCount: args.events.length,
+      metadataEventCount: args.events.length,
+      jsonEventDigest: eventDigest,
+    },
     runtime: {
-      freshness: args.freshness,
-      degraded: args.degraded,
-      fallbackUsed: args.fallbackUsed,
+      // A direct transport result has no accepted snapshot identity. It remains
+      // usable for compatibility, but can never masquerade as qualified fresh data.
+      freshness: 'unavailable',
+      degraded: true,
+      fallbackUsed: true,
       lastUpdated: args.lastUpdated,
     },
   };
@@ -1119,6 +1292,12 @@ function unavailableCoverage(limit: number): LocalEventCoverage {
     agendaDiscoveryPagesFetched: 0,
     eventPagesFetched: 0,
     upstreamEventsFetched: 0,
+    beforeFiltering: 0,
+    afterFiltering: 0,
+    futureEventCount: 0,
+    horizonDays: 0,
+    snapshotAgeHours: 0,
+    cursorsExhausted: false,
   };
 }
 
@@ -1136,7 +1315,7 @@ function toTargetSummary(target: LocalEventTarget) {
   };
 }
 
-function openAgendaKey(): string | undefined {
+export function openAgendaKey(): string | undefined {
   return process.env.OPENAGENDA_PUBLIC_KEY
     ?? process.env.OPENAGENDA_API_KEY
     ?? process.env.OPENAGENDA_KEY;
