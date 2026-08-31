@@ -158,15 +158,16 @@ export class VercelBlobLocalEventsSnapshotStore implements LocalEventsSnapshotMa
     const after = await head(key, { token: this.token });
     const afterVersion = requireVersion(after.etag, `Blob metadata after read ${key}`);
     const rawSize = Buffer.byteLength(raw);
-    if (beforeVersion !== afterVersion
-      || before.pathname !== key
-      || after.pathname !== key
-      || result.blob.pathname !== key
-      || before.size !== after.size
-      || (result.blob.size !== null && result.blob.size !== after.size)
-      || rawSize !== after.size) {
-      throw new Error(`BLOB_READ_IDENTITY_MISMATCH:${key}`);
-    }
+    const mismatches = [
+      beforeVersion !== afterVersion ? 'VERSION_CHANGED' : undefined,
+      before.pathname !== key ? 'HEAD_BEFORE_PATH' : undefined,
+      after.pathname !== key ? 'HEAD_AFTER_PATH' : undefined,
+      result.blob.pathname !== key ? 'GET_PATH' : undefined,
+      before.size !== after.size ? 'HEAD_SIZE_CHANGED' : undefined,
+      result.blob.size !== null && result.blob.size !== after.size ? 'GET_SIZE' : undefined,
+      rawSize !== after.size ? 'RAW_SIZE' : undefined,
+    ].filter((value): value is string => value !== undefined);
+    if (mismatches.length > 0) throw new Error(`BLOB_READ_IDENTITY_MISMATCH:${mismatches.join(',')}:${key}`);
     return {
       raw,
       version: afterVersion,
