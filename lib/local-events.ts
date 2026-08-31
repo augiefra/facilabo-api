@@ -18,6 +18,7 @@ export interface LocalEventTarget {
   longitude?: number;
   radiusKm: number;
   searchTerms: string[];
+  sourceAgendaUids?: string[];
   seasonPeriod?: string;
 }
 
@@ -683,6 +684,7 @@ export const LOCAL_EVENT_TARGETS: LocalEventTarget[] = [
     longitude: 4.6278,
     radiusKm: 18,
     searchTerms: ['Rencontres d’Arles', 'Les Rencontres de la photographie Arles'],
+    sourceAgendaUids: ['99501607'],
   },
   {
     slug: 'journees-nationales-architecture-2026',
@@ -701,6 +703,12 @@ export function getLocalEventTarget(slug: string): LocalEventTarget | undefined 
 
 export function getLocalEventTargetSummaries() {
   return LOCAL_EVENT_TARGETS.map(toTargetSummary);
+}
+
+export function localEventSourceAgendaUids(target: LocalEventTarget): string[] {
+  const envUidList = process.env[`OPENAGENDA_TARGET_${target.slug.toUpperCase().replace(/-/g, '_')}_UIDS`];
+  const configuredUidList = envUidList ? envUidList.split(',') : target.sourceAgendaUids ?? [];
+  return Array.from(new Set(configuredUidList.map((uid) => uid.trim()).filter(Boolean)));
 }
 
 export function buildLocalEventsCacheKey(query: LocalEventSearchQuery): string {
@@ -1006,10 +1014,10 @@ function resolveTargets(query: LocalEventSearchQuery): LocalEventTarget[] {
 }
 
 async function findAgendasForTarget(target: LocalEventTarget, apiKey: string): Promise<AgendaDiscoveryResult> {
-  const envUidList = process.env[`OPENAGENDA_TARGET_${target.slug.toUpperCase().replace(/-/g, '_')}_UIDS`];
-  if (envUidList) {
+  const configuredUidList = localEventSourceAgendaUids(target);
+  if (configuredUidList.length) {
     return {
-      agendas: envUidList.split(',').map((uid) => ({ uid: uid.trim(), title: target.title })).filter((agenda) => agenda.uid),
+      agendas: configuredUidList.map((uid) => ({ uid: uid.trim(), title: target.title })).filter((agenda) => agenda.uid),
       complete: true,
       pagesFetched: 0,
     };

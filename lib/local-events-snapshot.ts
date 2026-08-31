@@ -4,6 +4,7 @@ import {
   LOCAL_EVENTS_CONTRACT_VERSION,
   localEventsDateRange,
   localEventsEventDigest,
+  localEventSourceAgendaUids,
   localEventsToIcs,
   mapOpenAgendaEvent,
   openAgendaKey,
@@ -1486,6 +1487,8 @@ async function persistPage(store: LocalEventsSnapshotStore, target: string, kind
 
 function newRun(target: LocalEventTarget, now: Date): LocalEventsRunManifest {
   const to = new Date(now.getTime() + INGESTION_HORIZON_DAYS * 86_400_000);
+  const sourceAgendas = localEventSourceAgendaUids(target).map((uid) => ({ uid, title: target.title }));
+  const usesPinnedSourceAgendas = sourceAgendas.length > 0;
   return {
     schemaVersion: 1,
     runId: `${now.toISOString().replace(/[-:.TZ]/g, '')}-${randomUUID()}`,
@@ -1494,13 +1497,18 @@ function newRun(target: LocalEventTarget, now: Date): LocalEventsRunManifest {
     updatedAt: now.toISOString(),
     from: now.toISOString(),
     to: to.toISOString(),
-    phase: 'discovery',
-    discovery: { termIndex: 0, cursor: null, seenCursorSignatures: [], agendas: [] },
+    phase: usesPinnedSourceAgendas ? 'events' : 'discovery',
+    discovery: {
+      termIndex: usesPinnedSourceAgendas ? target.searchTerms.length : 0,
+      cursor: null,
+      seenCursorSignatures: [],
+      agendas: sourceAgendas,
+    },
     events: { agendaIndex: 0, cursor: null, seenCursorSignatures: [] },
     pages: [],
     counters: {
-      agendaPages: 0, eventPages: 0, agendasBeforeDeduplication: 0,
-      agendasAfterDeduplication: 0, eventsBeforeFiltering: 0, eventsAfterFiltering: 0,
+      agendaPages: 0, eventPages: 0, agendasBeforeDeduplication: sourceAgendas.length,
+      agendasAfterDeduplication: sourceAgendas.length, eventsBeforeFiltering: 0, eventsAfterFiltering: 0,
       storedBytes: 0,
     },
     blockers: [],

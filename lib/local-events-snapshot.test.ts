@@ -268,6 +268,33 @@ test('public calendar mapping resolves to the exact snapshot target without chan
   assert.equal(localEventsTargetFromSourceUrl('https://facilabo-api.vercel.app/api/v1/local-events/ics/allauch'), undefined);
 });
 
+test('Arles uses its pinned OpenAgenda source without broad agenda discovery', async () => {
+  const store = new TestDurableStore();
+  let eventCalls = 0;
+  const fetcher: OpenAgendaPageFetcher = {
+    async fetchAgendaPage() {
+      throw new Error('pinned Arles source must bypass agenda discovery');
+    },
+    async fetchEventPage(target, agenda, cursor) {
+      eventCalls += 1;
+      assert.equal(target.slug, 'rencontres-arles');
+      assert.equal(String(agenda.uid), '99501607');
+      assert.equal(cursor, null);
+      const items = [2, 4, 8, 16, 24, 32].map((day, index) => event(`arles-${index}`, day));
+      return { payload: { events: items, after: null, total: items.length }, items, nextCursor: null, total: items.length };
+    },
+  };
+
+  const result = await finish('rencontres-arles', store, fetcher);
+  assert.equal(result.phase, 'accepted');
+  assert.equal(eventCalls, 1);
+  const accepted = await getAcceptedLocalEventsSnapshot('rencontres-arles', store, referenceDate);
+  assert.equal(accepted?.response.coverage.agendasDiscovered, 1);
+  assert.equal(accepted?.response.coverage.agendaDiscoveryPagesFetched, 0);
+  assert.equal(accepted?.response.coverage.eventPagesFetched, 1);
+  assert.equal(accepted?.response.qualification.qualified, true);
+});
+
 test('proxy and metadata consume the same accepted snapshot without a distinct upstream collection', async () => {
   const store = new TestDurableStore();
   await finish('toulouse', store, completeFetcher());
