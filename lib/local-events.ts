@@ -707,8 +707,12 @@ export function getLocalEventTargetSummaries() {
 
 export function localEventSourceAgendaUids(target: LocalEventTarget): string[] {
   const envUidList = process.env[`OPENAGENDA_TARGET_${target.slug.toUpperCase().replace(/-/g, '_')}_UIDS`];
-  const configuredUidList = envUidList ? envUidList.split(',') : target.sourceAgendaUids ?? [];
-  return Array.from(new Set(configuredUidList.map((uid) => uid.trim()).filter(Boolean)));
+  const configuredUidList = envUidList?.trim() ? envUidList.split(',') : target.sourceAgendaUids ?? [];
+  const uids = Array.from(new Set(configuredUidList.map((uid) => uid.trim()).filter(Boolean)));
+  if (uids.some((uid) => !/^\d+$/.test(uid))) {
+    throw new Error(`INVALID_OPENAGENDA_SOURCE_UIDS:${target.slug}`);
+  }
+  return uids;
 }
 
 export function buildLocalEventsCacheKey(query: LocalEventSearchQuery): string {

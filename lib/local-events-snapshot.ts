@@ -294,6 +294,7 @@ export interface LocalEventsRunManifest {
   from: string;
   to: string;
   phase: RunPhase;
+  sourceAgendaUids?: string[];
   discovery: {
     termIndex: number;
     cursor: Cursor;
@@ -549,14 +550,20 @@ export async function stepLocalEventsIngestion(options: {
   let pagesProcessed = 0;
   let promoted = false;
   const persistedRun = await activeRun(store, target.slug);
+  const configuredSourceAgendaUids = localEventSourceAgendaUids(target);
   let run = persistedRun?.value ?? newRun(target, now);
   run.counters.storedBytes ??= run.pages.reduce((sum, page) => sum + (page.byteLength ?? 0), 0);
   let runVersion = persistedRun?.version;
   let restarted = false;
   const previous = await readCurrentPointer(store, target.slug);
   const runAgeMs = now.getTime() - new Date(run.createdAt).getTime();
+  const runSourceAgendaUids = Array.isArray(run.sourceAgendaUids)
+    ? run.sourceAgendaUids.filter((uid): uid is string => typeof uid === 'string')
+    : [];
+  const sourceSelectionChanged = JSON.stringify(runSourceAgendaUids) !== JSON.stringify(configuredSourceAgendaUids);
   if (run.phase === 'accepted'
     || run.phase === 'blocked'
+    || sourceSelectionChanged
     || !Number.isFinite(runAgeMs)
     || runAgeMs < 0
     || runAgeMs > LOCAL_EVENTS_MAX_RUN_AGE_MS
@@ -1498,6 +1505,7 @@ function newRun(target: LocalEventTarget, now: Date): LocalEventsRunManifest {
     from: now.toISOString(),
     to: to.toISOString(),
     phase: usesPinnedSourceAgendas ? 'events' : 'discovery',
+    sourceAgendaUids: sourceAgendas.map((agenda) => String(agenda.uid)),
     discovery: {
       termIndex: usesPinnedSourceAgendas ? target.searchTerms.length : 0,
       cursor: null,

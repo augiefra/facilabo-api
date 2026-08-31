@@ -23,7 +23,7 @@ import {
   type LocalEventsSnapshotStore,
 } from './local-events-snapshot';
 import type { VercelRequest, VercelResponse } from './vercel-http';
-import { localEventsEventDigest } from './local-events';
+import { getLocalEventTarget, localEventSourceAgendaUids, localEventsEventDigest } from './local-events';
 import type { LocalEventsStorageState } from './local-events';
 
 const referenceDate = new Date('2030-01-01T00:00:00.000Z');
@@ -270,6 +270,9 @@ test('public calendar mapping resolves to the exact snapshot target without chan
 
 test('Arles uses its pinned OpenAgenda source without broad agenda discovery', async () => {
   const store = new TestDurableStore();
+  const envName = 'OPENAGENDA_TARGET_RENCONTRES_ARLES_UIDS';
+  const previousEnv = process.env[envName];
+  process.env[envName] = '   ';
   let eventCalls = 0;
   const fetcher: OpenAgendaPageFetcher = {
     async fetchAgendaPage() {
@@ -285,14 +288,69 @@ test('Arles uses its pinned OpenAgenda source without broad agenda discovery', a
     },
   };
 
-  const result = await finish('rencontres-arles', store, fetcher);
-  assert.equal(result.phase, 'accepted');
-  assert.equal(eventCalls, 1);
-  const accepted = await getAcceptedLocalEventsSnapshot('rencontres-arles', store, referenceDate);
-  assert.equal(accepted?.response.coverage.agendasDiscovered, 1);
-  assert.equal(accepted?.response.coverage.agendaDiscoveryPagesFetched, 0);
-  assert.equal(accepted?.response.coverage.eventPagesFetched, 1);
-  assert.equal(accepted?.response.qualification.qualified, true);
+  try {
+    const result = await finish('rencontres-arles', store, fetcher);
+    assert.equal(result.phase, 'accepted');
+    assert.equal(eventCalls, 1);
+    const accepted = await getAcceptedLocalEventsSnapshot('rencontres-arles', store, referenceDate);
+    assert.equal(accepted?.response.coverage.agendasDiscovered, 1);
+    assert.equal(accepted?.response.coverage.agendaDiscoveryPagesFetched, 0);
+    assert.equal(accepted?.response.coverage.eventPagesFetched, 1);
+    assert.equal(accepted?.response.qualification.qualified, true);
+  } finally {
+    if (previousEnv === undefined) delete process.env[envName];
+    else process.env[envName] = previousEnv;
+  }
+});
+
+test('source UID changes restart an active run and invalid overrides fail closed', async () => {
+  const target = getLocalEventTarget('rencontres-arles');
+  assert.ok(target);
+  const envName = 'OPENAGENDA_TARGET_RENCONTRES_ARLES_UIDS';
+  const previousEnv = process.env[envName];
+  const store = new TestDurableStore();
+  try {
+    process.env[envName] = '111';
+    const first = await stepLocalEventsIngestion({
+      target: 'rencontres-arles',
+      store,
+      maxPages: 1,
+      now: referenceDate,
+      fetcher: {
+        async fetchAgendaPage() { throw new Error('pinned source must bypass discovery'); },
+        async fetchEventPage(_target, agenda) {
+          assert.equal(String(agenda.uid), '111');
+          const items = [2, 4, 8].map((day, index) => event(`old-${index}`, day));
+          return { payload: { events: items, after: ['next'], total: 6 }, items, nextCursor: ['next'], total: 6 };
+        },
+      },
+    });
+    assert.equal(first.phase, 'events');
+
+    process.env[envName] = '222';
+    const second = await stepLocalEventsIngestion({
+      target: 'rencontres-arles',
+      store,
+      maxPages: 1,
+      now: referenceDate,
+      fetcher: {
+        async fetchAgendaPage() { throw new Error('pinned source must bypass discovery'); },
+        async fetchEventPage(_target, agenda, cursor) {
+          assert.equal(String(agenda.uid), '222');
+          assert.equal(cursor, null);
+          const items = [2, 4, 8, 16, 24, 32].map((day, index) => event(`new-${index}`, day));
+          return { payload: { events: items, after: null, total: items.length }, items, nextCursor: null, total: items.length };
+        },
+      },
+    });
+    assert.equal(second.restarted, true);
+
+    process.env[envName] = 'not-a-uid';
+    assert.throws(() => localEventSourceAgendaUids(target), /INVALID_OPENAGENDA_SOURCE_UIDS:rencontres-arles/);
+  } finally {
+    if (previousEnv === undefined) delete process.env[envName];
+    else process.env[envName] = previousEnv;
+  }
 });
 
 test('proxy and metadata consume the same accepted snapshot without a distinct upstream collection', async () => {
