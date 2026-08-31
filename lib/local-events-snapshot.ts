@@ -164,7 +164,6 @@ export class VercelBlobLocalEventsSnapshotStore implements LocalEventsSnapshotMa
       after.pathname !== key ? 'HEAD_AFTER_PATH' : undefined,
       result.blob.pathname !== key ? 'GET_PATH' : undefined,
       before.size !== after.size ? 'HEAD_SIZE_CHANGED' : undefined,
-      result.blob.size !== null && result.blob.size !== after.size ? 'GET_SIZE' : undefined,
       rawSize !== after.size ? 'RAW_SIZE' : undefined,
     ].filter((value): value is string => value !== undefined);
     if (mismatches.length > 0) throw new Error(`BLOB_READ_IDENTITY_MISMATCH:${mismatches.join(',')}:${key}`);
