@@ -14,9 +14,9 @@ function eventBlocks(ics: string): string[] {
   return ics.match(/BEGIN:VEVENT[\s\S]*?END:VEVENT/g) ?? [];
 }
 
-test('corrects only the two exact malformed Christmas intervals and is idempotent', () => {
+test('corrects the two malformed Christmas intervals across regenerated upstream UIDs and is idempotent', () => {
   const guadeloupe = calendar(event([
-    'UID:20260820T093502Z-Guadeloupe@data.education.gouv.fr',
+    'UID:20260831T093815Z-Guadeloupe@data.education.gouv.fr',
     'DTSTART;VALUE=DATE:20261219',
     'DTEND;VALUE=DATE:20260104',
     'SUMMARY:Vacances de Noël',
@@ -24,12 +24,12 @@ test('corrects only the two exact malformed Christmas intervals and is idempoten
   const corrected = applyCalendarTransform('vacances-guadeloupe', guadeloupe);
 
   assert.match(corrected, /DTEND;VALUE=DATE:20270104/);
-  assert.match(corrected, /UID:20260820T093502Z-Guadeloupe@data\.education\.gouv\.fr/);
+  assert.match(corrected, /UID:20260831T093815Z-Guadeloupe@data\.education\.gouv\.fr/);
   assert.equal(applyCalendarTransform('vacances-guadeloupe', corrected), corrected);
   assert.equal(applyCalendarTransform('vacances-martinique', guadeloupe), guadeloupe);
 
   const saintPierre = calendar(event([
-    'UID:20260820T094023Z-SaintPierreEtMiquelon@data.education.gouv.fr',
+    'UID:20260831T094353Z-SaintPierreEtMiquelon@data.education.gouv.fr',
     'DTSTART;VALUE=DATE:20261218',
     'DTEND;VALUE=DATE:20260104',
     'SUMMARY:Vacances de Noël',

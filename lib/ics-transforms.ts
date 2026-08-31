@@ -7,7 +7,7 @@ const F1_FULL_SLUG = 'f1';
 const EUROPEAN_FOOTBALL_SLUG_PREFIX = 'football-europe-';
 
 interface SchoolHolidayCorrection {
-  uid: string;
+  uidSuffix: string;
   dtstart: string;
   oldDtend: string;
   correctedDtend: string;
@@ -25,14 +25,14 @@ interface SupplementalSchoolHoliday {
 
 const SCHOOL_HOLIDAY_CORRECTIONS: Record<string, SchoolHolidayCorrection[]> = {
   'vacances-guadeloupe': [{
-    uid: '20260820T093502Z-Guadeloupe@data.education.gouv.fr',
+    uidSuffix: '-Guadeloupe@data.education.gouv.fr',
     dtstart: '20261219',
     oldDtend: '20260104',
     correctedDtend: '20270104',
     summary: 'Vacances de Noël',
   }],
   'vacances-saint-pierre-et-miquelon': [{
-    uid: '20260820T094023Z-SaintPierreEtMiquelon@data.education.gouv.fr',
+    uidSuffix: '-SaintPierreEtMiquelon@data.education.gouv.fr',
     dtstart: '20261218',
     oldDtend: '20260104',
     correctedDtend: '20270104',
@@ -411,8 +411,9 @@ function correctKnownSchoolHolidayIntervals(slug: string, icsContent: string): s
   if (!corrections) return icsContent;
 
   return icsContent.replace(/BEGIN:VEVENT[\s\S]*?END:VEVENT/g, (eventBlock) => {
+    const uid = extractPropertyValue(eventBlock, 'UID');
     const correction = corrections.find((candidate) =>
-      extractPropertyValue(eventBlock, 'UID') === candidate.uid &&
+      uid.endsWith(candidate.uidSuffix) &&
       extractPropertyValue(eventBlock, 'DTSTART') === candidate.dtstart &&
       extractPropertyValue(eventBlock, 'DTEND') === candidate.oldDtend &&
       extractSummary(eventBlock) === candidate.summary
