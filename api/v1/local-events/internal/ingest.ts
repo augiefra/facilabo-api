@@ -55,21 +55,37 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     maxPages: MAX_PAGES_PER_TARGET,
     budgetMs: TARGET_BUDGET_MS,
     now,
-  }).catch((error) => ({
-    target,
-    phase: 'blocked' as const,
-    pagesProcessed: 0,
-    promoted: false,
-    storage: store.storage,
-    blockers: [error instanceof Error ? error.message : 'INGESTION_FAILED'],
-    restarted: false,
-  }))));
+  }).catch((error) => {
+    const blocker = error instanceof Error ? error.message : 'INGESTION_FAILED';
+    console.error(JSON.stringify({
+      event: 'local-events-ingestion-failed',
+      target,
+      blocker,
+    }));
+    return {
+      target,
+      phase: 'blocked' as const,
+      pagesProcessed: 0,
+      promoted: false,
+      storage: store.storage,
+      blockers: [blocker],
+      restarted: false,
+    };
+  })));
 
   const normalProgress = results.some((result) => result.promoted
     || result.pagesProcessed > 0
     || ['discovery', 'events', 'finalizing'].includes(result.phase));
   const globallyUnavailable = results.every((result) => ['store-unavailable', 'source-unavailable'].includes(result.phase));
   const status = normalProgress ? 200 : globallyUnavailable ? 503 : 422;
+  if (status >= 400) {
+    console.warn(JSON.stringify({
+      event: 'local-events-ingestion-no-progress',
+      status,
+      targets,
+      results,
+    }));
+  }
   return res.status(status).json({
     contractVersion: '2026-08-31.local-events-ingest-v1',
     generatedAt: now.toISOString(),
