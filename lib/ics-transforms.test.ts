@@ -123,3 +123,37 @@ test('keeps the relocated Bahrain weekend at Sepang in both F1 feeds', () => {
   assert.match(raceOnly, /UID:race/);
   assert.match(raceOnly, /DTSTART:20261004T070000Z/);
 });
+
+
+test('makes the six Etalab holiday ends exclusive, preserving upstream identity and other fields', () => {
+  for (const slug of [
+    'feries-alsace-moselle', 'feries-guadeloupe', 'feries-guyane',
+    'feries-la-reunion', 'feries-martinique', 'feries-mayotte',
+  ]) {
+    for (const [start, end] of [['20261231', '20270101'], ['20280229', '20280301'], ['20270228', '20270301']]) {
+      const source = calendar('PRODID:-//DINUM//Jours fériés Métropole//FR', event([
+        'UID:stable-upstream-uid', 'DTSTAMP:20260101T000000Z', 'SUMMARY:Jour férié',
+        `DTSTART;VALUE=DATE:${start}`, `DTEND;VALUE=DATE:${start}`,
+      ]));
+      const corrected = applyCalendarTransform(slug, source);
+      assert.equal(corrected, source.replace(`DTEND;VALUE=DATE:${start}`, `DTEND;VALUE=DATE:${end}`));
+      assert.equal(applyCalendarTransform(slug, corrected), corrected);
+    }
+  }
+});
+
+test('leaves unrelated sources, dates, timed events and existing exclusive ends unchanged', () => {
+  const source = calendar('PRODID:-//DINUM//Jours fériés Métropole//FR', ...[
+    ['DTSTART;VALUE=DATE:20270230', 'DTEND;VALUE=DATE:20270230'],
+    ['DTSTART;VALUE=DATE:20270101', 'DTEND;VALUE=DATE:20270102'],
+    ['DTSTART;VALUE=DATE:20270102', 'DTEND;VALUE=DATE:20270101'],
+    ['DTSTART:20270101T120000Z', 'DTEND:20270101T120000Z'],
+  ].map((lines) => event(['UID:unchanged', ...lines])));
+  assert.equal(applyCalendarTransform('feries-guadeloupe', source), source);
+  const zeroEnd = calendar('PRODID:-//DINUM//Jours fériés Métropole//FR', event([
+    'UID:stable', 'DTSTART;VALUE=DATE:20270101', 'DTEND;VALUE=DATE:20270101',
+  ]));
+  assert.equal(applyCalendarTransform('feries-metropole', zeroEnd), zeroEnd);
+  const otherSource = zeroEnd.replace('PRODID:-//DINUM//Jours fériés Métropole//FR', 'PRODID:Other');
+  assert.equal(applyCalendarTransform('feries-guadeloupe', otherSource), otherSource);
+});

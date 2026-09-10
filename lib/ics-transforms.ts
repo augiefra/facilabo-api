@@ -406,6 +406,31 @@ function dedupeF1ScheduleUpdateEvents(icsContent: string): string {
   });
 }
 
+// Etalab's single-day holidays currently repeat DTSTART in DTEND. RFC 5545
+// requires an exclusive end for VALUE=DATE; keep all other upstream fields.
+function correctEtalabHolidayEnds(slug: string, icsContent: string): string {
+  if (![
+    'feries-alsace-moselle', 'feries-guadeloupe', 'feries-guyane',
+    'feries-la-reunion', 'feries-martinique', 'feries-mayotte',
+  ].includes(slug) || !/(?:^|\r?\n)PRODID:-\/\/DINUM\/\/Jours fériés Métropole\/\/FR(?:\r?\n|$)/.test(icsContent)) {
+    return icsContent;
+  }
+
+  return icsContent.replace(/BEGIN:VEVENT[\s\S]*?END:VEVENT/g, (eventBlock) => {
+    const start = eventBlock.match(/(?:^|\r?\n)DTSTART;VALUE=DATE:(\d{8})(?=\r?\n|$)/)?.[1];
+    const end = eventBlock.match(/(?:^|\r?\n)DTEND;VALUE=DATE:(\d{8})(?=\r?\n|$)/)?.[1];
+    if (!start || end !== start) return eventBlock;
+
+    const date = new Date(`${start.slice(0, 4)}-${start.slice(4, 6)}-${start.slice(6, 8)}T00:00:00Z`);
+    if (!Number.isFinite(date.getTime()) || date.toISOString().slice(0, 10).replace(/-/g, '') !== start) {
+      return eventBlock;
+    }
+    date.setUTCDate(date.getUTCDate() + 1);
+    const exclusiveEnd = date.toISOString().slice(0, 10).replace(/-/g, '');
+    return eventBlock.replace(`DTEND;VALUE=DATE:${end}`, `DTEND;VALUE=DATE:${exclusiveEnd}`);
+  });
+}
+
 function correctKnownSchoolHolidayIntervals(slug: string, icsContent: string): string {
   const corrections = SCHOOL_HOLIDAY_CORRECTIONS[slug];
   if (!corrections) return icsContent;
@@ -478,6 +503,7 @@ export function applyCalendarTransform(slug: string, icsContent: string): string
     transformedContent = dedupeEuropeanFootballEvents(transformedContent);
   }
 
+  transformedContent = correctEtalabHolidayEnds(slug, transformedContent);
   transformedContent = correctKnownSchoolHolidayIntervals(slug, transformedContent);
   transformedContent = appendMissingSchoolHolidays(slug, transformedContent);
 
