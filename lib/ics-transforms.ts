@@ -14,7 +14,7 @@ interface SchoolHolidayCorrection {
   summary: string;
 }
 
-interface SupplementalSchoolHoliday {
+interface SupplementalHoliday {
   uid: string;
   dtstart: string;
   dtend?: string;
@@ -22,6 +22,175 @@ interface SupplementalSchoolHoliday {
   description: string;
   sourceUrl: string;
 }
+
+// Official territorial holidays missing from the Etalab feeds, verified 2026-09-11.
+// Keep the explicit evidence horizon; do not extrapolate future editions.
+const SUPPLEMENTAL_PUBLIC_HOLIDAYS: Record<string, SupplementalHoliday[]> = {
+  "feries-nouvelle-caledonie": [
+    {
+      uid: "feries-nouvelle-caledonie-20260924@facilabo.app",
+      dtstart: "20260924",
+      dtend: "20260925",
+      summary: "Fête de la Nouvelle-Calédonie",
+      description: "Jour férié local selon la source officielle territoriale.",
+      sourceUrl: "https://data.gouv.nc/api/explore/v2.1/catalog/datasets/jours-feries-en-nc/records?limit=100",
+    },
+    {
+      uid: "feries-nouvelle-caledonie-20270924@facilabo.app",
+      dtstart: "20270924",
+      dtend: "20270925",
+      summary: "Fête de la Nouvelle-Calédonie",
+      description: "Jour férié local selon la source officielle territoriale.",
+      sourceUrl: "https://data.gouv.nc/api/explore/v2.1/catalog/datasets/jours-feries-en-nc/records?limit=100",
+    },
+    {
+      uid: "feries-nouvelle-caledonie-20280924@facilabo.app",
+      dtstart: "20280924",
+      dtend: "20280925",
+      summary: "Fête de la Nouvelle-Calédonie",
+      description: "Jour férié local selon la source officielle territoriale.",
+      sourceUrl: "https://data.gouv.nc/api/explore/v2.1/catalog/datasets/jours-feries-en-nc/records?limit=100",
+    },
+    {
+      uid: "feries-nouvelle-caledonie-20290924@facilabo.app",
+      dtstart: "20290924",
+      dtend: "20290925",
+      summary: "Fête de la Nouvelle-Calédonie",
+      description: "Jour férié local selon la source officielle territoriale.",
+      sourceUrl: "https://data.gouv.nc/api/explore/v2.1/catalog/datasets/jours-feries-en-nc/records?limit=100",
+    },
+    {
+      uid: "feries-nouvelle-caledonie-20300924@facilabo.app",
+      dtstart: "20300924",
+      dtend: "20300925",
+      summary: "Fête de la Nouvelle-Calédonie",
+      description: "Jour férié local selon la source officielle territoriale.",
+      sourceUrl: "https://data.gouv.nc/api/explore/v2.1/catalog/datasets/jours-feries-en-nc/records?limit=100",
+    },
+  ],
+  "feries-polynesie-francaise": [
+    {
+      uid: "feries-polynesie-francaise-20270305@facilabo.app",
+      dtstart: "20270305",
+      dtend: "20270306",
+      summary: "Arrivée de l’Évangile",
+      description: "Jour férié local selon la source officielle territoriale.",
+      sourceUrl: "https://www.service-public.pf/trav/glossaire-des-fiches-pratiques/",
+    },
+    {
+      uid: "feries-polynesie-francaise-20270326@facilabo.app",
+      dtstart: "20270326",
+      dtend: "20270327",
+      summary: "Vendredi Saint",
+      description: "Jour férié local selon la source officielle territoriale.",
+      sourceUrl: "https://www.service-public.pf/trav/glossaire-des-fiches-pratiques/",
+    },
+    {
+      uid: "feries-polynesie-francaise-20270629@facilabo.app",
+      dtstart: "20270629",
+      dtend: "20270630",
+      summary: "Fête de l’Autonomie interne",
+      description: "Jour férié local selon la source officielle territoriale.",
+      sourceUrl: "https://www.service-public.pf/trav/glossaire-des-fiches-pratiques/",
+    },
+    {
+      uid: "feries-polynesie-francaise-20280305@facilabo.app",
+      dtstart: "20280305",
+      dtend: "20280306",
+      summary: "Arrivée de l’Évangile",
+      description: "Jour férié local selon la source officielle territoriale.",
+      sourceUrl: "https://www.service-public.pf/trav/glossaire-des-fiches-pratiques/",
+    },
+    {
+      uid: "feries-polynesie-francaise-20280414@facilabo.app",
+      dtstart: "20280414",
+      dtend: "20280415",
+      summary: "Vendredi Saint",
+      description: "Jour férié local selon la source officielle territoriale.",
+      sourceUrl: "https://www.service-public.pf/trav/glossaire-des-fiches-pratiques/",
+    },
+    {
+      uid: "feries-polynesie-francaise-20280629@facilabo.app",
+      dtstart: "20280629",
+      dtend: "20280630",
+      summary: "Fête de l’Autonomie interne",
+      description: "Jour férié local selon la source officielle territoriale.",
+      sourceUrl: "https://www.service-public.pf/trav/glossaire-des-fiches-pratiques/",
+    },
+    {
+      uid: "feries-polynesie-francaise-20290305@facilabo.app",
+      dtstart: "20290305",
+      dtend: "20290306",
+      summary: "Arrivée de l’Évangile",
+      description: "Jour férié local selon la source officielle territoriale.",
+      sourceUrl: "https://www.service-public.pf/trav/glossaire-des-fiches-pratiques/",
+    },
+    {
+      uid: "feries-polynesie-francaise-20290330@facilabo.app",
+      dtstart: "20290330",
+      dtend: "20290331",
+      summary: "Vendredi Saint",
+      description: "Jour férié local selon la source officielle territoriale.",
+      sourceUrl: "https://www.service-public.pf/trav/glossaire-des-fiches-pratiques/",
+    },
+    {
+      uid: "feries-polynesie-francaise-20290629@facilabo.app",
+      dtstart: "20290629",
+      dtend: "20290630",
+      summary: "Fête de l’Autonomie interne",
+      description: "Jour férié local selon la source officielle territoriale.",
+      sourceUrl: "https://www.service-public.pf/trav/glossaire-des-fiches-pratiques/",
+    },
+    {
+      uid: "feries-polynesie-francaise-20300305@facilabo.app",
+      dtstart: "20300305",
+      dtend: "20300306",
+      summary: "Arrivée de l’Évangile",
+      description: "Jour férié local selon la source officielle territoriale.",
+      sourceUrl: "https://www.service-public.pf/trav/glossaire-des-fiches-pratiques/",
+    },
+    {
+      uid: "feries-polynesie-francaise-20300419@facilabo.app",
+      dtstart: "20300419",
+      dtend: "20300420",
+      summary: "Vendredi Saint",
+      description: "Jour férié local selon la source officielle territoriale.",
+      sourceUrl: "https://www.service-public.pf/trav/glossaire-des-fiches-pratiques/",
+    },
+    {
+      uid: "feries-polynesie-francaise-20300629@facilabo.app",
+      dtstart: "20300629",
+      dtend: "20300630",
+      summary: "Fête de l’Autonomie interne",
+      description: "Jour férié local selon la source officielle territoriale.",
+      sourceUrl: "https://www.service-public.pf/trav/glossaire-des-fiches-pratiques/",
+    },
+    {
+      uid: "feries-polynesie-francaise-20310305@facilabo.app",
+      dtstart: "20310305",
+      dtend: "20310306",
+      summary: "Arrivée de l’Évangile",
+      description: "Jour férié local selon la source officielle territoriale.",
+      sourceUrl: "https://www.service-public.pf/trav/glossaire-des-fiches-pratiques/",
+    },
+    {
+      uid: "feries-polynesie-francaise-20310411@facilabo.app",
+      dtstart: "20310411",
+      dtend: "20310412",
+      summary: "Vendredi Saint",
+      description: "Jour férié local selon la source officielle territoriale.",
+      sourceUrl: "https://www.service-public.pf/trav/glossaire-des-fiches-pratiques/",
+    },
+    {
+      uid: "feries-polynesie-francaise-20310629@facilabo.app",
+      dtstart: "20310629",
+      dtend: "20310630",
+      summary: "Fête de l’Autonomie interne",
+      description: "Jour férié local selon la source officielle territoriale.",
+      sourceUrl: "https://www.service-public.pf/trav/glossaire-des-fiches-pratiques/",
+    },
+  ],
+};
 
 const SCHOOL_HOLIDAY_CORRECTIONS: Record<string, SchoolHolidayCorrection[]> = {
   'vacances-guadeloupe': [{
@@ -45,7 +214,7 @@ const MAYOTTE_SOURCE_URL =
 const NEW_CALEDONIA_SOURCE_URL =
   'https://www.ac-noumea.nc/spip.php?rubrique64=&sm=smenu11';
 
-const SUPPLEMENTAL_SCHOOL_HOLIDAYS: Record<string, SupplementalSchoolHoliday[]> = {
+const SUPPLEMENTAL_SCHOOL_HOLIDAYS: Record<string, SupplementalHoliday[]> = {
   'vacances-mayotte': [
     {
       uid: 'vacances-mayotte-2026-2027-toussaint@facilabo.app',
@@ -412,6 +581,9 @@ function correctEtalabHolidayEnds(slug: string, icsContent: string): string {
   if (![
     'feries-alsace-moselle', 'feries-guadeloupe', 'feries-guyane',
     'feries-la-reunion', 'feries-martinique', 'feries-mayotte',
+    'feries-metropole', 'feries-nouvelle-caledonie', 'feries-polynesie-francaise',
+    'feries-saint-barthelemy', 'feries-saint-martin',
+    'feries-saint-pierre-et-miquelon', 'feries-wallis-et-futuna',
   ].includes(slug) || !/(?:^|\r?\n)PRODID:-\/\/DINUM\/\/Jours fériés Métropole\/\/FR(?:\r?\n|$)/.test(icsContent)) {
     return icsContent;
   }
@@ -453,8 +625,12 @@ function correctKnownSchoolHolidayIntervals(slug: string, icsContent: string): s
   });
 }
 
-function appendMissingSchoolHolidays(slug: string, icsContent: string): string {
-  const supplements = SUPPLEMENTAL_SCHOOL_HOLIDAYS[slug];
+function appendMissingHolidays(slug: string, icsContent: string): string {
+  const publicHolidays = SUPPLEMENTAL_PUBLIC_HOLIDAYS[slug];
+  if (publicHolidays && !icsContent.includes('PRODID:-//DINUM//Jours fériés Métropole//FR')) {
+    return icsContent;
+  }
+  const supplements = publicHolidays ?? SUPPLEMENTAL_SCHOOL_HOLIDAYS[slug];
   if (!supplements) return icsContent;
 
   const calendarEndIndex = icsContent.lastIndexOf('END:VCALENDAR');
@@ -464,20 +640,27 @@ function appendMissingSchoolHolidays(slug: string, icsContent: string): string {
     Array.from(icsContent.matchAll(/(?:^|\r?\n)UID:(.+?)(?:\r?\n|$)/gi))
       .map((match) => match[1].trim())
   );
-  const missing = supplements.filter((event) => !existingUids.has(event.uid));
+  // If Etalab supplies the local day later, keep its existing UID and avoid
+  // adding a second holiday for that same date. School holiday rules stay unchanged.
+  const existingDates = new Set(Array.from(
+    icsContent.matchAll(/(?:^|\r?\n)DTSTART;VALUE=DATE:(\d{8})(?=\r?\n|$)/g),
+    (match) => match[1]
+  ));
+  const missing = supplements.filter((event) => !existingUids.has(event.uid) &&
+    (!publicHolidays || !existingDates.has(event.dtstart)));
   if (missing.length === 0) return icsContent;
 
   const newline = icsContent.includes('\r\n') ? '\r\n' : '\n';
   const blocks = missing.map((event) => [
     'BEGIN:VEVENT',
     `UID:${event.uid}`,
-    'DTSTAMP:20260829T000000Z',
+    publicHolidays ? 'DTSTAMP:20260911T000000Z' : 'DTSTAMP:20260829T000000Z',
     `DTSTART;VALUE=DATE:${event.dtstart}`,
     ...(event.dtend ? [`DTEND;VALUE=DATE:${event.dtend}`] : []),
     `SUMMARY:${event.summary}`,
     `DESCRIPTION:${event.description}`,
     `URL:${event.sourceUrl}`,
-    'CATEGORIES:Vacances scolaires',
+    publicHolidays ? 'CATEGORIES:Jours fériés' : 'CATEGORIES:Vacances scolaires',
     'STATUS:CONFIRMED',
     'END:VEVENT',
     '',
@@ -505,7 +688,7 @@ export function applyCalendarTransform(slug: string, icsContent: string): string
 
   transformedContent = correctEtalabHolidayEnds(slug, transformedContent);
   transformedContent = correctKnownSchoolHolidayIntervals(slug, transformedContent);
-  transformedContent = appendMissingSchoolHolidays(slug, transformedContent);
+  transformedContent = appendMissingHolidays(slug, transformedContent);
 
   return transformedContent;
 }

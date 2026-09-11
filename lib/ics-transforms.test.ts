@@ -125,10 +125,13 @@ test('keeps the relocated Bahrain weekend at Sepang in both F1 feeds', () => {
 });
 
 
-test('makes the six Etalab holiday ends exclusive, preserving upstream identity and other fields', () => {
+test('makes all thirteen Etalab holiday ends exclusive, preserving upstream identity and other fields', () => {
   for (const slug of [
     'feries-alsace-moselle', 'feries-guadeloupe', 'feries-guyane',
     'feries-la-reunion', 'feries-martinique', 'feries-mayotte',
+    'feries-metropole', 'feries-nouvelle-caledonie', 'feries-polynesie-francaise',
+    'feries-saint-barthelemy', 'feries-saint-martin',
+    'feries-saint-pierre-et-miquelon', 'feries-wallis-et-futuna',
   ]) {
     for (const [start, end] of [['20261231', '20270101'], ['20280229', '20280301'], ['20270228', '20270301']]) {
       const source = calendar('PRODID:-//DINUM//Jours fériés Métropole//FR', event([
@@ -136,7 +139,8 @@ test('makes the six Etalab holiday ends exclusive, preserving upstream identity 
         `DTSTART;VALUE=DATE:${start}`, `DTEND;VALUE=DATE:${start}`,
       ]));
       const corrected = applyCalendarTransform(slug, source);
-      assert.equal(corrected, source.replace(`DTEND;VALUE=DATE:${start}`, `DTEND;VALUE=DATE:${end}`));
+      assert.equal(eventBlocks(corrected).find((block) => block.includes('UID:stable-upstream-uid')),
+        eventBlocks(source.replace(`DTEND;VALUE=DATE:${start}`, `DTEND;VALUE=DATE:${end}`))[0]);
       assert.equal(applyCalendarTransform(slug, corrected), corrected);
     }
   }
@@ -153,7 +157,44 @@ test('leaves unrelated sources, dates, timed events and existing exclusive ends 
   const zeroEnd = calendar('PRODID:-//DINUM//Jours fériés Métropole//FR', event([
     'UID:stable', 'DTSTART;VALUE=DATE:20270101', 'DTEND;VALUE=DATE:20270101',
   ]));
-  assert.equal(applyCalendarTransform('feries-metropole', zeroEnd), zeroEnd);
+  assert.equal(applyCalendarTransform('unrelated-calendar', zeroEnd), zeroEnd);
   const otherSource = zeroEnd.replace('PRODID:-//DINUM//Jours fériés Métropole//FR', 'PRODID:Other');
   assert.equal(applyCalendarTransform('feries-guadeloupe', otherSource), otherSource);
+});
+
+
+test('adds only the twenty proved territorial dates with stable UIDs and exclusive ends', () => {
+  const source = calendar('PRODID:-//DINUM//Jours fériés Métropole//FR');
+  const expected: Record<string, string[]> = {
+    'feries-nouvelle-caledonie': ['20260924', '20270924', '20280924', '20290924', '20300924'],
+    'feries-polynesie-francaise': [
+      '20270305', '20270326', '20270629', '20280305', '20280414', '20280629',
+      '20290305', '20290330', '20290629', '20300305', '20300419', '20300629',
+      '20310305', '20310411', '20310629',
+    ],
+  };
+  for (const [slug, dates] of Object.entries(expected)) {
+    const corrected = applyCalendarTransform(slug, source);
+    const blocks = eventBlocks(corrected);
+    assert.deepEqual(blocks.map((block) => block.match(/DTSTART;VALUE=DATE:(\d+)/)?.[1]), dates);
+    for (const block of blocks) {
+      const start = block.match(/DTSTART;VALUE=DATE:(\d{4})(\d{2})(\d{2})/)!;
+      const nextDay = new Date(Date.UTC(+start[1], +start[2] - 1, +start[3] + 1));
+      assert.ok(block.includes('DTEND;VALUE=DATE:' + nextDay.toISOString().slice(0, 10).replaceAll('-', '')));
+      assert.match(block, /URL:https:\/\//);
+    }
+    assert.equal(applyCalendarTransform(slug, corrected), corrected);
+    assert.equal(applyCalendarTransform(slug, source.replace('DINUM', 'Other')), source.replace('DINUM', 'Other'));
+  }
+});
+
+test('keeps an upstream territorial holiday instead of adding a duplicate date', () => {
+  const source = calendar('PRODID:-//DINUM//Jours fériés Métropole//FR', event([
+    'UID:official-new-id', 'DTSTART;VALUE=DATE:20260924', 'DTEND;VALUE=DATE:20260925',
+    'SUMMARY:Fête de la citoyenneté',
+  ]));
+  const output = applyCalendarTransform('feries-nouvelle-caledonie', source);
+  assert.equal(eventBlocks(output).length, 5);
+  assert.ok(output.includes('UID:official-new-id'));
+  assert.equal(eventBlocks(output).filter((block) => block.includes('DTSTART;VALUE=DATE:20260924')).length, 1);
 });
