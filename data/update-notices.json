@@ -132,5 +132,31 @@
     "startsAt": "2026-08-29T20:57:51Z",
     "endsAt": "2026-09-03T20:57:51Z",
     "priority": "normal"
+  },
+  {
+    "id": "feries-nouvelle-caledonie-territorial-days-added-20260911-v1",
+    "title": "Calendrier mis à jour",
+    "message": "Le calendrier Jours fériés Nouvelle-Calédonie vient d’être mis à jour.",
+    "feedSlugs": [
+      "feries-nouvelle-caledonie"
+    ],
+    "priority": "normal",
+    "startsAt": "2026-09-11T06:17:12Z",
+    "endsAt": "2026-09-18T06:17:12Z",
+    "titleEn": "Calendar updated",
+    "messageEn": "The New Caledonia public holidays calendar has just been updated."
+  },
+  {
+    "id": "feries-polynesie-francaise-territorial-days-added-20260911-v1",
+    "title": "Calendrier mis à jour",
+    "message": "Le calendrier Jours fériés Polynésie vient d’être mis à jour.",
+    "feedSlugs": [
+      "feries-polynesie-francaise"
+    ],
+    "priority": "normal",
+    "startsAt": "2026-09-11T06:17:12Z",
+    "endsAt": "2026-09-18T06:17:12Z",
+    "titleEn": "Calendar updated",
+    "messageEn": "The French Polynesia public holidays calendar has just been updated."
   }
 ]
