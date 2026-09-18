@@ -193,13 +193,34 @@ const SUPPLEMENTAL_PUBLIC_HOLIDAYS: Record<string, SupplementalHoliday[]> = {
 };
 
 const SCHOOL_HOLIDAY_CORRECTIONS: Record<string, SchoolHolidayCorrection[]> = {
-  'vacances-guadeloupe': [{
-    uidSuffix: '-Guadeloupe@data.education.gouv.fr',
-    dtstart: '20261219',
-    oldDtend: '20260104',
-    correctedDtend: '20270104',
-    summary: 'Vacances de Noël',
-  }],
+  'vacances-guadeloupe': [
+    {
+      uidSuffix: '-Guadeloupe@data.education.gouv.fr',
+      dtstart: '20261219',
+      oldDtend: '20260104',
+      correctedDtend: '20270104',
+      summary: 'Vacances de Noël',
+    },
+    {
+      // The Opendatasoft ICS export merges the October 2026 and May 2027
+      // occurrences of "Abolition de l'esclavage" into a single 231-day block
+      // (20261009 -> 20270528). The official data.education.gouv.fr dataset
+      // keeps two separate single days: 9 and 10 October 2026.
+      uidSuffix: '-Guadeloupe@data.education.gouv.fr',
+      dtstart: '20261009',
+      oldDtend: '20270528',
+      correctedDtend: '20261010',
+      summary: 'Abolition de l?esclavage',
+    },
+    {
+      // Same merged-export defect for the Saint-Barthélemy pre-rentrée day.
+      uidSuffix: '-Guadeloupe@data.education.gouv.fr',
+      dtstart: '20261010',
+      oldDtend: '20270529',
+      correctedDtend: '20261011',
+      summary: 'Abolition de l?esclavage(prérentrée Saint-Barthélémy)',
+    },
+  ],
   'vacances-saint-pierre-et-miquelon': [{
     uidSuffix: '-SaintPierreEtMiquelon@data.education.gouv.fr',
     dtstart: '20261218',
@@ -671,6 +692,101 @@ function appendMissingHolidays(slug: string, icsContent: string): string {
   return `${beforeEnd}${separator}${blocks}${icsContent.slice(calendarEndIndex)}`;
 }
 
+const TIMESTAMPED_EDUCATION_UID = /^\d{8}T\d{6}Z-/;
+
+// Upstream Opendatasoft territory suffixes for the school-holiday exports.
+// The stabilization only rewrites the UID of the calendar it belongs to.
+const OPENDATASOFT_TERRITORY_UID_SUFFIXES: Record<string, string> = {
+  'vacances-zone-a': '-Zone-A@data.education.gouv.fr',
+  'vacances-zone-b': '-Zone-B@data.education.gouv.fr',
+  'vacances-zone-c': '-Zone-C@data.education.gouv.fr',
+  'vacances-corse': '-Corse@data.education.gouv.fr',
+  'vacances-guadeloupe': '-Guadeloupe@data.education.gouv.fr',
+  'vacances-guyane': '-Guyane@data.education.gouv.fr',
+  'vacances-martinique': '-Martinique@data.education.gouv.fr',
+  'vacances-mayotte': '-Mayotte@data.education.gouv.fr',
+  'vacances-la-reunion': '-Reunion@data.education.gouv.fr',
+  'vacances-polynesie': '-Polynesie@data.education.gouv.fr',
+  'vacances-nouvelle-caledonie': '-NouvelleCaledonie@data.education.gouv.fr',
+  'vacances-saint-pierre-et-miquelon': '-SaintPierreEtMiquelon@data.education.gouv.fr',
+  'vacances-wallis-et-futuna': '-WallisEtFutuna@data.education.gouv.fr',
+};
+
+function slugifyEducationUidPart(value: string): string {
+  return value
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 60);
+}
+
+// The Opendatasoft school-holiday exports rebuild every UID around the export
+// timestamp, so each upstream regeneration published a brand new identity for
+// the same holiday and subscribers collected duplicates. Deriving a stable UID
+// from the slug, the start day and the label keeps identities across exports.
+function stabilizeOpenDataSchoolHolidayUids(slug: string, icsContent: string): string {
+  const territorySuffix = OPENDATASOFT_TERRITORY_UID_SUFFIXES[slug];
+  if (!territorySuffix) return icsContent;
+
+  return icsContent.replace(/BEGIN:VEVENT[\s\S]*?END:VEVENT/g, (eventBlock) => {
+    const uid = extractPropertyValue(eventBlock, 'UID');
+    if (!uid || !TIMESTAMPED_EDUCATION_UID.test(uid) || !uid.endsWith(territorySuffix)) return eventBlock;
+
+    const dtstart = extractPropertyValue(eventBlock, 'DTSTART');
+    const summary = extractSummary(eventBlock);
+    if (!dtstart || !summary) return eventBlock;
+
+    const stableUid = `${slug}-${dtstart}-${slugifyEducationUidPart(summary)}@facilabo.app`;
+    return eventBlock.replace(/(^|\r?\n)UID:[^\r\n]*/, `$1UID:${stableUid}`);
+  });
+}
+
+// Some upstream school calendars publish marker days ("Début des Vacances
+// d'Été", "Pont de l'Ascension") with DTEND equal to DTSTART, which renders as
+// a zero-length all-day event. Those markers must cover their own day.
+function normalizeZeroLengthAllDayEvents(slug: string, icsContent: string): string {
+  // Etalab holiday feeds are already normalized by correctEtalabHolidayEnds;
+  // only the school-holiday exports still publish zero-length marker days.
+  if (!slug.startsWith('vacances-')) return icsContent;
+
+  return icsContent.replace(/BEGIN:VEVENT[\s\S]*?END:VEVENT/g, (eventBlock) => {
+    const startMatch = eventBlock.match(/(?:^|\r?\n)DTSTART;VALUE=DATE:(\d{8})(?=\r?\n|$)/);
+    const endMatch = eventBlock.match(/(?:^|\r?\n)DTEND;VALUE=DATE:(\d{8})(?=\r?\n|$)/);
+    if (!startMatch || !endMatch || startMatch[1] !== endMatch[1]) return eventBlock;
+
+    const year = Number(startMatch[1].slice(0, 4));
+    const month = Number(startMatch[1].slice(4, 6));
+    const day = Number(startMatch[1].slice(6, 8));
+    if (month < 1 || month > 12 || day < 1 || day > 31) return eventBlock;
+
+    const start = new Date(Date.UTC(
+      year,
+      month - 1,
+      day,
+    ));
+    if (
+      start.getUTCFullYear() !== year ||
+      start.getUTCMonth() !== month - 1 ||
+      start.getUTCDate() !== day
+    ) {
+      return eventBlock;
+    }
+    start.setUTCDate(start.getUTCDate() + 1);
+    const exclusiveEnd = [
+      start.getUTCFullYear(),
+      String(start.getUTCMonth() + 1).padStart(2, '0'),
+      String(start.getUTCDate()).padStart(2, '0'),
+    ].join('');
+
+    return eventBlock.replace(
+      /((?:^|\r?\n)DTEND;VALUE=DATE:)\d{8}(?=\r?\n|$)/,
+      `$1${exclusiveEnd}`,
+    );
+  });
+}
+
 export function applyCalendarTransform(slug: string, icsContent: string): string {
   let transformedContent = icsContent;
 
@@ -689,6 +805,8 @@ export function applyCalendarTransform(slug: string, icsContent: string): string
   transformedContent = correctEtalabHolidayEnds(slug, transformedContent);
   transformedContent = correctKnownSchoolHolidayIntervals(slug, transformedContent);
   transformedContent = appendMissingHolidays(slug, transformedContent);
+  transformedContent = normalizeZeroLengthAllDayEvents(slug, transformedContent);
+  transformedContent = stabilizeOpenDataSchoolHolidayUids(slug, transformedContent);
 
   return transformedContent;
 }

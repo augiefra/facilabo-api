@@ -24,7 +24,7 @@ test('corrects the two malformed Christmas intervals across regenerated upstream
   const corrected = applyCalendarTransform('vacances-guadeloupe', guadeloupe);
 
   assert.match(corrected, /DTEND;VALUE=DATE:20270104/);
-  assert.match(corrected, /UID:20260831T093815Z-Guadeloupe@data\.education\.gouv\.fr/);
+  assert.match(corrected, /UID:vacances-guadeloupe-20261219-vacances-de-noel@facilabo\.app/);
   assert.equal(applyCalendarTransform('vacances-guadeloupe', corrected), corrected);
   assert.equal(applyCalendarTransform('vacances-martinique', guadeloupe), guadeloupe);
 
@@ -197,4 +197,64 @@ test('keeps an upstream territorial holiday instead of adding a duplicate date',
   assert.equal(eventBlocks(output).length, 5);
   assert.ok(output.includes('UID:official-new-id'));
   assert.equal(eventBlocks(output).filter((block) => block.includes('DTSTART;VALUE=DATE:20260924')).length, 1);
+});
+
+test('splits the merged Guadeloupe slavery-abolition block back into its two official days', () => {
+  const merged = calendar(event([
+    'UID:20260918T085808Z-Guadeloupe@data.education.gouv.fr',
+    'DTSTART;VALUE=DATE:20261009',
+    'DTEND;VALUE=DATE:20270528',
+    'SUMMARY:Abolition de l?esclavage',
+  ]), event([
+    'UID:20260918T085809Z-Guadeloupe@data.education.gouv.fr',
+    'DTSTART;VALUE=DATE:20261010',
+    'DTEND;VALUE=DATE:20270529',
+    'SUMMARY:Abolition de l?esclavage(prérentrée Saint-Barthélémy)',
+  ]));
+  const corrected = applyCalendarTransform('vacances-guadeloupe', merged);
+
+  assert.match(corrected, /DTSTART;VALUE=DATE:20261009\r\nDTEND;VALUE=DATE:20261010/);
+  assert.match(corrected, /DTSTART;VALUE=DATE:20261010\r\nDTEND;VALUE=DATE:20261011/);
+  assert.equal(applyCalendarTransform('vacances-guadeloupe', corrected), corrected);
+
+  // A regenerated upstream UID keeps matching on the stable suffix, and other
+  // territories are never rewritten.
+  const regenerated = merged.replace('20260918T085808Z', '20261001T120000Z');
+  assert.match(applyCalendarTransform('vacances-guadeloupe', regenerated), /DTEND;VALUE=DATE:20261010/);
+  assert.equal(applyCalendarTransform('vacances-guyane', merged), merged);
+});
+
+test('stabilizes regenerated Opendatasoft school-holiday UIDs across exports', () => {
+  const firstExport = calendar(event([
+    'UID:20260918T084701Z-Zone-A@data.education.gouv.fr',
+    'DTSTART;VALUE=DATE:20261017',
+    'DTEND;VALUE=DATE:20261103',
+    'SUMMARY:Vacances de la Toussaint',
+  ]));
+  const stabilized = applyCalendarTransform('vacances-zone-a', firstExport);
+
+  assert.match(stabilized, /UID:vacances-zone-a-20261017-vacances-de-la-toussaint@facilabo\.app/);
+  assert.equal(applyCalendarTransform('vacances-zone-a', stabilized), stabilized);
+
+  const regenerated = firstExport.replace('20260918T084701Z', '20261024T101112Z');
+  assert.match(
+    applyCalendarTransform('vacances-zone-a', regenerated),
+    /UID:vacances-zone-a-20261017-vacances-de-la-toussaint@facilabo\.app/,
+  );
+
+  // Holiday calendars keep the upstream identity that anchors rely on.
+  assert.match(applyCalendarTransform('feries-guadeloupe', firstExport), /20260918T084701Z-Zone-A@data\.education\.gouv\.fr/);
+});
+
+test('gives zero-length all-day school markers their own day', () => {
+  const source = calendar(event([
+    'UID:20260918T090443Z-NouvelleCaledonie@data.education.gouv.fr',
+    'DTSTART;VALUE=DATE:20261219',
+    'DTEND;VALUE=DATE:20261219',
+    "SUMMARY:Début des Vacances d'Été",
+  ]));
+  const output = applyCalendarTransform('vacances-nouvelle-caledonie', source);
+
+  assert.match(output, /DTSTART;VALUE=DATE:20261219\r\nDTEND;VALUE=DATE:20261220/);
+  assert.equal(applyCalendarTransform('vacances-nouvelle-caledonie', output), output);
 });

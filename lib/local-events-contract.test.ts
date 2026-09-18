@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { LOCAL_EVENTS_CONTRACT_VERSION, searchLocalEvents } from './local-events';
+import { LOCAL_EVENTS_CONTRACT_VERSION, mapOpenAgendaEvent, searchLocalEvents } from './local-events';
 
 function openAgendaEvents(agendaUid: string, count: number) {
   return Array.from({ length: count }, (_, index) => {
@@ -118,4 +118,41 @@ test('local-events only claims completeness when every selected upstream page pr
       assert.equal(payload.coverage.upstreamTotal, 2);
     },
   );
+});
+
+test('keeps the full published period of a multi-day local event', () => {
+  const item = mapOpenAgendaEvent(
+    {
+      uid: 'week-end-au-laps',
+      title: 'Un week-end au LAPS',
+      timings: [
+        { begin: '2026-09-18T16:30:00+00:00', end: '2026-09-18T21:00:00+00:00' },
+        { begin: '2026-09-19T09:30:00+00:00', end: '2026-09-19T21:00:00+00:00' },
+        { begin: '2026-09-20T09:30:00+00:00', end: '2026-09-20T16:30:00+00:00' },
+      ],
+      location: { name: 'LAPS', city: 'Nantes' },
+    },
+    { slug: 'nantes', city: 'Nantes' } as unknown as Parameters<typeof mapOpenAgendaEvent>[1],
+    12345,
+    'Nantes Métropole',
+  );
+
+  assert.equal(item.startDate, '2026-09-18T16:30:00+00:00');
+  assert.equal(item.endDate, '2026-09-20T16:30:00+00:00');
+});
+
+test('keeps the single slot of a one-day local event', () => {
+  const item = mapOpenAgendaEvent(
+    {
+      uid: 'mono-jour',
+      title: 'Visite guidée',
+      timings: [{ begin: '2026-09-18T14:00:00+00:00', end: '2026-09-18T15:30:00+00:00' }],
+    },
+    { slug: 'nantes', city: 'Nantes' } as unknown as Parameters<typeof mapOpenAgendaEvent>[1],
+    12345,
+    'Nantes Métropole',
+  );
+
+  assert.equal(item.startDate, '2026-09-18T14:00:00+00:00');
+  assert.equal(item.endDate, '2026-09-18T15:30:00+00:00');
 });

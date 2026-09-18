@@ -120,7 +120,7 @@ export interface LocalEventsQualification {
 }
 
 export interface LocalEventsStorageState {
-  adapter: 'vercel-blob-private' | 'memory';
+  adapter: 'vercel-blob-private' | 'memory' | 'local-files';
   configured: boolean;
   durable: boolean;
 }
@@ -870,6 +870,7 @@ export function localEventsToIcs(
   events: LocalEventItem[],
   proof?: {
     snapshotId?: string;
+    generatedAt?: string;
     qualified?: boolean;
     complete?: boolean;
     truncated?: boolean;
@@ -914,7 +915,7 @@ export function localEventsToIcs(
     lines.push(
       'BEGIN:VEVENT',
       `UID:${escapeIcsText(uid)}`,
-      `DTSTAMP:${formatIcsDateTime(new Date())}`,
+      `DTSTAMP:${formatIcsDateTime(proof?.generatedAt ? new Date(proof.generatedAt) : new Date())}`,
       `DTSTART:${formatIcsDateTime(start)}`,
       `DTEND:${formatIcsDateTime(end)}`,
       `SUMMARY:${escapeIcsText(event.title)}`,
@@ -1147,6 +1148,30 @@ async function fetchOpenAgendaJson(url: URL, apiKey: string): Promise<unknown> {
   return response.json();
 }
 
+function finiteTimestamp(value: string | undefined): number | undefined {
+  if (!value) return undefined;
+  const timestamp = new Date(value).getTime();
+  return Number.isFinite(timestamp) ? timestamp : undefined;
+}
+
+function earliestDateValue(values: Array<string | undefined>): string | undefined {
+  return values.reduce<string | undefined>((earliest, value) => {
+    const timestamp = finiteTimestamp(value);
+    if (timestamp === undefined) return earliest;
+    const earliestTimestamp = finiteTimestamp(earliest);
+    return earliestTimestamp === undefined || timestamp < earliestTimestamp ? value : earliest;
+  }, undefined);
+}
+
+function latestDateValue(values: Array<string | undefined>): string | undefined {
+  return values.reduce<string | undefined>((latest, value) => {
+    const timestamp = finiteTimestamp(value);
+    if (timestamp === undefined) return latest;
+    const latestTimestamp = finiteTimestamp(latest);
+    return latestTimestamp === undefined || timestamp > latestTimestamp ? value : latest;
+  }, undefined);
+}
+
 export function mapOpenAgendaEvent(
   event: Record<string, unknown>,
   target: LocalEventTarget,
@@ -1154,15 +1179,22 @@ export function mapOpenAgendaEvent(
   agendaTitle: string,
 ): LocalEventItem {
   const location = objectOf(event.location) ?? {};
-  const timing = Array.isArray(event.timings) ? objectOf(event.timings[0]) ?? {} : {};
+  // OpenAgenda exposes one timing per occurrence. Reading only the first one
+  // truncated every multi-day event (festival, exhibition, weekend) to its
+  // opening slot, so the published period spans all occurrences instead.
+  const timings = Array.isArray(event.timings)
+    ? event.timings.map((entry) => objectOf(entry) ?? {})
+    : [];
   const title = textOf(event.title) ?? 'Événement local';
   const subtitle = textOf(event.description) ?? textOf(event.longDescription);
   const image = objectOf(event.image);
 
   const latitude = numberOf(location.latitude ?? location.lat ?? event.latitude);
   const longitude = numberOf(location.longitude ?? location.lng ?? location.lon ?? event.longitude);
-  const startDate = stringOf(timing.begin ?? timing.start ?? event.startDate);
-  const endDate = stringOf(timing.end ?? timing.finish ?? event.endDate);
+  const startDate = earliestDateValue(timings.map((entry) => stringOf(entry.begin ?? entry.start)))
+    ?? stringOf(event.startDate);
+  const endDate = latestDateValue(timings.map((entry) => stringOf(entry.end ?? entry.finish)))
+    ?? stringOf(event.endDate);
   const locationName = textOf(location.name ?? event.locationName);
   const address = textOf(location.address ?? event.address);
   const city = textOf(location.city ?? event.city) ?? target.city;
@@ -1447,6 +1479,16 @@ function withinRadius(event: LocalEventItem, query: LocalEventSearchQuery): bool
   if (query.lat === undefined || query.lng === undefined || query.radius === undefined) return true;
   if (event.distanceKm === undefined) return true;
   return event.distanceKm <= query.radius;
+}
+
+/** Pure projection of an accepted target snapshot; never discovers or fetches agendas. */
+export function projectLocalEventItems(events: LocalEventItem[], query: LocalEventSearchQuery): LocalEventItem[] {
+  const from = query.from ? Date.parse(query.from) : Number.NEGATIVE_INFINITY;
+  const to = query.to ? Date.parse(query.to) : Number.POSITIVE_INFINITY;
+  if (Number.isNaN(from) || Number.isNaN(to) || from > to) throw new Error('LOCAL_EVENTS_INVALID_DATE_RANGE');
+  return events.map(event => addDistance(event, query.lat, query.lng)).filter(event => withinRadius(event, query))
+    .filter(event => { const start = Date.parse(event.startDate ?? ''); return start >= from && start <= to; })
+    .sort(compareEvents);
 }
 
 function compareEvents(a: LocalEventItem, b: LocalEventItem): number {
