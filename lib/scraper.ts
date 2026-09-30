@@ -105,6 +105,32 @@ function parseFrenchDate(text: string): string | null {
   return null;
 }
 
+const PARIS_DATE_TIME = new Intl.DateTimeFormat('en-CA', {
+  timeZone: 'Europe/Paris',
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit',
+  hourCycle: 'h23',
+});
+
+/**
+ * Convert an instant to the Paris calendar date (YYYY-MM-DD) and wall-clock time (HH:mm).
+ * Follows the Europe/Paris rules, daylight saving time included (UTC+2 in summer, UTC+1 in winter).
+ */
+export function toParisDateTime(instant: Date): { date: string; time: string } | null {
+  if (Number.isNaN(instant.getTime())) return null;
+  const parts: Record<string, string> = {};
+  for (const part of PARIS_DATE_TIME.formatToParts(instant)) {
+    parts[part.type] = part.value;
+  }
+  return {
+    date: `${parts.year}-${parts.month}-${parts.day}`,
+    time: `${parts.hour}:${parts.minute}`,
+  };
+}
+
 /**
  * Scrape the TV schedule from footmercato.net
  *
@@ -156,11 +182,11 @@ export async function scrapeTVSchedule(): Promise<TVScheduleResponse> {
 
     if (datetime) {
       // datetime is in format: 2026-01-04T14:00:00+00:00 (UTC)
-      const parsedDate = new Date(datetime);
-      // Convert to Paris timezone (UTC+1)
-      const parisTime = new Date(parsedDate.getTime() + (1 * 60 * 60 * 1000));
-      date = parisTime.toISOString().split('T')[0];
-      time = parisTime.toISOString().split('T')[1].substring(0, 5);
+      const paris = toParisDateTime(new Date(datetime));
+      if (paris) {
+        date = paris.date;
+        time = paris.time;
+      }
     } else {
       // Fallback: try to extract time from text
       const timeText = timeEl.text().trim() || el.text().match(/(\d{1,2}:\d{2})/)?.[1] || '';
