@@ -10,6 +10,13 @@
       "schedule": "*/5 * * * *"
     }
   ],
+  "redirects": [
+    {
+      "source": "/api/v1/calendars/fiscal-paiements-retraite-2026",
+      "destination": "https://core.facilabo.com/api/v1/calendars/fiscal-paiements-retraite-2026",
+      "permanent": false
+    }
+  ],
   "headers": [
     {
       "source": "/api/(.*)",
