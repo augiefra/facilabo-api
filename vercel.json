@@ -12,8 +12,23 @@
   ],
   "redirects": [
     {
-      "source": "/api/v1/calendars/fiscal-paiements-retraite-2026",
-      "destination": "https://core.facilabo.com/api/v1/calendars/fiscal-paiements-retraite-2026",
+      "source": "/api/v1/calendars/:slug((?!list$)[^/]+)",
+      "destination": "https://core.facilabo.com/api/v1/calendars/:slug",
+      "permanent": false
+    },
+    {
+      "source": "/api/calendar/rugby/:team",
+      "destination": "https://core.facilabo.com/api/calendar/rugby/:team",
+      "permanent": false
+    },
+    {
+      "source": "/api/calendar/jardin/lunaire",
+      "destination": "https://core.facilabo.com/api/calendar/jardin/lunaire",
+      "permanent": false
+    },
+    {
+      "source": "/api/v1/local-events/ics/:target",
+      "destination": "https://core.facilabo.com/api/v1/local-events/ics/:target",
       "permanent": false
     }
   ],
