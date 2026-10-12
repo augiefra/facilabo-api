@@ -4,8 +4,8 @@ Ce dépôt est la source de vérité de l’API publique FacilAbo déployée sur
 
 ## Calendriers redirigés vers FacilaboCore (depuis le 12/10/2026)
 
-- Décision d'Eric du 12/10/2026 : tous les abonnements existants passent sur le moteur 2.0. Le bloc `redirects` de `vercel.json` renvoie en 307 (`permanent: false`, query conservée, donc `?suffix=off` aussi) vers le même chemin sur `https://core.facilabo.com` : `/api/v1/calendars/:slug` (sauf `list`), `/api/calendar/rugby/:team`, `/api/calendar/jardin/lunaire` et `/api/v1/local-events/ics/:target`.
-- Restent servis ici pour l'app 1.x : `/api/v1/calendars/list`, `/api/v1/calendars/metadata/:slug`, `/api/v1/local-events` (JSON), les notices et les autres services. Une correction de calendrier se fait dans le Core, plus ici.
+- Décision d'Eric du 12/10/2026 : tous les abonnements existants passent sur le moteur 2.0. Le bloc `redirects` de `vercel.json` renvoie en 307 (`permanent: false`, query conservée, donc `?suffix=off` aussi) vers le même chemin sur `https://core.facilabo.com` : `/api/v1/calendars/:slug` (sauf `list`), `/api/v1/calendars/metadata/:slug` (fiches, depuis le 12/10/2026 au soir), `/api/calendar/rugby/:team`, `/api/calendar/jardin/lunaire` et `/api/v1/local-events/ics/:target`.
+- Restent servis ici pour l'app 1.x : `/api/v1/calendars/list`, `/api/v1/local-events` (JSON), les notices et les autres services. Une correction de calendrier se fait dans le Core, plus ici.
 - Retour arrière : retirer le bloc `redirects` et pousser sur `main` (GO) ; le cache CDN peut retarder l'effet jusqu'à 1 h.
 
 ## Git et publication

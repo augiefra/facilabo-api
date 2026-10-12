@@ -12,6 +12,11 @@
   ],
   "redirects": [
     {
+      "source": "/api/v1/calendars/metadata/:slug",
+      "destination": "https://core.facilabo.com/api/v1/calendars/metadata/:slug",
+      "permanent": false
+    },
+    {
       "source": "/api/v1/calendars/:slug((?!list$)[^/]+)",
       "destination": "https://core.facilabo.com/api/v1/calendars/:slug",
       "permanent": false
