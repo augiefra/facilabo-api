@@ -35,6 +35,11 @@
       "source": "/api/v1/local-events/ics/:target",
       "destination": "https://core.facilabo.com/api/v1/local-events/ics/:target",
       "permanent": false
+    },
+    {
+      "source": "/api/v1/sports/results/:sport([Ff][Oo][Oo][Tt][Bb][Aa][Ll][Ll]|[Rr][Uu][Gg][Bb][Yy])",
+      "destination": "https://core.facilabo.com/api/v1/sports/results/:sport",
+      "permanent": false
     }
   ],
   "headers": [
