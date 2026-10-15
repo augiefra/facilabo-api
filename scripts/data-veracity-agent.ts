@@ -15,7 +15,7 @@
 const CONFIG = {
   API_BASE_URL: process.env.API_URL || 'https://facilabo-api.vercel.app/api',
   VERIFICATION_SOURCES: {
-    sportResults: 'https://www.flashscore.fr/football/france/ligue-1/',
+    sportResults: 'https://fr.wikipedia.org/wiki/Championnat_de_France_de_football_2026-2027',
     pharmacies: 'https://www.pagesjaunes.fr/recherche/pharmacie',
     tvSchedule: 'https://www.programme-tv.net/',
   },
@@ -287,7 +287,7 @@ async function verifySportResults(): Promise<VerificationResult[]> {
     message: 'Verification manuelle recommandee',
     verificationSource: CONFIG.VERIFICATION_SOURCES.sportResults,
     details: {
-      instruction: 'Comparer les 3 derniers resultats avec Flashscore',
+      instruction: 'Comparer les 3 derniers resultats avec la grille Wikipedia',
       recentMatches: data.results.slice(0, 3).map(m =>
         `${m.homeTeam} ${m.homeScore}-${m.awayScore} ${m.awayTeam} (${m.date})`
       ),

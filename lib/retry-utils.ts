@@ -203,7 +203,7 @@ export const RETRY_CONFIGS = {
     timeout: 8000,
   } as RetryOptions,
 
-  /** For web scrapers (footmercato, flashscore) */
+  /** For web scrapers (footmercato) */
   scraper: {
     maxRetries: 3,
     initialDelay: 1000,

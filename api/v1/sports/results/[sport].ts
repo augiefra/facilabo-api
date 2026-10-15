@@ -2,37 +2,27 @@
  * FacilAbo API v1 - Sport Results
  *
  * Unified endpoint for sport results across multiple sports.
- * Replaces: sport-results.ts, sport-results-rugby.ts, sport-results-f1.ts, sport-results-motogp.ts
+ * Football and rugby never reach this handler: vercel.json redirects them (307) to FacilaboCore,
+ * which rebuilds them without any results provider (decision of 2026-10-15).
  *
  * @endpoint GET /api/v1/sports/results/[sport]
- * @param sport - "football", "rugby", "f1", "motogp"
- * @query team - Optional team filter (football/rugby only)
+ * @param sport - "f1", "motogp"
  *
  * @fragility HIGH - Web scraping, formats can change
  */
 
 import type { VercelRequest, VercelResponse } from '../../../../lib/vercel-http';
-import { scrapeSportResults, filterResultsByTeam } from '../../../../lib/sport-results-scraper';
-import { scrapeRugbyResults, filterRugbyResultsByTeam } from '../../../../lib/rugby-scraper';
 import { scrapeF1Results } from '../../../../lib/f1-scraper';
 import { scrapeMotoGPResults } from '../../../../lib/motogp-scraper';
 import {
   getRaceCached,
   getRaceStale,
-  getResultsCached,
-  getResultsStale,
-  getRugbyCached,
-  getRugbyStale,
   RaceResultsResponse,
   setRaceCache,
-  setResultsCache,
-  setRugbyCache,
-  SportResultsResponse,
-  RugbyResultsResponse,
 } from '../../../../lib/sport-results-types';
 import { buildRuntimeState, withRuntimeState } from '../../../../lib/v1-utils';
 
-type SportType = 'football' | 'rugby' | 'f1' | 'motogp';
+type SportType = 'f1' | 'motogp';
 
 interface SportConfig {
   cacheKey: string;
@@ -45,24 +35,6 @@ interface SportConfig {
 }
 
 const SPORT_CONFIG: Record<SportType, SportConfig> = {
-  football: {
-    cacheKey: 'v1:results:football',
-    getCache: (key) => getResultsCached(key),
-    getStaleCache: (key) => getResultsStale(key),
-    setCache: (key, data) => setResultsCache(key, data as SportResultsResponse),
-    scraper: scrapeSportResults,
-    filter: (results, team) => filterResultsByTeam(results as SportResultsResponse, team),
-    source: 'footmercato.net',
-  },
-  rugby: {
-    cacheKey: 'v1:results:rugby',
-    getCache: (key) => getRugbyCached(key),
-    getStaleCache: (key) => getRugbyStale(key),
-    setCache: (key, data) => setRugbyCache(key, data as RugbyResultsResponse),
-    scraper: scrapeRugbyResults,
-    filter: (results, team) => filterRugbyResultsByTeam(results as RugbyResultsResponse, team),
-    source: 'flashscore.fr',
-  },
   f1: {
     cacheKey: 'v1:results:f1',
     getCache: (key) => getRaceCached(key),
