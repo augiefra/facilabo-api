@@ -4,12 +4,6 @@
       "maxDuration": 60
     }
   },
-  "crons": [
-    {
-      "path": "/api/v1/local-events/internal/ingest",
-      "schedule": "*/5 * * * *"
-    }
-  ],
   "redirects": [
     {
       "source": "/api/v1/calendars/metadata/:slug",
